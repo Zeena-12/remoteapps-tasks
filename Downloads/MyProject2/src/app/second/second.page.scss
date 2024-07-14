@@ -1,0 +1,40 @@
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+}
+
+.map-container {
+  position: relative;
+  height: 80%; 
+  flex: 3;
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  opacity: 0;
+  // transition: opacity 150ms ease-in;
+  flex: 80%
+}
+
+.map.visible {
+  opacity: 1;
+}
+
+
+

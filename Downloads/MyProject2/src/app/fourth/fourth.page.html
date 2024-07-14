@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>fourth</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">fourth</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="card-container" cdkDropListGroup cdkScrollable>
+    <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="applied"
+      containerColor="container-red">
+    </app-status-box>
+
+    <app-status-box class="drop-area" id="shortlisted" status="Shortlisted" [employeesList]="shortlisted"
+      containerColor="container-orange" (statusChange)="handleStatusChange($event)">
+    </app-status-box>
+
+    <app-status-box class="drop-area" id="interviewed" status="Interviewed" [employeesList]="interviewed"
+      containerColor="container-yellow" (statusChange)="handleStatusChange($event)">
+    </app-status-box>
+
+    <app-status-box class="drop-area" id="offered" status="Offered" count="15" [employeesList]="offered"
+      containerColor="container-light-green" (statusChange)="handleStatusChange($event)">
+    </app-status-box>
+
+    <app-status-box class="drop-area" id="finalized" status="Finalized" count="5" [employeesList]="finalized"
+      containerColor="container-dark-green" (statusChange)="handleStatusChange($event)">
+    </app-status-box>
+
+  </div>
+
+
+</ion-content>

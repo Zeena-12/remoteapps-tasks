@@ -1,0 +1,177 @@
+//working fine in my side but on there mobile not working i will return back the getCurrentPosition
+
+
+
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { GmapsService } from '../services/gmaps/gmaps.service';
+import { AlertController } from '@ionic/angular';
+
+@Component({
+  selector: 'app-second',
+  templateUrl: './second.page.html',
+  styleUrls: ['./second.page.scss'],
+})
+
+export class SecondPage implements OnInit, OnDestroy {
+  @ViewChild('map', { static: true }) mapElementRef: ElementRef | undefined;
+
+  googleMap: any;
+  center: Coordinates = {};
+  map: any;
+  watchId: any; // Variable to store the watch position ID
+  mlocation: any = {};
+  marker: any;
+
+
+  constructor(
+    private gmaps: GmapsService,
+    private renderer: Renderer2,
+    private alertController: AlertController
+  ) { }
+
+  ngOnDestroy(): void {
+    if (this.watchId) {
+      navigator.geolocation.clearWatch(this.watchId);
+    }
+  }
+
+  ngOnInit(): void {
+    this.loadMap();
+  }
+
+  ngAfterViewInit() {
+    this.loadMap();
+  }
+
+
+  async loadMap() {
+    try {
+      let googleMaps: any = await this.gmaps.loadGoogleMaps();
+      this.googleMap = googleMaps;
+      const mapEl = this.mapElementRef?.nativeElement;
+
+
+
+      // Initialize the map without waiting for getCurrentPosition
+      this.map = new googleMaps.Map(mapEl, {
+        center: new googleMaps.LatLng(0, 0), // Center initially at (0, 0)
+        zoom: 16,
+      });
+
+
+
+      // Start watching the position
+      this.watchId = navigator.geolocation.watchPosition(
+        (watchPosition) => {
+          const updateLocation = new googleMaps.LatLng(watchPosition.coords.latitude, watchPosition.coords.longitude);
+          this.mlocation = updateLocation;
+          this.updateMapCenter(updateLocation); // Update map center
+          this.updateMarker(updateLocation); // Update marker position
+          const location = `Latitude: ${this.mlocation.lat()}, Longitude: ${this.mlocation.lng()}`;
+          // console.log("watching location ", location);
+
+        },
+        (error) => {
+          console.error('Error watching position:', error);
+          // Handle errors here if needed
+        },
+        {
+          enableHighAccuracy: true, // Enable high accuracy mode
+        }
+      );
+
+      this.renderer.addClass(mapEl, 'visible');
+    } catch(e) {
+      console.error('Error loading Google Maps:', e);
+      // Handle errors related to loading Google Maps here
+    }
+  }
+
+  addMarker(maplocation: any) {
+    let googleMaps: any = this.googleMap;
+    const icon = {
+      url: 'assets/icons/location.svg',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+    const marker = new googleMaps.Marker({
+      position: maplocation,
+      map: this.map,
+      icon: icon,
+      // draggable:true,
+      animation: googleMaps.Animation.DROP
+    });
+  }
+  moveMarker(newPosition: any) {
+    if (this.marker) {
+      this.marker.setCenter(newPosition);
+    } else {
+      this.addMarker(newPosition);
+    }
+  }
+
+  updateMarker(newPosition: any) {
+    let googleMaps: any = this.googleMap;
+    const icon = {
+      url: 'assets/icons/location.svg',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+
+    if (this.marker) {
+      // Marker exists, so move it to the new position
+      this.marker.setPosition(newPosition);
+    } else {
+      // Marker doesn't exist, create a new one
+      this.marker = new googleMaps.Marker({
+        position: newPosition,
+        map: this.map,
+        icon: icon,
+        animation: googleMaps.Animation.DROP
+      });
+    }
+  }
+
+  updateMapCenter(newPosition: any) {
+    if (this.map) {
+      this.map.setCenter(newPosition);
+    }
+  }
+
+  async confirmLocation() {
+    if (this.mlocation && this.mlocation.lat && this.mlocation.lng) {
+      const message = `Latitude: ${this.mlocation.lat()}, Longitude: ${this.mlocation.lng()}`;
+      this.presentAlert(message);
+    } else {
+      console.error('Marker position is not available.');
+      // Handle case where marker position is not available
+    }
+  }
+
+
+
+  gOnDestroy() {
+    this.googleMap.event.remoteAllListeners();
+  }
+
+  stopWatch() {
+    // Cancle the updates when the user clicks a button.
+    navigator.geolocation.clearWatch(this.watchId);
+  }
+
+
+
+  async presentAlert(message: any) {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      message: message, 
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+}
+
+interface Coordinates {
+  lat?: number;
+  lng?: number;
+}

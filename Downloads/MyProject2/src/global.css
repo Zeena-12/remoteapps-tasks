@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Almarai';
+    src: url('../assets/fonts/Almarai-Bold.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Roboto';
+    src: url('../assets/fonts/Roboto-Bold.ttf') format('truetype');
+  }
+
+  .custom-modal {
+    &::part(content) {
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px 5px rgb(0 0 0 / 32%);
+    }
+}
+#splashImg {
+  width:  180px;
+}
+

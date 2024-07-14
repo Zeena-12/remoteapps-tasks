@@ -1,0 +1,1252 @@
+[
+    {
+        "iso2": "AD",
+        "Text": "أندورا",
+        "dialCode": "376"
+    },
+    {
+        "iso2": "AE",
+        "Text": "الامارات العربية المتحدة",
+        "dialCode": "971"
+    },
+    {
+        "iso2": "AF",
+        "Text": "أفغانستان",
+        "dialCode": "93"
+    },
+    {
+        "iso2": "AG",
+        "Text": "أنتيجوا وبربودا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "AI",
+        "Text": "أنجويلا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "AL",
+        "Text": "ألبانيا",
+        "dialCode": "355"
+    },
+    {
+        "iso2": "AM",
+        "Text": "أرمينيا",
+        "dialCode": "374"
+    },
+    {
+        "iso2": "AO",
+        "Text": "أنجولا",
+        "dialCode": "244"
+    },
+    {
+        "iso2": "AQ",
+        "Text": "القطب الجنوبي",
+        "dialCode": "672"
+    },
+    {
+        "iso2": "AR",
+        "Text": "الأرجنتين",
+        "dialCode": "54"
+    },
+    {
+        "iso2": "AS",
+        "Text": "ساموا الأمريكية",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "AT",
+        "Text": "النمسا",
+        "dialCode": "43"
+    },
+    {
+        "iso2": "AU",
+        "Text": "أستراليا",
+        "dialCode": "61"
+    },
+    {
+        "iso2": "AW",
+        "Text": "آروبا",
+        "dialCode": "297"
+    },
+    {
+        "iso2": "AX",
+        "Text": "جزر أولان",
+        "dialCode": "358"
+    },
+    {
+        "iso2": "AZ",
+        "Text": "أذربيجان",
+        "dialCode": "994"
+    },
+    {
+        "iso2": "BA",
+        "Text": "البوسنة والهرسك",
+        "dialCode": "387"
+    },
+    {
+        "iso2": "BB",
+        "Text": "بربادوس",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "BD",
+        "Text": "بنجلاديش",
+        "dialCode": "880"
+    },
+    {
+        "iso2": "BE",
+        "Text": "بلجيكا",
+        "dialCode": "32"
+    },
+    {
+        "iso2": "BF",
+        "Text": "بوركينا فاسو",
+        "dialCode": "226"
+    },
+    {
+        "iso2": "BG",
+        "Text": "بلغاريا",
+        "dialCode": "359"
+    },
+    {
+        "iso2": "BH",
+        "Text": "البحرين",
+        "dialCode": "973"
+    },
+    {
+        "iso2": "BI",
+        "Text": "بوروندي",
+        "dialCode": "257"
+    },
+    {
+        "iso2": "BJ",
+        "Text": "بنين",
+        "dialCode": "229"
+    },
+    {
+        "iso2": "BL",
+        "Text": "سان بارتيلمي",
+        "dialCode": "590"
+    },
+    {
+        "iso2": "BM",
+        "Text": "برمودا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "BN",
+        "Text": "بروناي",
+        "dialCode": "673"
+    },
+    {
+        "iso2": "BO",
+        "Text": "بوليفيا",
+        "dialCode": "591"
+    },
+    {
+        "iso2": "BQ",
+        "Text": "بونير",
+        "dialCode": "599"
+    },
+    {
+        "iso2": "BR",
+        "Text": "البرازيل",
+        "dialCode": "55"
+    },
+    {
+        "iso2": "BS",
+        "Text": "الباهاما",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "BT",
+        "Text": "بوتان",
+        "dialCode": "975"
+    },
+    {
+        "iso2": "BV",
+        "Text": "جزيرة بوفيه",
+        "dialCode": "47"
+    },
+    {
+        "iso2": "BW",
+        "Text": "بتسوانا",
+        "dialCode": "267"
+    },
+    {
+        "iso2": "BY",
+        "Text": "روسيا البيضاء",
+        "dialCode": "375"
+    },
+    {
+        "iso2": "BZ",
+        "Text": "بليز",
+        "dialCode": "501"
+    },
+    {
+        "iso2": "CA",
+        "Text": "كندا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "CC",
+        "Text": "جزر كوكوس",
+        "dialCode": "61"
+    },
+    {
+        "iso2": "CD",
+        "Text": "جمهورية الكونغو الديمقراطية",
+        "dialCode": "243"
+    },
+    {
+        "iso2": "CF",
+        "Text": "جمهورية افريقيا الوسطى",
+        "dialCode": "236"
+    },
+    {
+        "iso2": "CG",
+        "Text": "الكونغو - برازافيل",
+        "dialCode": "242"
+    },
+    {
+        "iso2": "CH",
+        "Text": "سويسرا",
+        "dialCode": "41"
+    },
+    {
+        "iso2": "CI",
+        "Text": "ساحل العاج",
+        "dialCode": "225"
+    },
+    {
+        "iso2": "CK",
+        "Text": "جزر كوك",
+        "dialCode": "682"
+    },
+    {
+        "iso2": "CL",
+        "Text": "شيلي",
+        "dialCode": "56"
+    },
+    {
+        "iso2": "CM",
+        "Text": "الكاميرون",
+        "dialCode": "237"
+    },
+    {
+        "iso2": "CN",
+        "Text": "الصين",
+        "dialCode": "86"
+    },
+    {
+        "iso2": "CO",
+        "Text": "كولومبيا",
+        "dialCode": "57"
+    },
+    {
+        "iso2": "CR",
+        "Text": "كوستاريكا",
+        "dialCode": "506"
+    },
+    {
+        "iso2": "CU",
+        "Text": "كوبا",
+        "dialCode": "53"
+    },
+    {
+        "iso2": "CV",
+        "Text": "الرأس الأخضر",
+        "dialCode": "238"
+    },
+    {
+        "iso2": "CW",
+        "Text": "كوراساو",
+        "dialCode": "599"
+    },
+    {
+        "iso2": "CX",
+        "Text": "جزيرة الكريسماس",
+        "dialCode": "61"
+    },
+    {
+        "iso2": "CY",
+        "Text": "قبرص",
+        "dialCode": "357"
+    },
+    {
+        "iso2": "CZ",
+        "Text": "جمهورية التشيك",
+        "dialCode": "420"
+    },
+    {
+        "iso2": "DE",
+        "Text": "ألمانيا",
+        "dialCode": "49"
+    },
+    {
+        "iso2": "DJ",
+        "Text": "جيبوتي",
+        "dialCode": "253"
+    },
+    {
+        "iso2": "DK",
+        "Text": "الدانمرك",
+        "dialCode": "45"
+    },
+    {
+        "iso2": "DM",
+        "Text": "دومينيكا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "DO",
+        "Text": "جمهورية الدومينيك",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "DZ",
+        "Text": "الجزائر",
+        "dialCode": "213"
+    },
+    {
+        "iso2": "EC",
+        "Text": "الاكوادور",
+        "dialCode": "593"
+    },
+    {
+        "iso2": "EE",
+        "Text": "استونيا",
+        "dialCode": "372"
+    },
+    {
+        "iso2": "EG",
+        "Text": "مصر",
+        "dialCode": "20"
+    },
+    {
+        "iso2": "EH",
+        "Text": "الصحراء الغربية",
+        "dialCode": "212"
+    },
+    {
+        "iso2": "ER",
+        "Text": "اريتريا",
+        "dialCode": "291"
+    },
+    {
+        "iso2": "ES",
+        "Text": "أسبانيا",
+        "dialCode": "34"
+    },
+    {
+        "iso2": "ET",
+        "Text": "اثيوبيا",
+        "dialCode": "251"
+    },
+    {
+        "iso2": "FI",
+        "Text": "فنلندا",
+        "dialCode": "358"
+    },
+    {
+        "iso2": "FJ",
+        "Text": "فيجي",
+        "dialCode": "679"
+    },
+    {
+        "iso2": "FK",
+        "Text": "جزر فوكلاند",
+        "dialCode": "500"
+    },
+    {
+        "iso2": "FM",
+        "Text": "ميكرونيزيا",
+        "dialCode": "691"
+    },
+    {
+        "iso2": "FO",
+        "Text": "جزر فارو",
+        "dialCode": "298"
+    },
+    {
+        "iso2": "FR",
+        "Text": "فرنسا",
+        "dialCode": "33"
+    },
+    {
+        "iso2": "GA",
+        "Text": "الجابون",
+        "dialCode": "241"
+    },
+    {
+        "iso2": "GB",
+        "Text": "المملكة المتحدة",
+        "dialCode": "44"
+    },
+    {
+        "iso2": "GD",
+        "Text": "جرينادا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "GE",
+        "Text": "جورجيا",
+        "dialCode": "995"
+    },
+    {
+        "iso2": "GF",
+        "Text": "غويانا",
+        "dialCode": "594"
+    },
+    {
+        "iso2": "GG",
+        "Text": "غيرنزي",
+        "dialCode": "44"
+    },
+    {
+        "iso2": "GH",
+        "Text": "غانا",
+        "dialCode": "233"
+    },
+    {
+        "iso2": "GI",
+        "Text": "جبل طارق",
+        "dialCode": "350"
+    },
+    {
+        "iso2": "GL",
+        "Text": "جرينلاند",
+        "dialCode": "299"
+    },
+    {
+        "iso2": "GM",
+        "Text": "غامبيا",
+        "dialCode": "220"
+    },
+    {
+        "iso2": "GN",
+        "Text": "غينيا",
+        "dialCode": "224"
+    },
+    {
+        "iso2": "GP",
+        "Text": "جوادلوب",
+        "dialCode": "590"
+    },
+    {
+        "iso2": "GQ",
+        "Text": "غينيا الاستوائية",
+        "dialCode": "240"
+    },
+    {
+        "iso2": "GR",
+        "Text": "اليونان",
+        "dialCode": "30"
+    },
+    {
+        "iso2": "GS",
+        "Text": "جورجيا الجنوبية وجزر ساندويتش الجنوبية",
+        "dialCode": "500"
+    },
+    {
+        "iso2": "GT",
+        "Text": "جواتيمالا",
+        "dialCode": "502"
+    },
+    {
+        "iso2": "GU",
+        "Text": "جوام",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "GW",
+        "Text": "غينيا بيساو",
+        "dialCode": "245"
+    },
+    {
+        "iso2": "GY",
+        "Text": "غيانا",
+        "dialCode": "595"
+    },
+    {
+        "iso2": "HK",
+        "Text": "هونج كونج الصينية",
+        "dialCode": "852"
+    },
+    {
+        "iso2": "HM",
+        "Text": "جزيرة هيرد وماكدونالد",
+        "dialCode": ""
+    },
+    {
+        "iso2": "HN",
+        "Text": "هندوراس",
+        "dialCode": "504"
+    },
+    {
+        "iso2": "HR",
+        "Text": "كرواتيا",
+        "dialCode": "385"
+    },
+    {
+        "iso2": "HT",
+        "Text": "هايتي",
+        "dialCode": "509"
+    },
+    {
+        "iso2": "HU",
+        "Text": "المجر",
+        "dialCode": "36"
+    },
+    {
+        "iso2": "ID",
+        "Text": "اندونيسيا",
+        "dialCode": "62"
+    },
+    {
+        "iso2": "IE",
+        "Text": "أيرلندا",
+        "dialCode": "353"
+    },
+    {
+        "iso2": "IL",
+        "Text": "اسرائيل",
+        "dialCode": "972"
+    },
+    {
+        "iso2": "IM",
+        "Text": "جزيرة مان",
+        "dialCode": "44"
+    },
+    {
+        "iso2": "IN",
+        "Text": "الهند",
+        "dialCode": "91"
+    },
+    {
+        "iso2": "IO",
+        "Text": "المحيط الهندي البريطاني",
+        "dialCode": "246"
+    },
+    {
+        "iso2": "IQ",
+        "Text": "العراق",
+        "dialCode": "964"
+    },
+    {
+        "iso2": "IR",
+        "Text": "ايران",
+        "dialCode": "98"
+    },
+    {
+        "iso2": "IS",
+        "Text": "أيسلندا",
+        "dialCode": "354"
+    },
+    {
+        "iso2": "IT",
+        "Text": "ايطاليا",
+        "dialCode": "39"
+    },
+    {
+        "iso2": "JE",
+        "Text": "جيرسي",
+        "dialCode": "44"
+    },
+    {
+        "iso2": "JM",
+        "Text": "جامايكا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "JO",
+        "Text": "الأردن",
+        "dialCode": "962"
+    },
+    {
+        "iso2": "JP",
+        "Text": "اليابان",
+        "dialCode": "81"
+    },
+    {
+        "iso2": "KE",
+        "Text": "كينيا",
+        "dialCode": "254"
+    },
+    {
+        "iso2": "KG",
+        "Text": "قرغيزستان",
+        "dialCode": "996"
+    },
+    {
+        "iso2": "KH",
+        "Text": "كمبوديا",
+        "dialCode": "855"
+    },
+    {
+        "iso2": "KI",
+        "Text": "كيريباتي",
+        "dialCode": "686"
+    },
+    {
+        "iso2": "KM",
+        "Text": "جزر القمر",
+        "dialCode": "269"
+    },
+    {
+        "iso2": "KN",
+        "Text": "سانت كيتس ونيفيس",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "KP",
+        "Text": "كوريا الشمالية",
+        "dialCode": "850"
+    },
+    {
+        "iso2": "KR",
+        "Text": "كوريا الجنوبية",
+        "dialCode": "82"
+    },
+    {
+        "iso2": "KW",
+        "Text": "الكويت",
+        "dialCode": "965"
+    },
+    {
+        "iso2": "KY",
+        "Text": "جزر الكايمن",
+        "dialCode": "345"
+    },
+    {
+        "iso2": "KZ",
+        "Text": "كازاخستان",
+        "dialCode": "7"
+    },
+    {
+        "iso2": "LA",
+        "Text": "لاوس",
+        "dialCode": "856"
+    },
+    {
+        "iso2": "LB",
+        "Text": "لبنان",
+        "dialCode": "961"
+    },
+    {
+        "iso2": "LC",
+        "Text": "سانت لوسيا",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "LI",
+        "Text": "ليختنشتاين",
+        "dialCode": "423"
+    },
+    {
+        "iso2": "LK",
+        "Text": "سريلانكا",
+        "dialCode": "94"
+    },
+    {
+        "iso2": "LR",
+        "Text": "ليبيريا",
+        "dialCode": "231"
+    },
+    {
+        "iso2": "LS",
+        "Text": "ليسوتو",
+        "dialCode": "266"
+    },
+    {
+        "iso2": "LT",
+        "Text": "ليتوانيا",
+        "dialCode": "370"
+    },
+    {
+        "iso2": "LU",
+        "Text": "لوكسمبورج",
+        "dialCode": "352"
+    },
+    {
+        "iso2": "LV",
+        "Text": "لاتفيا",
+        "dialCode": "371"
+    },
+    {
+        "iso2": "LY",
+        "Text": "ليبيا",
+        "dialCode": "218"
+    },
+    {
+        "iso2": "MA",
+        "Text": "المغرب",
+        "dialCode": "212"
+    },
+    {
+        "iso2": "MC",
+        "Text": "موناكو",
+        "dialCode": "377"
+    },
+    {
+        "iso2": "MD",
+        "Text": "مولدافيا",
+        "dialCode": "373"
+    },
+    {
+        "iso2": "ME",
+        "Text": "الجبل الأسود",
+        "dialCode": "382"
+    },
+    {
+        "iso2": "MF",
+        "Text": "سانت مارتين",
+        "dialCode": "590"
+    },
+    {
+        "iso2": "MG",
+        "Text": "مدغشقر",
+        "dialCode": "261"
+    },
+    {
+        "iso2": "MH",
+        "Text": "جزر المارشال",
+        "dialCode": "692"
+    },
+    {
+        "iso2": "MK",
+        "Text": "مقدونيا",
+        "dialCode": "389"
+    },
+    {
+        "iso2": "ML",
+        "Text": "مالي",
+        "dialCode": "223"
+    },
+    {
+        "iso2": "MM",
+        "Text": "ميانمار",
+        "dialCode": "95"
+    },
+    {
+        "iso2": "MN",
+        "Text": "منغوليا",
+        "dialCode": "976"
+    },
+    {
+        "iso2": "MO",
+        "Text": "ماكاو الصينية",
+        "dialCode": "853"
+    },
+    {
+        "iso2": "MP",
+        "Text": "جزر ماريانا الشمالية",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "MQ",
+        "Text": "مارتينيك",
+        "dialCode": "596"
+    },
+    {
+        "iso2": "MR",
+        "Text": "موريتانيا",
+        "dialCode": "222"
+    },
+    {
+        "iso2": "MS",
+        "Text": "مونتسرات",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "MT",
+        "Text": "مالطا",
+        "dialCode": "356"
+    },
+    {
+        "iso2": "MU",
+        "Text": "موريشيوس",
+        "dialCode": "230"
+    },
+    {
+        "iso2": "MV",
+        "Text": "جزر الملديف",
+        "dialCode": "960"
+    },
+    {
+        "iso2": "MW",
+        "Text": "ملاوي",
+        "dialCode": "265"
+    },
+    {
+        "iso2": "MX",
+        "Text": "المكسيك",
+        "dialCode": "52"
+    },
+    {
+        "iso2": "MY",
+        "Text": "ماليزيا",
+        "dialCode": "60"
+    },
+    {
+        "iso2": "MZ",
+        "Text": "موزمبيق",
+        "dialCode": "258"
+    },
+    {
+        "iso2": "NA",
+        "Text": "ناميبيا",
+        "dialCode": "264"
+    },
+    {
+        "iso2": "NC",
+        "Text": "كاليدونيا الجديدة",
+        "dialCode": "687"
+    },
+    {
+        "iso2": "NE",
+        "Text": "النيجر",
+        "dialCode": "227"
+    },
+    {
+        "iso2": "NF",
+        "Text": "جزيرة نورفوك",
+        "dialCode": "672"
+    },
+    {
+        "iso2": "NG",
+        "Text": "نيجيريا",
+        "dialCode": "234"
+    },
+    {
+        "iso2": "NI",
+        "Text": "نيكاراجوا",
+        "dialCode": "505"
+    },
+    {
+        "iso2": "NL",
+        "Text": "هولندا",
+        "dialCode": "31"
+    },
+    {
+        "iso2": "NO",
+        "Text": "النرويج",
+        "dialCode": "47"
+    },
+    {
+        "iso2": "NP",
+        "Text": "نيبال",
+        "dialCode": "977"
+    },
+    {
+        "iso2": "NR",
+        "Text": "نورو",
+        "dialCode": "674"
+    },
+    {
+        "iso2": "NU",
+        "Text": "نيوي",
+        "dialCode": "683"
+    },
+    {
+        "iso2": "NZ",
+        "Text": "نيوزيلاندا",
+        "dialCode": "64"
+    },
+    {
+        "iso2": "OM",
+        "Text": "عمان",
+        "dialCode": "968"
+    },
+    {
+        "iso2": "PA",
+        "Text": "بنما",
+        "dialCode": "507"
+    },
+    {
+        "iso2": "PE",
+        "Text": "بيرو",
+        "dialCode": "51"
+    },
+    {
+        "iso2": "PF",
+        "Text": "بولينيزيا الفرنسية",
+        "dialCode": "689"
+    },
+    {
+        "iso2": "PG",
+        "Text": "بابوا غينيا الجديدة",
+        "dialCode": "675"
+    },
+    {
+        "iso2": "PH",
+        "Text": "الفيلبين",
+        "dialCode": "63"
+    },
+    {
+        "iso2": "PK",
+        "Text": "باكستان",
+        "dialCode": "92"
+    },
+    {
+        "iso2": "PL",
+        "Text": "بولندا",
+        "dialCode": "48"
+    },
+    {
+        "iso2": "PM",
+        "Text": "سانت بيير وميكولون",
+        "dialCode": "508"
+    },
+    {
+        "iso2": "PN",
+        "Text": "بتكايرن",
+        "dialCode": "872"
+    },
+    {
+        "iso2": "PR",
+        "Text": "بورتوريكو",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "PS",
+        "Text": "فلسطين",
+        "dialCode": "970"
+    },
+    {
+        "iso2": "PT",
+        "Text": "البرتغال",
+        "dialCode": "351"
+    },
+    {
+        "iso2": "PW",
+        "Text": "بالاو",
+        "dialCode": "680"
+    },
+    {
+        "iso2": "PY",
+        "Text": "باراجواي",
+        "dialCode": "595"
+    },
+    {
+        "iso2": "QA",
+        "Text": "قطر",
+        "dialCode": "974"
+    },
+    {
+        "iso2": "RE",
+        "Text": "روينيون",
+        "dialCode": "262"
+    },
+    {
+        "iso2": "RO",
+        "Text": "رومانيا",
+        "dialCode": "40"
+    },
+    {
+        "iso2": "RS",
+        "Text": "صربيا",
+        "dialCode": "381"
+    },
+    {
+        "iso2": "RU",
+        "Text": "روسيا",
+        "dialCode": "7"
+    },
+    {
+        "iso2": "RW",
+        "Text": "رواندا",
+        "dialCode": "250"
+    },
+    {
+        "iso2": "SA",
+        "Text": "المملكة العربية السعودية",
+        "dialCode": "966"
+    },
+    {
+        "iso2": "SB",
+        "Text": "جزر سليمان",
+        "dialCode": "677"
+    },
+    {
+        "iso2": "SC",
+        "Text": "سيشل",
+        "dialCode": "248"
+    },
+    {
+        "iso2": "SD",
+        "Text": "السودان",
+        "dialCode": "249"
+    },
+    {
+        "iso2": "SE",
+        "Text": "السويد",
+        "dialCode": "46"
+    },
+    {
+        "iso2": "SG",
+        "Text": "سنغافورة",
+        "dialCode": "65"
+    },
+    {
+        "iso2": "SH",
+        "Text": "سانت هيلنا",
+        "dialCode": "290"
+    },
+    {
+        "iso2": "SI",
+        "Text": "سلوفينيا",
+        "dialCode": "386"
+    },
+    {
+        "iso2": "SJ",
+        "Text": "سفالبارد وجان مايان",
+        "dialCode": "47"
+    },
+    {
+        "iso2": "SK",
+        "Text": "سلوفاكيا",
+        "dialCode": "421"
+    },
+    {
+        "iso2": "SL",
+        "Text": "سيراليون",
+        "dialCode": "232"
+    },
+    {
+        "iso2": "SM",
+        "Text": "سان مارينو",
+        "dialCode": "378"
+    },
+    {
+        "iso2": "SN",
+        "Text": "السنغال",
+        "dialCode": "221"
+    },
+    {
+        "iso2": "SO",
+        "Text": "الصومال",
+        "dialCode": "252"
+    },
+    {
+        "iso2": "SR",
+        "Text": "سورينام",
+        "dialCode": "597"
+    },
+    {
+        "iso2": "SS",
+        "Text": "جنوب السودان",
+        "dialCode": "211"
+    },
+    {
+        "iso2": "ST",
+        "Text": "ساو تومي وبرينسيبي",
+        "dialCode": "239"
+    },
+    {
+        "iso2": "SV",
+        "Text": "السلفادور",
+        "dialCode": "503"
+    },
+    {
+        "iso2": "SX",
+        "Text": "سينت مارتن",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "SY",
+        "Text": "سوريا",
+        "dialCode": "963"
+    },
+    {
+        "iso2": "SZ",
+        "Text": "سوازيلاند",
+        "dialCode": "268"
+    },
+    {
+        "iso2": "TC",
+        "Text": "جزر الترك وجايكوس",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "TD",
+        "Text": "تشاد",
+        "dialCode": "235"
+    },
+    {
+        "iso2": "TF",
+        "Text": "المقاطعات الجنوبية الفرنسية",
+        "dialCode": "262"
+    },
+    {
+        "iso2": "TG",
+        "Text": "توجو",
+        "dialCode": "228"
+    },
+    {
+        "iso2": "TH",
+        "Text": "تايلند",
+        "dialCode": "66"
+    },
+    {
+        "iso2": "TJ",
+        "Text": "طاجكستان",
+        "dialCode": "992"
+    },
+    {
+        "iso2": "TK",
+        "Text": "توكيلو",
+        "dialCode": "690"
+    },
+    {
+        "iso2": "TL",
+        "Text": "تيمور الشرقية",
+        "dialCode": "670"
+    },
+    {
+        "iso2": "TM",
+        "Text": "تركمانستان",
+        "dialCode": "993"
+    },
+    {
+        "iso2": "TN",
+        "Text": "تونس",
+        "dialCode": "216"
+    },
+    {
+        "iso2": "TO",
+        "Text": "تونجا",
+        "dialCode": "676"
+    },
+    {
+        "iso2": "TR",
+        "Text": "تركيا",
+        "dialCode": "90"
+    },
+    {
+        "iso2": "TT",
+        "Text": "ترينيداد وتوباغو",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "TV",
+        "Text": "توفالو",
+        "dialCode": "688"
+    },
+    {
+        "iso2": "TW",
+        "Text": "تايوان",
+        "dialCode": "886"
+    },
+    {
+        "iso2": "TZ",
+        "Text": "تانزانيا",
+        "dialCode": "255"
+    },
+    {
+        "iso2": "UA",
+        "Text": "أوكرانيا",
+        "dialCode": "380"
+    },
+    {
+        "iso2": "UG",
+        "Text": "أوغندا",
+        "dialCode": "256"
+    },
+    {
+        "iso2": "UM",
+        "Text": "جزر الولايات المتحدة البعيدة الصغيرة",
+        "dialCode": ""
+    },
+    {
+        "iso2": "US",
+        "Text": "الولايات المتحدة الأمريكية",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "UY",
+        "Text": "أورجواي",
+        "dialCode": "598"
+    },
+    {
+        "iso2": "UZ",
+        "Text": "أوزبكستان",
+        "dialCode": "998"
+    },
+    {
+        "iso2": "VA",
+        "Text": "الفاتيكان",
+        "dialCode": "379"
+    },
+    {
+        "iso2": "VC",
+        "Text": "سانت فنسنت وغرنادين",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "VE",
+        "Text": "فنزويلا",
+        "dialCode": "58"
+    },
+    {
+        "iso2": "VG",
+        "Text": "جزر فرجين البريطانية",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "VI",
+        "Text": "جزر فرجين الأمريكية",
+        "dialCode": "1"
+    },
+    {
+        "iso2": "VN",
+        "Text": "فيتنام",
+        "dialCode": "84"
+    },
+    {
+        "iso2": "VU",
+        "Text": "فانواتو",
+        "dialCode": "678"
+    },
+    {
+        "iso2": "WF",
+        "Text": "جزر والس وفوتونا",
+        "dialCode": "681"
+    },
+    {
+        "iso2": "WS",
+        "Text": "ساموا",
+        "dialCode": "685"
+    },
+    {
+        "iso2": "XK",
+        "Text": "كوسوفو",
+        "dialCode": "383"
+    },
+    {
+        "iso2": "YE",
+        "Text": "اليمن",
+        "dialCode": "967"
+    },
+    {
+        "iso2": "YT",
+        "Text": "مايوت",
+        "dialCode": "262"
+    },
+    {
+        "iso2": "ZA",
+        "Text": "جمهورية جنوب افريقيا",
+        "dialCode": "27"
+    },
+    {
+        "iso2": "ZM",
+        "Text": "زامبيا",
+        "dialCode": "260"
+    },
+    {
+        "iso2": "ZW",
+        "Text": "زيمبابوي",
+        "dialCode": "263"
+    }
+]

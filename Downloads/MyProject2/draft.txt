@@ -1,0 +1,73 @@
+//map working without live
+
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { GmapsService } from '../services/gmaps/gmaps.service';
+
+@Component({
+  selector: 'app-second',
+  templateUrl: './second.page.html',
+  styleUrls: ['./second.page.scss'],
+})
+export class SecondPage  implements OnInit, OnDestroy {
+  @ViewChild('map', { static: true }) mapElementRef: ElementRef | undefined; 
+  googleMaps:any;
+  center = { lat: 26.066700, lng: 50.557701 };
+  map: any;
+  watchId: any; // Variable to store the watch position ID
+
+  constructor(
+    private gmaps: GmapsService,
+    private renderer: Renderer2,
+  ) { }
+  
+  ngOnDestroy(): void {
+    if (this.watchId) {
+      navigator.geolocation.clearWatch(this.watchId);
+    }
+  }
+
+  ngOnInit(): void {
+
+  }
+  ngAfterViewInit(){
+    this.loadMap();
+  }
+
+
+  async loadMap(){
+    try{
+      let googleMaps: any = await this.gmaps.loadGoogleMaps();
+      this.googleMaps = googleMaps;
+      const mapEl = this.mapElementRef?.nativeElement;
+      const location = new googleMaps.LatLng(this.center.lat, this.center.lng);
+      this.map = new googleMaps.Map(mapEl, {
+        center: location,
+        zoom: 12,
+      });
+      this.renderer.addClass(mapEl, 'visible');
+      this.addMarker(location);
+    } catch(e){
+      console.log(e);
+    }
+  }
+
+  addMarker(location:any){
+    let googleMaps: any = this.googleMaps;
+    const icon = {
+      url: 'assets/icons/location.svg',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+    const marker = new googleMaps.Marker({
+      position: location,
+      map: this.map,
+      icon: icon,
+      // draggable:true,
+      // animation: googleMaps.Animation.DROP
+    });
+  }
+
+  gOnDestroy(){
+    this.googleMaps.event.remoteAllListeners();
+  }
+
+}

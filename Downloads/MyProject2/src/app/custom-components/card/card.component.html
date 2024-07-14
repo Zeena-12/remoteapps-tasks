@@ -1,0 +1,14 @@
+<div class="card">
+  <img *ngIf="imageurl" [src]="imageurl" alt="Card image" class="card-img"/>
+  <div class="card-content">
+    <h2 class="card-title">{{ title }}</h2>
+    <p class="card-text">{{ content }}</p>
+    <hr class="divider-line">
+    <div class="personal-numbers">
+      <div>
+        <h1 class="number">{{num}}</h1>
+        <p class="number-for">{{numfor}}</p>
+      </div>
+    </div>
+  </div>
+</div>

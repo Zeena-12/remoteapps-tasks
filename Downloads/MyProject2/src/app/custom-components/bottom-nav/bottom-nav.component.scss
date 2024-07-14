@@ -1,0 +1,48 @@
+.bottom-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+
+
+
+  .nav-item {
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+
+    ion-icon {
+      display: block;
+      margin: 0 auto 5px;
+      font-size: 24px;
+    }
+
+    &.active {
+      color: #007bff;
+    }
+  }
+
+  .center {
+    cursor: pointer;
+    height: 100px;
+    width: 90px;
+    margin-bottom: 10;
+    border-radius: 40%;
+    background-color: white;
+    display: flex;
+    /* Use flex to center content inside the circle */
+    justify-content: center;
+    /* Center horizontally */
+    // align-items: center;
+    align-items: flex-start; /* Align content to the top inside */
+  padding-top: 10px; 
+  }
+}

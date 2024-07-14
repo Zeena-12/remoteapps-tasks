@@ -1,0 +1,145 @@
+//map working on both emulator and browser and live but i want the map always to move center with user location
+
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { GmapsService } from '../services/gmaps/gmaps.service';
+
+@Component({
+  selector: 'app-second',
+  templateUrl: './second.page.html',
+  styleUrls: ['./second.page.scss'],
+})
+export class SecondPage  implements OnInit, OnDestroy {
+  @ViewChild('map', { static: true }) mapElementRef: ElementRef | undefined; 
+  googleMaps:any;
+  center = { lat: 26.066700, lng: 50.557701 };
+  map: any;
+  watchId: any; // Variable to store the watch position ID
+  mlocation: any;
+  marker: any;
+
+  constructor(
+    private gmaps: GmapsService,
+    private renderer: Renderer2,
+  ) { }
+  
+  ngOnDestroy(): void {
+    if (this.watchId) {
+      navigator.geolocation.clearWatch(this.watchId);
+    }
+  }
+
+  ngOnInit(): void {
+
+  }
+  ngAfterViewInit(){
+    this.loadMap();
+  }
+
+
+  async loadMap() {
+    try {
+      let googleMaps: any = await this.gmaps.loadGoogleMaps();
+      this.googleMaps = googleMaps;
+      const mapEl = this.mapElementRef?.nativeElement;
+  
+      // Set up initial map centered on this.center
+      const initialLocation = new googleMaps.LatLng(this.center.lat, this.center.lng);
+      this.map = new googleMaps.Map(mapEl, {
+        center: initialLocation,
+        zoom: 16,
+      });
+  
+      // Get user's current position with high accuracy
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userLocation = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
+          this.mlocation = userLocation;
+          this.map.setCenter(userLocation);
+          this.addMarker(userLocation);
+          console.log(this.mlocation);
+        },
+        (error) => {
+          console.error('Error getting current position:', error);
+          // Handle errors here if needed
+        },
+        {
+          enableHighAccuracy: true, // Enable high accuracy mode
+        }
+      );
+
+      this.watchId = navigator.geolocation.watchPosition(
+        (watchPosition) =>{
+          const updateLocation = new googleMaps.LatLng(watchPosition.coords.latitude, watchPosition.coords.longitude);
+          this.mlocation = updateLocation;
+            // this.moveMarker(updateLocation); // Update marker position
+            this.updateMarker(updateLocation); // Update marker position
+            console.log("watchPosition running", updateLocation);
+            
+
+        }
+      )
+  
+      this.renderer.addClass(mapEl, 'visible');
+      this.addMarker("your location is"+ this.mlocation); // Assuming this.mlocation might be undefined initially
+  
+    } catch(e) {
+      console.error('Error loading Google Maps:', e);
+      // Handle errors related to loading Google Maps here
+    }
+  };
+  
+
+  addMarker(maplocation:any){
+    let googleMaps: any = this.googleMaps;
+    const icon = {
+      url: 'assets/icons/location.svg',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+    const marker = new googleMaps.Marker({
+      position: maplocation,
+      map: this.map,
+      icon: icon,
+      // draggable:true,
+      animation: googleMaps.Animation.DROP
+    });
+  }
+  moveMarker(newPosition: any) {
+    if (this.marker) {
+      this.marker.setCenter(newPosition);
+    } else {
+      this.addMarker(newPosition);
+    }
+  }
+  
+  updateMarker(newPosition: any) {
+    let googleMaps: any = this.googleMaps;
+    const icon = {
+      url: 'assets/icons/location.svg',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+
+    if (this.marker) {
+      // Marker exists, so move it to the new position
+      this.marker.setPosition(newPosition);
+    } else {
+      // Marker doesn't exist, create a new one
+      this.marker = new googleMaps.Marker({
+        position: newPosition,
+        map: this.map,
+        icon: icon,
+        animation: googleMaps.Animation.DROP
+      });
+    }
+  }
+
+
+  gOnDestroy(){
+    this.googleMaps.event.remoteAllListeners();
+  }
+
+  stopWatch() {
+    // Cancel the updates when the user clicks a button.
+    navigator.geolocation.clearWatch(this.watchId);
+  }
+
+}

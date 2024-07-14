@@ -1,0 +1,11 @@
+{
+  "name": "Tameen6",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}
+

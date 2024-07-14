@@ -1,0 +1,72 @@
+.iconmoon-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.icon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.icon-no-records {
+  width: 1.3271484375em;
+}
+
+.icon-attachment {
+  width: 0.5556640625em;
+}
+
+.icon-Ar {
+  width: 1.5em;
+}
+
+.icon-En {
+  width: 1.5em;
+}
+
+.icon-insightful {
+  width: 0.60546875em;
+}
+
+.icon-celebrate {
+  width: 0.974609375em;
+}
+
+.icon-pro-file {
+  width: 0.888671875em;
+}
+
+.icon-cloud {
+  width: 1.400390625em;
+}
+
+.icon-pro-trash {
+  width: 0.947265625em;
+}
+
+.icon-PDF-file {
+  width: 0.77734375em;
+}
+
+.icon-ZIP-file {
+  width: 0.77734375em;
+}
+
+.icon-JPG-file {
+  width: 0.77734375em;
+}
+
+.icon-docx-file {
+  width: 0.8076171875em;
+}
+
+.icon-pencil-1 {
+  width: 0.990234375em;
+}

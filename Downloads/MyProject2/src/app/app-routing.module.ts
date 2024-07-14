@@ -1,0 +1,38 @@
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
+const routes: Routes = [
+
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'second',
+    loadChildren: () => import('./second/second.module').then( m => m.SecondPageModule)
+  },
+
+  {
+    path: 'third',
+    loadChildren: () => import('./third/third.module').then( m => m.ThirdPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
+  },
+
+
+
+
+
+];
+
+@NgModule({
+  imports: [
+    ScrollingModule,
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

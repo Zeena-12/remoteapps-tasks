@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Jobs</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">third</ion-title>
+    </ion-toolbar>
+  </ion-header>
+ <div class="card-container"> 
+  <app-status-box class="drop-area" id="applied" status="Applied" count="20" [employeesList]="applied">
+  </app-status-box>
+
+  <app-status-box class="drop-area" id="reviewed" status="Reviewed" count="15" [employeesList]="reviewed">
+  </app-status-box>
+
+  <app-status-box class="drop-area" id="shortlisted" status="Shortlisted" count="10" [employeesList]="shortlisted">
+  </app-status-box>
+
+  <app-status-box class="drop-area" id="interviewed" status="Interviewed" count="5" [employeesList]="interviewed"> 
+  </app-status-box>
+  </div>
+
+
+</ion-content>
+
