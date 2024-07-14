@@ -17,8 +17,12 @@ export class StatusBoxComponent implements AfterViewInit {
   @Input() status: string = '';
   @Input() employeesList: any[] = [];
   @Input() containerColor: string = '';
-  @Output() statusChange = new EventEmitter<{id: number, newStatus: string}>();
+  @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
 
+
+  @ViewChild('dropzone1') dropzone1!: ElementRef;
+  @ViewChild('dropzone2') dropzone2!: ElementRef;
+  @ViewChild('dropzone3') dropzone3!: ElementRef;
 
   @ViewChild('dropZoneDisqualify') dropZoneDisqualify!: ElementRef;
   @ViewChild('dropZoneAnswer') dropZoneAnswer!: ElementRef;
@@ -26,14 +30,14 @@ export class StatusBoxComponent implements AfterViewInit {
   @ViewChild('dropZoneFinalize') dropZoneFinalize!: ElementRef;
   @ViewChild('dropZoneReturn') dropZoneReturn!: ElementRef;
   @ViewChild('dropZoneMessage') dropZoneMessage!: ElementRef;
-  
-  
+
+
   gestureArray: Gesture[] = [];
   @ViewChildren(ProfileCardComponent, { read: ElementRef }) items!: QueryList<ElementRef>;
   // @ViewChildren(ProfileCardComponent) items!: QueryList<ProfileCardComponent>;
 
 
-  onStatusChange(event: {id: number, newStatus: string}) {
+  onStatusChange(event: { id: number, newStatus: string }) {
     this.statusChange.emit(event);
   }
 
@@ -50,7 +54,9 @@ export class StatusBoxComponent implements AfterViewInit {
     private gestureCtrl: GestureController,
     private cdr: ChangeDetectorRef,
   ) {
-    // console.log('Initial employeesList:', this.employeesList);
+    this.showOptionsDisqualified = false;
+    this.showOptionsOffered = false;
+    this.showOptionsFinalized = false;
   }
 
   ngAfterViewInit() {
@@ -73,22 +79,51 @@ export class StatusBoxComponent implements AfterViewInit {
         gestureName: 'drag',
 
         onStart: ev => {
-          // console.log("start");
-          this.showOptionsDisqualified = true;
-          // i know its bad but lets just do the task . ask hussain later
-          const validStatuses = ['applied', 'shortlisted', 'interviewed', 'offered', 'finalized'];
-          const status = validStatuses.find(status => oneItem.nativeElement.innerText.includes(status)) || null;
+          console.log("start");
+          const status = oneItem.nativeElement.getAttribute('ng-reflect-status');
           // console.log('user old status:', status);
-          this.cdr.detectChanges();
+
+          // check the status and show show the correct option box
+          if (status) {
+            if (status == 'applied') {
+              this.showOptionsDisqualified = true;
+            } else if (status == 'offered') {
+              this.showOptionsOffered = true;
+            } else if (status == 'finalized') {
+              this.showOptionsFinalized = true;
+            }
+          }
+          oneItem.nativeElement.style.opacity = '0.6';
         },
 
         onMove: ev => {
-          // console.log("move");
-          this.showOptionsDisqualified = true;
+          console.log("move");
+          const status = oneItem.nativeElement.getAttribute('ng-reflect-status');
+          // console.log('user old status:', status);
+
+          // check the status and show show the correct option box
+          if (status) {
+            if (status == 'applied') {
+              this.showOptionsDisqualified = true;
+            } else if (status == 'offered') {
+              this.showOptionsOffered = true;
+            } else if (status == 'finalized') {
+              this.showOptionsFinalized = true;
+            }
+          }
+          oneItem.nativeElement.style.zIndex = 1;
+          // this.dropzone1.nativeElement.style.backgroundColor = 'red';
+          this.checkDropZoneHover(ev.currentX, ev.currentY);
+
+
         },
         onEnd: ev => {
-          // console.log("end");
+          console.log("end");
           this.showOptionsDisqualified = false;
+          this.showOptionsOffered = false;
+          this.showOptionsFinalized = false;
+          this.cdr.detectChanges();
+          oneItem.nativeElement.style.opacity = '1';
         }
       });
 
@@ -104,6 +139,8 @@ export class StatusBoxComponent implements AfterViewInit {
     this.showOptionsFinalized = false;
 
     const draggedElement = event.item.element.nativeElement;
+
+
     // console.log('Dragged element:', draggedElement);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -115,17 +152,17 @@ export class StatusBoxComponent implements AfterViewInit {
         event.previousIndex,
         event.currentIndex
       );
-    const newStatus = this.status.toLowerCase(); // Assuming you have a way to set the new status dynamically
-    // console.log("current status :", newStatus);
-    // Update the status of the <app-profile-card> component inside the dragged element
-    const profileCard = draggedElement.querySelector('app-profile-card');
-    // console.log("see what in profile card: ", profileCard);
-    if (profileCard) {
-      profileCard.setAttribute('status', newStatus);
-      const id = Number(profileCard.getAttribute('ng-reflect-id'));
-      console.log("id is: ", id);
+      const newStatus = this.status.toLowerCase(); // Assuming you have a way to set the new status dynamically
+      // console.log("current status :", newStatus);
+      // Update the status of the <app-profile-card> component inside the dragged element
+      const profileCard = draggedElement.querySelector('app-profile-card');
+      // console.log("see what in profile card: ", profileCard);
+      if (profileCard) {
+        profileCard.setAttribute('status', newStatus);
+        const id = Number(profileCard.getAttribute('ng-reflect-id'));
+        console.log("id is: ", id);
         this.statusChange.emit({ id, newStatus });
-    }
+      }
     }
   }
 
@@ -157,6 +194,33 @@ export class StatusBoxComponent implements AfterViewInit {
     //   this.showOptionsFinalized = false;
     //   this.cdr.detectChanges(); // Ensure view updates
     // }, 4000);
+  }
+
+  checkDropZoneHover(x: Number, y: Number) {
+    const dropZoneDisqualify = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
+    const dropZoneAnswer = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
+
+
+    if (this.isInZone(x, y, dropZoneDisqualify)) {
+      this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'blue';
+    }
+    if (this.isInZone(x, y, dropZoneAnswer)) {
+      this.dropZoneAnswer.nativeElement.style.backgroundColor = 'blue';
+    }
+    else{
+      this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'red';
+      this.dropZoneAnswer.nativeElement.style.backgroundColor = 'red';
+    }
+  }
+
+  isInZone(x: Number, y: Number, dropzone: any) {
+    if (x < dropzone.left || x >= dropzone.right) {
+      return false;
+    }
+    if (x < dropzone.top || x >= dropzone.bottom) {
+      return false;
+    }
+    return true;
   }
 }
 

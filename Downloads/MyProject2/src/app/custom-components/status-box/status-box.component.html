@@ -30,7 +30,7 @@
 <!-- show more options on drag -->
 
 <!-- Disqualified box options -->
-<div *ngIf="showOptionsDisqualified" class="drop-area2">
+<div *ngIf="showOptionsDisqualified" class="drop-area2" #dropzone1>
   <div class="drop-area-option" #dropZoneDisqualify>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Disqualify</p>
@@ -42,7 +42,7 @@
 </div>
 
 <!-- Offered box options -->
-<div *ngIf="showOptionsOffered" class="drop-area2">
+<div *ngIf="showOptionsOffered" class="drop-area2" #dropzone2>
   <div class="drop-area-option" #dropZoneOffer>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Offer</p>
@@ -50,7 +50,7 @@
 </div>
 
 <!-- Finalized box options -->
-<div *ngIf="showOptionsFinalized" class="drop-area2">
+<div *ngIf="showOptionsFinalized" class="drop-area2" #dropzone3>
   <div class="drop-area-option" #dropZoneFinalize>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Finalize</p>
