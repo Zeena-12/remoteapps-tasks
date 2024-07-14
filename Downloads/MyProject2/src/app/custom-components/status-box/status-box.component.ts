@@ -61,8 +61,6 @@ export class StatusBoxComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.updateGestures();
-
-
   }
 
   updateGestures() {
@@ -113,9 +111,7 @@ export class StatusBoxComponent implements AfterViewInit {
           }
           oneItem.nativeElement.style.zIndex = 1;
           // this.dropzone1.nativeElement.style.backgroundColor = 'red';
-          this.checkDropZoneHover(ev.currentX, ev.currentY);
-
-
+          this.checkDropZoneHover(oneItem);
         },
         onEnd: ev => {
           console.log("end");
@@ -173,54 +169,93 @@ export class StatusBoxComponent implements AfterViewInit {
 
 
 
-  // see the dragged item in which status and show the options box
-  onDragStarted(status: string) {
-    this.showOptionsDisqualified = false;
-    this.showOptionsOffered = false;
-    this.showOptionsFinalized = false;
-
-    // console.log('item dragged in  status:', status);
-    if (status === 'applied') {
-      this.showOptionsDisqualified = true;
-    } else if (status === 'offered') {
-      this.showOptionsOffered = true;
-    } else if (status === 'finalized') {
-      this.showOptionsFinalized = true;
-    }
-    // Reset options to false after 2 seconds
-    // setTimeout(() => {
-    //   this.showOptionsDisqualified = false;
-    //   this.showOptionsOffered = false;
-    //   this.showOptionsFinalized = false;
-    //   this.cdr.detectChanges(); // Ensure view updates
-    // }, 4000);
-  }
-
-  checkDropZoneHover(x: Number, y: Number) {
-    const dropZoneDisqualify = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
-    const dropZoneAnswer = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
 
 
-    if (this.isInZone(x, y, dropZoneDisqualify)) {
+
+
+
+  // checkDropZoneHover(x: number, y: number) {
+  //   const dropZoneDisqualifyRect = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
+  //   const dropZoneAnswerRect = this.dropZoneAnswer.nativeElement.getBoundingClientRect();
+
+  //   const isHoveringDisqualify = this.isInZone(x, y, dropZoneDisqualifyRect);
+  //   const isHoveringAnswer = this.isInZone(x, y, dropZoneAnswerRect);
+
+  //   if (isHoveringDisqualify) {
+  //     this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'blue';
+  //   } else {
+  //     this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'black';
+  //   }
+
+  //   if (isHoveringAnswer) {
+  //     this.dropZoneAnswer.nativeElement.style.backgroundColor = 'green';
+  //   } else {
+  //     this.dropZoneAnswer.nativeElement.style.backgroundColor = 'black';
+  //   }
+  // }
+
+
+
+  // isInZone(x: Number, y: Number, dropzone: any) {
+  //   if (x < dropzone.left || x >= dropzone.right) {
+  //     return false;
+  //   }
+  //   if (x < dropzone.top || x >= dropzone.bottom) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  checkDropZoneHover(element: any) {
+
+    const dragElement = element.nativeElement;
+
+    const dropZoneDisqualifyRect = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
+    const dropZoneAnswerRect = this.dropZoneAnswer.nativeElement.getBoundingClientRect();
+    // console.log("dragged aelemtn", dragElement);
+    // console.log("dropzone 1", dropZoneDisqualifyRect);
+    // console.log("dropzone 2 ", dropZoneAnswerRect);
+    if (this.areElementsTouching(dragElement, this.dropZoneDisqualify.nativeElement)) {
       this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'blue';
+    } else {
+      this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'black';
     }
-    if (this.isInZone(x, y, dropZoneAnswer)) {
-      this.dropZoneAnswer.nativeElement.style.backgroundColor = 'blue';
+
+    if (this.areElementsTouching(dragElement, this.dropZoneAnswer.nativeElement)) {
+      this.dropZoneAnswer.nativeElement.style.backgroundColor = 'green';
+    } else {
+      this.dropZoneAnswer.nativeElement.style.backgroundColor = 'black';
     }
-    else{
-      this.dropZoneDisqualify.nativeElement.style.backgroundColor = 'red';
-      this.dropZoneAnswer.nativeElement.style.backgroundColor = 'red';
-    }
+
   }
 
-  isInZone(x: Number, y: Number, dropzone: any) {
+  isInZone(x: number, y: number, dropzone: any) {
     if (x < dropzone.left || x >= dropzone.right) {
       return false;
     }
-    if (x < dropzone.top || x >= dropzone.bottom) {
+    if (y < dropzone.top || y >= dropzone.bottom) {
       return false;
     }
     return true;
   }
-}
 
+  areElementsTouching(element1: any, element2: any): boolean {
+    const rect1 = element1.getBoundingClientRect();
+    const rect2 = element2.getBoundingClientRect();
+
+    console.log("drect 1", rect1);
+    console.log("rect 2 ", rect2);
+    if (
+      rect1.x < rect2.x + rect2.width &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.y < rect2.y + rect2.height &&
+      rect1.y + rect1.height > rect2.y
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+}
