@@ -205,10 +205,6 @@ export class CandidateStatusService {
   
     ];
 
-
-
-
-
     getCandidateList(): Observable<Candidate[]> {
       return of(this.candidates);
     }

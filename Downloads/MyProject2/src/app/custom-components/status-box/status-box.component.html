@@ -11,11 +11,11 @@
       </p>
     </div>
     <div>
-      <div cdkDropList [cdkDropListData]="employeesList" class="example-list" (cdkDropListDropped)="drop($event,'')"
+      <div cdkDropList [cdkDropListData]="employeesList" class="example-list" (cdkDropListDropped)="drop($event,'')" 
         cdkDropListSortingDisabled>
         <div *ngFor="let item of employeesList; let i = index">
-          <div class="example-box" cdkDrag>
-            <app-profile-card [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality"
+          <div class="example-box" cdkDrag (cdkDragStarted)="onDragStarted($event)">
+            <app-profile-card [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
               [role]="item.role" [likeCount]="item.thumbsUp" [dislikeCount]="item.thumbsDown"
               [status]="item.status"
               [disqualified]="item.disqualified">
@@ -30,7 +30,7 @@
 <!-- show more options on drag -->
 
 <!-- Disqualified box options -->
-<div *ngIf="showOptionsDisqualified" class="drop-area2" #dropzone1>
+<div [class.drop-area2-hidden]="!showOptionsDisqualified" class="drop-area2" #dropzone1>
   <div class="drop-area-option" #dropZoneDisqualify>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Disqualify</p>
@@ -42,7 +42,7 @@
 </div>
 
 <!-- Offered box options -->
-<div *ngIf="showOptionsOffered" class="drop-area2" #dropzone2>
+<div [class.drop-area2-hidden]="!showOptionsOffered" class="drop-area2" #dropzone2>
   <div class="drop-area-option" #dropZoneOffer>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Offer</p>
@@ -50,7 +50,7 @@
 </div>
 
 <!-- Finalized box options -->
-<div *ngIf="showOptionsFinalized" class="drop-area2" #dropzone3>
+<div [class.drop-area2-hidden]="!showOptionsFinalized" class="drop-area2" #dropzone3>
   <div class="drop-area-option" #dropZoneFinalize>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Finalize</p>

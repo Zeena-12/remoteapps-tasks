@@ -173,7 +173,7 @@
   background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
   border-radius: 20px; /* Rounded corners */
   padding: 10px;
-  z-index: 11; /* Ensure it's above other content */
+  z-index: 9999; /* Ensure it's above other content */
   box-shadow: 2px 5px 5px 5px rgba(164, 162, 162, 0.051); /* Optional: Box shadow for depth */
   user-select: none;
 
@@ -202,5 +202,14 @@
   font-weight: bold;
   color: #b8b8b8;
 }
+
+.drop-area2-hidden {
+  display: none; /* or any other CSS properties to hide or style the element */
+  // visibility: hidden;
+}
+
+
+
+
 
 
