@@ -13,7 +13,7 @@
 
   <div class="card-container" cdkDropListGroup cdkScrollable>
     <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="applied"
-      containerColor="container-red">
+      containerColor="container-red" (statusChange)="handleStatusChange($event)">
     </app-status-box>
 
     <app-status-box class="drop-area" id="shortlisted" status="Shortlisted" [employeesList]="shortlisted"
