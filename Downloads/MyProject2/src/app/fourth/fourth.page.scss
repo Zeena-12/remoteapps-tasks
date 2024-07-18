@@ -3,30 +3,25 @@
     margin: 6x;
     display: flex;
     gap: 6px;
-    overflow-x: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    // z-index: 5;
+
     height: 100vh;
     display: flex;
     // overflow-x: auto;
     white-space: nowrap;
     border: 1px solid red;
+    align-items: stretch; 
 }
 
-
-
-
-
-
-.example-container {
-    width: 400px;
-    max-width: 100%;
-    margin: 0 25px 25px 0;
-    display: inline-block;
-    vertical-align: top;
-    border: 2px solid red;
-  }
+// .example-container {
+//     width: 400px;
+//     max-width: 100%;
+//     margin: 0 25px 25px 0;
+//     display: inline-block;
+//     vertical-align: top;
+//     border: 2px solid red;
+//   }
   
 //   .example-list {
 //     border: solid 1px #ccc;

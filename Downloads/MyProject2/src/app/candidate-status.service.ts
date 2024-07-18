@@ -12,20 +12,18 @@ export class CandidateStatusService {
     private candidates: Candidate[] = [
       {
         id: 1,
-        name: '1 hassa khalid',
+        name: 'hassa khalid',
         img: 'assets/avatar.png',
         nationality: 'American',
         role: 'Software Engineer',
         thumbsUp: 10,
         thumbsDown: 2,
         status: 'applied',
-        disqualified: false,
-  
-  
+        disqualified: true,
       },
       {
         id: 2,
-        name: '2 hassan khalid',
+        name: 'hassan khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -36,7 +34,7 @@ export class CandidateStatusService {
       },
       {
         id: 3,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -48,7 +46,7 @@ export class CandidateStatusService {
       },
       {
         id: 4,
-        name: '4 hassan khalid',
+        name: 'hassan khalid',
         img: 'assets/avatar2.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -60,7 +58,7 @@ export class CandidateStatusService {
       },
       {
         id: 5,
-        name: '5 hassan khalid',
+        name: 'hassan khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -72,7 +70,7 @@ export class CandidateStatusService {
       },
       {
         id: 6,
-        name: '6 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -84,7 +82,7 @@ export class CandidateStatusService {
       },
       {
         id: 7,
-        name: '7 hussain khalid',
+        name: 'hussain khalid',
         img: 'assets/avatar2.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -97,7 +95,7 @@ export class CandidateStatusService {
   
       {
         id: 49,
-        name: '9 hassan khalid',
+        name: 'hassan khalid',
         img: 'assets/avatar2.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -110,7 +108,7 @@ export class CandidateStatusService {
   
       {
         id: 44,
-        name: '2 hassan khalid',
+        name: 'hassan khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -121,7 +119,7 @@ export class CandidateStatusService {
       },
       {
         id: 41,
-        name: '1 hassa khalid',
+        name: 'hassa khalid',
         img: 'assets/avatar.png',
         nationality: 'American',
         role: 'Software Engineer',
@@ -132,7 +130,7 @@ export class CandidateStatusService {
       },
       {
         id: 312,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -144,7 +142,7 @@ export class CandidateStatusService {
       },
       {
         id: 45,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -156,7 +154,7 @@ export class CandidateStatusService {
       },
       {
         id: 53,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -168,7 +166,7 @@ export class CandidateStatusService {
       },
       {
         id: 52,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -180,7 +178,7 @@ export class CandidateStatusService {
       },
       {
         id: 51,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -192,7 +190,7 @@ export class CandidateStatusService {
       },
       {
         id: 50,
-        name: '3 khalil khalid',
+        name: 'khalil khalid',
         img: 'assets/avatar.png',
         nationality: 'British',
         role: 'UX Designer',
@@ -214,9 +212,23 @@ export class CandidateStatusService {
       if (candidate) {
         candidate.status = newStatus;
         console.log("calling updateCandidateStatus in service");
+        console.log("updated status for ",id , "to " , newStatus);
       }
       return of();
     }
+    updateCandidateDisqualified(id: number, Disqualified: boolean): Observable<void> {
+      const candidate = this.candidates.find(c => c.id == id);
+      if (candidate) {
+        candidate.disqualified = Disqualified;
+        console.log("calling updateCandidateStatus in service");
+        console.log("updated Disqualified for ",id , "to " , Disqualified);
+      }
+      return of();
+    }
+
+
+    
+    
 
 }
 
@@ -230,4 +242,5 @@ export interface Candidate {
   thumbsDown: number;
   status: string;
   disqualified: boolean;
+  [key: string]: any; // This allows accessing any property by string index
 }

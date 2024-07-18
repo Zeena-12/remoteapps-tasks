@@ -2,17 +2,18 @@
   <div class="avatar">
     <img [src]="avatar" alt="Avatar Image" />
   </div>
-  <div class="name">
-    <p style="color: #6f788c; font-weight: bold;">{{ name }}</p>
-    <p style="color: #a3acbb; font-weight: 400;">{{ nationality }}</p>
+  <div class="nameNationality">
+    <p style="color: #6f788c; font-weight: bold; margin: 0px">{{ name }}</p>
+    <p style="color: #a3acbb; font-weight: 400; margin-left: 0px; margin-top:2px;">{{ nationality }}</p>
   </div>
   <div class="like-grid">
     <img src="assets/icon/like.svg" alt="Like Icon" />
-    <span style="color: green;">{{likeCount}}</span>
+    <span style="color: green">{{ likeCount }}</span>
     <img src="assets/icon/dislike.svg" alt="Dislike Icon" />
-    <span style="color: red;">{{ dislikeCount }}</span>
+    <span style="color: red">{{ dislikeCount }}</span>
   </div>
-  <div style="color: #a3acbb; font-weight: 400;">{{ role }}</div>
-  <p style="color: #a3acbb; font-weight: 400;">{{ status }}</p>
-    <div class="disqualified-label"  *ngIf="disqualified"> Disqualified </div>
+  <div style="color: #a3acbb; font-weight: 400">{{ role }}</div>
+  <div [ngClass]="{ hidden: !disqualified }" class="disqualified-label">
+    {{ disqualified ? "Disqualified" : "" }}
+  </div>
 </div>

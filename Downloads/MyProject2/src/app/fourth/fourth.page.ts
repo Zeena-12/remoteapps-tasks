@@ -51,15 +51,20 @@ console.log()
     });
   }
 
-  handleStatusChange(event: { id: number, newStatus: string }) {
-    this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
+  handleStatusChange(event: { id: number,newStatus: string }) {
+    this.candidateService.updateCandidateStatus(event.id,event.newStatus).subscribe(() => {
       this.loadCandidates();
     });
     console.log("calling handleStatusChange in fourth");
+  }
+
+  handleDisqualifyChange(event: { id: number,newDisqualified: boolean }) {
+    this.candidateService.updateCandidateDisqualified(event.id,event.newDisqualified).subscribe(() => {
+      this.loadCandidates();
+    });
+    console.log("calling handleDisqualifyChange in fourth");
   }
 }
 
 
 // https://chatgpt.com/share/ed776c59-1eaa-4ebe-b6c0-2a64f54042d4
-
-

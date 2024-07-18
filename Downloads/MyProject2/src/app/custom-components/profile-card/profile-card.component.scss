@@ -4,50 +4,68 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-column-gap: 9px;
-  grid-row-gap: 15px;
-  align-items: center;
+  grid-row-gap: 10px;
+  align-items: start;
   padding: 12px 5px 5px 10px;
   border-radius: 10px;
   margin: 10px;
-  grid-auto-rows: minmax(35px, 35px);
+  grid-template-rows: 50px 30px;
+  // grid-auto-rows: minmax(35px, 35px);
+  align-self: start;
+
   width: 270px;
-  // z-index: 99;
+  position: relative;
 }
 
 .like-grid {
   display: grid;
   grid-template-columns: 4fr 1fr 4fr 1fr;
   grid-gap: 2px;
+  width: 60px;
+  height: 20px;
+  align-items: center;
+  padding: 2px;
+ 
+
 
   span {
-    font-size: small;
+    // font-size: small;
+    font-size: 12px;
   }
 
 }
 
 .avatar {
-  display: flex;
+  display: flex; /* Use Flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   border: 1px solid #ced2d8;
   border-radius: 50%;
-  width: auto;
-  height: auto;
+  width: 50px;
+  height: 50px;
+  padding: 1px;
 
   img {
     border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0;
   }
 }
 
-.name {
-  display: grid;
-  align-items: start;
-  grid-auto-rows: minmax(auto, 10px);
+
+.nameNationality {
+  // display: grid;
+  // align-items: start;
+  grid-auto-rows: minmax(20px, 10px);
+  // border: 1px solid red;
+  margin-top: 0px;
 
 }
 
 .disqualified-label {
   color: white;
   background-color: #f15642;
-  opacity: 60%;
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
@@ -57,4 +75,10 @@
   display: flex; /* Use flexbox for centering */
   justify-content: center; /* Center horizontally */
   align-items: center;
+  margin: 0px;
+}
+
+
+.hidden {
+  display: none;
 }

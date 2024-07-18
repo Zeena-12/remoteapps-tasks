@@ -3,6 +3,8 @@ import { CdkDragDrop, transferArrayItem, CdkDragPlaceholder, CdkDrag, CdkDropLis
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { Gesture, GestureController } from '@ionic/angular';
 import { Candidate, CandidateStatusService } from 'src/app/candidate-status.service';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -11,14 +13,18 @@ import { Candidate, CandidateStatusService } from 'src/app/candidate-status.serv
   styleUrls: ['./status-box.component.scss'],
   imports: [CdkDropList, CdkDrag, CdkDragPlaceholder, CdkDropListGroup]
 })
-export class StatusBoxComponent implements OnInit ,AfterViewInit {
+export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   @Input() id: string = '';
   @Input() status: string = '';
   @Input() employeesList: any[] = [];
   @Input() containerColor: string = '';
-  @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
 
+  @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
+  @Output() diqualifyChanged = new EventEmitter<{ id: number, newDisqualified: boolean }>();
+
+
+  disqualify: string = '';
 
   @ViewChild('dropzone1') dropzone1!: ElementRef;
   @ViewChild('dropzone2') dropzone2!: ElementRef;
@@ -43,6 +49,9 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
   onStatusChange(event: { id: number, newStatus: string }) {
     this.statusChange.emit(event);
   }
+  onDiqualifyChanged(event: { id: number, newDisqualified: boolean }) {
+    this.diqualifyChanged.emit(event);
+  }
 
   employeesList2: any[] = []; // Initialize as empty array
 
@@ -55,6 +64,8 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
   constructor(
     private gestureCtrl: GestureController,
     private cdr: ChangeDetectorRef,
+    private router: Router,
+    private alertController: AlertController
   ) {
     this.showOptionsDisqualified = false;
     this.showOptionsOffered = false;
@@ -86,20 +97,32 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
 
         onStart: ev => {
           console.log("start");
+          oneItem.nativeElement.style.opacity = '0.5';
           const status = oneItem.nativeElement.getAttribute('ng-reflect-status');
           // console.log('user old status:', status);
 
-          // check the status and show show the correct option box
           if (status) {
             if (status == 'applied') {
+              const isDisqualified = oneItem.nativeElement.getAttribute('ng-reflect-disqualified')
+
+              console.log("what is isDisqualified in onStart ", isDisqualified);
+              if (isDisqualified == false) {
+                this.disqualify = "Disqualify";
+
+              }
+              else if (isDisqualified == true) {
+                this.disqualify = "Requalify";
+              }
               this.showOptionsDisqualified = true;
-            } else if (status == 'offered') {
+              console.log("value if global disqualify is", this.disqualify);
+
+            }
+            else if (status == 'offered') {
               this.showOptionsOffered = true;
             } else if (status == 'finalized') {
               this.showOptionsFinalized = true;
             }
           }
-          oneItem.nativeElement.style.backgroundColor = 'pink';
           this.cdr.detectChanges();
         },
 
@@ -109,26 +132,35 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
           const currentX = ev.currentX;
           const currentY = ev.currentY;
           const status = oneItem.nativeElement.getAttribute('ng-reflect-status');
-          // console.log('user old status:', status);
+          console.log('user old status:', status);
 
           // check the status and show show the correct option box
           if (status) {
             if (status == 'applied') {
+              const isDisqualified = oneItem.nativeElement.getAttribute('ng-reflect-disqualified')
+
+              console.log("what is isDisqualified in onMve ", isDisqualified);
+              if (isDisqualified == "false") {
+                this.disqualify = "Disqualify";
+              }
+              else if (isDisqualified == "true") {
+                this.disqualify = "Requalify";
+              }
               this.showOptionsDisqualified = true;
-            } else if (status == 'offered') {
+              console.log("value if global disqualify is", this.disqualify);
+            }
+            else if (status == 'offered') {
               this.showOptionsOffered = true;
             } else if (status == 'finalized') {
               this.showOptionsFinalized = true;
             }
           }
-          // oneItem.nativeElement.style.opacity = '0.5';
-          oneItem.nativeElement.style.zIndex = -999;
-          oneItem.nativeElement.style.backgroundColor = 'pink';
-          this.dropZoneDisqualify.nativeElement.zIndex = 99999;
+          oneItem.nativeElement.style.opacity = '0.5';
           this.checkDropZoneHover(currentX, currentY);
           this.cdr.detectChanges();
         },
         onEnd: ev => {
+          oneItem.nativeElement.style.opacity = '1';
           const currentX = ev.currentX;
           const currentY = ev.currentY;
           console.log("end");
@@ -136,7 +168,7 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
           this.showOptionsOffered = false;
           this.showOptionsFinalized = false;
           // this.cdr.detectChanges();
-          this.handleDrop(currentX, currentY);
+          this.handleDrop(currentX, currentY, oneItem);
         }
 
       });
@@ -181,17 +213,17 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
   }
 
 
-  onDragStarted(event: CdkDragStart) {
-    console.log("event is", event.source.element.nativeElement);
-    console.log("dropzone ", this.dropzone1.nativeElement);
-   
-    // Access the element being dragged
-    const element = event.source.element.nativeElement;
-    
-    // Set a custom zIndex (for example, 1000)
-    element.style.zIndex = '1000';
-    this.dropzone1.nativeElement.style.zIndex = '9999';
-  }
+  // onDragStarted(event: CdkDragStart) {
+  //   console.log("event is", event.source.element.nativeElement);
+  //   console.log("dropzone ", this.dropzone1.nativeElement);
+
+  //   // Access the element being dragged
+  //   const element = event.source.element.nativeElement;
+
+  //   // Set a custom zIndex (for example, 1000)
+  //   element.style.zIndex = '1000';
+  //   this.dropzone1.nativeElement.style.zIndex = '9999';
+  // }
 
 
   checkDropZoneHover(evCurrentX: number, evCurrentY: number) {
@@ -241,26 +273,86 @@ export class StatusBoxComponent implements OnInit ,AfterViewInit {
     return isTouching;
   }
 
-  handleDrop(evCurrentX: number, evCurrentY: number) {
+  async handleDrop(evCurrentX: number, evCurrentY: number, item: any) {
 
     if (!this.dropZoneDisqualify || !this.dropZoneAnswer) {
       console.error('Drop zones are not initialized yet.');
       return;
     }
-      const dropZoneDisqualifyRect = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
-      const dropZoneAnswerRect = this.dropZoneAnswer.nativeElement.getBoundingClientRect();
+    const dropZoneDisqualifyRect = this.dropZoneDisqualify.nativeElement.getBoundingClientRect();
+    const dropZoneAnswerRect = this.dropZoneAnswer.nativeElement.getBoundingClientRect();
 
-      // console.log("Drop Zone Disqualify Rect:", dropZoneDisqualifyRect);
-      // console.log("Drop Zone Answer Rect:", dropZoneAnswerRect);
 
-      if (this.areElementsTouching(evCurrentX, evCurrentY, dropZoneDisqualifyRect)) {
-        console.log("Dropped in Drop Zone Disqualify");
+    if (this.areElementsTouching(evCurrentX, evCurrentY, dropZoneDisqualifyRect)) {
+      console.log("Dropped in Drop Zone Disqualify");
+
+      const confirm = await this.presentConfirmAlert();
+      if (confirm) {
+        console.log('User confirmed to proceed');
+        // call toggle 
+        const id = item.nativeElement.getAttribute('ng-reflect-id');
+        const disqualifiedString = item.nativeElement.getAttribute('ng-reflect-disqualified');
+        const disqualified = disqualifiedString === 'true';
+
+        try {
+          console.log("try call toggleDisqualify");
+          this.toggleDisqualify(id, disqualified);
+        }
+        catch {
+          console.error("failed to change the the disqualify");
+        }
+      } else {
+        console.log('User canceled the action');
+        // Handle the cancellation here
       }
 
-      if (this.areElementsTouching(evCurrentX, evCurrentY, dropZoneAnswerRect)) {
-        console.log("Dropped in Drop Zone Answer");
-      } 
+    }
+
+    if (this.areElementsTouching(evCurrentX, evCurrentY, dropZoneAnswerRect)) {
+      console.log("Dropped in Drop Zone Answer");
+      this.router.navigate(['/answer']);
+
+    }
   }
+
+  toggleDisqualify(candidateID: number, disqualified: boolean) {
+    console.log("calling toggleDisqualify");
+    this.disqualify = this.disqualify === 'Disqualify' ? 'Requalify' : 'Disqualify';
+    const id = candidateID;
+    const newDisqualified = !disqualified;
+    console.log("my orignal disqualified is ", disqualified);
+    console.log("my new des should beL ", newDisqualified);
+    this.diqualifyChanged.emit({ id, newDisqualified });
+    this.cdr.detectChanges();
+  }
+
+  async presentConfirmAlert(): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      const alert = await this.alertController.create({
+        header: 'Confirm',
+        message: 'Do you want to (disqualify-requalify ) [name]?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              console.log('Do nothing');
+              resolve(false); // Resolve with false if "No" is clicked
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              resolve(true); // Resolve with true if "Yes" is clicked
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    });
+  }
+
 
 
 }

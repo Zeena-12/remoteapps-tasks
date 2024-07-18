@@ -19,26 +19,38 @@ import {
 })
 export class ProfileCardComponent  implements OnInit {
 
-  @Input() id: string = '';
+  @Input() id: number = 0;
   @Input() name: string = '';
   @Input() nationality: string = '';
   @Input() avatar: string = '';
   @Input() likeCount: Number = 0; 
   @Input() dislikeCount: Number = 0; 
-  @Input() disqualified: boolean = true; 
+  @Input() disqualified: boolean = false; 
   @Input() status: string = ''; 
   @Input() role: string = ''; 
 
-  @Output() statusChanged = new EventEmitter<{ id: string, newStatus: string }>();
+
+  @Output() statusChanged = new EventEmitter<{ id: number ,newStatus: string }>();
+  @Output() diqualifyChanged = new EventEmitter<{ id: number ,newDisqualified: boolean }>();
+
 
   constructor() { }
 
   ngOnInit() {}
 
+  // i think i dont need this, from chat GPT
+
+
   changeStatus(newStatus: string) {
-    this.status = newStatus;
-    this.statusChanged.emit({ id: this.id, newStatus });
     console.log("calling changeStatus in profile");
+    this.status = newStatus;
+    this.statusChanged.emit({ id: this.id,newStatus });
+  }
+
+  disqualifyStatus(newDisqualified: boolean) {
+    console.log("calling disqualify in profile");
+    this.disqualified = newDisqualified;
+    this.diqualifyChanged.emit({ id: this.id, newDisqualified });
   }
 
 }

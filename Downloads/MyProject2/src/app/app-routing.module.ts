@@ -20,7 +20,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
+  },  {
+    path: 'answer',
+    loadChildren: () => import('./answer/answer.module').then( m => m.AnswerPageModule)
   },
+
 
 
 
