@@ -8,11 +8,10 @@
   align-items: start;
   padding: 12px 5px 5px 10px;
   border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
   grid-template-rows: 50px 30px;
   // grid-auto-rows: minmax(35px, 35px);
-  align-self: start;
-
+  // align-self: start;
   width: 270px;
   position: relative;
 }
@@ -82,3 +81,4 @@
 .hidden {
   display: none;
 }
+
