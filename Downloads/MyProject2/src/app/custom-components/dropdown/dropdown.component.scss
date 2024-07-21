@@ -1,0 +1,83 @@
+/* dropdown.component.scss */
+
+.dropdown-content {
+    position: absolute;
+    // background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 300;
+    padding: 4px;
+    border-radius: 4px;
+    width: 150px;
+    // margin-bottom: 50px;
+    // right: 50%;
+    background-color: white;
+
+    
+  }
+  
+  .dropdown-content .dropdown-option {
+    display: block;
+    width: 100%;
+    padding: 5px 12px;
+    margin-bottom: 6px;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    background-color: white;
+    color: #99a6b8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    display: grid;
+    grid-template-columns: auto 1fr; /* Auto size for icon, 1fr (remaining space) for paragraph */
+    align-items: center;
+    padding: 8px 8px;
+    cursor: pointer;
+    // border: 1px solid rgb(73, 234, 71);
+    bottom: -100%; /* Hide dropdown initially */
+    transition: bottom 0.3s ease;
+
+  }
+  
+  .dropdown-content button:hover {
+    // background-color: #e0e0e0;
+  }
+  
+  .dropdown-content button:last-child {
+    margin-bottom: 0;
+  }
+
+  .divider {
+    height: 1px;
+    background-color: #dfe5ed;
+    margin: 5px 0;
+  }
+  
+  /* Apply no divider to the last option */
+  .dropdown-option:last-child .divider {
+    display: none;
+  }
+
+  .dropdown-option img {
+    width: 20px; /* Icon takes 30% of the width */
+    margin-right: 10px; /* Adjust spacing between icon and text */
+    height: auto; 
+    width: 20px; /* Width of the icon */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; 
+  }
+  
+  .dropdown-option p {
+    flex: 1; /* Paragraph takes remaining width */
+    margin: 0; /* Remove default margin */
+  }
+
+  /* Position dropdown above when needed */
+.wrapper:hover .dropdown-content {
+  bottom: calc(100% + 10px); /* Adjust as per your design */
+  top: auto;
+}
+  

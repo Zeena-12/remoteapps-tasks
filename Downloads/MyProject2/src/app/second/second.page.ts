@@ -70,7 +70,7 @@ export class SecondPage implements OnInit, OnDestroy {
           });
           console.log("wooow")
           this.map.setCenter(userLoc);
-          this.addMarker(userLoc);
+          // this.addMarker(userLoc);
           // this.presentAlert("im in getCurrent location");
           // this.presentAlert(this.userLocation.lat + " " + this.userLocation.lng);
         },
@@ -82,21 +82,22 @@ export class SecondPage implements OnInit, OnDestroy {
         }
       );
 
-
-
-
       // i think it needs some updation
-      // this.watchId = navigator.geolocation.watchPosition(
-      //   (watchPosition) =>{
-      //     const updateLocation = new googleMaps.LatLng(watchPosition.coords.latitude, watchPosition.coords.longitude);
-      //     this.userLocation = updateLocation;
-      //       // this.moveMarker(updateLocation); // Update marker position
-      //       this.updateMarker(updateLocation); // Update marker position
-      //       console.log("watchPosition running", updateLocation);
+      this.watchId = navigator.geolocation.watchPosition(
+        (position) =>{
+          const watchPosition = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
+          this.userLocation.lat = watchPosition.lat();
+          this.userLocation.lng = watchPosition.lng();
+          console.log('Latitude from watch:', this.userLocation.lat);
+          console.log('Longitude from watch:', this.userLocation.lng);
+          this.userLocation = watchPosition;
+            // this.moveMarker(updateLocation); // Update marker position
+            this.updateMarker(watchPosition); // Update marker position
+            console.log("watchPosition running", watchPosition);
 
 
-      //   }
-      // )
+        }
+      )
 
       this.renderer.addClass(mapEl, 'visible');
       this.addMarker(this.userLocation); // Assuming this.userLocation might be undefined initially
@@ -109,6 +110,7 @@ export class SecondPage implements OnInit, OnDestroy {
 
 
   addMarker(maplocation: any) {
+    console.log("calling addMarker")
     let googleMaps: any = this.googleMaps;
     const icon = {
       url: 'assets/icons/location.svg',
@@ -122,15 +124,17 @@ export class SecondPage implements OnInit, OnDestroy {
       animation: googleMaps.Animation.BOUNCE
     });
   }
-  moveMarker(newPosition: any) {
-    if (this.marker) {
-      this.marker.setCenter(newPosition);
-    } else {
-      this.addMarker(newPosition);
-    }
-  }
+  // moveMarker(newPosition: any) {
+  //   console.log("calling moveMarker");
+  //   if (this.marker) {
+  //     this.marker.setCenter(newPosition);
+  //   } else {
+  //     this.addMarker(newPosition);
+  //   }
+  // }
 
   updateMarker(newPosition: any) {
+    console.log("calling updateMarker");
     let googleMaps: any = this.googleMaps;
     const icon = {
       url: 'assets/icons/location.svg',
@@ -139,8 +143,10 @@ export class SecondPage implements OnInit, OnDestroy {
 
     if (this.marker) {
       // Marker exists, so move it to the new position
-      this.marker.setCenter(newPosition);
+      this.marker.setPosition(newPosition);
+      console.log("calling iffffffffffffff");
     } else {
+      console.log("calling elseeeeeeeeeeeeeeeeeeeeee");
       // Marker doesn't exist, create a new one
       this.marker = new googleMaps.Marker({
         position: newPosition,

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, Input, Output, ViewChildren, QueryList, OnChanges, SimpleChanges, EventEmitter, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
-import { CdkDragDrop, transferArrayItem, CdkDragPlaceholder, CdkDrag, CdkDropListGroup, CdkDropList, moveItemInArray, CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem, CdkDragPlaceholder, CdkDrag, CdkDropListGroup, CdkDropList, moveItemInArray, CdkDragStart,CdkDragPreview } from '@angular/cdk/drag-drop';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { Gesture, GestureController } from '@ionic/angular';
 import { Candidate, CandidateStatusService } from 'src/app/candidate-status.service';
@@ -11,7 +11,7 @@ import { AlertController } from '@ionic/angular';
   selector: 'app-status-box',
   templateUrl: './status-box.component.html',
   styleUrls: ['./status-box.component.scss'],
-  imports: [CdkDropList, CdkDrag, CdkDragPlaceholder, CdkDropListGroup]
+  imports: [CdkDropList, CdkDrag, CdkDragPlaceholder, CdkDropListGroup, CdkDragPreview]
 })
 export class StatusBoxComponent implements OnInit, AfterViewInit {
 
@@ -59,7 +59,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   showOptionsOffered: boolean = false;
   showOptionsFinalized: boolean = false;
 
-
+  item: any = { /* Initialize with your item properties */ };
 
   constructor(
     private gestureCtrl: GestureController,
@@ -352,6 +352,9 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       await alert.present();
     });
   }
+
+
+
 
 
 

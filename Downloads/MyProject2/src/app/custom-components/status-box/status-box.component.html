@@ -14,18 +14,22 @@
         cdkDropListSortingDisabled >
         <div *ngFor="let item of employeesList; let i = index">
           <div class="example-box" cdkDrag >
+            <!-- Use cdkDragPreview to determine the size -->
+        <!-- <div class="example-custom-preview" *cdkDragPreview matchSize="true"></div> -->
             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-              <app-profile-card  [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
+              <app-profile-card [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
               [role]="item.role" [likeCount]="item.thumbsUp" [dislikeCount]="item.thumbsDown"
               [status]="item.status"
               [disqualified]="item.disqualified">
             </app-profile-card>
-
           </div>
         </div>
     </div>
   </div>
+
 <!-- </div> -->
+
+<!-- note: they should be placed inside -->
 
 <!-- show more options on drag -->
 <!-- Disqualified box options -->
@@ -49,7 +53,7 @@
   </div>
 </div>
 <!-- Finalized box options -->
-<div *ngIf="showOptionsFinalized" class="drop-area2" #dropzone3>
+<!-- <div *ngIf="showOptionsFinalized" class="drop-area2" #dropzone3>
   <div class="drop-area-option" #dropZoneFinalize>
     <img src="assets/icons/cross.svg" alt="" />
     <p>Finalize</p>
@@ -62,4 +66,7 @@
     <img src="assets/icons/cross.svg" alt="" />
     <p>Message</p>
   </div>
-</div>
+</div> -->
+
+<!-- i will change the finalized from this small menu to a longer dropdown -->
+

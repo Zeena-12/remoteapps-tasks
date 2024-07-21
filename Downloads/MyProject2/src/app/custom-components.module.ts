@@ -7,15 +7,15 @@ import { BottomNavComponent } from './custom-components/bottom-nav/bottom-nav.co
 import { StatusBoxComponent } from './custom-components/status-box/status-box.component';
 import { ProfileCardComponent } from './custom-components/profile-card/profile-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { DropdownComponent } from './custom-components/dropdown/dropdown.component';
 
 @NgModule({
-  declarations: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent],
+  declarations: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent],
   imports: [
     CommonModule,
     FormsModule,  // Include FormsModule for form handling
-    DragDropModule
+    DragDropModule,
   ],
-  exports: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent]  // Export the component for use in other modules
+  exports: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent]  // Export the component for use in other modules
 })
 export class CustomComponentsModule { }

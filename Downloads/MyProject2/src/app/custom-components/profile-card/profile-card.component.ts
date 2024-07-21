@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ElementRef, HostListener, ViewChild, ChangeDetectorRef } from '@angular/core';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {
@@ -33,8 +33,14 @@ export class ProfileCardComponent  implements OnInit {
   @Output() statusChanged = new EventEmitter<{ id: number ,newStatus: string }>();
   @Output() diqualifyChanged = new EventEmitter<{ id: number ,newDisqualified: boolean }>();
 
+  FinalizedDropdownVisible: boolean = false;
 
-  constructor() { }
+  dropdownOpen = false;
+
+  constructor(private elementRef: ElementRef,
+    private cdr: ChangeDetectorRef,
+
+  ) { }
 
   ngOnInit() {}
 
@@ -52,5 +58,60 @@ export class ProfileCardComponent  implements OnInit {
     this.disqualified = newDisqualified;
     this.diqualifyChanged.emit({ id: this.id, newDisqualified });
   }
+
+  // dropdown options
+  toggleDropdown() {
+    this.FinalizedDropdownVisible = !this.FinalizedDropdownVisible;
+  }
+  
+  optionSelected(option: string) {
+    console.log(`Option ${option} selected.`);
+    this.FinalizedDropdownVisible = false; // Close the dropdown after selection if needed
+  }
+  
+  
+  showOptions(status: string){
+
+    this.dropdownOpen = !this.dropdownOpen;
+    if (this.dropdownOpen) {
+      // Add event listener to close dropdown on outside click
+      document.body.addEventListener('click', this.onBodyClick);
+    } else {
+      // Remove event listener when dropdown is closed
+      document.body.removeEventListener('click', this.onBodyClick);
+    }
+
+
+    console.log(`Status: ${status}`);
+      this.FinalizedDropdownVisible = !this.FinalizedDropdownVisible;
+    }
+
+ 
+// both doing the same
+
+    // private onBodyClick = (event: MouseEvent) => {
+    //   console.log("clicked on onBodyClick")
+    //   if (!this.elementRef.nativeElement.contains(event.target)) {
+    //     // Click occurred outside the component, close dropdown
+    //     this.dropdownOpen = false;
+    //     this.FinalizedDropdownVisible = false;
+    //     document.body.removeEventListener('click', this.onBodyClick);
+    //     this.cdr.detectChanges();
+    //   }
+    // };
+
+    private onBodyClick = (event: MouseEvent) => {
+      const clickedInside = this.elementRef.nativeElement.contains(event.target as Node);
+    
+      if (!clickedInside) {
+        // Click occurred outside the component, close dropdown
+        this.dropdownOpen = false;
+        this.FinalizedDropdownVisible = false;
+        document.body.removeEventListener('click', this.onBodyClick);
+        this.cdr.detectChanges();
+      }
+    };
+    
+  
 
 }
