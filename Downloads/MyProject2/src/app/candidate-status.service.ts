@@ -78,7 +78,6 @@ export class CandidateStatusService {
         thumbsDown: 1,
         status: 'reviewed',
         disqualified: true,
-  
       },
       {
         id: 7,
@@ -88,9 +87,8 @@ export class CandidateStatusService {
         role: 'UX Designer',
         thumbsUp: 8,
         thumbsDown: 1,
-        status: 'shortlisted',
+        status: 'applied',
         disqualified: true,
-  
       },
   
       {
@@ -103,7 +101,6 @@ export class CandidateStatusService {
         thumbsDown: 1,
         status: 'interviewed',
         disqualified: true,
-  
       },
   
       {

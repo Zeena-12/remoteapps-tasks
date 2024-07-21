@@ -64,13 +64,15 @@ export class SecondPage implements OnInit, OnDestroy {
           this.map = new googleMaps.Map(mapEl, {
             center: userLoc,
             zoom: 16,
+            mapTypeControl: false,
+            streetViewControl: false,
 
           });
           console.log("wooow")
           this.map.setCenter(userLoc);
           this.addMarker(userLoc);
-          this.presentAlert("im in getCurrent location");
-          this.presentAlert(this.userLocation.lat + " " + this.userLocation.lng);
+          // this.presentAlert("im in getCurrent location");
+          // this.presentAlert(this.userLocation.lat + " " + this.userLocation.lng);
         },
         (error) => {
           this.presentAlert('Error getting current position:');
@@ -117,7 +119,7 @@ export class SecondPage implements OnInit, OnDestroy {
       map: this.map,
       icon: icon,
       // draggable:true,
-      animation: googleMaps.Animation.DROP
+      animation: googleMaps.Animation.BOUNCE
     });
   }
   moveMarker(newPosition: any) {

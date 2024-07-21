@@ -9,21 +9,30 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    // map
     path: 'second',
     loadChildren: () => import('./second/second.module').then( m => m.SecondPageModule)
   },
 
   {
+    // old drag and drop
     path: 'third',
     loadChildren: () => import('./third/third.module').then( m => m.ThirdPageModule)
   },
   {
-    path: '',
+    // list of candidates
+    path: 'fourth',
     loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
-  },  {
+  },
+  {
     path: 'answer',
     loadChildren: () => import('./answer/answer.module').then( m => m.AnswerPageModule)
   },
+  {
+    path: '',
+    loadChildren: () => import('./employee-engagement/employee-engagement.module').then( m => m.EmployeeEngagementPageModule)
+  },
+
 
 
 
