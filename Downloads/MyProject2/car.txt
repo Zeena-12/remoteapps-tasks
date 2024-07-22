@@ -10,6 +10,7 @@ import { AlertController } from '@ionic/angular';
 export class SecondPage implements OnInit, OnDestroy {
   @ViewChild('map', { static: true }) mapElementRef: ElementRef | undefined;
   googleMaps: any;
+  // center = { lat: 26.066700, lng: 50.557701 };
   map: any;
   watchId: any; // Variable to store the watch position ID
   userLocation = { lat: 0, lng: 0 };
@@ -19,15 +20,8 @@ export class SecondPage implements OnInit, OnDestroy {
     private gmaps: GmapsService,
     private renderer: Renderer2,
     private alertController: AlertController
+
   ) { }
-
-  ngOnInit(): void {
-    console.log('Component initialized');
-  }
-
-  ngAfterViewInit() {
-    this.loadMap();
-  }
 
   ngOnDestroy(): void {
     if (this.watchId) {
@@ -35,19 +29,25 @@ export class SecondPage implements OnInit, OnDestroy {
     }
   }
 
+  ngOnInit(): void {
+    console.log();
+  }
+
+  ngAfterViewInit() {
+    this.loadMap();
+  }
+
+
   async loadMap() {
     try {
       let googleMaps: any = await this.gmaps.loadGoogleMaps();
       this.googleMaps = googleMaps;
       const mapEl = this.mapElementRef?.nativeElement;
 
-      if (!mapEl) {
-        console.error('Map element not found');
-        return;
-      }
 
       // Get user's current position with high accuracy
       navigator.geolocation.getCurrentPosition(
+
         (position) => {
           const userPosition = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
           this.userLocation.lat = userPosition.lat();
@@ -56,74 +56,106 @@ export class SecondPage implements OnInit, OnDestroy {
           console.log('Longitude:', this.userLocation.lng);
 
           // Set up initial map centered on this.userLocation
+          const userLoc = new googleMaps.LatLng(this.userLocation.lat, this.userLocation.lng);
           this.map = new googleMaps.Map(mapEl, {
-            center: userPosition,
+            center: userLoc,
             zoom: 16,
             mapTypeControl: false,
             streetViewControl: false,
-          });
 
-          this.addMarker(userPosition);
+          });
+          console.log("wooow")
+          this.map.setCenter(userLoc);
+          this.addMarker(userLoc);
+          // this.presentAlert("im in getCurrent location");
+          // this.presentAlert(this.userLocation.lat + " " + this.userLocation.lng);
         },
         (error) => {
-          this.handleGeolocationError(error);
+          this.presentAlert('Error getting current position:');
         },
         {
           enableHighAccuracy: true, // Enable high accuracy mode
-          timeout: 10000, // Timeout after 10 seconds
-          maximumAge: 0 // No cached position
         }
       );
 
-      // Watch the position and update marker and map center
+      // i think it needs some updation
       this.watchId = navigator.geolocation.watchPosition(
-        (position) => {
+        (position) =>{
           const watchPosition = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
           this.userLocation.lat = watchPosition.lat();
           this.userLocation.lng = watchPosition.lng();
           console.log('Latitude from watch:', this.userLocation.lat);
           console.log('Longitude from watch:', this.userLocation.lng);
 
-          // Update marker and center map
-          this.updateMarker(watchPosition);
-          this.map.setCenter(watchPosition);
-        },
-        (error) => {
-          this.handleGeolocationError(error);
-        },
-        {
-          enableHighAccuracy: true, // Enable high accuracy mode
+
+
+          
+
+
+          
+            // this.moveMarker(updateLocation); // Update marker position
+            this.updateMarker(watchPosition); // Update marker position
+            console.log("watchPosition running", watchPosition);
+
+
         }
-      );
+      )
 
       this.renderer.addClass(mapEl, 'visible');
+      this.addMarker(this.userLocation); // Assuming this.userLocation might be undefined initially
+
     } catch (e) {
       console.error('Error loading Google Maps:', e);
+      // Handle errors related to loading Google Maps here
     }
-  }
+  };
+
 
   addMarker(maplocation: any) {
-    console.log("calling addMarker");
+    console.log("calling addMarker")
     let googleMaps: any = this.googleMaps;
     const icon = {
       url: 'assets/icons/location.svg',
       scaledSize: new googleMaps.Size(50, 50),
     };
-    this.marker = new googleMaps.Marker({
+    const marker = new googleMaps.Marker({
       position: maplocation,
       map: this.map,
       icon: icon,
+      // draggable:true,
+      // animation: googleMaps.Animation.DROP
     });
   }
+  // moveMarker(newPosition: any) {
+  //   console.log("calling moveMarker");
+  //   if (this.marker) {
+  //     this.marker.setCenter(newPosition);
+  //   } else {
+  //     this.addMarker(newPosition);
+  //   }
+  // }
 
   updateMarker(newPosition: any) {
     console.log("calling updateMarker");
+    let googleMaps: any = this.googleMaps;
+    const icon = {
+      url: 'assets/icons/location.svg',
+      scaledSize: new googleMaps.Size(50, 50),
+    };
+
     if (this.marker) {
       // Marker exists, so move it to the new position
       this.marker.setPosition(newPosition);
+      console.log("calling iffffffffffffff");
     } else {
+      console.log("calling elseeeeeeeeeeeeeeeeeeeeee");
       // Marker doesn't exist, create a new one
-      this.addMarker(newPosition);
+      this.marker = new googleMaps.Marker({
+        position: newPosition,
+        map: this.map,
+        icon: icon,
+        // animation: googleMaps.Animation.BOUNCE
+      });
     }
   }
 
@@ -133,6 +165,7 @@ export class SecondPage implements OnInit, OnDestroy {
       this.presentAlert(message);
     } else {
       console.error('Marker position is not available.');
+      // Handle case where marker position is not available
     }
   }
 
@@ -146,23 +179,14 @@ export class SecondPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
-  handleGeolocationError(error: any) {
-    let message = 'Error getting current position: ';
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        message += 'Permission denied.';
-        break;
-      case error.POSITION_UNAVAILABLE:
-        message += 'Position unavailable.';
-        break;
-      case error.TIMEOUT:
-        message += 'Timeout.';
-        break;
-      default:
-        message += 'Unknown error.';
-        break;
-    }
-    console.error(message);
-    this.presentAlert(message);
+
+  gOnDestroy() {
+    this.googleMaps.event.remoteAllListeners();
   }
+
+  stopWatch() {
+    // Cancel the updates when the user clicks a button.
+    navigator.geolocation.clearWatch(this.watchId);
+  }
+
 }
