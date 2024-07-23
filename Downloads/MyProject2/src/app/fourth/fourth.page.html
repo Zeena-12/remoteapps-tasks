@@ -10,7 +10,7 @@
       <ion-title size="large">fourth</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <button appLongPress (mouseLongPress)="onLongPress()">Long Press Me</button>
   <div class="card-container" cdkDropListGroup cdkScrollable>
     <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="applied"
       containerColor="container-red" 

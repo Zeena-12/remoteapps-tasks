@@ -1,0 +1,3 @@
+- long press
+- palce holder is the same size of the box
+- remove the place holder on draggin initial palce

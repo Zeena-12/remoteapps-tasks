@@ -1,5 +1,4 @@
-
-  <div class="wrapper" (click)="showOptions(status)">
+<div class="wrapper" (click)="showOptions(status)">
     <div class="avatar">
       <img [src]="avatar" alt="Avatar Image" />
     </div>
@@ -18,6 +17,6 @@
       {{ disqualified ? "Disqualified" : "" }}
     </div>
   </div>
-  <!-- <app-dropdown  *ngIf="FinalizedDropdownVisible" (optionSelected)="optionSelected($event)">
-  </app-dropdown> -->
+  <app-dropdown  *ngIf="FinalizedDropdownVisible" (optionSelected)="optionSelected($event)">
+  </app-dropdown>
 

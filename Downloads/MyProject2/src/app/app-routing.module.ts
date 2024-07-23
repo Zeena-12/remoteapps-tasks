@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     // map
-    path: '',
+    path: 'second',
     loadChildren: () => import('./second/second.module').then( m => m.SecondPageModule)
   },
 
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     // list of candidates
-    path: 'fourth',
+    path: '',
     loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
   },
   {

@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CandidateStatusService, Candidate } from '../candidate-status.service';
 import { Observable } from 'rxjs';
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-fourth',
@@ -14,7 +16,9 @@ export class FourthPage implements OnInit, AfterViewInit {
   offered: Candidate[] = [];
   finalized: Candidate[] = [];
 
-  constructor(private candidateService: CandidateStatusService) {}
+  constructor(private candidateService: CandidateStatusService,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
     this.loadCandidates();
@@ -63,6 +67,25 @@ console.log()
       this.loadCandidates();
     });
     console.log("calling handleDisqualifyChange in fourth");
+  }
+
+  async presentAlert(message: any) {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+
+
+  // long press
+  onLongPress() {
+    this.presentAlert('Long press event triggered');
+    console.log("long press");
+    // Handle the long press event here
   }
 }
 

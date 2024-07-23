@@ -1,26 +1,28 @@
-// long-press.directive.ts
-import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Output, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appLongPress]'
 })
 export class LongPressDirective {
   @Output() longPress = new EventEmitter<void>();
-  private longPressTimeout: any;
+  private pressTimer: any;
+  private readonly PRESS_DURATION = 500; // Adjust duration as needed
+
+  constructor(private el: ElementRef) {}
 
   @HostListener('mousedown', ['$event'])
   @HostListener('touchstart', ['$event'])
-  onMouseDown(event: MouseEvent | TouchEvent) {
-    this.longPressTimeout = setTimeout(() => {
-      console.log('Long press detected');
+  onPressStart(event: MouseEvent | TouchEvent) {
+    this.pressTimer = setTimeout(() => {
       this.longPress.emit();
-    }, 1000); // Adjust 1000ms (1 second) as needed for your long press duration
+    }, this.PRESS_DURATION);
   }
 
   @HostListener('mouseup')
   @HostListener('mouseleave')
   @HostListener('touchend')
-  onMouseUp() {
-    clearTimeout(this.longPressTimeout);
+  @HostListener('touchcancel')
+  onPressEnd() {
+    clearTimeout(this.pressTimer);
   }
 }

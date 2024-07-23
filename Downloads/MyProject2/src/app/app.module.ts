@@ -23,6 +23,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { LongPressDirective } from './long-press.directive'; // Adjust the path as needed
 
 
 export function HttpLoaderFactory(http: HttpClient){
@@ -31,7 +32,7 @@ export function HttpLoaderFactory(http: HttpClient){
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LongPressDirective],
   imports: [IonicStorageModule.forRoot(),CommonModule,BrowserModule, IonicModule.forRoot(),FormsModule,NgOtpInputModule, AppRoutingModule , HttpClientModule,
     TranslateModule.forRoot({
         loader: {
