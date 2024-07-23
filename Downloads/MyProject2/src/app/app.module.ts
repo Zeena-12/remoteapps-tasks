@@ -26,6 +26,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { LongPressDirective } from './long-press.directive'; // Adjust the path as needed
 
 
+
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

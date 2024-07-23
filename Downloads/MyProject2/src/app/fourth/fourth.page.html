@@ -10,40 +10,34 @@
       <ion-title size="large">fourth</ion-title>
     </ion-toolbar>
   </ion-header>
-  <button appLongPress (mouseLongPress)="onLongPress()">Long Press Me</button>
+  <button (longPress)="onLongPress()">Long Press Me</button>
   <div class="card-container" cdkDropListGroup cdkScrollable>
     <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="applied"
-      containerColor="container-red" 
-      (statusChange)="handleStatusChange($event)"
-      (diqualifyChanged)="handleDisqualifyChange($event)"
-      >
+      containerColor="container-red" (statusChange)="handleStatusChange($event)"
+      (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
 
     <app-status-box class="drop-area" id="shortlisted" status="Shortlisted" [employeesList]="shortlisted"
       containerColor="container-orange" (statusChange)="handleStatusChange($event)"
-      (diqualifyChanged)="handleDisqualifyChange($event)"
-      >
+      (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
 
     <app-status-box class="drop-area" id="interviewed" status="Interviewed" [employeesList]="interviewed"
       containerColor="container-yellow" (statusChange)="handleStatusChange($event)"
-      (diqualifyChanged)="handleDisqualifyChange($event)"
-      >
+      (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
 
     <app-status-box class="drop-area" id="offered" status="Offered" count="15" [employeesList]="offered"
       containerColor="container-light-green" (statusChange)="handleStatusChange($event)"
-      (diqualifyChanged)="handleDisqualifyChange($event)"
-      >
+      (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
+
 
     <app-status-box class="drop-area" id="finalized" status="Finalized" count="5" [employeesList]="finalized"
       containerColor="container-dark-green" (statusChange)="handleStatusChange($event)"
-      (diqualifyChanged)="handleDisqualifyChange($event)"
-      >
+      (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
-
   </div>
-
+ <!-- <app-action-sheet></app-action-sheet> -->
 
 </ion-content>

@@ -1,28 +1,30 @@
-import { Directive, ElementRef, EventEmitter, Output, HostListener } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { fromEvent, Subscription, timer } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: '[appLongPress]'
 })
-export class LongPressDirective {
+export class LongPressDirective implements OnInit, OnDestroy {
+
+  @Input() duration = 100;
   @Output() longPress = new EventEmitter<void>();
-  private pressTimer: any;
-  private readonly PRESS_DURATION = 500; // Adjust duration as needed
+
+  private sub!: Subscription;
 
   constructor(private el: ElementRef) {}
 
-  @HostListener('mousedown', ['$event'])
-  @HostListener('touchstart', ['$event'])
-  onPressStart(event: MouseEvent | TouchEvent) {
-    this.pressTimer = setTimeout(() => {
-      this.longPress.emit();
-    }, this.PRESS_DURATION);
+  ngOnInit(): void {
+    const mouseDown$ = fromEvent(this.el.nativeElement, 'mousedown');
+    const mouseUp$ = fromEvent(this.el.nativeElement, 'mouseup');
+    this.sub = mouseDown$
+      .pipe(
+        switchMap(() => timer(this.duration).pipe(takeUntil(mouseUp$)))
+      )
+      .subscribe(() => this.longPress.emit());
   }
 
-  @HostListener('mouseup')
-  @HostListener('mouseleave')
-  @HostListener('touchend')
-  @HostListener('touchcancel')
-  onPressEnd() {
-    clearTimeout(this.pressTimer);
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

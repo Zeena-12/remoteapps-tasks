@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CandidateStatusService, Candidate } from '../candidate-status.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ActionSheetComponent } from '../custom-components/action-sheet/action-sheet.component';
 
 
 @Component({
@@ -17,7 +19,8 @@ export class FourthPage implements OnInit, AfterViewInit {
   finalized: Candidate[] = [];
 
   constructor(private candidateService: CandidateStatusService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController,
   ) {}
 
   ngOnInit() {
@@ -87,6 +90,27 @@ console.log()
     console.log("long press");
     // Handle the long press event here
   }
+
+  async openActionSheet() {
+    const modal = await this.modalController.create({
+      component: ActionSheetComponent,
+      componentProps: {
+        options: [
+          { label: 'Open CV', icon: '/assets/calendar.svg' },
+          { label: 'Disqualify', icon: '/assets/calendar.svg' },
+          { label: 'Regret', icon: '/assets/calendar.svg' },
+          { label: 'View Tests', icon: '/assets/calendar.svg' },
+          { label: 'View Answers', icon: '/assets/calendar.svg' },
+        ]
+      },
+      cssClass: 'custom-action-sheet', // Optional: Add custom CSS class for styling
+     // backdropDismiss: true, // Optional: Close modal on backdrop click
+    });
+    return await modal.present();
+  }
+
+
+
 }
 
 

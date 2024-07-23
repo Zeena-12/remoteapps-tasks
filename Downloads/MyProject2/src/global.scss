@@ -67,6 +67,17 @@
 }
 
 
+.custom-modal {
+  --background: rgba(0, 0, 0, 0.4);/* Set modal background color and opacity */
+  background: transparent !important;
+--border-radius: 0 !important; /* Remove rounded corners */
+--box-shadow: none !important;
+--border-bottom-left-radius: 20px; /* Example: Rounded corners */
+--border-bottom-right-radius: 20px;
+}
+
+
+
 
 
 @font-face {

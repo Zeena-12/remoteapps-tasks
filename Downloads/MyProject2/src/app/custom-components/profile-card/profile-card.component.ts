@@ -10,6 +10,8 @@ import {
   transferArrayItem,
   CdkDragPlaceholder,
 } from '@angular/cdk/drag-drop';
+import { ModalController } from '@ionic/angular';
+import { ActionSheetComponent } from '../action-sheet/action-sheet.component';
 
 @Component({
   selector: 'app-profile-card',
@@ -39,6 +41,7 @@ export class ProfileCardComponent  implements OnInit {
 
   constructor(private elementRef: ElementRef,
     private cdr: ChangeDetectorRef,
+    private modalController: ModalController,
 
   ) { }
 
@@ -72,14 +75,14 @@ export class ProfileCardComponent  implements OnInit {
   
   showOptions(status: string){
 
-    this.dropdownOpen = !this.dropdownOpen;
-    if (this.dropdownOpen) {
-      // Add event listener to close dropdown on outside click
-      document.body.addEventListener('click', this.onBodyClick);
-    } else {
-      // Remove event listener when dropdown is closed
-      document.body.removeEventListener('click', this.onBodyClick);
-    }
+    // this.dropdownOpen = !this.dropdownOpen;
+    // if (this.dropdownOpen) {
+    //   // Add event listener to close dropdown on outside click
+    //   document.body.addEventListener('click', this.onBodyClick);
+    // } else {
+    //   // Remove event listener when dropdown is closed
+    //   document.body.removeEventListener('click', this.onBodyClick);
+    // }
 
 
     console.log(`Status: ${status}`);
@@ -112,6 +115,22 @@ export class ProfileCardComponent  implements OnInit {
       }
     };
     
-  
+    async openActionSheet() {
+      const modal = await this.modalController.create({
+        component: ActionSheetComponent,
+        componentProps: {
+          options: [
+            { label: 'Open CV', icon: '/assets/calendar.svg' },
+            { label: 'Disqualify', icon: '/assets/calendar.svg' },
+            { label: 'Regret', icon: '/assets/calendar.svg' },
+            { label: 'View Tests', icon: '/assets/calendar.svg' },
+            { label: 'View Answers', icon: '/assets/calendar.svg' },
+          ]
+        },
+        cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
+        backdropDismiss: true, // Optional: Close modal on backdrop click
+      });
+      return await modal.present();
+    }
 
 }
