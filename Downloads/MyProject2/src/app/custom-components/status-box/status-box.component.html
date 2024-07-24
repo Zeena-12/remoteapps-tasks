@@ -14,10 +14,9 @@
         cdkDropListSortingDisabled >
         <div *ngFor="let item of employeesList; let i = index">
           <div class="example-box" cdkDrag >
-            <!-- Use cdkDragPreview to determine the size -->
         <!-- <div class="example-custom-preview" *cdkDragPreview matchSize="true"></div> -->
-            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-              <app-profile-card (click)="openActionSheet()" [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+              <app-profile-card appLongPress (press)="openActionSheet(item.status)" [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
               [role]="item.role" [likeCount]="item.thumbsUp" [dislikeCount]="item.thumbsDown"
               [status]="item.status"
               [disqualified]="item.disqualified">
@@ -26,47 +25,3 @@
         </div>
     </div>
   </div>
-
-<!-- </div> -->
-
-<!-- note: they should be placed inside -->
-
-<!-- show more options on drag -->
-<!-- Disqualified box options -->
-<div [ngClass]="{'hidden': !showOptionsDisqualified}" class="drop-area2" #dropzone1>
-  <div class="drop-area-option" #dropZoneDisqualify>
-    <img src="assets/icons/cross.svg" alt="" />
-    <p>{{ disqualify }}</p>
-  </div>
-  <div class="drop-area-option" #dropZoneAnswer>
-    <img src="assets/icons/answer.svg" alt="" />
-    <p>Answer</p>
-  </div>
-
-</div>
-  
-<!-- Offered box options -->
-<div *ngIf="showOptionsOffered" class="drop-area2" #dropzone2>
-  <div class="drop-area-option" #dropZoneOffer>
-    <img src="assets/icons/cross.svg" alt="" />
-    <p>Offer</p>
-  </div>
-</div>
-<!-- Finalized box options -->
-<!-- <div *ngIf="showOptionsFinalized" class="drop-area2" #dropzone3>
-  <div class="drop-area-option" #dropZoneFinalize>
-    <img src="assets/icons/cross.svg" alt="" />
-    <p>Finalize</p>
-  </div>
-  <div class="drop-area-option" #dropZoneReturn>
-    <img src="assets/icons/cross.svg" alt="" />
-    <p>Return</p>
-  </div>
-  <div class="drop-area-option" #dropZoneMessage>
-    <img src="assets/icons/cross.svg" alt="" />
-    <p>Message</p>
-  </div>
-</div> -->
-
-<!-- i will change the finalized from this small menu to a longer dropdown -->
-

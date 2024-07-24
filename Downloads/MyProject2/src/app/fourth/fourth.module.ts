@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { FourthPageRoutingModule } from './fourth-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CustomComponentsModule } from '../custom-components.module';
+import { DirectivesModule } from '../directives.module';
+// import { LongPressDirective } from '../directives/long-press/long-press.directive';
 
 
 import { FourthPage } from './fourth.page';
@@ -18,7 +20,8 @@ import { FourthPage } from './fourth.page';
     IonicModule,
     FourthPageRoutingModule, 
     DragDropModule,
-    CustomComponentsModule
+    CustomComponentsModule,
+    DirectivesModule
   ],
   declarations: [FourthPage]
 })

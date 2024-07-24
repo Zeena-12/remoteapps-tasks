@@ -3,11 +3,11 @@
 
 <div class="action-sheet-container">
   <div class="action-sheet-options">
-    <div class="action-sheet-option" *ngFor="let option of options">
+    <div class="action-sheet-option" *ngFor="let option of options; let last = last" [class.last]="last">
       <img [src]="option.icon" alt="">
       <p>{{ option.label }}</p>
-      <div class="divider"></div>
     </div>
   </div>
   <button class="action-sheet-cancel-btn" (click)="dismiss()">Cancel</button>
 </div>
+

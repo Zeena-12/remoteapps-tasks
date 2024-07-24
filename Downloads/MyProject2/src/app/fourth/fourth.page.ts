@@ -85,11 +85,7 @@ console.log()
 
 
   // long press
-  onLongPress() {
-    this.presentAlert('Long press event triggered');
-    console.log("long press");
-    // Handle the long press event here
-  }
+
 
   async openActionSheet() {
     const modal = await this.modalController.create({
@@ -106,10 +102,13 @@ console.log()
       cssClass: 'custom-action-sheet', // Optional: Add custom CSS class for styling
      // backdropDismiss: true, // Optional: Close modal on backdrop click
     });
-    return await modal.present();
+  return await modal.present();
   }
 
-
+div(){
+  console.log("wooooow well done");
+  alert("ggg");
+}
 
 }
 

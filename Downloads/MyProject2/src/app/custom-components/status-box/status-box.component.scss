@@ -169,55 +169,15 @@ position: relative;
   background-color: #ff6a00;
 }
 
-// second gdrag box
-
-// second drop area
-.drop-area2 {
-  position: fixed;
-  position: absolute;
-  bottom: 15px; /* Position from the bottom */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Adjust position to center horizontally */
-  display: flex;
-  justify-content:space-around;
-  align-items: center;
-  min-width: 100px; 
-  max-width: 350px;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-  border-radius: 20px; /* Rounded corners */
-  padding: 10px;
-  box-shadow: 2px 5px 5px 5px rgba(164, 162, 162, 0.051); /* Optional: Box shadow for depth */
-  user-select: none;
-
-}
-
-.drop-area-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 33.33%;
-  margin: 10px;
-  user-select: none;
-}
 
 
-.drop-area-option img {
-  width: 25px;
-  height: 25px;
-}
 
-.drop-area2 p {
-  margin: 5px; /* Adjust spacing between icon and text */
-  font-size: 14px; /* Adjust text size */
-  font-weight: bold;
-  color: #b8b8b8;
-}
 
-.drop-area2-hidden {
-  display: none; /* or any other CSS properties to hide or style the element */
-  // visibility: hidden;
-}
+
+
+
+
+
 
 .hidden {
   display: none;
@@ -261,7 +221,7 @@ position: relative;
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-custom-placeholder {
+.custom-placeholder {
   background: #f8f8f8;
   min-height: 130px;
   width: 270px;
