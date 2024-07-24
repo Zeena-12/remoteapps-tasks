@@ -17,7 +17,7 @@
             <!-- Use cdkDragPreview to determine the size -->
         <!-- <div class="example-custom-preview" *cdkDragPreview matchSize="true"></div> -->
             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-              <app-profile-card [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
+              <app-profile-card (click)="openActionSheet()" [id]="item.id" [name]="item.name" [avatar]="item.img" [nationality]="item.nationality" 
               [role]="item.role" [likeCount]="item.thumbsUp" [dislikeCount]="item.thumbsDown"
               [status]="item.status"
               [disqualified]="item.disqualified">

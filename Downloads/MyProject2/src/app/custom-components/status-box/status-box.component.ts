@@ -5,6 +5,8 @@ import { Gesture, GestureController } from '@ionic/angular';
 import { Candidate, CandidateStatusService } from 'src/app/candidate-status.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ActionSheetComponent } from '../action-sheet/action-sheet.component';
 
 
 @Component({
@@ -65,7 +67,8 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     private gestureCtrl: GestureController,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController,
   ) {
     this.showOptionsDisqualified = false;
     this.showOptionsOffered = false;
@@ -353,7 +356,23 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     });
   }
 
-
+  async openActionSheet() {
+    const modal = await this.modalController.create({
+      component: ActionSheetComponent,
+      componentProps: {
+        options: [
+          { label: 'Open CV', icon: '/assets/calendar.svg' },
+          { label: 'Disqualify', icon: '/assets/calendar.svg' },
+          { label: 'Regret', icon: '/assets/calendar.svg' },
+          { label: 'View Tests', icon: '/assets/calendar.svg' },
+          { label: 'View Answers', icon: '/assets/calendar.svg' },
+        ]
+      },
+      cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
+      backdropDismiss: true, // Optional: Close modal on backdrop click
+    });
+    return await modal.present();
+  }
 
 
 

@@ -30,8 +30,8 @@
 .custom-modal {
 
     &::part(content) {
-        border-top-left-radius: 20px;  
-        border-top-right-radius: 20px; 
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
     }
 }
 
@@ -52,14 +52,14 @@
 .custom-loading-overlay::before {
     content: '';
     display: block;
-    width: 200px; 
+    width: 200px;
     height: 100px;
-    background-image: url('assets/car-loading.gif'); 
+    background-image: url('assets/car-loading.gif');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.popup{
+.popup {
     --width: 9vw;
     --min-width: 75vw;
     --height: 28vh;
@@ -68,13 +68,24 @@
 
 
 .custom-modal {
-  --background: rgba(0, 0, 0, 0.4);/* Set modal background color and opacity */
-  background: transparent !important;
---border-radius: 0 !important; /* Remove rounded corners */
---box-shadow: none !important;
---border-bottom-left-radius: 20px; /* Example: Rounded corners */
---border-bottom-right-radius: 20px;
+    --background: rgba(64, 246, 113, 0.4); /* Set modal background color and opacity */
+    background: transparent !important;
+    --border-radius: 0 !important; /* Remove rounded corners */
+    --box-shadow: none !important;
+    --border: 1px solid red !important;
+    --height: 300px;
+  --bottom: 0; /* Position the modal at the bottom */
+    --left: 0;
+    --right: 0;
+    --z-index: 1000; /* Ensure the modal is above other elements */
+    --position: absolute;
+    --z-index: 9999; /* Ensure it's on top of everything */
+    --padding: 20px;
+    --width: 100%;
+    --margin-bottom: 900px;
 }
+
+
 
 
 
@@ -83,14 +94,14 @@
 @font-face {
     font-family: "Almarai-Regular";
     src: url("assets/fonts/Almarai-Regular.otf");
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: "Roboto-Regular";
     src: url("assets/fonts/Roboto-Regular.otf");
-  }
+}
 
-  [dir="rtl"] * {
+[dir="rtl"] * {
     font-family: Almarai-Regular;
 }
 
