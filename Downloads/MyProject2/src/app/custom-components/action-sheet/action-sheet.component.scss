@@ -9,13 +9,12 @@
 //     // background-color: transparent; 
 //   }
   
-  .action-sheet-container {
-
-    width: 100%;
-    z-index: 9999; /* Ensure it's on top of everything */
-    padding: 20px; 
-    margin-bottom: 200px;
-  }
+.action-sheet-container {
+  width: 100%;
+  z-index: 9999; /* Ensure it's on top of everything */
+  // padding: 20px;
+  margin-top: auto;
+}
   
   .action-sheet-options{
     background-color: white;
@@ -59,7 +58,7 @@
     border-radius: 8px;
     color: #99a6b8;
     text-transform: uppercase;
-    margin-bottom: 220px;
+
   }
   
   .divider {
