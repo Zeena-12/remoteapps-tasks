@@ -68,21 +68,23 @@
 
 
 .custom-modal {
-    --background: rgba(64, 246, 113, 0.4); /* Set modal background color and opacity */
-    background: transparent !important;
-    --border-radius: 0 !important; /* Remove rounded corners */
-    --box-shadow: none !important;
-    --border: 1px solid red !important;
+    --background: rgba(246, 137, 64, 0.4); /* Set modal background color and opacity */
+    // // background: transparent !important;
+    // --border-radius: 0 !important; /* Remove rounded corners */
+    // --box-shadow: none !important;
+    // border: 1px solid red !important;
     --height: 300px;
-  --bottom: 0; /* Position the modal at the bottom */
-    --left: 0;
+     --bottom: 0; /* Position the modal at the bottom */
+    left: 0;
     --right: 0;
-    --z-index: 1000; /* Ensure the modal is above other elements */
-    --position: absolute;
-    --z-index: 9999; /* Ensure it's on top of everything */
-    --padding: 20px;
-    --width: 100%;
-    --margin-bottom: 900px;
+    // --z-index: 1000; /* Ensure the modal is above other elements */
+    // position: absolute;
+    // z-index: 9999; /* Ensure it's on top of everything */
+    // width: 100%;
+    // // --margin-bottom: 900px;
+    // // --ion-margin-end: 0px;
+    // // padding-bottom: 0;
+    --border-radius: 1px;
 }
 
 

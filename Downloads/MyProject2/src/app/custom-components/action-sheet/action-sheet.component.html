@@ -1,16 +1,13 @@
 <!-- action-sheet.component.html -->
 <!-- <div class="action-sheet-backdrop"></div> -->
 
-<!-- <div class="action-sheet-container"> -->
-<div class="custom-modal">
+<div class="action-sheet-container">
   <div class="action-sheet-options">
     <div class="action-sheet-option" *ngFor="let option of options">
       <img [src]="option.icon" alt="">
       <p>{{ option.label }}</p>
       <div class="divider"></div>
     </div>
-    
   </div>
-
   <button class="action-sheet-cancel-btn" (click)="dismiss()">Cancel</button>
 </div>

@@ -1,18 +1,18 @@
-.action-sheet-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Black with 0.6 opacity */
-    z-index: 9998; /* Ensure it's below the action sheet */
-    // background-color: transparent; 
-  }
+// .action-sheet-backdrop {
+//     position: fixed;
+//     // top: 0;
+//     left: 0;
+//     width: 100%;
+//     // height: 100%;
+//     background-color: rgba(0, 0, 0, 0.9); /* Black with 0.6 opacity */
+//     z-index: 9998; /* Ensure it's below the action sheet */
+//     // background-color: transparent; 
+//   }
   
   .action-sheet-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    // position: fixed;
+    --bottom: 0;
+    --left: 0;
     width: 100%;
    
     // box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1); /* Example: Add box shadow for depth */
@@ -20,13 +20,15 @@
     padding: 20px;
     // border-top-left-radius: 20px; /* Example: Rounded corners */
     // border-top-right-radius: 20px;
-     width: 100%;
+   border: 4px solid green;
+
   }
   
   .action-sheet-options{
     background-color: white;
     // border: 1px solid red;
     border-radius: 8px;
+    border: 1px solid red;
   
   
   }
