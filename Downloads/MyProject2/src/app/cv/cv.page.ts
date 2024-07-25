@@ -12,4 +12,8 @@ export class CvPage implements OnInit {
   ngOnInit() {
   }
 
+  swiperSlideChanged(e: any){
+    console.log('change:', e);
+  }
+
 }

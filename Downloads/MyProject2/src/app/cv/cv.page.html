@@ -1,7 +1,30 @@
 <ion-content [fullscreen]="true">
     <div class="cv-container">
       <div class="personal-info-container">
-        personal-info-container
+        <!-- slider start -->
+        <swiper-container
+        (slidechange)="swiperSlideChanged($event)"
+        [loop]="true"
+        [pagination]="true">
+          <swiper-slide>
+            <div class="swiper-content">
+              <div class="content-box">
+                <div class="icon">
+                 
+                  <i class="icon-girls my-color"></i>
+                </div>
+                <div class="details">
+                  <p>National Identity</p>
+                  <p>951234545</p>
+                </div>
+              </div>
+              
+            </div>
+          </swiper-slide>
+          <swiper-slide>slide 2</swiper-slide>
+          <swiper-slide>slide 3</swiper-slide>
+        </swiper-container>
+        <!-- slider end -->
       </div>
       <div class="section-container">
         <p class="title">Experience</p>
