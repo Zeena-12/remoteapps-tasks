@@ -9,11 +9,15 @@ import { ModalController } from '@ionic/angular';
 export class ActionSheetComponent  implements OnInit {
 
   @Input() options: { label: string, icon: string }[] = [];
+  @Input() optionSelected!: (option: any) => void;
 
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {}
-
+ 
+  handleOptionSelected(option: any) {
+    this.optionSelected(option);
+  }
 
   async dismiss() {
     await this.modalController.dismiss();

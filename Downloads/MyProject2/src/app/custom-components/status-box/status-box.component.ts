@@ -8,6 +8,7 @@ import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ActionSheetComponent } from '../action-sheet/action-sheet.component';
 import { LongPressDirective } from 'src/app/directives/long-press/long-press.directive';
+import { CustomModelComponent } from '../custom-model/custom-model.component';
 
 
 @Component({
@@ -73,6 +74,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
 
   drop(event: CdkDragDrop<any[]>, target: string) {
+    console.log("calling drop in status");
     // Reset all options to false first
 
     const draggedElement = event.item.element.nativeElement;
@@ -94,7 +96,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       if (profileCard) {
         profileCard.setAttribute('status', newStatus);
         const id = Number(profileCard.getAttribute('ng-reflect-id'));
-        console.log("id is: ", id);
+        // console.log("id is: ", id);
         this.statusChange.emit({ id, newStatus });
       }
     }
@@ -161,6 +163,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       component: ActionSheetComponent,
       componentProps: {
         options: options,
+        optionSelected: this.handleOptionSelected.bind(this)
       },
       cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
       backdropDismiss: true, // Optional: Close modal on backdrop click
@@ -168,8 +171,50 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   
     return await modal.present();
   }
+
+  handleOptionSelected(option: any) {
+    console.log('Selected Option:', option.label);
+    // Implement logic for option selection here
+    switch (option.label) {
+      case 'Open CV':
+       this.openCV();
+        break;
+      case 'Disqualify':
+        console.log(" Handle action for disqualifying");  
+        break;
+      case 'Regret':
+        console.log("  Handle action for regret"); 
+        break;
+       
+      default:
+        break;
+    }
+
+    // Optionally, dismiss the action sheet after an option is selected
+    this.dismissModal();
+  }
+
+
+  dismissModal() {
+    // Implement dismiss logic here (e.g., close the modal)
+    console.log('Modal dismissed');
+    this.modalController.dismiss();
+  }
   
-  
+  openCV(){
+    console.log("Open CV from open CV");
+    this.openModal();
+  }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: CustomModelComponent,
+      cssClass: 'custom-modal-class', // Optional: Add custom CSS class for styling
+      backdropDismiss: true, // Optional: Close modal on backdrop click
+    });
+
+    await modal.present();
+  }
 
 
 

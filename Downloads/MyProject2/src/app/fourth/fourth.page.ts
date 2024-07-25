@@ -62,14 +62,14 @@ console.log()
     this.candidateService.updateCandidateStatus(event.id,event.newStatus).subscribe(() => {
       this.loadCandidates();
     });
-    console.log("calling handleStatusChange in fourth");
+    // console.log("calling handleStatusChange in fourth");
   }
 
   handleDisqualifyChange(event: { id: number,newDisqualified: boolean }) {
     this.candidateService.updateCandidateDisqualified(event.id,event.newDisqualified).subscribe(() => {
       this.loadCandidates();
     });
-    console.log("calling handleDisqualifyChange in fourth");
+    // console.log("calling handleDisqualifyChange in fourth");
   }
 
   async presentAlert(message: any) {
@@ -87,23 +87,7 @@ console.log()
   // long press
 
 
-  async openActionSheet() {
-    const modal = await this.modalController.create({
-      component: ActionSheetComponent,
-      componentProps: {
-        options: [
-          { label: 'Open CV', icon: '/assets/calendar.svg' },
-          { label: 'Disqualify', icon: '/assets/calendar.svg' },
-          { label: 'Regret', icon: '/assets/calendar.svg' },
-          { label: 'View Tests', icon: '/assets/calendar.svg' },
-          { label: 'View Answers', icon: '/assets/calendar.svg' },
-        ]
-      },
-      cssClass: 'custom-action-sheet', // Optional: Add custom CSS class for styling
-     // backdropDismiss: true, // Optional: Close modal on backdrop click
-    });
-  return await modal.present();
-  }
+
 
 div(){
   console.log("wooooow well done");

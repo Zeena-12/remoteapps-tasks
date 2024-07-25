@@ -1,10 +1,8 @@
-<!-- action-sheet.component.html -->
-<!-- <div class="action-sheet-backdrop"></div> -->
 
 <div class="action-sheet-container">
   <div class="action-sheet-options">
-    <div class="action-sheet-option" *ngFor="let option of options; let last = last" [class.last]="last">
-      <img [src]="option.icon" alt="">
+    <div id="open-modal" class="action-sheet-option" *ngFor="let option of options; let last = last" [class.last]="last" (click)="handleOptionSelected(option)">
+      <img [src]="option.icon" alt=""> 
       <p>{{ option.label }}</p>
     </div>
   </div>

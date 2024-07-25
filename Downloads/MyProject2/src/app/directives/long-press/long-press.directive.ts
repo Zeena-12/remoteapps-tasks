@@ -25,12 +25,10 @@ export class LongPressDirective implements AfterViewInit {
       gestureName: 'long-press',
       threshold: 0,
       onStart: () => {
-        console.log(" started");
         this.active = true;
         this.longPressCheck();
       },
       onEnd: () => {
-        console.log(" ended");
         this.active = false;
       },
     });
