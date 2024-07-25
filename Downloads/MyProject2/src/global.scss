@@ -18,6 +18,7 @@
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
+
 /* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
@@ -26,6 +27,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 @import "~flag-icons/css/flag-icons.min.css";
 @import "./assets/ico-moon/style.css";
+
 
 // .custom-modal {
 
@@ -87,7 +89,10 @@
   }
 
 
-
+.custom-modal-class{
+    --background: pink;
+    justify-content: end;
+}
 
 
 

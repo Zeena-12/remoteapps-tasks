@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     // list of candidates
-    path: '',
+    path: 'fourth',
     loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
   },
   {
@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'employee-engagement',
     loadChildren: () => import('./employee-engagement/employee-engagement.module').then( m => m.EmployeeEngagementPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./cv/cv.module').then( m => m.CvPageModule)
   },
 
 
