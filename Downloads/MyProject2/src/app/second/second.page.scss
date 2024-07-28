@@ -33,11 +33,11 @@
 
 .box {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 0px;
-  padding: 0px;
-  z-index: 12;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
+    padding: 10px;
+    z-index: 12;
 
 
 }
@@ -70,8 +70,8 @@
   padding: 10px 20px 10px 20px;
   margin: 5px;
   border-radius: 10px;
-  width: 330px;
-  height: 40px;
+  width: 95%;
+  height: 20px;
   font-size: 15px;
 }
 
