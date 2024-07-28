@@ -20,6 +20,9 @@ export class SecondPage implements OnInit, OnDestroy {
 
   private locationInterval: any;
 
+  notFound: boolean = false;
+  notInLocation: boolean = false;
+  confirmPunch: boolean = false;
 
   constructor(
     private gmaps: GmapsService,
@@ -68,6 +71,9 @@ export class SecondPage implements OnInit, OnDestroy {
             zoom: 16,
             mapTypeControl: false,
             streetViewControl: false,
+            zoomControl: false, // Disable zoom controls
+            scaleControl: false, // Disable scale control (optional)
+            fullscreenControl: false 
 
           });
           console.log("wooow")

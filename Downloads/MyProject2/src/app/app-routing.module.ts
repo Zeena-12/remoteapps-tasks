@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     // map
-    path: 'second',
+    path: '',
     loadChildren: () => import('./second/second.module').then( m => m.SecondPageModule)
   },
 
@@ -37,7 +37,7 @@ const routes: Routes = [
     loadChildren: () => import('./cv/cv.module').then( m => m.CvPageModule)
   },
   {
-    path: '',
+    path: 'vacancies',
     loadChildren: () => import('./vacancies/vacancies.module').then( m => m.VacanciesPageModule)
   },
 

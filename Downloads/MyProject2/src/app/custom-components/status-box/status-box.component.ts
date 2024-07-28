@@ -32,7 +32,9 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   disqualify: string = '';
 
 
-
+selectedOption: any;
+modalContent: string = "no content";
+@ViewChild('myModal') myModal: any;
 
 
 
@@ -134,7 +136,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   async openActionSheet(status: string) {
     let options: any = [];
-  
+
     if (status === 'applied' || status === 'shortlisted' || status === 'interviewed') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
@@ -144,7 +146,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Answers', icon: '/assets/calendar.svg' },
       ];
     }
-  
+
     if (status === 'offered' || status === 'finalized') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
@@ -158,7 +160,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Tests', icon: '/assets/calendar.svg' },
       ];
     }
-  
+
     const modal = await this.modalController.create({
       component: ActionSheetComponent,
       componentProps: {
@@ -168,7 +170,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
       backdropDismiss: true, // Optional: Close modal on backdrop click
     });
-  
+
     return await modal.present();
   }
 
@@ -177,17 +179,20 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     // Implement logic for option selection here
     switch (option.label) {
       case 'Open CV':
-       this.openCV();
+        this.modalContent = 'Content for Open CV';
         break;
       case 'Disqualify':
-        console.log(" Handle action for disqualifying");  
+        this.modalContent = 'Content for Disqualify';
         break;
       case 'Regret':
-        console.log("  Handle action for regret"); 
+        this.modalContent = 'Content for Regret';
         break;
-       
+
       default:
         break;
+    }
+    if (this.myModal) {
+      this.myModal.open();
     }
 
     // Optionally, dismiss the action sheet after an option is selected
@@ -200,22 +205,19 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     console.log('Modal dismissed');
     this.modalController.dismiss();
   }
-  
-  openCV(){
+
+  openCV() {
     console.log("Open CV from open CV");
-    this.openModal();
-  }
-
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: CustomModelComponent,
-      cssClass: 'custom-modal-class', // Optional: Add custom CSS class for styling
-      backdropDismiss: true, // Optional: Close modal on backdrop click
-    });
-
-    await modal.present();
+    // this.openModal();
   }
 
 
-
+  // async openModal() {
+  //   const modal = await this.modalController.create({
+  //     component: CustomModelComponent,
+  //     // cssClass: 'custom-modal-class', // Optional: Add custom CSS class for styling
+  //     backdropDismiss: true, // Optional: Close modal on backdrop click
+  //   });
+  //   await modal.present();
+  // }
 }

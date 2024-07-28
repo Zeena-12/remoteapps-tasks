@@ -1,17 +1,35 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title color="secondary">Confirm Location</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+
 <ion-content [fullscreen]="true">
-  <div class="parent-container">
+  <div class="container">
+    <div class="buttons">
+      <button class="btn left">
+        <i class="icon-Arrow-Left"></i>
+      </button>
+      <button class="btn right" (click)="refreshPage()">
+        <i class="icon-Refresh-Arrow-Circle"></i>
+      </button>
+  </div>
     <div class="map-container">
       <div class="map" #map></div>
     </div>
 
     <div class="bottom-container">
-      <button class="btn-primary" (click)="confirmLocation()">Confirm Location 5</button>
-      <button class="btn-primary" (click)="refreshPage()">Refresh</button>
+      <div class="box" *ngIf="notFound">
+        <div><i class="icon-Loading loading" style="color: #00a1d8; font-size: 25px;"></i></div>
+        <p>Your Location is not found</p>
+        <p>Location Accuracy is: 0</p>
+      </div>
+      <!-- not allowed to punch  -->
+      <div class="box">
+        <div><i class="icon-location loading" style="color: #00a1d8; font-size: 25px;"></i></div>
+        <p>You are not allow to punch from this location</p>
+        <p>Location Accuracy is: 14</p>
+      </div>
     </div>
   </div>
 </ion-content>

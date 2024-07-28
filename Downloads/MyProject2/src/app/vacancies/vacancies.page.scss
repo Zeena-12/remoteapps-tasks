@@ -51,12 +51,16 @@ body {
   /* Place the overlay behind the content */
 }
 
-
+.search-segment-container{
+  background-color: white;
+  // width: 100vh;
+  border-bottom: 1px solid #ecf0f3;
+  padding: 0px 20px 0px 20px;
+}
 
 // end background
 
 .search {
-  // border: 1px solid   #e8ecf0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -66,9 +70,17 @@ body {
   padding: 4px;
   font-size: small;
   background-color: #ecf0f3;
+  color: #91a0b3;
+  gap: 6px;
+  padding-left: 9px;
 }
 
 // start segment
+.ion-segment{
+  --background: white
+}
+
+
 ion-segment-button::part(indicator-background) {
   background: #00abec;
   --height: 90px;
@@ -124,10 +136,12 @@ ion-segment-button.md::part(indicator-background) {
 
 .job-container {
   border: 1px solid #e8ecf0;
-  padding: 1px;
+  padding: 7px;
   border-radius: 3px;
   border-radius: 9px;
   background-color: white;
+  padding-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 
@@ -139,6 +153,8 @@ ion-segment-button.md::part(indicator-background) {
   padding: 2px;
   // align-items: self-end;
   // justify-content: center;
+  margin-bottom: 4px;
+  padding-bottom: 8px;  
 }
 
 .job-details {
@@ -156,6 +172,11 @@ ion-segment-button.md::part(indicator-background) {
   padding: 10px;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
+  /* border: 1px solid #92a0b3; */
+  display: flex;
+  align-items: center;
+  background-color: #eaebf0;
 }
 
 
@@ -175,6 +196,7 @@ ion-segment-button.md::part(indicator-background) {
     /* Enable flexbox layout */
     justify-content: start;
     gap: 5px;
+    align-items: center;
   }
 
   .box.details p {
@@ -203,6 +225,7 @@ ion-segment-button.md::part(indicator-background) {
   justify-content: space-between;
   align-items: end;
   gap: 11px;
+  font-weight: 500;
 }
 
 .box.dates p:last-child {
@@ -210,13 +233,9 @@ ion-segment-button.md::part(indicator-background) {
 }
 
 .job-icon {
-  border-radius: 50%;
-  border: 1px solid #92a0b3;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
+
 }
+
 
 
 
@@ -332,6 +351,24 @@ ion-segment-button.md::part(indicator-background) {
   display: flex; /* Align items in a row */
   justify-content: space-between; /* Distribute space evenly between buttons */
   gap: 10px; /* Space between buttons, adjust as needed */
+}
+
+.summary-numbers .btn:nth-child(1) {
+  background-color: #cceefa;
+  color: #51b9df; /* Optional: to make text readable on red */
+  border: 1px solid #51b9df;
+}
+
+.summary-numbers .btn:nth-child(2) {
+  background-color: #fdf0dd;
+  color: #e8a522; /* Optional: to make text readable on blue */
+  border: 1px solid #e8a522;
+}
+
+.summary-numbers .btn:nth-child(3) {
+  background-color: #e7f3db;
+  color: #91ba60; /* Optional: to make text readable on pink */
+  border :1px solid #91ba60;
 }
 
 .btn {
