@@ -33,8 +33,12 @@ const routes: Routes = [
     loadChildren: () => import('./employee-engagement/employee-engagement.module').then( m => m.EmployeeEngagementPageModule)
   },
   {
-    path: '',
+    path: 'cv',
     loadChildren: () => import('./cv/cv.module').then( m => m.CvPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./vacancies/vacancies.module').then( m => m.VacanciesPageModule)
   },
 
 
