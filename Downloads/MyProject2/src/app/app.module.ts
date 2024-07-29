@@ -13,14 +13,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgOtpInputModule } from  'ng-otp-input';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { HTTP } from '@ionic-native/http/ngx';
-import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-import { CameraPreview } from '@ionic-native/camera-preview/ngx';
+
 
 import { FilePath } from '@ionic-native/file-path/ngx';
 
@@ -48,7 +47,7 @@ export function HttpLoaderFactory(http: HttpClient){
       animation: 'pulse',
       loadingText: 'This item is actually loading...',
     }),],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },ScreenOrientation,CameraPreview,HTTP,Camera,NativeStorage,InAppBrowser,File,FilePath ,WebView,PhotoViewer],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },ScreenOrientation,HTTP,NativeStorage,InAppBrowser,File,FilePath ,WebView,PhotoViewer],
   exports: [TranslateModule, ],
   bootstrap: [AppComponent],
   schemas: [

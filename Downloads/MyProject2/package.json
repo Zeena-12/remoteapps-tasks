@@ -22,11 +22,8 @@
     "@angular/platform-browser": "^17.0.2",
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
-    "@awesome-cordova-plugins/camera": "^6.7.0",
     "@awesome-cordova-plugins/core": "^6.7.0",
     "@awesome-cordova-plugins/status-bar": "^6.7.0",
-    "@ionic-native/camera": "^5.31.1",
-    "@ionic-native/camera-preview": "^5.33.1",
     "@ionic-native/file": "^5.36.0",
     "@ionic-native/file-opener": "^5.36.0",
     "@ionic-native/file-path": "^5.36.0",
@@ -73,7 +70,6 @@
     "@types/lodash": "^4.17.4",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "cordova-plugin-camera": "^7.0.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
@@ -106,10 +102,6 @@
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-file-opener2": {},
-      "cordova-plugin-camera-preview": {},
-      "cordova-plugin-camera": {
-        "ANDROIDX_CORE_VERSION": "1.6.+"
-      },
       "org.apache.cordova.geolocation": {}
     },
     "platforms": [

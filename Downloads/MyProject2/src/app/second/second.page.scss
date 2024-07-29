@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  height: 120px;
+  // height: 120px;
   padding: 10px;
   /* border: 1px solid red; */
   border-radius: 13px;
@@ -33,13 +33,11 @@
 
 .box {
   display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: 0px;
-    padding: 10px;
-    z-index: 12;
-
-
+  align-items: center;
+  flex-direction: column;
+  margin: 0px;
+  padding: 10px;
+  z-index: 12;
 }
 
 .map-container {
@@ -67,13 +65,17 @@
 .btn-primary {
   background-color: #00abec;
   color: white;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 20px;
   margin: 5px;
-  border-radius: 10px;
-  width: 95%;
-  height: 20px;
+  border-radius: 14px;
+  width: 99%;
+  /* height: 20px; */
+  /* Commented out */
   font-size: 15px;
+  box-shadow: none;
+  /* Removes any box shadow */
 }
+
 
 .buttons {
   position: absolute;
@@ -102,6 +104,7 @@ button {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-size: 20px;
   color: #657084;
+
 }
 
 .box p:nth-of-type(1) {
@@ -122,4 +125,22 @@ button {
   margin: 0px;
   font-size: 13px;
   font-weight: 300px;
+}
+
+.box p {
+  margin: 0;
+  /* Remove default margin of <p> tag */
+  text-align: center;
+  /* Center align text within the <p> tag */
+  overflow-wrap: break-word;
+  /* Ensure text wraps within the <p> tag */
+}
+
+
+.box {
+  display: none; /* Hide by default */
+}
+
+.box.show {
+  display: block; /* Show when 'show' class is added */
 }
