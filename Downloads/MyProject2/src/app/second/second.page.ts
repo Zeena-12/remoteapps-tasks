@@ -16,14 +16,22 @@ export class SecondPage implements OnInit, OnDestroy {
   userLocation = { lat: 0, lng: 0 };
 
   // Location from API
-  userLocationFromAPI = [
-    { lat: 26.23643764228371, lng: 50.54352463551613 },
-    { lat: 26.23603826536928, lng: 50.5426368243322 },
-    { lat: 26.235655728363604, lng: 50.542827261172256 },
-    { lat: 26.235607610412135, lng: 50.54331542321297 },
-    { lat: 26.23582654693048, lng: 50.54379285641762 },
-    { lat: 26.23643764228371, lng: 50.54352463551613 }
+  // workLocationFromAPI = [
+  //   { lat: 26.23643764228371, lng: 50.54352463551613 },
+  //   { lat: 26.23603826536928, lng: 50.5426368243322 },
+  //   { lat: 26.235655728363604, lng: 50.542827261172256 },
+  //   { lat: 26.235607610412135, lng: 50.54331542321297 },
+  //   { lat: 26.23582654693048, lng: 50.54379285641762 },
+  //   { lat: 26.23643764228371, lng: 50.54352463551613 }
+  // ];
+  workLocationFromAPI = [
+ {lat: 26.114377200805777, lng: 50.57535602275675},
+ { lat: 26.112387844250406, lng: 50.575495497625525 },
+ { lat: 26.11246491438421, lng: 50.57237877075022 },
+ { lat: 26.11246491438421, lng: 50.57218565170115 },
+ { lat: 26.11246491438490, lng: 50.57218565170115 }
   ];
+
 
   marker: any;
   polyline: any;
@@ -51,7 +59,9 @@ export class SecondPage implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.showBox(0); // Show default box initially
+  }
 
   ngAfterViewInit() {
     this.loadMap();
@@ -64,11 +74,11 @@ export class SecondPage implements OnInit, OnDestroy {
       const mapEl = this.mapElementRef?.nativeElement;
 
       // Initialize map with a default location (e.g., from API)
-      const defaultLocation = new googleMaps.LatLng(this.userLocationFromAPI[0].lat, this.userLocationFromAPI[0].lng);
+      const defaultLocation = new googleMaps.LatLng(this.workLocationFromAPI[1].lat, this.workLocationFromAPI[1].lng);
       console.log("defualt location: ", defaultLocation)
       this.map = new googleMaps.Map(mapEl, {
         center: defaultLocation,
-        zoom: 15, // Adjust the zoom level as needed
+        zoom: 19, // Adjust the zoom level as needed
         mapTypeControl: false,
         streetViewControl: false,
         zoomControl: false,
@@ -87,10 +97,10 @@ export class SecondPage implements OnInit, OnDestroy {
       this.polyline.setMap(this.map);
 
       // Initialize polygon (square) around the user's location
-      this.updatePolygon(this.userLocationFromAPI);
+      this.updatePolygon(this.workLocationFromAPI);
 
       // Add marker for initial position
-      this.addMarker(defaultLocation);
+      // this.addMarker(defaultLocation);
 
       // Get user location and update map
       navigator.geolocation.getCurrentPosition(
@@ -260,7 +270,7 @@ export class SecondPage implements OnInit, OnDestroy {
       const userLatLng = new googleMaps.LatLng(this.userLocation.lat, this.userLocation.lng);
 
       // Convert the polygon points into LatLng objects
-      const polygonCoords = this.userLocationFromAPI.map(point => new googleMaps.LatLng(point.lat, point.lng));
+      const polygonCoords = this.workLocationFromAPI.map(point => new googleMaps.LatLng(point.lat, point.lng));
 
       // Create a Polygon using the coordinates
       const polygon = new googleMaps.Polygon({

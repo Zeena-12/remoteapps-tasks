@@ -194,7 +194,7 @@ ion-segment-button.md::part(indicator-background) {
   .details-row {
     display: flex;
     /* Enable flexbox layout */
-    justify-content: start;
+    justify-content: flex-start;
     gap: 5px;
     align-items: center;
   }
@@ -223,7 +223,7 @@ ion-segment-button.md::part(indicator-background) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   gap: 11px;
   font-weight: 500;
 }
@@ -288,7 +288,7 @@ ion-segment-button.md::part(indicator-background) {
   padding: 0px;
   margin: 0px;
   justify-content: center;
-  justify-content: end;
+  justify-content: flex-end;
   justify-content: space-around;
   width: 100%;
   border-bottom: 1px solid #ecf0f3;

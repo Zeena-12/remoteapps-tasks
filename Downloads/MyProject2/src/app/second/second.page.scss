@@ -20,11 +20,10 @@
   padding: 10px;
   /* border: 1px solid red; */
   border-radius: 13px;
-  margin: 9px;
+  margin: 19px;
   position: absolute;
   z-index: 13;
   bottom: 0px;
-  width: 95%;
   // left: 50%;
   // transform: translateX(-42%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,6 +37,7 @@
   margin: 0px;
   padding: 10px;
   z-index: 12;
+  justify-content: center;
 }
 
 .map-container {
@@ -97,8 +97,8 @@ button {
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -143,4 +143,5 @@ button {
 
 .box.show {
   display: block; /* Show when 'show' class is added */
+  display: flex;
 }
