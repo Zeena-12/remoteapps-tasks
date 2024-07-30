@@ -1,122 +1,245 @@
 <ion-content [fullscreen]="true">
   <!-- <div class="background-img"> -->
-    <div class="container">
-      <!-- your content here -->
-      <!-- done -->
-      <div class="personal-profile">
-        <button class="edit-button">
-          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M14.3601 4.07866L15.2869 3.15178C16.8226 1.61607 19.3125 1.61607 20.8482 3.15178C22.3839 4.68748 22.3839 7.17735 20.8482 8.71306L19.9213 9.63993M14.3601 4.07866C14.3601 4.07866 14.4759 6.04828 16.2138 7.78618C17.9517 9.52407 19.9213 9.63993 19.9213 9.63993M14.3601 4.07866L5.83882 12.5999C5.26166 13.1771 4.97308 13.4656 4.7249 13.7838C4.43213 14.1592 4.18114 14.5653 3.97634 14.995C3.80273 15.3593 3.67368 15.7465 3.41556 16.5208L2.32181 19.8021M19.9213 9.63993L11.4001 18.1612C10.8229 18.7383 10.5344 19.0269 10.2162 19.2751C9.84082 19.5679 9.43469 19.8189 9.00498 20.0237C8.6407 20.1973 8.25352 20.3263 7.47918 20.5844L4.19792 21.6782M4.19792 21.6782L3.39584 21.9456C3.01478 22.0726 2.59466 21.9734 2.31063 21.6894C2.0266 21.4053 1.92743 20.9852 2.05445 20.6042L2.32181 19.8021M4.19792 21.6782L2.32181 19.8021" stroke="#92a0b3" stroke-width="1.5"></path> </g></svg>
-        </button>
-        <div class="profile-photo">
-          <img src="/assets/avatar.png" alt="Person's Photo" />
-        </div>
-        <div class="profile-info">
-          <h1 class="profile-name">Hussain Hasan</h1>
-          <p class="profile-role">Frontend Web Development at The Cloud</p>
-        </div>
-      </div>
+  <div class="container">
+    <!-- your content here -->
+    <!-- done -->
 
-      <div class="personal-details">
-        <!-- slider start -->
-        <swiper-container
-          (slidechange)="swiperSlideChanged($event)"
-          [loop]="true"
-          [pagination]="true"
-        >
-          <swiper-slide>
-            <div class="swiper-content">
-              <div class="box box-1">
-                <div class="icon-container">
-                  <i class="icon-girl my-color"></i>
-                </div>
-                <div class="text-container">
-                  <p>National Identity</p>
-                  <p>192920302</p>
-                </div>
-              </div>
-              <div class="box box-2">
-                <div class="icon-container">
-                  <i class="icon-girl my-color"></i>
-                </div>
-                <div class="text-container">
-                  <p>National Identity</p>
-                  <p>192920302</p>
-                </div>
-              </div>
+    <ion-button id="open-modalmm" expand="block">Open Sheet Modal</ion-button>
+
+    <ion-modal trigger="open-modalmm" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ng-template>
+        <div class="block">
+          <div class="personal-profile">
+            <button class="edit-button">
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M14.3601 4.07866L15.2869 3.15178C16.8226 1.61607 19.3125 1.61607 20.8482 3.15178C22.3839 4.68748 22.3839 7.17735 20.8482 8.71306L19.9213 9.63993M14.3601 4.07866C14.3601 4.07866 14.4759 6.04828 16.2138 7.78618C17.9517 9.52407 19.9213 9.63993 19.9213 9.63993M14.3601 4.07866L5.83882 12.5999C5.26166 13.1771 4.97308 13.4656 4.7249 13.7838C4.43213 14.1592 4.18114 14.5653 3.97634 14.995C3.80273 15.3593 3.67368 15.7465 3.41556 16.5208L2.32181 19.8021M19.9213 9.63993L11.4001 18.1612C10.8229 18.7383 10.5344 19.0269 10.2162 19.2751C9.84082 19.5679 9.43469 19.8189 9.00498 20.0237C8.6407 20.1973 8.25352 20.3263 7.47918 20.5844L4.19792 21.6782M4.19792 21.6782L3.39584 21.9456C3.01478 22.0726 2.59466 21.9734 2.31063 21.6894C2.0266 21.4053 1.92743 20.9852 2.05445 20.6042L2.32181 19.8021M4.19792 21.6782L2.32181 19.8021"
+                    stroke="#92a0b3" stroke-width="1.5"></path>
+                </g>
+              </svg>
+            </button>
+            <div class="profile-photo">
+              <img src="/assets/avatar.png" alt="Person's Photo" />
             </div>
-          </swiper-slide>
-
-          <swiper-slide>
-            <div class="swiper-content">
-              <div class="box box-1">
-                <div class="icon-container">
-                  <i class="icon-girl my-color"></i>
-                </div>
-                <div class="text-container">
-                  <p>Birth Day</p>
-                  <p>192920302</p>
-                </div>
-              </div>
-
-              <div class="box box-2">
-                <div class="icon-container">
-                  <i class="icon-girl my-color"></i>
-                </div>
-                <div class="text-container">
-                  <p>Others</p>
-                  <p>192920302</p>
-                </div>
-              </div>
+            <div class="profile-info">
+              <h1 class="profile-name">Hussain Hasan</h1>
+              <p class="profile-role">Frontend Web Development at The Cloud</p>
             </div>
-          </swiper-slide>
-        </swiper-container>
-        <!-- slider end -->
-        <div class="divider"></div>
-      </div>
+          </div>
 
-      <div class="professional-summary">
-        <div class="prof-summary-section experience">
-          <p class="title">Experience</p>
-          <ol class="timeline">
-            <li class="timeline-item">
-              <div class="timeline-dot"></div>
-              <h3 class="timeline-title">Frontend Web Development</h3>
-              <time class="timeline-date">Jun 2019 to Present</time>
-              <p class="timeline-description">The Cloud, Bahrain</p>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot"></div>
-              <h3 class="timeline-title">Frontend Web Development</h3>
-              <time class="timeline-date">Jun 2019 to Present</time>
-            </li>
-          <button class="add-buttom">
-            <i class="icon-plus my-color"></i>
-            Add Experience</button>
-          </ol>
-        </div>
-        <div class="divider"></div>
+          <div class="personal-details">
+            <!-- slider start -->
+            <swiper-container (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-CPR my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>National Identity</p>
+                      <p>192920302</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-passport my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Passport No.</p>
+                      <p>192920302</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-gender my-color" style="font-size: 30px;"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Gender</p>
+                      <p>Male</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-ring my-color" style="font-size: 25px;"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Marital Status</p>
+                      <p>Single</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
 
-        <div class="prof-summary-section education">
-          <p class="title">Education</p>
-          <ol class="timeline">
-            <li class="timeline-item">
-              <div class="timeline-dot"></div>
-              <h3 class="timeline-title">Frontend Web Development</h3>
-              <time class="timeline-date">Jun 2019 to Present</time>
-              <p class="timeline-description">The Cloud, Bahrain</p>
-            </li>
-          <button class="add-buttom">
-            <i class="icon-plus"></i>
-             Add Education</button>
-          </ol>
-        </div>
-        <div class="divider"></div>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-person my-color" style="font-size: 25px;"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>No. of Dependents</p>
+                      <p>34434345</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-internet-stroke my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Nationality</p>
+                      <p>Bahraini</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-calendar-6 my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Date of Birth</p>
+                      <p>12/6/2001</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-location my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Current Location</p>
+                      <p>Bahrain</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-Phone-01 my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Mobile</p>
+                      <p>12321312</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-envelope my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Email</p>
+                      <p>zeenaremoteapps.com</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+            </swiper-container>
+            <!-- slider end -->
+            <div class="divider"></div>
+          </div>
+          <div class="professional-summary">
+            <div class="prof-summary-section experience">
+              <p class="title">Experience</p>
+              <ol class="timeline">
+                <li class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">Frontend Web Development</h3>
+                  <time class="timeline-date">Jun 2019 to Present</time>
+                  <p class="timeline-description">The Cloud, Bahrain</p>
+                </li>
+                <li class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">Frontend Web Development</h3>
+                  <time class="timeline-date">Jun 2019 to Present</time>
+                </li>
+              </ol>
+              <button class="add-buttom">
+                <i class="icon-plus-sign-stroke " style="color: #92a0b3;"></i>
+                Add Experience</button>
+            </div>
+            <div class="divider"></div>
 
-        <!-- Licenses section -->
-        <div class="prof-summaryprof-summary licenses">
-          <!-- Content for licenses -->
+            <div class="prof-summary-section education">
+              <p class="title">Education</p>
+              <ol class="timeline">
+                <li class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">Frontend Web Development</h3>
+                  <time class="timeline-date">Jun 2019 to Present</time>
+                  <p class="timeline-description">The Cloud, Bahrain</p>
+                </li>
+                <button class="add-buttom">
+                  <i class="icon-plus-sign-stroke"  style="color: #92a0b3;"></i>
+                  Add Education</button>
+              </ol>
+            </div>
+            <div class="divider"></div>
+
+            <!-- Licenses section -->
+            <div class="prof-summaryprof-summary licenses">
+              <!-- Content for licenses -->
+            </div>
+          </div>
+          <div class="professional-summary">
+            <div class="prof-summary-section experience">
+              <p class="title">Experience</p>
+              <ol class="timeline">
+                <li class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">Frontend Web Development</h3>
+                  <time class="timeline-date">Jun 2019 to Present</time>
+                  <p class="timeline-description">The Cloud, Bahrain</p>
+                </li>
+                <li class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">Frontend Web Development</h3>
+                  <time class="timeline-date">Jun 2019 to Present</time>
+                </li>
+              </ol>
+              <button class="add-buttom">
+                <i class="icon-plus-sign-stroke " style="color: #92a0b3;"></i>
+                Add Experience</button>
+            </div>
+            <div class="divider"></div>
+
+            <div class="prof-summary-section education">
+              <p class="title">Education</p>
+              <ol class="timeline">
+                <li class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">Frontend Web Development</h3>
+                  <time class="timeline-date">Jun 2019 to Present</time>
+                  <p class="timeline-description">The Cloud, Bahrain</p>
+                </li>
+                <button class="add-buttom">
+                  <i class="icon-plus-sign-stroke"  style="color: #92a0b3;"></i>
+                  Add Education</button>
+              </ol>
+            </div>
+            <div class="divider"></div>
+
+            <!-- Licenses section -->
+            <div class="prof-summaryprof-summary licenses">
+              <!-- Content for licenses -->
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </ng-template>
+    </ion-modal>
+
+
+
+  </div>
   <!-- </div> -->
 </ion-content>

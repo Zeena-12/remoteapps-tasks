@@ -88,6 +88,9 @@
     min-height: 100vh;
   }
 
+  .swiper-pagination-bullet-active{
+    --background: red !important;
+  }
 
 .custom-modal-class{
     --background: pink;

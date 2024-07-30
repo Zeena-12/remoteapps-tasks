@@ -15,20 +15,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  // background-color: #ffffff;
   // height: 120px;
-  padding: 10px;
+  // padding: 10px;
   /* border: 1px solid red; */
-  border-radius: 13px;
-  margin: 19px;
+  // margin: 19px;
   position: absolute;
   z-index: 13;
   bottom: 0px;
   // left: 50%;
   // transform: translateX(-42%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
 
 }
+.center{
+  padding: 10px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  border-radius: 13px;
+
+
+}
+
 
 .box {
   display: flex;
@@ -145,3 +155,4 @@ button {
   display: block; /* Show when 'show' class is added */
   display: flex;
 }
+

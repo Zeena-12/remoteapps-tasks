@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2, OnDestroy } from '
 import { GmapsService } from '../services/gmaps/gmaps.service';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
-
+// import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-second',
   templateUrl: './second.page.html',
@@ -14,8 +14,11 @@ export class SecondPage implements OnInit, OnDestroy {
   map: any;
   watchId: any;
   userLocation = { lat: 0, lng: 0 };
+  locationAccuracy: number = 0;
+  //  loading!: HTMLIonLoadingElement
 
   // Location from API
+  // bni location
   // workLocationFromAPI = [
   //   { lat: 26.23643764228371, lng: 50.54352463551613 },
   //   { lat: 26.23603826536928, lng: 50.5426368243322 },
@@ -24,13 +27,36 @@ export class SecondPage implements OnInit, OnDestroy {
   //   { lat: 26.23582654693048, lng: 50.54379285641762 },
   //   { lat: 26.23643764228371, lng: 50.54352463551613 }
   // ];
-  workLocationFromAPI = [
- {lat: 26.114377200805777, lng: 50.57535602275675},
- { lat: 26.112387844250406, lng: 50.575495497625525 },
- { lat: 26.11246491438421, lng: 50.57237877075022 },
- { lat: 26.11246491438421, lng: 50.57218565170115 },
- { lat: 26.11246491438490, lng: 50.57218565170115 }
-  ];
+
+  // Zeena's home location
+//   workLocationFromAPI = [
+//  {lat: 26.114377200805777, lng: 50.57535602275675},
+//  { lat: 26.112387844250406, lng: 50.575495497625525 },
+//  { lat: 26.11246491438421, lng: 50.57237877075022 },
+//  { lat: 26.11246491438421, lng: 50.57218565170115 },
+//  { lat: 26.11246491438490, lng: 50.57218565170115 }
+//   ];
+// location all bAHRAIN 
+//  workLocationFromAPI = [
+//   { lat: 26.38338811952194, lng: 50.75698121100722 },
+//   { lat: 26.351397194494346, lng: 50.33675416022597 },
+//   { lat: 25.850703248840695, lng: 50.34774048835097 },
+//   { lat: 25.697356177651237, lng: 50.60317261725722 },
+//   { lat: 25.870475519601026, lng: 50.83388550788222 },
+//   { lat: 26.38338811952194, lng: 50.75698121100722 }
+// ];
+// remoteapps location
+workLocationFromAPI = [
+  { lat: 26.237827690105792, lng: 50.54100449408655 },
+  { lat: 26.237387418332933, lng: 50.540938779965686 },
+  { lat: 26.237399447638506, lng: 50.540482804433154 },
+  { lat: 26.237842125217636, lng: 50.54051633204584 },
+  { lat: 26.237827690105792, lng: 50.54100449408655 }
+];
+
+
+
+
 
 
   marker: any;
@@ -50,7 +76,9 @@ export class SecondPage implements OnInit, OnDestroy {
     private gmaps: GmapsService,
     private renderer: Renderer2,
     private alertController: AlertController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    // private loadingController: LoadingController
+
   ) { }
 
   ngOnDestroy(): void {
@@ -59,8 +87,15 @@ export class SecondPage implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void { 
-    this.showBox(0); // Show default box initially
+  async ngOnInit() {
+    this.showBox(0);
+    // // Create the loading spinner
+    // this.loading = await this.loadingController.create({
+    //   message: 'Please wait...',
+    //   spinner: 'crescent', // You can choose different spinner types
+    //   // duration is omitted to ensure the loading spinner stays visible
+    // });
+    // await this.loading.present();
   }
 
   ngAfterViewInit() {
@@ -110,6 +145,7 @@ export class SecondPage implements OnInit, OnDestroy {
           this.userLocation.lng = userPosition.lng();
           console.log('Latitude:', this.userLocation.lat);
           console.log('Longitude:', this.userLocation.lng);
+          this.locationAccuracy = position.coords.accuracy;
 
           // Center the map on the user's location and add/update marker
           this.map.setCenter(userPosition);
@@ -124,6 +160,7 @@ export class SecondPage implements OnInit, OnDestroy {
               const watchPosition = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
               this.userLocation.lat = watchPosition.lat();
               this.userLocation.lng = watchPosition.lng();
+              this.locationAccuracy = position.coords.accuracy;
               console.log('Latitude from watch:', this.userLocation.lat);
               console.log('Longitude from watch:', this.userLocation.lng);
 

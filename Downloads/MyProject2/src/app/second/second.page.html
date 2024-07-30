@@ -19,24 +19,27 @@
     </div>
 
     <div class="bottom-container">
+      <div class="center">
       <!-- Location is not found -->
       <div class="box" >
-        <div><i class="icon-Loading loading" style="color: #00a1d8; font-size: 30px;"></i></div>
+        <!-- <div><i class="icon-Loading loading" style="color: #00a1d8; font-size: 30px;"></i></div> -->
+        <img src="/assets/spinner.gif" style="width: 40px;">
         <p>Your Location is not found</p>
-        <p>Location Accuracy is: 0</p>
+        <p>Location Accuracy is: {{ locationAccuracy }}</p>
       </div>
       <!-- not allowed to punch -->
       <div class="box" >
         <div><i class="icon-location loading" style="color: #00a1d8; font-size: 25px;"></i></div>
         <p>You are not allowed to punch from this location</p>
-        <p>Location Accuracy is: 14</p>
+        <p>Location Accuracy is: {{ locationAccuracy }}</p>
       </div>
       <!-- allow to punch -->
       <div class="box" >
         <div><i class="icon-location loading" style="color: #00a1d8; font-size: 25px;"></i></div>
         <p>You are allowed to punch from this location</p>
-        <p>Location Accuracy is: 14</p>
+        <p>Location Accuracy is: {{ locationAccuracy }}</p>
         <button class="btn-primary">Confirm Punch In</button>
+      </div>
       </div>
     </div>
     
