@@ -33,14 +33,30 @@
       (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
 
-
     <app-status-box class="drop-area" id="finalized" status="Finalized" count="5" [employeesList]="finalized"
       containerColor="container-dark-green" (statusChange)="handleStatusChange($event)"
       (diqualifyChanged)="handleDisqualifyChange($event)">
     </app-status-box>
   </div>
 
+<!-- CV Modal -->
+<ion-modal id="cv-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="block">
+      Block of Content for CV
+      user id: 564
+    </div>
+  </ng-template>
+</ion-modal>
 
-
+<!-- Answers Modal -->
+<ion-modal id="answers-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="block"
+    >Block of Content for Answers
+    user id: 545
+  </div>
+  </ng-template>
+</ion-modal>
 
 </ion-content>

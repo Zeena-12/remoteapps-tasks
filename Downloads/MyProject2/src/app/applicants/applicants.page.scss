@@ -1,0 +1,443 @@
+// start background
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.background-img {
+  position: fixed;
+  /* or absolute if you want it to scroll with content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/youcandoit3.png');
+  /* Add your image URL */
+  background-size: cover;
+  /* Ensure the image covers the entire screen */
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Prevent the image from repeating */
+  z-index: -1;
+  /* Place the image behind other content */
+}
+
+.container {
+  position: relative;
+  /* Position relative to allow z-index on child elements */
+  // z-index: 1; /* Make sure content appears on top of the background */
+  // color: #fff; /* Optional: Change text color for better readability */
+  padding: 20px;
+  /* Optional: Add some padding for your content */
+  color: #92a0b3;
+}
+
+/* If you want to add a semi-transparent overlay */
+.background-img::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Adjust color and transparency */
+  z-index: -1;
+  /* Place the overlay behind the content */
+}
+
+.search-segment-container{
+  background-color: white;
+  // width: 100vh;
+  border-bottom: 1px solid #ecf0f3;
+  padding: 0px 20px 0px 20px;
+}
+
+// end background
+
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 33px;
+  margin-top: 22px;
+  border-radius: 10px;
+  padding: 4px;
+  font-size: small;
+  background-color: #ecf0f3;
+  color: #91a0b3;
+  gap: 6px;
+  padding-left: 9px;
+}
+
+// start segment
+.ion-segment{
+  --background: white
+}
+
+
+ion-segment-button::part(indicator-background) {
+  background: #00abec;
+  --height: 90px;
+}
+
+ion-segment-button.md::part(native) {
+  font-size: 10px;
+  text-transform: none;
+  // height: 62px;
+  color: #92a0b3;
+}
+
+.segment-button-checked.md::part(native) {
+  color: #00abec;
+}
+
+ion-segment-button.md::part(indicator-background) {
+  height: px;
+}
+
+// end segment
+
+// start buttons
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  /* Adjust spacing between buttons */
+  // border: 1px solid #92a0b3;
+  gap: 18px;
+  margin-top: 17px;
+  margin-bottom: 17px;
+
+}
+
+.filter-button,
+.sort-button {
+  padding: 0px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #00abec;
+  height: 37px;
+  width: 100%;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-wrapper button:active {
+  background-color: #f0f0f0; /* Change to light gray on click */
+}
+
+//  end buttons
+
+// start job container
+
+.job-container {
+  border: 1px solid #e8ecf0;
+  padding: 7px;
+  border-radius: 3px;
+  border-radius: 9px;
+  background-color: white;
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+  // position: relative;
+}
+
+
+
+.job-info {
+  border-bottom: 1px solid #ecf0f3;
+  color: #92a0b3;
+  // display: flex;
+  padding: 2px;
+  // align-items: self-end;
+  // justify-content: center;
+  margin-bottom: 4px;
+  padding-bottom: 8px;  
+}
+
+.job-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.box.job-icon {
+  flex: 0 0 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* border: 1px solid #92a0b3; */
+  display: flex;
+  align-items: center;
+  background-color: #eaebf0;
+}
+
+
+.box.details {
+  flex: 0 0 55%;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* justify-content: center; */
+  /* margin-left: 9px; */
+  padding-left: 17px;
+  padding-top: 5px;
+
+  .details-row {
+    display: flex;
+    /* Enable flexbox layout */
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .box.details p {
+    margin: 0;
+    /* Remove default margin for p elements */
+  }
+
+
+  .employment-type {
+    border: 1px solid #b6c0cd;
+    border-radius: 3px;
+    font-size: 9px;
+    padding: 3px;
+    color: #92a0b3;
+    background-color: #ecf0f3;
+  }
+
+
+}
+
+.box.dates {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 11px;
+  font-weight: 500;
+}
+
+.box.dates p:last-child {
+  color: #d26070; /* Set the text color of the last p element to red */
+}
+
+.job-icon {
+
+}
+
+
+
+
+
+.role-info p,
+.candidate-stats p {
+  font-size: 14px;
+}
+
+
+
+.role-name {
+  font-size: 14px;
+  margin: 0px;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.employment-type,
+.vacancies,
+.date,
+.raised-by,
+.recruiter,
+.applied,
+.qualified,
+.shortlisted {
+  color: #92a0b3;
+  /* Adjust text color as needed */
+  margin: 0px;
+}
+
+.vacancies {
+  font-size: 12px;
+}
+
+.date {
+  font-size: 12px;
+}
+
+
+
+// employee
+.employee-info-container {
+  display: flex;
+  padding: 0px;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: px;
+  justify-content: center;
+  justify-content: flex-end;
+  justify-content: space-around;
+  width: 100%;
+  border-bottom: 1px solid #ecf0f3;
+  margin-bottom: 3px;
+  padding-bottom: 5px;
+ gap: 9px;
+}
+
+.employee-info {
+  display: flex;
+  height: 42px;
+  align-items: center;
+  padding: 2px;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.box {
+  /* Optional: Add some styling to the boxes */
+  // padding: 10px;
+  width: 106px;
+}
+
+.box.img {
+  /* Ensure the image box is sized appropriately */
+  width: 30%;
+  /* Adjust as needed */
+  text-align: center;
+  /* Center the image horizontally */
+  height: 28px;
+  width: 28px;
+}
+
+.box.img img {
+  width: 100%;
+  /* Ensure image fills the box */
+  height: auto;
+  /* Maintain aspect ratio */
+  border-radius: 50%;
+  /* Make the image circular */
+}
+
+
+.name-role .role {
+  font-weight: bold;
+  margin: 0px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.name-role .name {
+  font-size: 0.8em;
+    margin: 0px;
+    font-weight: bold;
+}
+
+
+
+.btn {
+  flex: 1;
+    padding: 2px;
+    border: none;
+    color: #92a0b3;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid #92a0b3;
+    padding: 2px;
+    margin: 9px 3px 9px 3px;
+}
+
+ion-fab {
+  bottom: 0;
+  right: 50%;
+  transform: translate(50%, 50%);
+  z-index: 100;
+}
+
+.fab-button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+}
+
+.custom-fab-button {
+  border-radius: 50%; /* Ensures the button is circular */
+  box-shadow: 0px 4px 8px rgba(0, 171, 236, 0.5);
+}
+
+.salary-info-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+    font-size: 11px;
+    font-weight: bold;
+    flex-grow: 1;
+    align-items: start;
+
+    .box{
+      display: flex;
+      //  align-items: flex-start;
+      // width: 100%;
+      gap: 8px;
+      // justify-content: flex-start;
+      flex-grow: 1;
+    }
+}
+
+.box.year-place {
+  width: 65%;
+  /* Adjust as needed */
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  font-size: 18px;
+  gap: 4px;
+}
+
+.year-place .year {
+  font-weight: bold;
+  margin: 0px;
+  font-size: 12px;
+  font-weight: normal;
+  display: flex;
+  gap: 3px;
+}
+
+.year-place .place {
+  font-size: 0.8em;
+    margin: 0px;
+    display: flex;
+    gap: 3px;
+    width: 140px;
+}
+
+
+.text-ellipsis {
+  white-space: nowrap;  /* Prevents the text from wrapping */
+  overflow: hidden;  /* Hides the overflowed text */
+  text-overflow: ellipsis;   /* Displays the ellipsis (...) */
+}
+// end job container

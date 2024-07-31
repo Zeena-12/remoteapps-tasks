@@ -1,0 +1,164 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">vacancies</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="search-segment-container">
+    <!-- start search -->
+    <!-- <div class="search">
+      <i class="icon-search"></i>
+      <p>search...</p>
+    </div> -->
+    <ion-searchbar mode="ios" color="light" placeholder="search"></ion-searchbar>
+    <!-- start segment -->
+    <ion-segment mode="md" value="custom">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pending">
+        <ion-label>Pending</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="rejected">
+        <ion-label>Rejected</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="open">
+        <ion-label>Open</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <!-- end segment -->
+  </div>
+  <div class="container">
+
+
+
+
+    <!-- buttons -->
+    <div class="button-wrapper">
+      <button class="filter-button">
+        <i class="icon-filter-1" style="color: #91a0b3;"></i>
+        Filter
+      </button>
+      <button class="sort-button">
+        <i class="icon-arrow-up-down" style="color: #91a0b3; font-weight: bolder;"></i>
+        Sort
+      </button>
+    </div>
+    <!-- end buttons -->
+
+    <!-- start job -->
+    <div class="job-container">
+      <div class="employee-info-container">
+        <div class="employee-info">
+          <div class="box img">
+            <img src="/assets/avatar3.png" alt="Person's Photo" />
+          </div>
+          <div class="box name-role">
+            <p class="name text-ellipsis">Hussain Alhawaj Mohammed</p>
+            <p class="role text-ellipsis">CEO, RemoteApps RemoteApps</p>
+          </div>
+        </div>
+        <div class="employee-info">
+          <div class="box year-place">
+            <div class="year">
+              <i class="icon-business" style="font-size: 14px; font-weight: 600;"></i>
+              <p class="year">5 Year</p>
+            </div>
+            <div class="place">
+              <i class="icon-location"></i>
+              <p class="place text-ellipsis">Bahrain, manama Financial Harbour</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="salary-info-container">
+        <div class="box">
+          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <p>BHD 400</p>
+        </div>
+        <div class="box">
+          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <p>BHD 600</p>
+        </div>
+      </div>
+    </div>
+    <div class="job-container">
+      <div class="employee-info-container">
+        <div class="employee-info">
+          <div class="box img">
+            <img src="/assets/avatar3.png" alt="Person's Photo" />
+          </div>
+          <div class="box name-role">
+            <p class="name text-ellipsis">Hussain Alhawaj Mohammed</p>
+            <p class="role text-ellipsis">CEO, RemoteApps RemoteApps</p>
+          </div>
+        </div>
+        <div class="employee-info">
+          <div class="box year-place">
+            <div class="year">
+              <i class="icon-business" style="font-size: 14px; font-weight: 600;"></i>
+              <p class="year">5 Year</p>
+            </div>
+            <div class="place">
+              <i class="icon-location"></i>
+              <p class="place text-ellipsis">Bahrain, manama Financial Harbour</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="salary-info-container">
+        <div class="box">
+          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <p>BHD 400</p>
+        </div>
+        <div class="box">
+          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <p>BHD 600</p>
+        </div>
+      </div>
+    </div>
+    <div class="job-container">
+      <div class="employee-info-container">
+        <div class="employee-info">
+          <div class="box img">
+            <img src="/assets/avatar3.png" alt="Person's Photo" />
+          </div>
+          <div class="box name-role">
+            <p class="name text-ellipsis">Hussain Alhawaj Mohammed</p>
+            <p class="role text-ellipsis">CEO, RemoteApps RemoteApps</p>
+          </div>
+        </div>
+        <div class="employee-info">
+          <div class="box year-place">
+            <div class="year">
+              <i class="icon-business" style="font-size: 14px; font-weight: 600;"></i>
+              <p class="year">5 Year</p>
+            </div>
+            <div class="place">
+              <i class="icon-location"></i>
+              <p class="place text-ellipsis">Bahrain, manama Financial Harbour</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="salary-info-container">
+        <div class="box">
+          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <p>BHD 400</p>
+        </div>
+        <div class="box">
+          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <p>BHD 600</p>
+        </div>
+      </div>
+    </div>
+    <!-- end jobs -->
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 40px;">
+    <ion-fab-button color="primary" class="custom-fab-button">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+</ion-content>

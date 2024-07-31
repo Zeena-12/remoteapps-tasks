@@ -179,13 +179,13 @@ modalContent: string = "no content";
     // Implement logic for option selection here
     switch (option.label) {
       case 'Open CV':
-        this.modalContent = 'Content for Open CV';
+        this.openModal('cv-modal');
         break;
-      case 'Disqualify':
-        this.modalContent = 'Content for Disqualify';
+      case 'View Answers':
+        this.openModal('answers-modal');
         break;
       case 'Regret':
-        this.modalContent = 'Content for Regret';
+        
         break;
 
       default:
@@ -199,6 +199,14 @@ modalContent: string = "no content";
     this.dismissModal();
   }
 
+  async openModal(modalId: string) {
+    const modal = document.getElementById(modalId) as HTMLIonModalElement;
+    if (modal) {
+      await modal.present();
+    } else {
+      console.error(`Modal with ID ${modalId} not found.`);
+    }
+  }
 
   dismissModal() {
     // Implement dismiss logic here (e.g., close the modal)
