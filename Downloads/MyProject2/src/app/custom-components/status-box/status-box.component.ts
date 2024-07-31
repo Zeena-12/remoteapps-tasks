@@ -134,10 +134,11 @@ modalContent: string = "no content";
     });
   }
 
-  async openActionSheet(status: string) {
+  async openActionSheet(candidate: any) {
+    console.log("what is it : ", candidate.status);
     let options: any = [];
 
-    if (status === 'applied' || status === 'shortlisted' || status === 'interviewed') {
+    if (candidate.status === 'applied' || candidate.status === 'shortlisted' || candidate.status === 'interviewed') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
         { label: 'Disqualify', icon: '/assets/calendar.svg' },
@@ -147,7 +148,7 @@ modalContent: string = "no content";
       ];
     }
 
-    if (status === 'offered' || status === 'finalized') {
+    if (candidate.status === 'offered' || candidate.status === 'finalized') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
         { label: 'Accept Offer', icon: '/assets/calendar.svg' },

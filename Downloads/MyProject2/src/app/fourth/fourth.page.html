@@ -43,8 +43,10 @@
 <ion-modal id="cv-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="block">
-      Block of Content for CV
-      user id: 564
+      model for cv 
+      <p>User ID: {{ candidate?.id }}</p>
+      <p>Name: {{ candidate?.name }}</p>
+      <p>Role: {{ candidate?.status }}</p>
     </div>
   </ng-template>
 </ion-modal>
@@ -52,9 +54,11 @@
 <!-- Answers Modal -->
 <ion-modal id="answers-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
-    <div class="block"
-    >Block of Content for Answers
-    user id: 545
+    model for answer 
+    <div class="block">
+      <p>User ID: {{ candidate?.id }}</p>
+      <p>Name: {{ candidate?.name }}</p>
+      <p>Role: {{ candidate?.status }}</p>
   </div>
   </ng-template>
 </ion-modal>
