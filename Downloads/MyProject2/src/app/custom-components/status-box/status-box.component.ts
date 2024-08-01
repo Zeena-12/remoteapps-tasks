@@ -9,6 +9,10 @@ import { ModalController } from '@ionic/angular';
 import { ActionSheetComponent } from '../action-sheet/action-sheet.component';
 import { LongPressDirective } from 'src/app/directives/long-press/long-press.directive';
 import { CustomModelComponent } from '../custom-model/custom-model.component';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -28,7 +32,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
   @Output() diqualifyChanged = new EventEmitter<{ id: number, newDisqualified: boolean }>();
 
-
+  @Output() openModalEvent = new EventEmitter<{ type: any, data: any }>();
   disqualify: string = '';
 
 
@@ -37,6 +41,9 @@ modalContent: string = "no content";
 @ViewChild('myModal') myModal: any;
 
 
+cvArray: any;
+  answersArray: any;
+selectedCandidateId: any;
 
   gestureArray: Gesture[] = [];
   @ViewChildren(ProfileCardComponent, { read: ElementRef }) items!: QueryList<ElementRef>;
@@ -61,6 +68,7 @@ modalContent: string = "no content";
     private router: Router,
     private alertController: AlertController,
     private modalController: ModalController,
+    private candidateService: CandidateStatusService
   ) {
 
   }
@@ -104,9 +112,6 @@ modalContent: string = "no content";
     }
   }
 
-
-
-
   async presentConfirmAlert(): Promise<boolean> {
     return new Promise(async (resolve) => {
       const alert = await this.alertController.create({
@@ -137,6 +142,7 @@ modalContent: string = "no content";
   async openActionSheet(candidate: any) {
     console.log("what is it : ", candidate.status);
     let options: any = [];
+    this.selectedCandidateId = candidate.id;
 
     if (candidate.status === 'applied' || candidate.status === 'shortlisted' || candidate.status === 'interviewed') {
       options = [
@@ -175,58 +181,72 @@ modalContent: string = "no content";
     return await modal.present();
   }
 
-  handleOptionSelected(option: any) {
+
+  async handleOptionSelected(option: any) {
+
     console.log('Selected Option:', option.label);
-    // Implement logic for option selection here
-    switch (option.label) {
-      case 'Open CV':
-        this.openModal('cv-modal');
-        break;
-      case 'View Answers':
-        this.openModal('answers-modal');
-        break;
-      case 'Regret':
-        
-        break;
 
-      default:
-        break;
-    }
-    if (this.myModal) {
-      this.myModal.open();
+    const candidateId = this.selectedCandidateId;
+
+    if (!candidateId) {
+      console.error('No candidate ID selected');
+      return;
     }
 
-    // Optionally, dismiss the action sheet after an option is selected
-    this.dismissModal();
-  }
-
-  async openModal(modalId: string) {
-    const modal = document.getElementById(modalId) as HTMLIonModalElement;
-    if (modal) {
-      await modal.present();
+    let dataType: 'cv' | 'answers';
+    
+    if (option.label === 'Open CV') {
+      dataType = 'cv';
+    } else if (option.label === 'View Answers') {
+      dataType = 'answers';
     } else {
-      console.error(`Modal with ID ${modalId} not found.`);
+      console.error('Unsupported option selected');
+      return;
+    }
+
+    try {
+      const details = await firstValueFrom(this.getCandidateDetails(candidateId, dataType));
+      console.log('Emitting data:', { type: dataType, data: details });
+      this.openModalEvent.emit({ type: dataType, data: details });
+    } catch (error) {
+      console.error('Error fetching candidate details:', error);
     }
   }
+
+  
+  // async openModal(modalId: string) {
+  //   const modal = document.getElementById(modalId) as HTMLIonModalElement;
+  //   if (modal) {
+  //     await modal.present();
+  //   } else {
+  //     console.log(`Modal with ID ${modalId} not found.`);
+  //   }
+  // }
 
   dismissModal() {
     // Implement dismiss logic here (e.g., close the modal)
-    console.log('Modal dismissed');
+    console.log('Modal dismissed for select option');
     this.modalController.dismiss();
   }
 
-  openCV() {
-    console.log("Open CV from open CV");
-    // this.openModal();
+  getCandidateDetails(id: number, arrayName: string) {
+    console.log("Calling getCandidateDetails");
+    return this.candidateService.getCandidateById(id).pipe(
+      map(candidateDetails => {
+        if (arrayName === 'cv') {
+          console.log("Array name is cv");
+          this.cvArray = candidateDetails.cv;
+        } else if (arrayName === 'answers') {
+          console.log("Array name is answers");
+          this.answersArray = candidateDetails.answers;
+        }
+        console.log('Candidate Details:', candidateDetails);
+        return candidateDetails;
+      }),
+      catchError(error => {
+        console.error('Error fetching candidate details:', error);
+        return of(null); // Return an observable with null if there's an error
+      })
+    );
   }
-
-
-  // async openModal() {
-  //   const modal = await this.modalController.create({
-  //     component: CustomModelComponent,
-  //     // cssClass: 'custom-modal-class', // Optional: Add custom CSS class for styling
-  //     backdropDismiss: true, // Optional: Close modal on backdrop click
-  //   });
-  //   await modal.present();
-  // }
 }

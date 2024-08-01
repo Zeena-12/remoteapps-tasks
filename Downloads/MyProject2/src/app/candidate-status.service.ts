@@ -223,7 +223,48 @@ export class CandidateStatusService {
       return of();
     }
 
+    private dummyData = [
+      {
+      id: 1,
+      cv: {
+        passportNumber: 'X1234567',
+        birthday: '1990-01-01',
+        skills: ['JavaScript', 'TypeScript', 'Angular'],
+        qualifications: ['BSc Computer Science', 'MSc Software Engineering']
+      },
+      answers: [
+        { question: 'What is your greatest strength?', answer: 'Problem-solving skills' },
+        { question: 'Why should we hire you?', answer: 'I have a proven track record of success in similar roles' },
+        { question: 'Where do you see yourself in 5 years?', answer: 'In a leadership position within the company' }
+      ]
+    },
+    {
+      id: 1,
+      cv: {
+        passportNumber: 'X1234567',
+        birthday: '1990-01-01',
+        skills: ['JavaScript', 'TypeScript', 'Angular'],
+        qualifications: ['BSc Computer Science', 'MSc Software Engineering']
+      },
+      answers: [
+        { question: 'What is your greatest strength?', answer: 'Problem-solving skills' },
+        { question: 'Why should we hire you?', answer: 'I have a proven track record of success in similar roles' },
+        { question: 'Where do you see yourself in 5 years?', answer: 'In a leadership position within the company' }
+      ]
+    },
+    ]
+     
 
+
+    getCandidateById(id: number): Observable<any> {
+      console.log("Calling getCandidateById in service with id:", id);
+      
+      // Find the candidate with the given ID
+      const candidate = this.dummyData.find(candidate => candidate.id === id);
+      
+      // Return the candidate data as an observable
+      return of(candidate || {});
+    }
     
     
 

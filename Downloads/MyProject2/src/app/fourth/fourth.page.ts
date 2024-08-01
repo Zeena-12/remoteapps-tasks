@@ -18,6 +18,9 @@ export class FourthPage implements OnInit, AfterViewInit {
   offered: Candidate[] = [];
   finalized: Candidate[] = [];
 
+  cvData: any = null;
+  answersData: any[] = [];
+
   constructor(private candidateService: CandidateStatusService,
     private alertController: AlertController,
     private modalController: ModalController,
@@ -84,9 +87,34 @@ console.log()
 
 
 
-  // long press
+  handleOpenModalEvent(event: { type: string, data: any }) {
+    console.log('Received event:', event);
+    if (event.type === 'cv') {
+      this.cvData = event.data;
+      console.log("from inside ",  this.cvData);
+      this.openModal('cv-modal');
 
+    } else if (event.type === 'answers') {
+      this.answersData = event.data;
+      this.openModal('answers-modal');
+    }
+  }
 
+  async openModal(modalId: string) {
+    console.log("from inside openModel ", this.cvData);
+    const modal = document.getElementById(modalId) as HTMLIonModalElement;
+    if (modal) {
+      await modal.present();
+    } else {
+      console.log(`Modal with ID ${modalId} not found.`);
+    }
+  }
+
+  dismissModal() {
+    // Implement dismiss logic here (e.g., close the modal)
+    console.log('Modal dismissed for select option');
+    this.modalController.dismiss();
+  }
 
 
 div(){
