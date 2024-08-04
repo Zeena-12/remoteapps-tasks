@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient,HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidateStatusService {
+  private jsonFilePath = 'assets/data.json';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
     // dummy data
     private candidates: Candidate[] = [
@@ -200,8 +202,13 @@ export class CandidateStatusService {
   
     ];
 
-    getCandidateList(): Observable<Candidate[]> {
-      return of(this.candidates);
+    getCandidateList(): Observable<any[]> {
+      return this.http.get<any[]>(this.jsonFilePath).pipe(
+        catchError(error => {
+          console.error('Error fetching data', error);
+          return of([]); // Return an empty array in case of error
+        })
+      );
     }
 
     updateCandidateStatus(id: number, newStatus: string): Observable<void> {
@@ -266,8 +273,11 @@ export class CandidateStatusService {
       return of(candidate || {});
     }
     
-    
-
+    private handleError(error: HttpErrorResponse): Observable<any> {
+      // Log the error or display a user-friendly message
+      console.error('An error occurred:', error.message);
+      return of([]); // Return an empty array or a suitable fallback
+    }
 }
 
 export interface Candidate {
@@ -282,3 +292,52 @@ export interface Candidate {
   disqualified: boolean;
   [key: string]: any; // This allows accessing any property by string index
 }
+
+export interface Application {
+  ApplicationID: number;
+  EmployeeID: number;
+  ApplicantID: number;
+  FirstName: string;
+  OfferAttachmentName: string;
+  ApplicationDate: string;
+  CurrentCompany: string;
+  CurrentPosition: string;
+  Disqualified: boolean;
+  DisqualifyReason: string;
+  Email: string;
+  Finalized: boolean;
+  ImageName: string;
+  InterviewResult: string;
+  JoinDate: string;
+  LastName: string;
+  Nationality: string;
+  Notified: boolean;
+  OfferAccepted: boolean;
+  // OfferAttachmentName: string;
+  OfferAttachmentSize: string;
+  OfferSent: boolean;
+  OfferedDate: string;
+  OfferedSalary: string;
+  OnBoardingCompleted: boolean;
+  Picture: boolean;
+  PreOfferSent: boolean;
+  ReferredByEmail: string;
+  ReferredByName: string;
+  SentOn: string;
+  SourceOfLead: string;
+  Status: string;
+  ThumbsDown: string;
+  ThumbsUp: string;
+  Thumps: string;
+}
+
+export interface Parameters {
+  list: Application[];
+}
+
+export interface ApiResponse {
+  Succeeded: boolean;
+  Message: string;
+  Parameters: Parameters;
+}
+

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ActionSheetComponent } from '../custom-components/action-sheet/action-sheet.component';
+import { catchError, of } from 'rxjs';
 
 
 @Component({
@@ -12,6 +13,10 @@ import { ActionSheetComponent } from '../custom-components/action-sheet/action-s
   styleUrls: ['./fourth.page.scss']
 })
 export class FourthPage implements OnInit, AfterViewInit {
+
+  // candidates$ = this.candidateService.getCandidateList();
+  candidates: any[] = [];
+
   applied: Candidate[] = [];
   shortlisted: Candidate[] = [];
   interviewed: Candidate[] = [];
@@ -27,8 +32,20 @@ export class FourthPage implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.loadCandidates();
+    // this.loadCandidates();
+    this.candidateService.getCandidateList().pipe(
+      catchError(error => {
+        console.error('Error fetching data', error);
+        return of([]); // Return an empty array in case of error
+      })
+    ).subscribe(data => {
+      console.log(data);
+      this.candidates = data;
+      console.log("data found", this.candidates);
+    });
+  
   }
+  
 
   ngAfterViewInit(): void {
 console.log()

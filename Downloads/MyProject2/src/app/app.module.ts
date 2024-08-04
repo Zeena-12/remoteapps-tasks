@@ -19,8 +19,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-
-
 import { FilePath } from '@ionic-native/file-path/ngx';
 
 
