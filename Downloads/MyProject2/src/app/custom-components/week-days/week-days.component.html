@@ -1,0 +1,12 @@
+<div class="week-container">
+  <div class="day-box" *ngFor="let day of weekDays">
+    <div class="day-name">{{ day.day }}</div>
+    <div class="day-date">{{ day.date }}</div>
+  </div>
+</div>
+
+<div class="time-container">
+  <div class="time-box" *ngFor="let time of times">
+    {{ time.time }}
+  </div>
+</div>

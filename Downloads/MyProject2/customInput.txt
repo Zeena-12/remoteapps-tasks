@@ -1,0 +1,10 @@
+      <div class="p-r m-5 ta-c">
+        <div class="inputsWrapper">
+          <div class="inputBox">
+            <div class="input-title gray-title">{{TitleLabel}}</div>
+            <div class="text-input-gray">
+              <ion-input type="text" [(ngModel)]="Title"></ion-input>
+            </div>
+          </div>
+        </div>
+      </div>

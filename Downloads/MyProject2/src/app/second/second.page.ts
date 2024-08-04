@@ -54,11 +54,6 @@ workLocationFromAPI = [
   { lat: 26.237827690105792, lng: 50.54100449408655 }
 ];
 
-
-
-
-
-
   marker: any;
   polyline: any;
   path: any[] = [];
@@ -89,13 +84,7 @@ workLocationFromAPI = [
 
   async ngOnInit() {
     this.showBox(0);
-    // // Create the loading spinner
-    // this.loading = await this.loadingController.create({
-    //   message: 'Please wait...',
-    //   spinner: 'crescent', // You can choose different spinner types
-    //   // duration is omitted to ensure the loading spinner stays visible
-    // });
-    // await this.loading.present();
+
   }
 
   ngAfterViewInit() {

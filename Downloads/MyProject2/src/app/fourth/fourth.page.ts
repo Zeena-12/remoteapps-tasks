@@ -122,6 +122,10 @@ div(){
   alert("ggg");
 }
 
+swiperSlideChanged(e: any){
+  console.log('change:', e);
+}
+
 }
 
 

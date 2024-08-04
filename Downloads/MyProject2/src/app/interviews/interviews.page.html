@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true">
+  <!-- <app-week-days></app-week-days> -->
+
+  <div class="week-days">
+    <button *ngFor="let day of weekDays" 
+            (click)="selectDay(day.day)" 
+            [class.active]="selectedDay === day.day">
+      {{ day.day }} {{ day.date }}
+    </button>
+  </div>
+  
+  <div class="time-container" *ngIf="times[selectedDay]">
+    <div class="time-box" *ngFor="let time of times[selectedDay]">
+      <div class="time">{{ time.time }}</div>
+      <div class="people">
+        <div class="box-people" *ngFor="let person of time.people">
+          <div class="column column-image">
+            <img src="{{person.image}}" alt="Person Image">
+            <div class="likes-dislikes">
+              <i class="icon-like"></i>
+              <p>{{person.numberOfLikes}}</p>
+              <i class="icon-like"></i>
+              <p>{{person.numberOfDislike}}</p>
+            </div>
+          </div>
+          <div class="column column-info">
+            <p class="name">{{ person.name }}</p>
+            <p class="nationality">{{ person.nationality }}</p>
+            <p class="interview-type">{{ person.interviewType }}</p>
+          </div>
+        </div>
+        
+        <!-- Display a message if no interviews are scheduled -->
+        <!-- <div *ngIf="!time.people.length" class="no-interviews">
+          No interviews scheduled
+        </div> -->
+      </div>
+    </div>
+  </div>
+  
+  
+  
+</ion-content>

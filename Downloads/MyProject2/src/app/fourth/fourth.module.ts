@@ -9,6 +9,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CustomComponentsModule } from '../custom-components.module';
 import { DirectivesModule } from '../directives.module';
 // import { LongPressDirective } from '../directives/long-press/long-press.directive';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 
 import { FourthPage } from './fourth.page';
@@ -23,6 +25,8 @@ import { FourthPage } from './fourth.page';
     CustomComponentsModule,
     DirectivesModule
   ],
-  declarations: [FourthPage]
+  declarations: [FourthPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class FourthPageModule {}

@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     // list of candidates
-    path: '',
+    path: 'fourth',
     loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
   },
   {
@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'applicants',
     loadChildren: () => import('./applicants/applicants.module').then( m => m.ApplicantsPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./interviews/interviews.module').then( m => m.InterviewsPageModule)
   },
 
 

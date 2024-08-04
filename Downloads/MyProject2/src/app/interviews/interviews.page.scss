@@ -1,0 +1,108 @@
+.week-days {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .week-days button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    padding-top:20px;
+    padding-bottom:20px;
+    color: #92a0b3;
+  }
+  
+  .week-days button.active {
+    background-color: #00abed;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .time-container {
+    margin: 0 auto;
+    max-width: 800px; /* Adjust as needed */
+    background-color: #f6f8f9;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 20px;
+  }
+  
+  .time-box {
+    display: flex;
+    align-items: flex-start;
+    // border: 1px solid #ccc; /* Optional: Add border */
+    padding: 10px; /* Optional: Add padding */
+    padding-bottom: 0px;
+  }
+  
+  .time {
+    // flex-grow: 1;
+    // flex: 0 0 30%;
+    color: #92a0b3;
+  }
+  
+  .people {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgb(219, 216, 216);
+    margin: 0px;
+  }
+  
+  .box-people {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 6px;
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .column-image {
+    flex: 1; /* Adjust if you want different column widths */
+    align-items: center;
+  }
+  
+  .column-image img {
+    width: 50px; /* Adjust width as needed */
+    height: 50px; /* Adjust height as needed */
+    border-radius: 50%; /* Makes the image rounded */
+    object-fit: cover; /* Ensures the image covers the area */
+  }
+  
+  .likes-dislikes {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Adjust spacing as needed */
+    background-color: #f7f5f5;
+  }
+  
+  .likes-dislikes p {
+    margin: 0 5px; /* Adjust spacing between likes and dislikes */
+  }
+  
+  .column-info {
+    flex: 2; /* Adjust if you want different column widths */
+    padding-left: 20px; /* Adjust spacing between columns */
+  }
+  
+  .name, .nationality, .interview-type {
+    margin: 5px 0; /* Adjust spacing between text elements */
+  }
+  .interview-type {
+    background-color: #00abec;
+    color: white;
+  }
+  
+  
+  .no-interviews {
+    color: #999;
+    font-style: italic;
+  }
+  

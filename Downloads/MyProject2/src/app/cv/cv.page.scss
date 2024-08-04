@@ -7,51 +7,22 @@ html, body {
     width: 100%;
   }
   
-  .background-img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/assets/youcandoit.png'); 
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1; 
-  }
-  
-  .container {
-    position: relative;
-    padding: 20px;
-  }
-  
-  /* If you want to add a semi-transparent overlay */
-  .background-img::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
-    z-index: -1;
-  }
-  
 
-// end background
+.cv-container{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid orange;
 
-// start personal-profile
-
+  // start personal-profile
 .personal-profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0.7rem;
-    // border: 1px solid #92a0b3;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.7rem;
+  // border: 1px solid #92a0b3;
+  position: relative;
 
-  }
   .edit-button {
     position: absolute;
     top: 10px;
@@ -98,31 +69,132 @@ html, body {
   }
   
 
-
+}
 // end personal-profile
 
-
-
-
-
-
-.cv-container{
-    // border: 1px solid red;
-    // padding: 20px;
-    // padding-left: 20px;
-    // padding-right: 20px;
+// start swiper css
+.personal-details{
+swiper-container{
+  // border: 1px solid #92a0b3;
+  height: 130px;
+  margin-top: 12px;
+  border-radius: 12px;
+  background-color: #ecf0f3;
 }
 
-.personal-info-container{
-    // border: 1px solid green;
-    height: 200px;
+swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // border: 3px solid red;
+  // padding: 200px;
+}
+
+.content-box {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Ensure full width */
+}
+
+.my-color{
+color: #92a0b3;
+font-weight: lighter;
+font-size: 20px;
+}
+
+.swiper-content {
+display: flex;
+flex-direction: column;
+width: 100%;
+padding: 5px;
+margin-bottom: 10px;
+margin-top: 9px;
+
+  .text-container p:first-of-type {
+    font-weight: bolder;
+    font-size: small;
+  }
+  .text-container p:last-of-type {
+    font-weight: 500;
+    font-size: small;
+  }
+
+}
+
+.box {
+  height: 45px;
+  // border: 1px solid #92a0b3;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 0; */
+  border-radius: 7px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 7px;
+  margin-bottom: 0px;
+  background-color: white;
+}
+
+// Remove margin from the last box to avoid extra space at the bottom
+.swiper-content .box:last-child {
+  margin-bottom: 20px; // Remove bottom margin for the last box
+}
+
+.box .icon-container {
+  flex: 0 0 10%; // Takes up 30% of the width
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box .text-container {
+  flex: 1; // Takes up the remaining width
+  padding: 0 10px; // Add padding if needed
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 0px
+}
+
+.box p {
+  margin: 0;
+  color: #92a0b3; // Adjust color as needed
+}
+
+.divider {
+  border-top: 1px solid #eaebf0; // Adjust color as needed
+  margin: 20px 0; // Space above and below the line
+  width: 100%; // Full width
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 4px;
+}
+
+.swiper-pagination-bullet {
+  margin: 0px 4px;
+  border-radius: 3px;
+  height: 6px;
+  width: 13px;
+  --bullet-background-active: var(--cloudBlue);
+  --bullet-background: #b0b7bd;
+  opacity: 1;
 }
 
 
+.swiper-pagination-bullet-active {
+  background: var(--bullet-background-active);
+}
+}
+// end swiper 
 
+// start professional-summary
+.professional-summary{
 .title{
   margin-top: 1.7rem;
-  color: #92a0b3;
+  color: #b39292;
   font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 0px;
@@ -178,10 +250,7 @@ ol{
     color: #92a0b3; 
     margin-left: 10px;
 
-    
 }
-
-
 
 /* Style for the title */
 .timeline-title {
@@ -268,159 +337,7 @@ ol{
   margin-top: 12px;
 }
 
-
-// start swiper css
-
-swiper-container{
-    // border: 1px solid #92a0b3;
-    height: 130px;
-    margin-top: 12px;
-    border-radius: 12px;
-    background-color: #ecf0f3;
 }
-
-swiper-slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    // border: 3px solid red;
-    // padding: 200px;
-}
-
-.content-box {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Center items vertically */
-    width: 100%; /* Ensure full width */
-}
-
-.my-color{
-  color: #92a0b3;
-  font-weight: lighter;
-  font-size: 20px;
-}
-
-.swiper-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-  margin-top: 9px;
-
-    .text-container p:first-of-type {
-      font-weight: bolder;
-      font-size: small;
-    }
-    .text-container p:last-of-type {
-      font-weight: 500;
-      font-size: small;
-    }
-
-  }
-  
-  .box {
-    height: 45px;
-    // border: 1px solid #92a0b3;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    /* margin-bottom: 0; */
-    border-radius: 7px;
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-top: 7px;
-    margin-bottom: 0px;
-    background-color: white;
-  }
-  
-  // Remove margin from the last box to avoid extra space at the bottom
-  .swiper-content .box:last-child {
-    margin-bottom: 20px; // Remove bottom margin for the last box
-  }
-
-  .box .icon-container {
-    flex: 0 0 10%; // Takes up 30% of the width
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .box .text-container {
-    flex: 1; // Takes up the remaining width
-    padding: 0 10px; // Add padding if needed
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 0px
-  }
-  
-  .box p {
-    margin: 0;
-    color: #92a0b3; // Adjust color as needed
-  }
-
-  .divider {
-    border-top: 1px solid #eaebf0; // Adjust color as needed
-    margin: 20px 0; // Space above and below the line
-    width: 100%; // Full width
-  }
-
-  .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
-    margin: 0 4px;
-}
-
-  .swiper-pagination-bullet {
-    margin: 0px 4px;
-    border-radius: 3px;
-    height: 6px;
-    width: 13px;
-    --bullet-background-active: var(--cloudBlue);
-    --bullet-background: #b0b7bd;
-    opacity: 1;
-}
-
-
-  .swiper-pagination-bullet-active {
-    background: var(--bullet-background-active);
-}
-
-  
-
-// end swiper css
-
-
-// start professional-summary
-
 // end professional-summary
 
-// .timeline-item:not(:last-child) .timeline-dot::after {
-//   content: "";
-//   position: absolute;
-//   left: 50%;
-//   top: 10px;
-//   width: 2px;
-//   height: 100%;
-//   background-color: #38b4e9; /* Line color */
-//   transform: translateX(-50%);
-// }
-
-// model
-.block {
-  width: 100%;
-  height: calc(100vh - 20px);
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  padding: 20px;
-  // margin-bottom: 30px;
-  overflow-x: auto;
 }
-
-ion-modal {
-  --height: auto;
-}
-
-
-
-
