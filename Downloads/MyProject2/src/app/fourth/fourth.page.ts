@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { CandidateStatusService, Candidate } from '../candidate-status.service';
+import { CandidateStatusService } from '../candidate-status.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -17,11 +17,11 @@ export class FourthPage implements OnInit, AfterViewInit {
   // candidates$ = this.candidateService.getCandidateList();
   candidates: any[] = [];
 
-  applied: Candidate[] = [];
-  shortlisted: Candidate[] = [];
-  interviewed: Candidate[] = [];
-  offered: Candidate[] = [];
-  finalized: Candidate[] = [];
+  Applied: any[] = [];
+  Shortlisted: any[] = [];
+  Interviewed: any[] = [];
+  Offered: any[] = [];
+  Finalized: any[] = [];
 
   cvData: any = null;
   answersData: any[] = [];
@@ -29,64 +29,100 @@ export class FourthPage implements OnInit, AfterViewInit {
   constructor(private candidateService: CandidateStatusService,
     private alertController: AlertController,
     private modalController: ModalController,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    // this.loadCandidates();
+    //  this.loadCandidates();
+    // this.candidateService.getCandidateList().pipe(
+    //   catchError(error => {
+    //     console.error('Error fetching data', error);
+    //     return of([]); // Return an empty array in case of error
+    //   })
+    // ).subscribe(data => {
+    //   console.log(data);
+    //   this.candidates = data;
+    //   console.log("data found", this.candidates);
+    // });
+    this.loadCandidates(); 
+
+  }
+
+
+  ngAfterViewInit(): void {
+    console.log()
+  }
+
+  // loadCandidates() {
+  //   this.candidateService.getCandidateList().subscribe((data: any[]) => {
+  //     const itemsByStatus: { [key: string]: any[] } = {
+  //       Applied: [],
+  //       Shortlisted: [],
+  //       Interviewed: [],
+  //       Offered: [],
+  //       Finalized: [],
+  //     };
+
+  //     // Group items by status
+  //     data.forEach(item => {
+  //       const status = item.Status; // Use status as it is, with the first letter capitalized
+  //       if (itemsByStatus.hasOwnProperty(status)) {
+  //         itemsByStatus[status].push(item);
+  //       }
+  //     });
+
+  //     // Assign to respective arrays
+  //     this.Applied = itemsByStatus['Applied'];
+  //     this.Shortlisted = itemsByStatus['Shortlisted'];
+  //     this.Interviewed = itemsByStatus['Interviewed'];
+  //     this.Offered = itemsByStatus['Offered'];
+  //     this.Finalized = itemsByStatus['Finalized'];
+  //   });
+  //   console.log("list applied: ", this.Applied);
+  // }
+  loadCandidates() {
     this.candidateService.getCandidateList().pipe(
       catchError(error => {
         console.error('Error fetching data', error);
         return of([]); // Return an empty array in case of error
       })
     ).subscribe(data => {
-      console.log(data);
-      this.candidates = data;
-      console.log("data found", this.candidates);
-    });
-  
-  }
-  
-
-  ngAfterViewInit(): void {
-console.log()
-  }
-
-  loadCandidates() {
-    this.candidateService.getCandidateList().subscribe((data: Candidate[]) => {
-      const itemsByStatus: { [key: string]: Candidate[] } = {
-        applied: [],
-        shortlisted: [],
-        interviewed: [],
-        offered: [],
-        finalized: []
+      const itemsByStatus: { [key: string]: any[] } = {
+        Applied: [],
+        Shortlisted: [],
+        Interviewed: [],
+        Finalized: [],
+        Offered: []
       };
-
+  
       // Group items by status
       data.forEach(item => {
-        const { status } = item;
+        const status = item.Status; // Use status as it is
         if (itemsByStatus.hasOwnProperty(status)) {
           itemsByStatus[status].push(item);
         }
       });
-
+  
       // Assign to respective arrays
-      this.applied = itemsByStatus['applied'];
-      this.shortlisted = itemsByStatus['shortlisted'];
-      this.interviewed = itemsByStatus['interviewed'];
-      this.offered = itemsByStatus['offered'];
-      this.finalized = itemsByStatus['finalized'];
+      this.Applied = itemsByStatus['Applied'];
+      this.Shortlisted = itemsByStatus['Shortlisted'];
+      this.Interviewed = itemsByStatus['Interviewed'];
+      this.Finalized = itemsByStatus['Finalized'];
+      this.Offered = itemsByStatus['Offered'];
+      console.log("one list ", this.Applied);
     });
   }
+  
 
-  handleStatusChange(event: { id: number,newStatus: string }) {
-    this.candidateService.updateCandidateStatus(event.id,event.newStatus).subscribe(() => {
+
+  handleStatusChange(event: { id: number, newStatus: string }) {
+    this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
       this.loadCandidates();
     });
     // console.log("calling handleStatusChange in fourth");
   }
 
-  handleDisqualifyChange(event: { id: number,newDisqualified: boolean }) {
-    this.candidateService.updateCandidateDisqualified(event.id,event.newDisqualified).subscribe(() => {
+  handleDisqualifyChange(event: { id: number, newDisqualified: boolean }) {
+    this.candidateService.updateCandidateDisqualified(event.id, event.newDisqualified).subscribe(() => {
       this.loadCandidates();
     });
     // console.log("calling handleDisqualifyChange in fourth");
@@ -108,7 +144,7 @@ console.log()
     console.log('Received event:', event);
     if (event.type === 'cv') {
       this.cvData = event.data;
-      console.log("from inside ",  this.cvData);
+      console.log("from inside ", this.cvData);
       this.openModal('cv-modal');
 
     } else if (event.type === 'answers') {
@@ -134,14 +170,14 @@ console.log()
   }
 
 
-div(){
-  console.log("wooooow well done");
-  alert("ggg");
-}
+  div() {
+    console.log("wooooow well done");
+    alert("ggg");
+  }
 
-swiperSlideChanged(e: any){
-  console.log('change:', e);
-}
+  swiperSlideChanged(e: any) {
+    console.log('change:', e);
+  }
 
 }
 

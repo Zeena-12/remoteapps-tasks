@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "https://api.remoteapps.com",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
+  

@@ -14,8 +14,8 @@
       <span style="color: red">{{ dislikeCount }}</span>
     </div>
     <div style="color: #a3acbb; font-weight: 400">{{ role }}</div>
-    <div [ngClass]="{ hidden: !disqualified }" class="disqualified-label">
-      {{ disqualified ? "Disqualified" : "" }}
+    <div [ngClass]="{ hidden: !Disqualified }" class="disqualified-label">
+      {{ Disqualified ? "Disqualified" : "" }}
     </div>
   </div>
   <!-- <app-dropdown  *ngIf="FinalizedDropdownVisible" (optionSelected)="optionSelected($event)">

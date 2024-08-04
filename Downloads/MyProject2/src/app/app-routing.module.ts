@@ -45,19 +45,18 @@ const routes: Routes = [
     loadChildren: () => import('./applicants/applicants.module').then( m => m.ApplicantsPageModule)
   },
   {
-    path: '',
+    path: 'interviews',
     loadChildren: () => import('./interviews/interviews.module').then( m => m.InterviewsPageModule)
   },
-
-
-
-
-
-
-
+  {
+    path: '',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },  {
+    path: 'myhome',
+    loadChildren: () => import('./myhome/myhome.module').then( m => m.MyhomePageModule)
+  },
 
 ];
-
 @NgModule({
   imports: [
     ScrollingModule,

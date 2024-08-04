@@ -140,11 +140,11 @@ selectedCandidateId: any;
   }
 
   async openActionSheet(candidate: any) {
-    console.log("what is it : ", candidate.status);
+    console.log("what is it : ",  candidate.Status);
     let options: any = [];
-    this.selectedCandidateId = candidate.id;
+    this.selectedCandidateId = candidate.ApplicationID;
 
-    if (candidate.status === 'applied' || candidate.status === 'shortlisted' || candidate.status === 'interviewed') {
+    if ( candidate.Status == 'Applied' ||  candidate.Status == 'Shortlisted' ||  candidate.Status == 'Interviewed') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
         { label: 'Disqualify', icon: '/assets/calendar.svg' },
@@ -154,7 +154,7 @@ selectedCandidateId: any;
       ];
     }
 
-    if (candidate.status === 'offered' || candidate.status === 'finalized') {
+    if ( candidate.Status == 'Offered' ||  candidate.Status == 'Finalized') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
         { label: 'Accept Offer', icon: '/assets/calendar.svg' },

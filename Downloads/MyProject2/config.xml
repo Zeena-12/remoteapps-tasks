@@ -150,11 +150,9 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^5.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
-    <allow-navigation href="http://192.168.8.26:8100" sessionid="9af3ef2c" />
-    <allow-navigation href="http://192.168.100.140:8100" sessionid="2a8feb8f" />
-    <allow-navigation href="http://192.168.100.90:8100" sessionid="454e6147" />
-    <allow-navigation href="http://192.168.1.78:8100" sessionid="91f457a4" />
-    <allow-navigation href="http://localhost:8100" sessionid="c517ea08" />
-    <allow-navigation href="http://192.168.1.78:8101" sessionid="48d9da92" />
-    <allow-navigation href="http://192.168.1.56:8100" sessionid="95be79af" />
+    <plugin name="cordova-plugin-advanced-http" spec="^2.1.1">
+        <variable name="OKHTTP_VERSION" value="3.10.0" />
+    </plugin>
+    <allow-navigation href="http://192.168.100.71:8100" sessionid="d5d8598e" />
+    <allow-navigation href="http://192.168.100.71:8101" sessionid="55f750ab" />
 </widget>
