@@ -41,7 +41,7 @@ const routes: Routes = [
     loadChildren: () => import('./vacancies/vacancies.module').then( m => m.VacanciesPageModule)
   },
   {
-    path: 'applicants',
+    path: '',
     loadChildren: () => import('./applicants/applicants.module').then( m => m.ApplicantsPageModule)
   },
   {
@@ -49,12 +49,22 @@ const routes: Routes = [
     loadChildren: () => import('./interviews/interviews.module').then( m => m.InterviewsPageModule)
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'myhome',
     loadChildren: () => import('./myhome/myhome.module').then( m => m.MyhomePageModule)
   },
+  {
+    path: 'edit-employee-information',
+    loadChildren: () => import('./edit-employee-information/edit-employee-information.module').then( m => m.EditEmployeeInformationPageModule)
+  },
+  {
+    path: 'new-experience',
+    loadChildren: () => import('./new-experience/new-experience.module').then( m => m.NewExperiencePageModule)
+  },
+
 
 ];
 @NgModule({

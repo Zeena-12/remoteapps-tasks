@@ -1,0 +1,180 @@
+.edit-employee-container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    .bordered-image {
+        border: 1px solid #00abec;
+    }
+
+    .top-container {
+        display: flex;
+        justify-content: center;
+        flex: 1 0 0;
+        align-self: stretch;
+        align-items: center;
+
+        p {
+            color: var(--RA-Gray-Gray, #92A0B3);
+
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+    }
+
+    .title {
+        p {
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #E9EBF1;
+            line-height: 0.1em;
+            margin: 10px 0 20px;
+            color: var(--RA-Gray-Gray, #92A0B3);
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            // line-height: normal;
+        }
+
+        p span {
+            background: #fff;
+            padding: 0 10px;
+        }
+
+    }
+
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        border-top: 2px solid black;
+        /* Border style */
+        transform: translateY(-50%);
+        /* Center the line vertically */
+    }
+
+    .top-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        color: #91a0b3;
+    }
+
+    .edit-button {
+        background-color: #00abec;
+        display: flex;
+        padding: 10px 40px;
+        align-items: flex-start;
+        gap: 10px;
+        width: 102px;
+        height: 34px;
+        border-radius: 5px;
+        background: var(--Cloud-Blue-Primary-1, #29B8EF);
+        align-items: center;
+
+        p {
+            color: #FFF;
+            text-align: center;
+            font-family: Roboto;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+
+        }
+
+    }
+
+    .edit-button:hover {
+        background-color: #0091d0;
+        /* Darker color on hover */
+    }
+
+    .employee-info {
+        display: flex;
+        height: 67px;
+        align-items: center;
+        // gap: 10px;
+        flex-shrink: 0;
+        align-self: stretch;
+        // border: 1px solid red;
+        justify-content: center;
+        padding: 0px;
+        // margin-bottom: 26px;
+
+    }
+
+    .box.icon {
+        // border: 1px solid blue;
+        display: flex;
+        height: 67px;
+        align-items: flex-start;
+        gap: 10px;
+        flex-shrink: 0;
+        align-self: stretch;
+        align-items: center;
+        justify-content: center;
+        padding-left: 14px;
+    }
+
+    .icon-style {
+        width: 40px;
+        height: 40px;
+        font-size: 34px;
+        color: #92A0B3;
+    }
+
+    .my-input {
+        display: flex;
+        height: 39.705px;
+        padding: 10px;
+        justify-content: center;
+        // align-items: center;
+        // gap: 10px;
+        align-self: stretch;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .employee-info-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 26px;
+    }
+
+    .input-container {
+        // display: flex;
+        width: 388px;
+        height: 45px;
+        padding: 10px;
+        // justify-content: center;
+        // align-items: center;
+        // gap: 10px;
+        // border-radius: 10px;
+        // background: var(--RA-Gray-Gray-3, #ECF0F3);
+        // border: 1px solid red;
+    }
+
+    .custom-inputsWrapper {
+        // border :1px solid red;
+        overflow: visible !important;
+    }
+
+    .custom-form-label {
+        color: var(--RA-Gray-Gray, #92A0B3);
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+}

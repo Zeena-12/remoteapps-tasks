@@ -5,7 +5,9 @@
     <button *ngFor="let day of weekDays" 
             (click)="selectDay(day.day)" 
             [class.active]="selectedDay === day.day">
-      {{ day.day }} {{ day.date }}
+            <div>{{ day.day }}</div>
+            <div>{{ day.date }}</div>
+       
     </button>
   </div>
   <div class="time-container" *ngIf="times[selectedDay]">
@@ -22,7 +24,7 @@
       <!-- Normal case for other times -->
       <ng-container *ngIf="time.time !== '7:00 AM'">
         <div class="people">
-          <div class="box-people" *ngFor="let person of time.people">
+          <div class="box-people" (click)="openModal()" *ngFor="let person of time.people">
             <div class="column column-image">
               <img src="{{person.image}}" alt="Person Image">
               <div class="likes-dislikes">
