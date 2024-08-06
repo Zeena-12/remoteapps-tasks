@@ -43,7 +43,8 @@ export class FourthPage implements OnInit, AfterViewInit {
     //   this.candidates = data;
     //   console.log("data found", this.candidates);
     // });
-    this.loadCandidates(); 
+    // this.loadCandidates(); 
+    this.loadCandidatesFake();
 
   }
 
@@ -51,6 +52,15 @@ export class FourthPage implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     console.log()
   }
+  async loadCandidatesFake() {
+    try {
+      const result = await this.candidateService.getApplications();
+      console.log('Result from getApplications:', result);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+    }
+  }
+  
 
   // loadCandidates() {
   //   this.candidateService.getCandidateList().subscribe((data: any[]) => {
@@ -79,51 +89,109 @@ export class FourthPage implements OnInit, AfterViewInit {
   //   });
   //   console.log("list applied: ", this.Applied);
   // }
-  loadCandidates() {
-    this.candidateService.getCandidateList().pipe(
-      catchError(error => {
-        console.error('Error fetching data', error);
-        return of([]); // Return an empty array in case of error
-      })
-    ).subscribe(data => {
-      const itemsByStatus: { [key: string]: any[] } = {
-        Applied: [],
-        Shortlisted: [],
-        Interviewed: [],
-        Finalized: [],
-        Offered: []
-      };
+  // loadCandidates() {
+  //   this.candidateService.getApplications().pipe(
+  //     catchError(error => {
+  //       console.error('Error fetching data', error);
+  //       return of([]); // Return an empty array in case of error
+  //     })
+  //   ).subscribe(data => {
+  //     console.log('Raw response from getApplications in loadCandidates :', data[0]); // Log raw data
+      
+  //     const itemsByStatus: { [key: string]: any[] } = {
+  //       Applied: [],
+  //       Shortlisted: [],
+  //       Interviewed: [],
+  //       Finalized: [],
+  //       Offered: []
+  //     };
   
-      // Group items by status
-      data.forEach(item => {
-        const status = item.Status; // Use status as it is
-        if (itemsByStatus.hasOwnProperty(status)) {
-          itemsByStatus[status].push(item);
-        }
-      });
+  //     // Check if the data is an array
+  //     if (Array.isArray(data)) {
+  //       // Group items by status
+  //       data.forEach(item => {
+  //         const status = item.Status; // Use status as it is
+  //         console.log("one item ,", item);
+  //         if (itemsByStatus.hasOwnProperty(status)) {
+  //           itemsByStatus[status].push(item);
+  //         }
+  //       });
   
-      // Assign to respective arrays
-      this.Applied = itemsByStatus['Applied'];
-      this.Shortlisted = itemsByStatus['Shortlisted'];
-      this.Interviewed = itemsByStatus['Interviewed'];
-      this.Finalized = itemsByStatus['Finalized'];
-      this.Offered = itemsByStatus['Offered'];
-      console.log("one list ", this.Applied);
-    });
-  }
+  //       // Assign to respective arrays
+  //       this.Applied = itemsByStatus['Applied'];
+  //       this.Shortlisted = itemsByStatus['Shortlisted'];
+  //       this.Interviewed = itemsByStatus['Interviewed'];
+  //       this.Finalized = itemsByStatus['Finalized'];
+  //       this.Offered = itemsByStatus['Offered'];
   
+  //       console.log("Applied list:", this.Applied);
+  //       console.log("Shortlisted list:", this.Shortlisted);
+  //       console.log("Interviewed list:", this.Interviewed);
+  //       console.log("Finalized list:", this.Finalized);
+  //       console.log("Offered list:", this.Offered);
+  //     } else {
+  //       console.warn('Unexpected data format:', data);
+  //     }
+  //   });
+  // }
+  // loadCandidates() {
+  //   this.candidateService.getApplications().pipe(
+  //     catchError(error => {
+  //       console.error('Error fetching data', error);
+  //       return of([]); // Return an empty array in case of error
+  //     })
+  //   ).subscribe(data => {
+  //     // Initialize status groups
+  //     const itemsByStatus: { [key: string]: any[] } = {
+  //       Applied: [],
+  //       Shortlisted: [],
+  //       Interviewed: [],
+  //       Finalized: [],
+  //       Offered: []
+  //     };
+  
+  //     if (Array.isArray(data)) {
+  //       // Group items by status
+  //       data.forEach(item => {
+  //         console.log("Processing item: ", item); // Log each item being processed
+  //         const status = item.Status; // Use status as it is
+  //         if (itemsByStatus.hasOwnProperty(status)) {
+  //           itemsByStatus[status].push(item);
+  //         } else {
+  //           console.warn(`Status "${status}" is not recognized and will be ignored.`);
+  //         }
+  //       });
+  
+  //       // Assign to respective arrays
+  //       this.Applied = itemsByStatus['Applied'];
+  //       this.Shortlisted = itemsByStatus['Shortlisted'];
+  //       this.Interviewed = itemsByStatus['Interviewed'];
+  //       this.Finalized = itemsByStatus['Finalized'];
+  //       this.Offered = itemsByStatus['Offered'];
+  
+  //       // console.log("Applied List: ", this.Applied);
+  //       // console.log("Shortlisted List: ", this.Shortlisted);
+  //       // console.log("Interviewed List: ", this.Interviewed);
+  //       // console.log("Finalized List: ", this.Finalized);
+  //       // console.log("Offered List: ", this.Offered);
+  //     } else {
+  //       console.error('Data is not an array:', data);
+  //     }
+  //   });
+  // }
+   
 
 
   handleStatusChange(event: { id: number, newStatus: string }) {
     this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
-      this.loadCandidates();
+      // this.loadCandidates();
     });
     // console.log("calling handleStatusChange in fourth");
   }
 
   handleDisqualifyChange(event: { id: number, newDisqualified: boolean }) {
     this.candidateService.updateCandidateDisqualified(event.id, event.newDisqualified).subscribe(() => {
-      this.loadCandidates();
+      // this.loadCandidates();
     });
     // console.log("calling handleDisqualifyChange in fourth");
   }

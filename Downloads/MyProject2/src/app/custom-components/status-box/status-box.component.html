@@ -17,7 +17,7 @@
         <!-- <div class="example-custom-preview" *cdkDragPreview matchSize="true"></div> -->
             <div class="custom-placeholder" *cdkDragPlaceholder></div>
               <app-profile-card appLongPress (click)="openActionSheet(item)" [id]="item.id" [name]="item.FirstName" [avatar]="item.ImageName" [nationality]="item.Nationality" 
-              [role]="item.role" [likeCount]="item.ThumbsUp" [dislikeCount]="item.ThumbsDown"
+              [role]="item.CurrentPosition" [thumbsUp]="item.ThumbsUp" [thumbsDown]="item.ThumbsDown"
               [status]="item.Status"
               [disqualified]="item.Disqualified">
             </app-profile-card>
@@ -25,3 +25,5 @@
         </div>
     </div>
   </div>
+
+  

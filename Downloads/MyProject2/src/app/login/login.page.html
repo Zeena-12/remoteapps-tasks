@@ -4,20 +4,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-item>
-    <ion-label position="floating">Username</ion-label>
-    <ion-input [(ngModel)]="UserName" type="text"></ion-input>
-  </ion-item>
+<ion-content>
 
-  <ion-item>
-    <ion-label position="floating">Password</ion-label>
-    <ion-input [(ngModel)]="Password" type="password"></ion-input>
-  </ion-item>
+    <form (submit)="loginUser()">
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input [(ngModel)]="UserName" name="username" required></ion-input>
+      </ion-item>
 
-  <ion-button expand="full" (click)="loginUser()">Login</ion-button>
-    <!-- Display error message -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input [(ngModel)]="Password" name="password" type="password" required></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" (click)="loginUser()">Login</ion-button>
+
+      <div *ngIf="errorMessage" style="color: red; margin-top: 10px;">
+        {{ errorMessage }}
+      </div>
+    </form>
+
 </ion-content>

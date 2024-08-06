@@ -41,15 +41,11 @@ const routes: Routes = [
     loadChildren: () => import('./vacancies/vacancies.module').then( m => m.VacanciesPageModule)
   },
   {
-    path: '',
+    path: 'applicants',
     loadChildren: () => import('./applicants/applicants.module').then( m => m.ApplicantsPageModule)
   },
   {
-    path: 'interviews',
-    loadChildren: () => import('./interviews/interviews.module').then( m => m.InterviewsPageModule)
-  },
-  {
-    path: 'login',
+    path: '',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {

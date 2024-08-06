@@ -25,7 +25,7 @@ export const httpError = 'Something wrong happened, Please try again later';
 export const reconnect = 'Connection Lost, Please Try Again';
 export let backgroundColor = '';
 
-export const setBackend = (api:string) => {  
+export const setBackend = (api:string) => {
   backend = api; 
 };    
 

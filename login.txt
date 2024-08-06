@@ -1,0 +1,11 @@
+async doLogin(us, ps) {
+       const data = new FormData();
+
+      data.append("UserName", mydata.n);
+      data.append("Password", mydata.p);
+
+    let url = 'Profile/Login' ;
+    return await  this.http.post(myGlobals.backend + url, data, { withCredentials: true }).then((data: any) => {
+
+      });
+  }

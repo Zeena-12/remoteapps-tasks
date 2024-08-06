@@ -132,15 +132,15 @@ export class ThirdPage implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.loadCandidates();
+    // this.loadCandidates();
   }
 
-  loadCandidates() {
-    this.candidateService.getCandidateList().subscribe((data: any[]) => {
-      this.candidates = data;
-      console.log("list of candidates: ", this.candidates); // Log the candidates list
-    });
-  }
+  // loadCandidates() {
+  //   this.candidateService.getCandidateList().subscribe((data: any[]) => {
+  //     this.candidates = data;
+  //     console.log("list of candidates: ", this.candidates); // Log the candidates list
+  //   });
+  // }
 }
 
 export interface Employee {

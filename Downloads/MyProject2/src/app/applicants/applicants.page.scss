@@ -424,7 +424,7 @@ ion-fab {
   width: 100%;
   flex-direction: column;
   font-size: 18px;
-  gap: 4px;
+  gap: 5px;
 }
 
 .year-place .year {
@@ -449,7 +449,8 @@ gap: 5px;
   margin: 0px;
   display: flex;
   gap: 5  px;
-  width: 140px;
+  // width: 140px;
+  width: 100%;
 }
 
 
@@ -462,4 +463,14 @@ gap: 5px;
   /* Displays the ellipsis (...) */
 }
 
+
+
+
+.box.year-place {
+  width: 100%; /* Or any specific width you need */
+}
+
+.box.year-place .place {
+  max-width: 100%; /* Ensure the text container doesn't exceed its parent's width */
+}
 // end job container

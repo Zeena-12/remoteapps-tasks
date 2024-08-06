@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { backend } from '../global'; // Import the backend URL
+import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidateStatusService {
-  private jsonFilePath = 'data.json';
+  // private apiUrlApplications = 'http://localhost:3000/getApplications';
   private apiUrlApplications = `${backend}getApplications`;
-  private apiUrlCandidates = `${backend}candidates`;
+  // private apiUrlCandidates = `${backend}candidates`;
   // private apiUrlApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HTTP) { }
+
+  UserName: string = 'Zeen.Test@dev.com'; // Static username for demonstration
+  Password: string = 'Bahrain1234'; // Static password for demonstration
+  errorMessage: string = '';
+  usData: any;
+
+
 
     // dummy data
     private candidates: Candidate[] = [
@@ -206,25 +215,143 @@ export class CandidateStatusService {
   
     ];
 
+    // getApplications(): Observable<any[]> {
+    //   return this.http.get<any>(this.apiUrlApplications, { withCredentials: true }).pipe(
+    //     // Log the entire response to understand its structure
+    //     tap(response => {
+    //       console.log('Raw response from getApplications:', response.ApplicantList);
+    //     }),
+    //     map(response => response.ApplicantList || []), // Extract ApplicantList from response
+    //     catchError(this.handleError)
+    //   );
+    // }
+
+    // this function caling local api and working fine
+    // getApplications(): Observable<any[]> {
+    //   return this.http.get<any>(this.apiUrlApplications).pipe(
+    //     map(response => {
+    //       // Assuming the relevant data is in the first item of the response array
+    //       const dataArray =response || [];
+    //       console.log("full data: ",dataArray);
+    //       return dataArray;
+    //     }),
+    //     catchError(error => {
+    //       console.error('Error fetching applications', error);
+    //       return of([]); // Return an empty array in case of error
+    //     })
+    //   );
+    // }
     
-    getApplications(): Observable<any[]> {
-      return this.http.get<any[]>(this.apiUrlApplications).pipe(
-        catchError(error => {
-          console.error('Error fetching applications', error);
-          return of([]); // Return an empty array in case of error
-        })
-      );
+    
+    
+    
+    
+    
+    
+    // getApplications(): Observable<any[]> {
+    //   return this.http.get<any[]>(this.apiUrlApplications).pipe(
+    //     catchError(error => {
+    //       console.error('Error fetching applications', error);
+    //       return of([]); // Return an empty array in case of error
+    //     })
+    //   );
+    // }
+    async getApplications(): Promise<string> {
+
+    
+      const url = 'https://api.remoteapps.com/HCM/Recruitment/Vacancies/getVacansiesData';
+    
+      try {
+          const response: any = await this.http.post(url, {}, {});
+    
+          // Handle successful response
+          console.log('Response from server:', response.data);
+          // Return a success message or any other relevant data
+          return  response.data;
+      } catch (error:any) {
+          // Handle error response
+          console.error('Error during login:', error);
+    
+          // Return an error message or handle as needed
+          if (error.status === 0) {
+              return 'Network error or CORS issue. Please try again later.';
+          } else {
+              return 'Invalid credentials or other error occurred.';
+          }
+      }
     }
     
+      post(url:string, body:any = {}, headers = {}): Promise<any> {
+        if (url[22] == '/' && (window as any).Ionic.isLiveReload) {
+          url = url.substring(0, 21) + url.substring(22);
+        }
+        let fdata: FormData;
+        body instanceof FormData ? (fdata = body) : (fdata = new FormData());
+        const keys = Object.keys(body);
+        for (let key of keys) {
+          let i = 0;
+          if (Array.isArray(body[key])) {
+            console.log('array', key);
+            // if(Object.keys(body[key]))
+            for (let val of body[key]) {
+              let k = key + '[' + i + ']';
+              if (typeof val == 'object' && !Array.isArray(val)) {
+                const keys2 = Object.keys(val);
+                for (let key2 of keys2) {
+                  let k2 = k + '[' + key2 + ']';
+                  fdata.append(k2, val[key2]);
+                }
+              } else {
+                fdata.append(k, val);
+              }
+              i++;
+            }
+          } else {
+            fdata.append(key, body[key]);
+          }
+        }
     
-    getCandidateList(): Observable<any[]> {
-      return this.http.get<any[]>(this.apiUrlApplications).pipe(
-        catchError(error => {
-          console.error('Error fetching data', error);
-          return of([]); // Return an empty array in case of error
-        })
-      );
-    }
+        return new Promise((resolve, reject) => {
+          this.http.setDataSerializer('multipart');
+    
+          this.http
+            .post(url, fdata, {})
+            .then((data) => {
+              this.showLogDebug(fdata);
+              console.log('url', url);
+              console.log('Logged data:', JSON.parse(data.data));
+              resolve(data.data != '' ? JSON.parse(data.data) : null);
+            })
+            .catch((error) => {
+              this.showLogDebug(fdata);
+              console.log('error', error);
+              console.log('url', url);
+    
+              console.log('error.status', error.status);
+              console.log('error.error', error.error); // error message as string
+              console.log('error.headers', error.headers);
+              let err: any = { status: error.status };
+              if (Number(error.status) == 401 || Number(error.status) == 403) {
+                this.usData.redCard(error);
+              }
+              reject(err);
+            });
+        });
+      }
+    
+      showLogDebug(fdata: FormData) {
+        throw new Error('Method not implemented.');
+      }
+    
+    
+    // getCandidateList(): Observable<any[]> {
+    //   return this.http.get<any[]>(this.apiUrlApplications).pipe(
+    //     catchError(error => {
+    //       console.error('Error fetching data', error);
+    //       return of([]); // Return an empty array in case of error
+    //     })
+    //   );
+    // }
 
     updateCandidateStatus(id: number, newStatus: string): Observable<void> {
       const candidate = this.candidates.find(c => c.id == id);

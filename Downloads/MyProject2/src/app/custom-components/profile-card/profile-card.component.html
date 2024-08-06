@@ -9,11 +9,11 @@
     </div>
     <div class="like-grid">
       <img src="assets/icon/like.svg" alt="Like Icon" />
-      <span style="color: green">{{ likeCount }}</span>
+      <span style="color: green">{{ thumbsUp || '-' }}</span>
       <img src="assets/icon/dislike.svg" alt="Dislike Icon" />
-      <span style="color: red">{{ dislikeCount }}</span>
+      <span style="color: red">{{ thumbsDown || '-'}}</span>
     </div>
-    <div style="color: #a3acbb; font-weight: 400">{{ role }}</div>
+    <div style="color: #a3acbb; font-weight: 400"> {{ role || 'Unemployed' }}</div>
     <div [ngClass]="{ hidden: !Disqualified }" class="disqualified-label">
       {{ Disqualified ? "Disqualified" : "" }}
     </div>

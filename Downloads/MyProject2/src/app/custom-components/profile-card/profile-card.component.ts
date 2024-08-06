@@ -25,8 +25,8 @@ export class ProfileCardComponent  implements OnInit {
   @Input() name: string = '';
   @Input() nationality: string = '';
   @Input() avatar: string = '';
-  @Input() likeCount: Number = 0; 
-  @Input() dislikeCount: Number = 0; 
+  @Input() thumbsDown: Number = 0; 
+  @Input() thumbsUp: Number = 0; 
   @Input() disqualified: boolean = false; 
   @Input() status: string = ''; 
   @Input() role: string = ''; 
