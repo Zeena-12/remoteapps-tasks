@@ -37,7 +37,7 @@ const routes: Routes = [
     loadChildren: () => import('./cv/cv.module').then( m => m.CvPageModule)
   },
   {
-    path: 'vacancies',
+    path: '',
     loadChildren: () => import('./vacancies/vacancies.module').then( m => m.VacanciesPageModule)
   },
   {
@@ -45,7 +45,7 @@ const routes: Routes = [
     loadChildren: () => import('./applicants/applicants.module').then( m => m.ApplicantsPageModule)
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {

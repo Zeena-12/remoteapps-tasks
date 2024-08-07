@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ApplicantsPageRoutingModule } from './applicants-routing.module';
 
 import { ApplicantsPage } from './applicants.page';
+import { CustomComponentsModule } from '../custom-components.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ApplicantsPageRoutingModule
+    ApplicantsPageRoutingModule,
+    CustomComponentsModule
   ],
   declarations: [ApplicantsPage]
 })

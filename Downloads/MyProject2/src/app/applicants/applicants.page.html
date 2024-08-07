@@ -29,10 +29,6 @@
     <!-- end segment -->
   </div>
   <div class="container">
-
-
-
-
     <!-- buttons -->
     <div class="button-wrapper">
       <button class="filter-button">
@@ -47,15 +43,16 @@
     <!-- end buttons -->
 
     <!-- start job -->
-    <div class="job-container">
+    <div class="job-container"  *ngFor="let applicant of applicantsList" (click)="openCV(applicant.ApplicantID)">
       <div class="employee-info-container">
         <div class="employee-info">
           <div class="box img">
+            <!-- zeena:check:  i think image has a special way -->
             <img src="/assets/avatar3.png" alt="Person's Photo" />
           </div>
           <div class="box name-role">
-            <p class="name text-ellipsis">Hussain Alhawaj Mohammed</p>
-            <p class="role text-ellipsis">CEO, RemoteApps RemoteApps</p>
+            <p class="name text-ellipsis">{{applicant.FirstName}} {{applicant.LastName}}</p>
+            <p class="role text-ellipsis">{{applicant.CurrentPosition || 'Unemployment'}} {{applicant.CurrentCompany}}</p>
           </div>
         </div>
         <div class="employee-info">
@@ -66,7 +63,7 @@
             </div>
             <div class="place">
               <i class="icon-location"></i>
-              <p class="place text-ellipsis">Bahrain, manama Financial Harbour</p>
+              <p class="place text-ellipsis">{{applicant.CurrentLocation}}</p>
             </div>
           </div>
         </div>
@@ -74,84 +71,24 @@
       <div class="salary-info-container">
         <div class="box">
           <i class="icon-money-cash" style="font-size: 35px;"></i>
-          <p>BHD 400</p>
+          <p>
+            <!-- zeena:check: is it less that 0 ? -->
+            {{applicant.CurrencyShortName}} 
+            {{applicant.CurrentSalaryValue <= 0 ? '-' : applicant.CurrentSalaryValue}}
+          </p>
         </div>
         <div class="box">
           <i class="icon-money-cash" style="font-size: 35px;"></i>
-          <p>BHD 600</p>
+          <p>
+            {{applicant.CurrencyShortName}} 
+            {{applicant.TargetSalary <= 0 ? '-' : applicant.TargetSalary}}
+          </p>
         </div>
       </div>
+      
     </div>
-    <div class="job-container">
-      <div class="employee-info-container">
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar3.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="name text-ellipsis">Hussain Alhawaj Mohammed</p>
-            <p class="role text-ellipsis">CEO, RemoteApps RemoteApps</p>
-          </div>
-        </div>
-        <div class="employee-info">
-          <div class="box year-place">
-            <div class="year">
-              <i class="icon-business" style="font-size: 14px; font-weight: 600;"></i>
-              <p class="year">5 Year</p>
-            </div>
-            <div class="place">
-              <i class="icon-location"></i>
-              <p class="place text-ellipsis">Bahrain, manama Financial Harbour</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="salary-info-container">
-        <div class="box">
-          <i class="icon-money-cash" style="font-size: 35px;"></i>
-          <p>BHD 400</p>
-        </div>
-        <div class="box">
-          <i class="icon-money-cash" style="font-size: 35px;"></i>
-          <p>BHD 600</p>
-        </div>
-      </div>
-    </div>
-    <div class="job-container">
-      <div class="employee-info-container">
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar3.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="name text-ellipsis">Hussain Alhawaj Mohammed</p>
-            <p class="role text-ellipsis">CEO, RemoteApps RemoteApps</p>
-          </div>
-        </div>
-        <div class="employee-info">
-          <div class="box year-place">
-            <div class="year">
-              <i class="icon-business" style="font-size: 14px; font-weight: 600;"></i>
-              <p class="year">5 Year</p>
-            </div>
-            <div class="place">
-              <i class="icon-location"></i>
-              <p class="place text-ellipsis">Bahrain, manama Financial Harbour</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="salary-info-container">
-        <div class="box">
-          <i class="icon-money-cash" style="font-size: 35px;"></i>
-          <p>BHD 400</p>
-        </div>
-        <div class="box">
-          <i class="icon-money-cash" style="font-size: 35px;"></i>
-          <p>BHD 600</p>
-        </div>
-      </div>
-    </div>
+
+
     <!-- end jobs -->
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 40px;">
@@ -159,6 +96,7 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 
 
 </ion-content>

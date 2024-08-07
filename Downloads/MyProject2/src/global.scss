@@ -38,431 +38,449 @@
 // }
 
 .custom-loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .custom-loading-overlay::before {
-    content: '';
-    display: block;
-    width: 200px;
-    height: 100px;
-    background-image: url('assets/car-loading.gif');
-    background-size: cover;
-    background-repeat: no-repeat;
+  content: '';
+  display: block;
+  width: 200px;
+  height: 100px;
+  background-image: url('assets/car-loading.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .popup {
-    --width: 9vw;
-    --min-width: 75vw;
-    --height: 28vh;
-    --border-radius: 20px;
+  --width: 9vw;
+  --min-width: 75vw;
+  --height: 28vh;
+  --border-radius: 20px;
 }
 
 
 
 .custom-modal {
-     --background: transparent !important; 
-    /* --box-shadow: none !important; */ 
-    --bottom: 0;
-    left: 0;
-    --right: 0;
-    --border-radius: 1px;
-    justify-content: flex-end; /* Align items at the end of the container */
-    padding: 20px;
-    flex-direction: column;
-    
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box; /* Ensure padding is included in the height */
-    min-height: 100vh;
-    --height: auto;
-  }
+  --background: transparent !important;
+  /* --box-shadow: none !important; */
+  --bottom: 0;
+  left: 0;
+  --right: 0;
+  --border-radius: 1px;
+  justify-content: flex-end;
+  /* Align items at the end of the container */
+  padding: 20px;
+  flex-direction: column;
 
-  .swiper-pagination-bullet-active{
-    --background: red !important;
-  }
-
-.custom-modal-class{
-    --background: pink;
-    justify-content: end;
-    
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  /* Ensure padding is included in the height */
+  min-height: 100vh;
+  --height: auto;
 }
+
+.swiper-pagination-bullet-active {
+  --background: red !important;
+}
+
+.custom-modal-class {
+  --background: pink;
+  justify-content: end;
+}
+
+.cv-modal{
+  width: 100%;
+  --height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // --height: auto;
+  bottom: 0;
+  // margin-bottom: 0px;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
 // take input desing from hussain
 .inputsWrapper {
-    margin: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  
-    .submit-btn {
-      border-radius: 5px;
-      height: 28px;
-      width: 105px;
+  margin: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .submit-btn {
+    border-radius: 5px;
+    height: 28px;
+    width: 105px;
+    margin-inline-start: auto;
+    margin-inline-end: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: var(--cloudBlue);
+  }
+
+  .inputBox {
+    margin: 5px;
+    margin-bottom: 15px;
+    width: -webkit-fill-available;
+
+    .input-title {
+      text-align: start;
+      font-weight: 400;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .input-title.gray-title {
+      color: #98a2b3;
+    }
+
+    .required-input {
+      color: red;
+      font-weight: bold;
+      display: inline-table;
+      margin-left: 3px;
+    }
+
+    .text-input {
+      text-align: start;
+      width: 100%;
+      border: 1px solid #d9d9d9;
+      height: 40px;
+      border-radius: 7px;
+      font-size: 19px;
+      padding-inline-start: 10px;
+
+      ion-input {
+        height: 100% !important;
+        width: 100% !important;
+        --padding-start: 5px;
+      }
+    }
+
+    .text-input-gray {
+      width: 100%;
+      height: auto;
+      min-height: 40px;
+      font-size: 19px;
+      background: #ecf0f3;
       margin-inline-start: auto;
-      margin-inline-end: 5px;
+      margin-inline-end: auto;
+      border: 0;
+      border-radius: 10px;
+      display: flex;
+      color: #92a0b3;
+
+      ion-input {
+        height: 100% !important;
+        width: 100% !important;
+        --padding-start: 5px;
+      }
+
+      ion-datetime {
+        flex-grow: 1;
+      }
+
+      ion-textarea {
+        padding-inline-start: 5px;
+      }
+    }
+
+    .text-input-gray>ra-icon {
       margin-top: auto;
       margin-bottom: auto;
-      background: var(--cloudBlue);
+      margin-inline-start: 5px;
+      color: #92a0b3;
+      font-weight: 600;
     }
-  
-    .inputBox {
-      margin: 5px;
-      margin-bottom: 15px;
-      width: -webkit-fill-available;
-  
-      .input-title {
-        text-align: start;
-        font-weight: 400;
-        font-size: 16px;
-        margin-bottom: 5px;
+
+    .textarea-input {
+      text-align: start;
+      width: 100%;
+      border: 1px solid #d9d9d9;
+      height: 100px;
+      border-radius: 7px;
+      font-size: 15px;
+      padding-inline-start: 10px;
+
+      textarea {
+        height: 100% !important;
+        width: 100% !important;
+        border: 0px;
       }
-  
-      .input-title.gray-title {
-        color: #98a2b3;
+
+      ion-textarea {
+        height: 100%;
       }
-      .required-input {
-        color: red;
-        font-weight: bold;
-        display: inline-table;
-        margin-left: 3px;
+    }
+
+    .select-input {
+      text-align: center;
+      position: relative;
+      width: 100%;
+      height: 40px;
+      border: 1px solid #d9d9d9;
+      border-radius: 7px;
+      font-size: 19px;
+
+      .from-modal {
+        text-align: center;
+        padding-top: 7px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-inline-end: 45px;
+        margin-inline-start: 45px;
       }
-      .text-input {
-        text-align: start;
+
+      ion-select {
         width: 100%;
-        border: 1px solid #d9d9d9;
-        height: 40px;
-        border-radius: 7px;
-        font-size: 19px;
-        padding-inline-start: 10px;
-  
-        ion-input {
-          height: 100% !important;
-          width: 100% !important;
-          --padding-start: 5px;
+        height: 100%;
+        // padding-bottom: 0px;
+      }
+
+      .select-icon {
+        top: 17px;
+        inset-inline-end: 5px;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 5px solid;
+        border-inline-end: 5px solid transparent;
+        border-inline-start: 5px solid transparent;
+        color: #999;
+        pointer-events: none;
+      }
+
+      ion-badge {
+        padding: 5px;
+        height: 22px;
+        width: 23px;
+        position: absolute;
+        inset-inline-end: 21px;
+        top: 8px;
+      }
+    }
+
+    .select-input-gray {
+      // width: 95%;
+      // border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      background: #eff2f3;
+      --placeholder-color: #92a0b3;
+      --placeholder-opacity: 1;
+      color: #92a0b3;
+    }
+
+    .checkbox-input {
+      .checkbox-title {
+        text-align: start;
+        font-size: 25px;
+      }
+    }
+
+    ion-toggle {
+      float: right;
+      top: -35px;
+      margin-bottom: 5px;
+    }
+
+    .dates {
+      display: flex;
+      justify-content: center;
+      margin-top: auto;
+      margin-bottom: auto;
+
+      .middle-text {
+        font-weight: 500;
+        margin-inline-start: 30px;
+        margin-inline-end: 30px;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .middle {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-inline-start: 60px;
+        margin-inline-end: 60px;
+      }
+
+      .gap-long-title {
+        margin: 23px;
+      }
+
+      .date-input {
+        display: block;
+        justify-content: center;
+        width: auto;
+        text-align: center;
+
+        .dateStyle-title {
+          font-size: 20px;
+        }
+
+        .dateStyle {
+          display: unset;
         }
       }
-  
-      .text-input-gray {
-        width: 100%;
-        height: auto;
-        min-height: 40px;
-        font-size: 19px;
-        background: #ecf0f3;
-        margin-inline-start: auto;
-        margin-inline-end: auto;
-        border: 0;
-        border-radius: 10px;
-        display: flex;
-        color: #92a0b3;
-  
-        ion-input {
-          height: 100% !important;
-          width: 100% !important;
-          --padding-start: 5px;
-        }
-  
-        ion-datetime {
-          flex-grow: 1;
-        }
-  
-        ion-textarea {
-          padding-inline-start: 5px;
-        }
-      }
-  
-      .text-input-gray > ra-icon {
+
+      .time-input {
         margin-top: auto;
         margin-bottom: auto;
         margin-inline-start: 5px;
-        color: #92a0b3;
-        font-weight: 600;
-      }
-  
-      .textarea-input {
-        text-align: start;
-        width: 100%;
-        border: 1px solid #d9d9d9;
-        height: 100px;
-        border-radius: 7px;
-        font-size: 15px;
-        padding-inline-start: 10px;
-  
-        textarea {
-          height: 100% !important;
-          width: 100% !important;
-          border: 0px;
-        }
-  
-        ion-textarea {
-          height: 100%;
-        }
-      }
-  
-      .select-input {
-        text-align: center;
-        position: relative;
-        width: 100%;
-        height: 40px;
-        border: 1px solid #d9d9d9;
-        border-radius: 7px;
-        font-size: 19px;
-  
-        .from-modal {
+        margin-inline-end: 5px;
+
+        .timeStyle-title {
           text-align: center;
-          padding-top: 7px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          margin-inline-end: 45px;
-          margin-inline-start: 45px;
+          font-size: 20px;
         }
-  
-        ion-select {
-          width: 100%;
-          height: 100%;
-          // padding-bottom: 0px;
+
+        .timeStyle {
+          display: unset;
         }
-  
-        .select-icon {
-          top: 17px;
-          inset-inline-end: 5px;
-          position: absolute;
-          width: 0;
-          height: 0;
-          border-top: 5px solid;
-          border-inline-end: 5px solid transparent;
-          border-inline-start: 5px solid transparent;
-          color: #999;
-          pointer-events: none;
-        }
-  
-        ion-badge {
-          padding: 5px;
-          height: 22px;
-          width: 23px;
-          position: absolute;
-          inset-inline-end: 21px;
-          top: 8px;
-        }
-      }
-  
-      .select-input-gray {
-        // width: 95%;
-        // border: 1px solid #ddd;
-        border-radius: 5px;
-        text-align: center;
-        background: #eff2f3;
-        --placeholder-color: #92a0b3;
-        --placeholder-opacity: 1;
-        color: #92a0b3;
-      }
-  
-      .checkbox-input {
-        .checkbox-title {
-          text-align: start;
-          font-size: 25px;
-        }
-      }
-  
-      ion-toggle {
-        float: right;
-        top: -35px;
-        margin-bottom: 5px;
-      }
-  
-      .dates {
-        display: flex;
-        justify-content: center;
-        margin-top: auto;
-        margin-bottom: auto;
-  
-        .middle-text {
-          font-weight: 500;
-          margin-inline-start: 30px;
-          margin-inline-end: 30px;
-          margin-top: auto;
-          margin-bottom: auto;
-        }
-  
-        .middle {
-          margin-top: auto;
-          margin-bottom: auto;
-          margin-inline-start: 60px;
-          margin-inline-end: 60px;
-        }
-  
-        .gap-long-title {
-          margin: 23px;
-        }
-  
-        .date-input {
-          display: block;
-          justify-content: center;
-          width: auto;
-          text-align: center;
-  
-          .dateStyle-title {
-            font-size: 20px;
-          }
-  
-          .dateStyle {
-            display: unset;
-          }
-        }
-  
-        .time-input {
-          margin-top: auto;
-          margin-bottom: auto;
-          margin-inline-start: 5px;
-          margin-inline-end: 5px;
-  
-          .timeStyle-title {
-            text-align: center;
-            font-size: 20px;
-          }
-  
-          .timeStyle {
-            display: unset;
-          }
-        }
-      }
-  
-      .readonly-field {
-        display: block;
-        background-color: #f5f7fa !important;
-        border: 1px solid #dbdbdb;
-        height: 28px;
-        padding: 4px;
-        word-break: break-word;
-        font-weight: normal;
-        overflow: hidden !important;
-      }
-  
-      .doc-card {
-        display: flex;
-        flex-wrap: wrap;
-      }
-  
-      .custom-file {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        height: calc(1.5em + 0.75rem + 2px);
-        margin-bottom: 0;
-  
-        .custom-file-input {
-          height: 40px;
-          // pointer-events: none;
-          position: relative;
-          z-index: 2;
-          width: 100%;
-          /* height: calc(1.5em + .75rem + 2px); */
-          margin: 0;
-          opacity: 0;
-        }
-  
-        .custom-file-label {
-          line-height: 2.2;
-          height: 40px;
-          pointer-events: none;
-          position: absolute;
-          top: 0;
-          inset-inline-end: 0;
-          inset-inline-start: 0;
-          z-index: 1;
-          /* height: calc(1.5em + .75rem + 2px); */
-          padding: 0.375rem 0.75rem;
-          font-weight: 400;
-          line-height: 1.5;
-          color: #495057;
-          background-color: #fff;
-          border: 1px solid #ced4da;
-          border-radius: 0.25rem;
-        }
-  
-        .custom-file-label::after {
-          line-height: 2.2;
-          /* height: 40px; */
-          position: absolute;
-          top: 0;
-          inset-inline-end: 0;
-          bottom: 0;
-          z-index: 3;
-          display: block;
-          /* height: calc(1.5em + .75rem); */
-          padding: 0.375rem 0.75rem;
-          line-height: 1.5;
-          color: #495057;
-          content: "Browse";
-          background-color: #e9ecef;
-          border-inline-start: inherit;
-          border-radius: 0 0.25rem 0.25rem 0;
-        }
-      }
-  
-      .h-48 {
-        height: 48px;
-        margin-top: 5px;
       }
     }
-  
-    .colors-input-wrp {
+
+    .readonly-field {
+      display: block;
+      background-color: #f5f7fa !important;
+      border: 1px solid #dbdbdb;
+      height: 28px;
+      padding: 4px;
+      word-break: break-word;
+      font-weight: normal;
+      overflow: hidden !important;
+    }
+
+    .doc-card {
       display: flex;
-      overflow: scroll;
-      height: 50px;
-  
-      .color-out {
-        border: 3px solid;
-        border-radius: 100%;
-        padding: 7px;
-        /* flex-grow: 1; */
-        margin-inline-end: 5px;
-        width: 40px;
+      flex-wrap: wrap;
+    }
+
+    .custom-file {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: calc(1.5em + 0.75rem + 2px);
+      margin-bottom: 0;
+
+      .custom-file-input {
         height: 40px;
-        display: flex;
+        // pointer-events: none;
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        /* height: calc(1.5em + .75rem + 2px); */
+        margin: 0;
+        opacity: 0;
       }
-  
-      .color-in {
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
+
+      .custom-file-label {
+        line-height: 2.2;
+        height: 40px;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        inset-inline-end: 0;
+        inset-inline-start: 0;
+        z-index: 1;
+        /* height: calc(1.5em + .75rem + 2px); */
+        padding: 0.375rem 0.75rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
       }
-  
-      .grow-1 {
-        flex-grow: 1;
+
+      .custom-file-label::after {
+        line-height: 2.2;
+        /* height: 40px; */
+        position: absolute;
+        top: 0;
+        inset-inline-end: 0;
+        bottom: 0;
+        z-index: 3;
+        display: block;
+        /* height: calc(1.5em + .75rem); */
+        padding: 0.375rem 0.75rem;
+        line-height: 1.5;
+        color: #495057;
+        content: "Browse";
+        background-color: #e9ecef;
+        border-inline-start: inherit;
+        border-radius: 0 0.25rem 0.25rem 0;
       }
+    }
+
+    .h-48 {
+      height: 48px;
+      margin-top: 5px;
     }
   }
+
+  .colors-input-wrp {
+    display: flex;
+    overflow: scroll;
+    height: 50px;
+
+    .color-out {
+      border: 3px solid;
+      border-radius: 100%;
+      padding: 7px;
+      /* flex-grow: 1; */
+      margin-inline-end: 5px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+    }
+
+    .color-in {
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+    }
+
+    .grow-1 {
+      flex-grow: 1;
+    }
+  }
+}
+
 // end input from hussain
 
 
 
 
 @font-face {
-    font-family: "Almarai-Regular";
-    src: url("assets/fonts/Almarai-Regular.otf");
+  font-family: "Almarai-Regular";
+  src: url("assets/fonts/Almarai-Regular.otf");
 }
 
 @font-face {
-    font-family: "Roboto-Regular";
-    src: url("assets/fonts/Roboto-Regular.otf");
+  font-family: "Roboto-Regular";
+  src: url("assets/fonts/Roboto-Regular.otf");
 }
 
 [dir="rtl"] * {
-    font-family: Almarai-Regular;
+  font-family: Almarai-Regular;
 }
 
 [dir="ltr"] * {
-    font-family: Roboto-Regular;
+  font-family: Roboto-Regular;
 }

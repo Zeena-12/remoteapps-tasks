@@ -102,63 +102,63 @@ async loginUser(us: string, ps: string): Promise<string> {
   }
 }
 
-  post(url:string, body:any = {}, headers = {}): Promise<any> {
-    if (url[22] == '/' && (window as any).Ionic.isLiveReload) {
-      url = url.substring(0, 21) + url.substring(22);
-    }
-    let fdata: FormData;
-    body instanceof FormData ? (fdata = body) : (fdata = new FormData());
-    const keys = Object.keys(body);
-    for (let key of keys) {
-      let i = 0;
-      if (Array.isArray(body[key])) {
-        console.log('array', key);
-        // if(Object.keys(body[key]))
-        for (let val of body[key]) {
-          let k = key + '[' + i + ']';
-          if (typeof val == 'object' && !Array.isArray(val)) {
-            const keys2 = Object.keys(val);
-            for (let key2 of keys2) {
-              let k2 = k + '[' + key2 + ']';
-              fdata.append(k2, val[key2]);
-            }
-          } else {
-            fdata.append(k, val);
-          }
-          i++;
-        }
-      } else {
-        fdata.append(key, body[key]);
-      }
-    }
+  // post(url:string, body:any = {}, headers = {}): Promise<any> {
+  //   if (url[22] == '/' && (window as any).Ionic.isLiveReload) {
+  //     url = url.substring(0, 21) + url.substring(22);
+  //   }
+  //   let fdata: FormData;
+  //   body instanceof FormData ? (fdata = body) : (fdata = new FormData());
+  //   const keys = Object.keys(body);
+  //   for (let key of keys) {
+  //     let i = 0;
+  //     if (Array.isArray(body[key])) {
+  //       console.log('array', key);
+  //       // if(Object.keys(body[key]))
+  //       for (let val of body[key]) {
+  //         let k = key + '[' + i + ']';
+  //         if (typeof val == 'object' && !Array.isArray(val)) {
+  //           const keys2 = Object.keys(val);
+  //           for (let key2 of keys2) {
+  //             let k2 = k + '[' + key2 + ']';
+  //             fdata.append(k2, val[key2]);
+  //           }
+  //         } else {
+  //           fdata.append(k, val);
+  //         }
+  //         i++;
+  //       }
+  //     } else {
+  //       fdata.append(key, body[key]);
+  //     }
+  //   }
 
-    return new Promise((resolve, reject) => {
-      this.http.setDataSerializer('multipart');
+  //   return new Promise((resolve, reject) => {
+  //     this.http.setDataSerializer('multipart');
 
-      this.http
-        .post(url, fdata, {})
-        .then((data) => {
-          this.showLogDebug(fdata);
-          console.log('url', url);
-          console.log('Logged data:', JSON.parse(data.data));
-          resolve(data.data != '' ? JSON.parse(data.data) : null);
-        })
-        .catch((error) => {
-          this.showLogDebug(fdata);
-          console.log('error', error);
-          console.log('url', url);
+  //     this.http
+  //       .post(url, fdata, {})
+  //       .then((data) => {
+  //         this.showLogDebug(fdata);
+  //         console.log('url', url);
+  //         console.log('Logged data:', JSON.parse(data.data));
+  //         resolve(data.data != '' ? JSON.parse(data.data) : null);
+  //       })
+  //       .catch((error) => {
+  //         this.showLogDebug(fdata);
+  //         console.log('error', error);
+  //         console.log('url', url);
 
-          console.log('error.status', error.status);
-          console.log('error.error', error.error); // error message as string
-          console.log('error.headers', error.headers);
-          let err: any = { status: error.status };
-          if (Number(error.status) == 401 || Number(error.status) == 403) {
-            this.usData.redCard(error);
-          }
-          reject(err);
-        });
-    });
-  }
+  //         console.log('error.status', error.status);
+  //         console.log('error.error', error.error); // error message as string
+  //         console.log('error.headers', error.headers);
+  //         let err: any = { status: error.status };
+  //         if (Number(error.status) == 401 || Number(error.status) == 403) {
+  //           this.usData.redCard(error);
+  //         }
+  //         reject(err);
+  //       });
+  //   });
+  // }
 
   showLogDebug(fdata: FormData) {
     throw new Error('Method not implemented.');

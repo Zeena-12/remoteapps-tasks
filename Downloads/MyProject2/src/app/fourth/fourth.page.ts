@@ -31,6 +31,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     private modalController: ModalController,
   ) { }
 
+
   ngOnInit() {
     //  this.loadCandidates();
     // this.candidateService.getCandidateList().pipe(
@@ -54,7 +55,7 @@ export class FourthPage implements OnInit, AfterViewInit {
   }
   async loadCandidatesFake() {
     try {
-      const result = await this.candidateService.getApplications();
+      const result = await this.candidateService.getApplicantData();
       console.log('Result from getApplications:', result);
     } catch (error) {
       console.error('Error fetching applications:', error);
@@ -248,6 +249,3 @@ export class FourthPage implements OnInit, AfterViewInit {
   }
 
 }
-
-
-// https://chatgpt.com/share/ed776c59-1eaa-4ebe-b6c0-2a64f54042d4

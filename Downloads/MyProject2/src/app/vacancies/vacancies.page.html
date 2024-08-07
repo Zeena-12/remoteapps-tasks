@@ -30,9 +30,6 @@
   </div>
   <div class="container">
 
-
-
-
     <!-- buttons -->
     <div class="button-wrapper">
       <button class="filter-button">
@@ -47,14 +44,14 @@
     <!-- end buttons -->
 
     <!-- start job -->
-    <div class="job-container">
+    <div class="job-container" *ngFor="let vacancies of vacanciesList">
       <div class="job-info">
         <div class="job-details">
           <div class="box job-icon">
             <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
           </div>
           <div class="box details">
-            <p class="role-name">Operations Officer</p>
+            <p class="role-name">{{vacancies.VacancyName}}</p>
             <div class="details-row">
               <p class="employment-type">Full Time</p>
               <p class="vacancies">2 Vacancies</p>
@@ -76,183 +73,6 @@
             <p class="name">Hussain Nemati</p>
           </div>
         </div> 
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-      </div>
-      <div class="summary-numbers">
-        <button class="btn">50 Applied</button>
-        <button class="btn">20 Qualified</button>
-        <button class="btn">3 Shortlisted</button>
-      </div>
-    </div>
-    <div class="job-container">
-      <div class="job-info">
-        <div class="job-details">
-          <div class="box job-icon">
-            <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
-          </div>
-          <div class="box details">
-            <p class="role-name">Operations Officer</p>
-            <div class="details-row">
-              <p class="employment-type">Part Time</p>
-              <p class="vacancies">2 Vacancies</p>
-            </div>
-          </div>
-          <div class="box dates">
-            <p class="date">2024-07-27</p>
-            <p class="date">2024-07-27</p>
-          </div>
-        </div>
-      </div>
-      <div class="employee-info-container">
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-      </div>
-      <div class="summary-numbers">
-        <button class="btn">50 Applied</button>
-        <button class="btn">20 Qualified</button>
-        <button class="btn">3 Shortlisted</button>
-      </div>
-    </div>    <div class="job-container">
-      <div class="job-info">
-        <div class="job-details">
-          <div class="box job-icon">
-            <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
-          </div>
-          <div class="box details">
-            <p class="role-name">Operations Officer</p>
-            <div class="details-row">
-              <p class="employment-type">Full Time</p>
-              <p class="vacancies">2 Vacancies</p>
-            </div>
-          </div>
-          <div class="box dates">
-            <p class="date">2024-07-27</p>
-            <p class="date">2024-07-27</p>
-          </div>
-        </div>
-      </div>
-      <div class="employee-info-container">
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-      </div>
-      <div class="summary-numbers">
-        <button class="btn">50 Applied</button>
-        <button class="btn">20 Qualified</button>
-        <button class="btn">3 Shortlisted</button>
-      </div>
-    </div>    <div class="job-container">
-      <div class="job-info">
-        <div class="job-details">
-          <div class="box job-icon">
-            <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
-          </div>
-          <div class="box details">
-            <p class="role-name">Operations Officer</p>
-            <div class="details-row">
-              <p class="employment-type">Full Time</p>
-              <p class="vacancies">2 Vacancies</p>
-            </div>
-          </div>
-          <div class="box dates">
-            <p class="date">2024-07-27</p>
-            <p class="date">2024-07-27</p>
-          </div>
-        </div>
-      </div>
-      <div class="employee-info-container">
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
-      </div>
-      <div class="summary-numbers">
-        <button class="btn">50 Applied</button>
-        <button class="btn">20 Qualified</button>
-        <button class="btn">3 Shortlisted</button>
-      </div>
-    </div>    <div class="job-container">
-      <div class="job-info">
-        <div class="job-details">
-          <div class="box job-icon">
-            <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
-          </div>
-          <div class="box details">
-            <p class="role-name">Operations Officer</p>
-            <div class="details-row">
-              <p class="employment-type">Full Time</p>
-              <p class="vacancies">2 Vacancies</p>
-            </div>
-          </div>
-          <div class="box dates">
-            <p class="date">2024-07-27</p>
-            <p class="date">2024-07-27</p>
-          </div>
-        </div>
-      </div>
-      <div class="employee-info-container">
-        <div class="employee-info">
-          <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
-          </div>
-          <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
-          </div>
-        </div>
         <div class="employee-info">
           <div class="box img">
             <img src="/assets/avatar.png" alt="Person's Photo" />
