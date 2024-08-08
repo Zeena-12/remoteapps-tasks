@@ -15,7 +15,7 @@ import { catchError, of } from 'rxjs';
 export class FourthPage implements OnInit, AfterViewInit {
 
   // candidates$ = this.candidateService.getCandidateList();
-  candidates: any[] = [];
+  ApplicantList: any[] = [];
 
   Applied: any[] = [];
   Shortlisted: any[] = [];
@@ -56,7 +56,7 @@ export class FourthPage implements OnInit, AfterViewInit {
   async loadCandidatesFake() {
     try {
       const result = await this.candidateService.getApplicantData();
-      console.log('Result from getApplications:', result);
+      console.log('Result from getApplications from loadCandidatesFake:', result);
     } catch (error) {
       console.error('Error fetching applications:', error);
     }
@@ -206,8 +206,6 @@ export class FourthPage implements OnInit, AfterViewInit {
 
     await alert.present();
   }
-
-
 
   handleOpenModalEvent(event: { type: string, data: any }) {
     console.log('Received event:', event);

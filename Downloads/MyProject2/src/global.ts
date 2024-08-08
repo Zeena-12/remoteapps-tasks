@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 //export let backend = "https://rude-towns-know.loca.lt/TMC";
 //  export let backend = 'https://a5115199f60b4c95bd5db53c3440b7f7.loophole.site/TMC';
  export let backend = 'https://api.remoteapps.com/';
+ export let backendImgSrc = 'https://web.remoteapps.com/image/';
 //  export let backend = 'http://localhost:3000/';
 // export let backend = 'https://2f9246074e066853379188f8c6dba61f.loophole.site/TMC';
 export const raKey = 'ra-8bfc6186-43aa-42dc-8f7b-898fc8674d56';

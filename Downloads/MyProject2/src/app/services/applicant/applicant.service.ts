@@ -27,9 +27,11 @@ export class ApplicantService {
       const responseData = JSON.parse(response.data);
 
       // Check if the response is successful and contains Parameters
-      if (responseData.Succeeded && responseData.Parameters && responseData.Parameters) {
-        // console.log("data from applicant service: ", responseData.Parameters.ApplicantList)
-        return responseData.Parameters.ApplicantList;
+      if (responseData) {
+
+        const data = responseData;
+        console.log("data from applicant service: ", data);
+        return data.Parameters.ApplicantList;
       } else {
         throw new Error('Invalid response structure or no data available.');
       }
@@ -49,7 +51,7 @@ export class ApplicantService {
   async getApplicantCV(applicantID: number): Promise<any> {
     const data = {
       ApplicantID: applicantID
-  };
+    };
     try {
       const response: any = await this.http.post(this.apiUrlGetApplicantCV, data, {});
 
@@ -76,7 +78,7 @@ export class ApplicantService {
     }
   }
 
-  
+
 
 
 }

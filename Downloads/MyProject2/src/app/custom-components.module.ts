@@ -9,7 +9,7 @@ import { ProfileCardComponent } from './custom-components/profile-card/profile-c
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DropdownComponent } from './custom-components/dropdown/dropdown.component';
 import { ActionSheetComponent } from './custom-components/action-sheet/action-sheet.component';
-import { DirectivesModule } from './directives.module';
+// import { DirectivesModule } from './directives.module';
 import { CvComponent } from './custom-components/cv/cv.component';
 
 
@@ -19,7 +19,7 @@ import { CvComponent } from './custom-components/cv/cv.component';
     CommonModule,
     FormsModule,  // Include FormsModule for form handling
     DragDropModule,
-    DirectivesModule
+    // DirectivesModule
   ],
   exports: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent,ActionSheetComponent, CvComponent ]  // Export the component for use in other modules
 })

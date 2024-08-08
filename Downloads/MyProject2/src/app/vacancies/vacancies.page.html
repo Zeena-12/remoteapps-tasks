@@ -51,26 +51,26 @@
             <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
           </div>
           <div class="box details">
-            <p class="role-name">{{vacancies.VacancyName}}</p>
+            <p class="role-name text-ellipsis">{{vacancies.VacancyName}}</p>
             <div class="details-row">
-              <p class="employment-type">Full Time</p>
-              <p class="vacancies">2 Vacancies</p>
+              <p class="employment-type">{{vacancies.JobType}}</p>
+              <p class="vacancies">{{vacancies.NoOpenings}} Vacancies</p>
             </div>
           </div>
           <div class="box dates">
-            <p class="date">2024-07-27</p>
-            <p class="date">2024-07-27</p>
+            <p class="date">{{vacancies.ApprovedIn}}</p>
+            <p class="date">{{vacancies.ClosingDate}}</p>
           </div>
         </div>
       </div>
       <div class="employee-info-container">
         <div class="employee-info">
           <div class="box img">
-            <img src="/assets/avatar.png" alt="Person's Photo" />
+            <img src="https://web.remoteapps.com/image/EmployeeImages/9529.png" alt="Person's Photo" />
           </div>
           <div class="box name-role">
             <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
+            <p class="name">{{vacancies.RaisedBy | extractName}}</p>
           </div>
         </div> 
         <div class="employee-info">
@@ -78,15 +78,15 @@
             <img src="/assets/avatar.png" alt="Person's Photo" />
           </div>
           <div class="box name-role">
-            <p class="role">Raised By</p>
-            <p class="name">Hussain Nemati</p>
+            <p class="role">Recruiter</p>
+            <p class="name">{{vacancies.Recruiter | extractName}}</p>
           </div>
         </div>
       </div>
       <div class="summary-numbers">
-        <button class="btn">50 Applied</button>
-        <button class="btn">20 Qualified</button>
-        <button class="btn">3 Shortlisted</button>
+        <button class="btn">{{vacancies.Applied || '0' }} Applied</button>
+        <button class="btn">{{vacancies.Qualified}} Qualified</button>
+        <button class="btn">{{vacancies.Shortlisted}} Shortlisted</button>
       </div>
     </div>
 

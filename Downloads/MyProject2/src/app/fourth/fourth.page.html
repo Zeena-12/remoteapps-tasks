@@ -55,66 +55,29 @@
         </li>
       </ul>
       <div class="card-container" cdkDropListGroup cdkScrollable>
-        <app-status-box
-          class="drop-area"
-          id="applied"
-          status="Applied"
-          [employeesList]="Applied"
-          containerColor="container-red"
-          (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)"
-          (openModalEvent)="handleOpenModalEvent($event)"
-        >
+        <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="Applied"
+          containerColor="container-red" (statusChange)="handleStatusChange($event)"
+          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
         </app-status-box>
 
-        <app-status-box
-          class="drop-area"
-          id="shortlisted"
-          status="Shortlisted"
-          [employeesList]="Shortlisted"
-          containerColor="container-orange"
-          (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)"
-          (openModalEvent)="handleOpenModalEvent($event)"
-        >
+        <app-status-box class="drop-area" id="shortlisted" status="Shortlisted" [employeesList]="Shortlisted"
+          containerColor="container-orange" (statusChange)="handleStatusChange($event)"
+          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
         </app-status-box>
 
-        <app-status-box
-          class="drop-area"
-          id="interviewed"
-          status="Interviewed"
-          [employeesList]="Interviewed"
-          containerColor="container-yellow"
-          (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)"
-          (openModalEvent)="handleOpenModalEvent($event)"
-        >
+        <app-status-box class="drop-area" id="interviewed" status="Interviewed" [employeesList]="Interviewed"
+          containerColor="container-yellow" (statusChange)="handleStatusChange($event)"
+          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
         </app-status-box>
 
-        <app-status-box
-          class="drop-area"
-          id="offered"
-          status="Offered"
-          count="15"
-          [employeesList]="Offered"
-          containerColor="container-light-green"
-          (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)"
-          (openModalEvent)="handleOpenModalEvent($event)"
-        >
+        <app-status-box class="drop-area" id="offered" status="Offered" count="15" [employeesList]="Offered"
+          containerColor="container-light-green" (statusChange)="handleStatusChange($event)"
+          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
         </app-status-box>
 
-        <app-status-box
-          class="drop-area"
-          id="finalized"
-          status="Finalized"
-          count="5"
-          [employeesList]="Finalized"
-          containerColor="container-dark-green"
-          (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)"
-          (openModalEvent)="handleOpenModalEvent($event)"
-        >
+        <app-status-box class="drop-area" id="finalized" status="Finalized" count="5" [employeesList]="Finalized"
+          containerColor="container-dark-green" (statusChange)="handleStatusChange($event)"
+          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
         </app-status-box>
       </div>
 
@@ -125,7 +88,7 @@
             <div class="cv-container">
               <div class="personal-profile">
                 <button class="edit-button">
-                 <i class="icon-edit-2"></i>
+                  <i class="icon-edit-2"></i>
                 </button>
                 <div class="profile-photo">
                   <img src="/assets/avatar.png" alt="Person's Photo" />
@@ -140,11 +103,7 @@
 
               <div class="personal-details">
                 <!-- slider start -->
-                <swiper-container
-                  (slidechange)="swiperSlideChanged($event)"
-                  [loop]="true"
-                  [pagination]="true"
-                >
+                <swiper-container (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
                   <swiper-slide>
                     <div class="swiper-content">
                       <div class="box box-1">
@@ -171,10 +130,7 @@
                     <div class="swiper-content">
                       <div class="box box-1">
                         <div class="icon-container">
-                          <i
-                            class="icon-gender my-color"
-                            style="font-size: 30px"
-                          ></i>
+                          <i class="icon-gender my-color" style="font-size: 30px"></i>
                         </div>
                         <div class="text-container">
                           <p>Gender</p>
@@ -183,10 +139,7 @@
                       </div>
                       <div class="box box-2">
                         <div class="icon-container">
-                          <i
-                            class="icon-ring my-color"
-                            style="font-size: 25px"
-                          ></i>
+                          <i class="icon-ring my-color" style="font-size: 25px"></i>
                         </div>
                         <div class="text-container">
                           <p>Marital Status</p>
@@ -200,10 +153,7 @@
                     <div class="swiper-content">
                       <div class="box box-1">
                         <div class="icon-container">
-                          <i
-                            class="icon-person my-color"
-                            style="font-size: 25px"
-                          ></i>
+                          <i class="icon-person my-color" style="font-size: 25px"></i>
                         </div>
                         <div class="text-container">
                           <p>No. of Dependents</p>
@@ -303,10 +253,7 @@
                       <p class="timeline-description">The Cloud, Bahrain</p>
                     </li>
                     <button class="add-buttom">
-                      <i
-                        class="icon-plus-sign-stroke"
-                        style="color: #92a0b3"
-                      ></i>
+                      <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
                       Add Education
                     </button>
                   </ol>
@@ -323,10 +270,7 @@
                       <p class="timeline-description">The Cloud, Bahrain</p>
                     </li>
                     <button class="add-buttom">
-                      <i
-                        class="icon-plus-sign-stroke"
-                        style="color: #92a0b3"
-                      ></i>
+                      <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
                       Add Education
                     </button>
                   </ol>
@@ -343,11 +287,7 @@
       <!-- End CV Model -->
 
       <!-- Srart Answers Modal -->
-      <ion-modal
-        id="answers-modal"
-        [initialBreakpoint]="1"
-        [breakpoints]="[0, 1]"
-      >
+      <ion-modal id="answers-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <div class="block">
             <h2>Answers</h2>

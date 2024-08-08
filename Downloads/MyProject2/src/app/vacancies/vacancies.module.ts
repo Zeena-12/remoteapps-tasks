@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { VacanciesPageRoutingModule } from './vacancies-routing.module';
 
 import { VacanciesPage } from './vacancies.page';
+import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VacanciesPageRoutingModule
+    VacanciesPageRoutingModule,
+    CustomPipesModule
   ],
   declarations: [VacanciesPage]
 })

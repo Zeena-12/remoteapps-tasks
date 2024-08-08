@@ -15,36 +15,15 @@ export class SecondPage implements OnInit, OnDestroy {
   watchId: any;
   userLocation = { lat: 0, lng: 0 };
   locationAccuracy: number = 0;
+
+  // @ViewChild('boxNotFound') boxNotFound!: ElementRef;
+  // @ViewChild('boxNotAllowed') boxNotAllowed!: ElementRef;
+  // @ViewChild('boxAllowed') boxAllowed!: ElementRef;
+
+
+  currentBox: string = 'notFound'; 
   //  loading!: HTMLIonLoadingElement
 
-  // Location from API
-  // bni location
-  // workLocationFromAPI = [
-  //   { lat: 26.23643764228371, lng: 50.54352463551613 },
-  //   { lat: 26.23603826536928, lng: 50.5426368243322 },
-  //   { lat: 26.235655728363604, lng: 50.542827261172256 },
-  //   { lat: 26.235607610412135, lng: 50.54331542321297 },
-  //   { lat: 26.23582654693048, lng: 50.54379285641762 },
-  //   { lat: 26.23643764228371, lng: 50.54352463551613 }
-  // ];
-
-  // Zeena's home location
-//   workLocationFromAPI = [
-//  {lat: 26.114377200805777, lng: 50.57535602275675},
-//  { lat: 26.112387844250406, lng: 50.575495497625525 },
-//  { lat: 26.11246491438421, lng: 50.57237877075022 },
-//  { lat: 26.11246491438421, lng: 50.57218565170115 },
-//  { lat: 26.11246491438490, lng: 50.57218565170115 }
-//   ];
-// location all bAHRAIN 
-//  workLocationFromAPI = [
-//   { lat: 26.38338811952194, lng: 50.75698121100722 },
-//   { lat: 26.351397194494346, lng: 50.33675416022597 },
-//   { lat: 25.850703248840695, lng: 50.34774048835097 },
-//   { lat: 25.697356177651237, lng: 50.60317261725722 },
-//   { lat: 25.870475519601026, lng: 50.83388550788222 },
-//   { lat: 26.38338811952194, lng: 50.75698121100722 }
-// ];
 // remoteapps location
 workLocationFromAPI = [
   { lat: 26.237827690105792, lng: 50.54100449408655 },
@@ -82,13 +61,14 @@ workLocationFromAPI = [
     }
   }
 
-  async ngOnInit() {
-    this.showBox(0);
-
+  ngOnInit() {
+    this.showBox('allowed');
+    console.log("calling on init and box is ", this.showBox);
   }
 
   ngAfterViewInit() {
     this.loadMap();
+
   }
 
   async loadMap() {
@@ -257,34 +237,30 @@ workLocationFromAPI = [
     window.location.reload();
   }
 
-  showBox(boxIndex: number) {
-    const boxes = document.querySelectorAll('.bottom-container .box');
-
-    if (boxes.length === 0) {
-      console.error('No elements found with the class "box".');
-      return;
-    }
-
-    if (boxIndex < 0 || boxIndex >= boxes.length) {
-      console.error('Box index out of range:', boxIndex);
-      return;
-    }
-
-    boxes.forEach(box => box.classList.remove('show'));
-
-    const selectedBox = boxes[boxIndex];
-    if (selectedBox) {
-      selectedBox.classList.add('show');
-    } else {
-      console.error('Selected box is undefined.');
-    }
+  // showBox(boxIndex: number): void {
+  //   console.log("calloing showBox");
+  //   const boxes = [this.boxNotFound.nativeElement, this.boxNotAllowed.nativeElement, this.boxAllowed.nativeElement];
+  //   console.log("boxes: ",boxes);
+  //   // Hide all boxes
+  //   boxes.forEach(box => box.classList.remove('show'));
+  //   // Show the selected box
+  //   const selectedBox = boxes[boxIndex];
+  //   if (selectedBox) {
+  //     selectedBox.classList.add('show');
+  //   } else {
+  //     console.error('Selected box is undefined.');
+  //   }
+  
+  // }
+  showBox(boxType: string): void {
+    this.currentBox = boxType;
   }
 
   updateLocationStatus() {
     if (this.isUserInLocation()) {
-      this.showBox(2); // Assuming boxIndex 2 corresponds to the "allow to punch" message
+      this.showBox('allowed'); // Assuming boxIndex 2 corresponds to the "allow to punch" message
     } else {
-      this.showBox(1); // Assuming boxIndex 1 corresponds to the "not allowed to punch" message
+      this.showBox('notAllowed'); // Assuming boxIndex 1 corresponds to the "not allowed to punch" message
     }
   }
 
