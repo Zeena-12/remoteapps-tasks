@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     // list of candidates
-    path: 'fourth',
+    path: 'fourth/:vacancyId',
     loadChildren: () => import('./fourth/fourth.module').then( m => m.FourthPageModule)
   },
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
     loadChildren: () => import('./cv/cv.module').then( m => m.CvPageModule)
   },
   {
-    path: '',
+    path: 'vacancies',
     loadChildren: () => import('./vacancies/vacancies.module').then( m => m.VacanciesPageModule)
   },
   {
@@ -45,7 +45,7 @@ const routes: Routes = [
     loadChildren: () => import('./applicants/applicants.module').then( m => m.ApplicantsPageModule)
   },
   {
-    path: 'login',
+    path: '',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {

@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
-import { backend, backendImgSrc } from '../../../global'; // Import the backend URL
+import { backend } from '../../../global'; // Import the backend URL
 import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class VacanciesService {
+
   getApplicantData(): any[] | PromiseLike<any[]> {
     throw new Error('Method not implemented.');
   }
   private apiUrlGetVacansiesData = `${backend}HCM/Recruitment/Vacancies/getVacansiesData`;
-  private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
 
 
   constructor(private http: HTTP) { }
@@ -67,7 +68,7 @@ export class VacanciesService {
   //   }
   // }
   
-  async getApplications(): Promise<any> {
+  async getVacansiesData(): Promise<any> {
 
     try {
       const response: any = await this.http.post(this.apiUrlGetVacansiesData, {}, {});
@@ -76,9 +77,11 @@ export class VacanciesService {
       const responseData = JSON.parse(response.data);
 
       // Check if the response is successful and contains Parameters
-      if (responseData.Succeeded && responseData.Parameters && responseData.Parameters) {
-        // console.log("data from applicant service: ", responseData.Parameters.ApplicantList)
-        return responseData.Parameters.VacancyList;
+      if (responseData) {
+
+        const data = responseData;
+        console.log("data from applicant service: ", data);
+        return data.Parameters.VacancyList;
       } else {
         throw new Error('Invalid response structure or no data available.');
       }
@@ -94,5 +97,7 @@ export class VacanciesService {
       }
     }
   }
+
+
   
 }

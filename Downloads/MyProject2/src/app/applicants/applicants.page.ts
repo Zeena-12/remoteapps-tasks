@@ -16,6 +16,7 @@ export class ApplicantsPage implements OnInit {
   constructor(private applicantService: ApplicantService, private modalController: ModalController) { }
 
   ngOnInit() {
+    console.log("oninit");
     this.loadApplicantData();
   }
 

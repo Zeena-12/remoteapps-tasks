@@ -8,16 +8,19 @@
   </ion-menu>
   <div class="ion-page" id="main-content">
     <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Menu</ion-title>
-      </ion-toolbar>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Menu</ion-title>
+          <ion-buttons slot="end">
+            <ion-button id="open-modal">Applications</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
     </ion-header>
     <ion-content [fullscreen]="true">
       <div class="image">
-        <img src="/assets/youcandoit6.jpeg" alt="" />
+        <!-- <img src="/assets/youcandoit6.png" alt="" /> -->
       </div>
 
       <div class="job-container">
@@ -49,11 +52,6 @@
           </div>
         </div>
       </div>
-      <ul>
-        <li *ngFor="let candidate of candidates">
-          {{ candidate.FirstName }} {{ candidate.LastName }} - {{ candidate.CurrentCompany }}
-        </li>
-      </ul>
       <div class="card-container" cdkDropListGroup cdkScrollable>
         <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="Applied"
           containerColor="container-red" (statusChange)="handleStatusChange($event)"
@@ -298,3 +296,30 @@
     </ion-content>
   </div>
 </ion-app>
+    <!-- applicants model start-->
+<ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="block">
+      <div class="header">
+        <div class="title">Applications</div>
+        <div class="button-container">
+          <button>Add</button>
+        </div>
+      </div>
+   </div>
+        <ion-segment value="buttons" mode="ios">
+          <ion-segment-button value="default">
+            <ion-label>Default</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="segment">
+            <ion-label>Segment</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="buttons">
+            <ion-label>Button</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+
+  </ng-template>
+</ion-modal>
+    <!-- applicants model end-->

@@ -86,7 +86,7 @@ async loginUser(us: string, ps: string): Promise<string> {
 
       // Handle successful response
       console.log('Response from server:', response.data);
-      this.router.navigate(['/']);
+      this.router.navigate(['/vacancies']);
       // Return a success message or any other relevant data
       return 'Login successful!';
   } catch (error:any) {

@@ -9,13 +9,11 @@
   overflow-x: auto;
   white-space: nowrap;
   align-items: stretch;
-  margin: 19px;
 }
 
 // start job container
 .job-container {
-  border: 1px solid red;
-  // border: 1px solid #e8ecf0;
+  border: 1px solid #e8ecf0;
   padding: 7px;
   border-radius: 3px;
   border-radius: 9px;
@@ -48,21 +46,27 @@
 
 
   .job-title {
-    text-align: center;
-    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0px;
     margin: 0px;
     font-size: 20px;
-    color: var(--RA-Gray-Gray, #92A0B3);
+    // color: var(--RA-Gray-Gray, #92A0B3);
     text-align: center;
     font-family: Roboto;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    p {
+      padding: 0px;
+      margin: 0px;
+      box-sizing: border-box;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
   }
 
   .vacancies-date {
@@ -80,6 +84,7 @@
       gap: 7px;
       margin-bottom: 10px;
     }
+
     .box p {
       margin: 0;
       color: #92a0b3; // Adjust color as needed
@@ -94,32 +99,30 @@
 
   .interviews-buttons {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     justify-content: center;
 
 
     .box {
       display: flex;
-      // flex-grow: 1;
       justify-content: center;
       background-color: #91a0b3;
       border-radius: 4px;
       padding: 5px;
-      margin: 2px;
-      flex-grow: 1;
+      margin: 0px;
+      /* flex-grow: 1; */
+      width: 100%;
     }
 
     button.custom-button {
-      border: 10px solid red;
-      background: none;
-      border: none;
-      padding: 0;
-      margin: 0;
-      box-shadow: none;
-      cursor: pointer;
-      font-size: 13px;
-      color: white;
+      background-color: transparent;
+      color: #FFF;
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
 
     .box:hover {
@@ -498,6 +501,46 @@
   /* Displays the ellipsis (...) */
 }
 
-.image{
+.image {
   margin-top: 20px;
 }
+
+//applicants model start
+.block {
+  width: 100%;
+  height:calc(100vh - 40px);
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+ion-modal {
+  --height: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Optional: vertically center items */
+  padding: 10px; /* Optional: add some padding */
+}
+
+.title {
+  color: var(--RA-Gray-Gray, #92A0B3);
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.button-container button {
+  border-radius: 5px;
+background: var(--Cloud-Blue-Primary-1, #29B8EF);
+color: white;
+width: 102px;
+height: 34px;
+}
+
+
+//applicants model end

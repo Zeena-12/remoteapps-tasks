@@ -44,7 +44,7 @@
     <!-- end buttons -->
 
     <!-- start job -->
-    <div class="job-container" *ngFor="let vacancies of vacanciesList">
+    <div class="job-container" *ngFor="let vacancies of vacanciesList" [routerLink]="['/fourth', vacancies.VacancyID]">
       <div class="job-info">
         <div class="job-details">
           <div class="box job-icon">

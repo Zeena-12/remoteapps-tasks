@@ -5,6 +5,8 @@ import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ActionSheetComponent } from '../custom-components/action-sheet/action-sheet.component';
 import { catchError, of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ApplicantService } from '../services/applicant/applicant.service';
 
 
 @Component({
@@ -13,10 +15,11 @@ import { catchError, of } from 'rxjs';
   styleUrls: ['./fourth.page.scss']
 })
 export class FourthPage implements OnInit, AfterViewInit {
-
+  vacancyId: number=0;
   // candidates$ = this.candidateService.getCandidateList();
+  // full list
   ApplicantList: any[] = [];
-
+// filder them here
   Applied: any[] = [];
   Shortlisted: any[] = [];
   Interviewed: any[] = [];
@@ -27,12 +30,21 @@ export class FourthPage implements OnInit, AfterViewInit {
   answersData: any[] = [];
 
   constructor(private candidateService: CandidateStatusService,
+    private applicantsService: ApplicantService,
     private alertController: AlertController,
     private modalController: ModalController,
+    private route: ActivatedRoute
   ) { }
 
 
   ngOnInit() {
+    const vacancyIdParam = this.route.snapshot.paramMap.get('vacancyId');
+    this.vacancyId = vacancyIdParam ? Number(vacancyIdParam) : 0;
+    if(this.vacancyId){
+      this.loadVacancyApplicants();
+    }
+    console.log("vacancyIdParam id is ,", this.vacancyId);
+    // this.vacancyId = vacancyIdParam ? parseInt(vacancyIdParam, 10) : null;
     //  this.loadCandidates();
     // this.candidateService.getCandidateList().pipe(
     //   catchError(error => {
@@ -45,7 +57,6 @@ export class FourthPage implements OnInit, AfterViewInit {
     //   console.log("data found", this.candidates);
     // });
     // this.loadCandidates(); 
-    this.loadCandidatesFake();
 
   }
 
@@ -53,12 +64,43 @@ export class FourthPage implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     console.log()
   }
-  async loadCandidatesFake() {
+  async loadVacancyApplicants() {
     try {
-      const result = await this.candidateService.getApplicantData();
-      console.log('Result from getApplications from loadCandidatesFake:', result);
+      const result = await this.applicantsService.getApplications(this.vacancyId)
+      this.ApplicantList = result.list;
+      console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
+
+      // Filter the applicants based on their status
+    this.ApplicantList.forEach(applicant => {
+      switch (applicant.Status) {
+        case 'Applied':
+          this.Applied.push(applicant);
+          break;
+        case 'Shortlisted':
+          this.Shortlisted.push(applicant);
+          break;
+        case 'Interviewed':
+          this.Interviewed.push(applicant);
+          break;
+        case 'Offered':
+          this.Offered.push(applicant);
+          break;
+        case 'Finalized':
+          this.Finalized.push(applicant);
+          break;
+        default:
+          console.warn(`Unknown status: ${applicant.status}`);
+      }
+    });
+
+    console.log('Applied:', this.Applied);
+    console.log('Shortlisted:', this.Shortlisted);
+    console.log('Interviewed:', this.Interviewed);
+    console.log('Offered:', this.Offered);
+    console.log('Finalized:', this.Finalized);
+
     } catch (error) {
-      console.error('Error fetching applications:', error);
+      console.error('Error fetching loadVacancyData:', error);
     }
   }
   
@@ -135,8 +177,9 @@ export class FourthPage implements OnInit, AfterViewInit {
   //     }
   //   });
   // }
+  
   // loadCandidates() {
-  //   this.candidateService.getApplications().pipe(
+  //   this.applicantsService.getApplications(this.vacancyId).pipe(
   //     catchError(error => {
   //       console.error('Error fetching data', error);
   //       return of([]); // Return an empty array in case of error

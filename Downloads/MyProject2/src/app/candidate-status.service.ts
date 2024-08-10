@@ -69,26 +69,26 @@ export class CandidateStatusService {
   // }
 
 
-  async getApplicantData(): Promise<string> {
-    // const url = 'https://api.remoteapps.com/HCM/Recruitment/Vacancies/getVacansiesData';
-    try {
-      const response: any = await this.http.post(this.apiUrlGetApplicantData, {}, {});
-      // Handle successful response
-      console.log('Response from server:', response.data);
-      // Return a success message or any other relevant data
-      return response.data;
-    } catch (error: any) {
-      // Handle error response
-      console.error('Error during login:', error);
+  // async getApplicantData(): Promise<string> {
+  //   // const url = 'https://api.remoteapps.com/HCM/Recruitment/Vacancies/getVacansiesData';
+  //   try {
+  //     const response: any = await this.http.post(this.apiUrlGetApplicantData, {}, {});
+  //     // Handle successful response
+  //     console.log('Response from server:', response.data);
+  //     // Return a success message or any other relevant data
+  //     return response.data;
+  //   } catch (error: any) {
+  //     // Handle error response
+  //     console.error('Error during login:', error);
 
-      // Return an error message or handle as needed
-      if (error.status === 0) {
-        return 'Network error or CORS issue. Please try again later.';
-      } else {
-        return 'Invalid credentials or other error occurred.';
-      }
-    }
-  }
+  //     // Return an error message or handle as needed
+  //     if (error.status === 0) {
+  //       return 'Network error or CORS issue. Please try again later.';
+  //     } else {
+  //       return 'Invalid credentials or other error occurred.';
+  //     }
+  //   }
+  // }
 
   // post(url:string, body:any = {}, headers = {}): Promise<any> {
   //   if (url[22] == '/' && (window as any).Ionic.isLiveReload) {
