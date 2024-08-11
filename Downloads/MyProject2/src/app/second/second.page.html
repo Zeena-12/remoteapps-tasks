@@ -29,16 +29,18 @@
         </div>
         <!-- not allowed to punch -->
         <div class="box" *ngIf="currentBox == 'notAllowed'">
-          <div><i class="icon-location loading" style="color:  var(--cloudBlue); font-size: 25px;"></i></div>
+          <div><i class="icon-location loading" style="color:  var(--cloudBlue); font-size: 36px;"></i></div>
           <p>You are not allowed to punch from this location</p>
-          <p>Accurate to {{parseFloat(locationAccuracy) }} meters</p>
+          <p class="accuracy">Accurate to 34 meters</p>
         </div>
         <!-- allow to punch -->
         <div class="box" *ngIf="currentBox == 'allowed'">
-          <div><i class="icon-location loading" style="color:  var(--cloudBlue); font-size: 25px;"></i></div>
+          <div><i class="icon-location loading" style="color:  var(--cloudBlue); font-size: 36px;"></i></div>
           <p>You are allowed to punch from this location</p>
-          <p>Accurate to {{parseFloat( locationAccuracy )}} meters</p>
-          <button class="btn-primary" (click)="confirmLocation()">Confirm Punch {{direct}}</button>
+          <p class="accuracy">Accurate to 14 meters</p>
+          <button class="btn-primary" (click)="confirmLocation()">
+            Confirm Punch
+          </button>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ export class VacanciesService {
     throw new Error('Method not implemented.');
   }
   private apiUrlGetVacansiesData = `${backend}HCM/Recruitment/Vacancies/getVacansiesData`;
+  private apiUrlGetAllVacancyInterviews = `${backend}HCM/Recruitment/Vacancies/getAllVacancyInterviews`;
 
 
   constructor(private http: HTTP) { }
@@ -98,6 +99,35 @@ export class VacanciesService {
     }
   }
 
+  async getAllVacancyInterviews(vacancyID: number): Promise<any> {
+    const data = {
+      VacancyID: vacancyID
+    };
+    try {
+      const response: any = await this.http.post(this.apiUrlGetAllVacancyInterviews, data, {});
+
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+
+      // Check if the response is successful and contains Parameters
+      if (responseData.Parameters && responseData.Parameters) {
+        console.log("data from get AllVacancyInterviewst service: ", responseData.Parameters);
+        return responseData.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
+  }
 
   
 }

@@ -7,6 +7,8 @@ import { ActionSheetComponent } from '../custom-components/action-sheet/action-s
 import { catchError, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ApplicantService } from '../services/applicant/applicant.service';
+import * as moment from 'moment';
+import { VacanciesService } from '../services/vacancies/vacancies.service';
 
 
 @Component({
@@ -29,11 +31,16 @@ export class FourthPage implements OnInit, AfterViewInit {
   cvData: any = null;
   answersData: any[] = [];
 
+  weekDays: { day: string; date: string }[] = [];
+  times: { [day: string]: TimeSlot[] } = {}; // Interviews per day
+  selectedDay: string = '';
+
   constructor(private candidateService: CandidateStatusService,
     private applicantsService: ApplicantService,
     private alertController: AlertController,
     private modalController: ModalController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private vacanciesService: VacanciesService,
   ) { }
 
 
@@ -44,19 +51,9 @@ export class FourthPage implements OnInit, AfterViewInit {
       this.loadVacancyApplicants();
     }
     console.log("vacancyIdParam id is ,", this.vacancyId);
-    // this.vacancyId = vacancyIdParam ? parseInt(vacancyIdParam, 10) : null;
-    //  this.loadCandidates();
-    // this.candidateService.getCandidateList().pipe(
-    //   catchError(error => {
-    //     console.error('Error fetching data', error);
-    //     return of([]); // Return an empty array in case of error
-    //   })
-    // ).subscribe(data => {
-    //   console.log(data);
-    //   this.candidates = data;
-    //   console.log("data found", this.candidates);
-    // });
-    // this.loadCandidates(); 
+    this.generateWeekDays();
+    this.generateTimes();
+    this.selectedDay = this.weekDays[0]?.day; // Default to the first day
 
   }
 
@@ -103,127 +100,47 @@ export class FourthPage implements OnInit, AfterViewInit {
       console.error('Error fetching loadVacancyData:', error);
     }
   }
-  
 
-  // loadCandidates() {
-  //   this.candidateService.getCandidateList().subscribe((data: any[]) => {
-  //     const itemsByStatus: { [key: string]: any[] } = {
-  //       Applied: [],
-  //       Shortlisted: [],
-  //       Interviewed: [],
-  //       Offered: [],
-  //       Finalized: [],
-  //     };
+  async loadAllVacancyInterviews() {
+    try {
+      const result = await this.vacanciesService.getAllVacancyInterviews(this.vacancyId);
+      this.ApplicantList = result.list;
+      console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantList);
 
-  //     // Group items by status
-  //     data.forEach(item => {
-  //       const status = item.Status; // Use status as it is, with the first letter capitalized
-  //       if (itemsByStatus.hasOwnProperty(status)) {
-  //         itemsByStatus[status].push(item);
-  //       }
-  //     });
+      // Filter the applicants based on their status
+    this.ApplicantList.forEach(applicant => {
+      switch (applicant.Status) {
+        case 'Applied':
+          this.Applied.push(applicant);
+          break;
+        case 'Shortlisted':
+          this.Shortlisted.push(applicant);
+          break;
+        case 'Interviewed':
+          this.Interviewed.push(applicant);
+          break;
+        case 'Offered':
+          this.Offered.push(applicant);
+          break;
+        case 'Finalized':
+          this.Finalized.push(applicant);
+          break;
+        default:
+          console.warn(`Unknown status: ${applicant.status}`);
+      }
+    });
 
-  //     // Assign to respective arrays
-  //     this.Applied = itemsByStatus['Applied'];
-  //     this.Shortlisted = itemsByStatus['Shortlisted'];
-  //     this.Interviewed = itemsByStatus['Interviewed'];
-  //     this.Offered = itemsByStatus['Offered'];
-  //     this.Finalized = itemsByStatus['Finalized'];
-  //   });
-  //   console.log("list applied: ", this.Applied);
-  // }
-  // loadCandidates() {
-  //   this.candidateService.getApplications().pipe(
-  //     catchError(error => {
-  //       console.error('Error fetching data', error);
-  //       return of([]); // Return an empty array in case of error
-  //     })
-  //   ).subscribe(data => {
-  //     console.log('Raw response from getApplications in loadCandidates :', data[0]); // Log raw data
-      
-  //     const itemsByStatus: { [key: string]: any[] } = {
-  //       Applied: [],
-  //       Shortlisted: [],
-  //       Interviewed: [],
-  //       Finalized: [],
-  //       Offered: []
-  //     };
-  
-  //     // Check if the data is an array
-  //     if (Array.isArray(data)) {
-  //       // Group items by status
-  //       data.forEach(item => {
-  //         const status = item.Status; // Use status as it is
-  //         console.log("one item ,", item);
-  //         if (itemsByStatus.hasOwnProperty(status)) {
-  //           itemsByStatus[status].push(item);
-  //         }
-  //       });
-  
-  //       // Assign to respective arrays
-  //       this.Applied = itemsByStatus['Applied'];
-  //       this.Shortlisted = itemsByStatus['Shortlisted'];
-  //       this.Interviewed = itemsByStatus['Interviewed'];
-  //       this.Finalized = itemsByStatus['Finalized'];
-  //       this.Offered = itemsByStatus['Offered'];
-  
-  //       console.log("Applied list:", this.Applied);
-  //       console.log("Shortlisted list:", this.Shortlisted);
-  //       console.log("Interviewed list:", this.Interviewed);
-  //       console.log("Finalized list:", this.Finalized);
-  //       console.log("Offered list:", this.Offered);
-  //     } else {
-  //       console.warn('Unexpected data format:', data);
-  //     }
-  //   });
-  // }
-  
-  // loadCandidates() {
-  //   this.applicantsService.getApplications(this.vacancyId).pipe(
-  //     catchError(error => {
-  //       console.error('Error fetching data', error);
-  //       return of([]); // Return an empty array in case of error
-  //     })
-  //   ).subscribe(data => {
-  //     // Initialize status groups
-  //     const itemsByStatus: { [key: string]: any[] } = {
-  //       Applied: [],
-  //       Shortlisted: [],
-  //       Interviewed: [],
-  //       Finalized: [],
-  //       Offered: []
-  //     };
-  
-  //     if (Array.isArray(data)) {
-  //       // Group items by status
-  //       data.forEach(item => {
-  //         console.log("Processing item: ", item); // Log each item being processed
-  //         const status = item.Status; // Use status as it is
-  //         if (itemsByStatus.hasOwnProperty(status)) {
-  //           itemsByStatus[status].push(item);
-  //         } else {
-  //           console.warn(`Status "${status}" is not recognized and will be ignored.`);
-  //         }
-  //       });
-  
-  //       // Assign to respective arrays
-  //       this.Applied = itemsByStatus['Applied'];
-  //       this.Shortlisted = itemsByStatus['Shortlisted'];
-  //       this.Interviewed = itemsByStatus['Interviewed'];
-  //       this.Finalized = itemsByStatus['Finalized'];
-  //       this.Offered = itemsByStatus['Offered'];
-  
-  //       // console.log("Applied List: ", this.Applied);
-  //       // console.log("Shortlisted List: ", this.Shortlisted);
-  //       // console.log("Interviewed List: ", this.Interviewed);
-  //       // console.log("Finalized List: ", this.Finalized);
-  //       // console.log("Offered List: ", this.Offered);
-  //     } else {
-  //       console.error('Data is not an array:', data);
-  //     }
-  //   });
-  // }
-   
+    console.log('Applied:', this.Applied);
+    console.log('Shortlisted:', this.Shortlisted);
+    console.log('Interviewed:', this.Interviewed);
+    console.log('Offered:', this.Offered);
+    console.log('Finalized:', this.Finalized);
+
+    } catch (error) {
+      console.error('Error fetching loadVacancyData:', error);
+    }
+  }
+
 
 
   handleStatusChange(event: { id: number, newStatus: string }) {
@@ -280,13 +197,73 @@ export class FourthPage implements OnInit, AfterViewInit {
   }
 
 
-  div() {
-    console.log("wooooow well done");
-    alert("ggg");
-  }
+
 
   swiperSlideChanged(e: any) {
     console.log('change:', e);
   }
 
+  // interview
+  generateWeekDays() {
+    const startOfWeek = moment().startOf('week'); // Start of the current week
+    this.weekDays = Array.from({ length: 7 }, (_, i) => {
+      const day = startOfWeek.clone().add(i, 'days');
+      return {
+        day: day.format('ddd'), // Short day name (e.g., Sun)
+        date: day.format('D') // Date (e.g., Aug 1)
+      };
+    });
+  }
+
+  generateTimes() {
+    this.weekDays.forEach(day => {
+      const startTime = moment().startOf('day').hour(7); // Start at 7:00 AM
+      const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
+      const dailyTimes: TimeSlot[] = [];
+      let currentTime = startTime.clone();
+      while (currentTime <= endTime) {
+        dailyTimes.push({
+          time: currentTime.format('h:mm A'),
+          people: this.generatePeople() // Generate dummy people data
+        });
+        currentTime.add(1, 'hour');
+      }
+      this.times[day.day] = dailyTimes;
+    });
+  }
+
+  generatePeople() {
+    const numPeople = Math.floor(Math.random() * 4); // 0 to 3 people
+    if (numPeople === 0) return []; // No interviews
+    const people = [];
+    for (let i = 0; i < numPeople; i++) {
+      people.push({
+        name: `Khalil Alrashed `,
+        nationality: i % 2 === 0 ? 'Bahraini' : 'Non-Bahraini',
+        interviewType: i % 2 === 0 ? 'First Interview' : 'Second Interview',
+        image: 'assets/avatar4.png',
+        numberOfLikes: 4,
+        numberOfDislike: 20,
+      });
+    }
+    return people;
+  }
+  selectDay(day: string) {
+    this.selectedDay = day;
+  }
+
+}
+
+interface Interview {
+  name: string;
+  nationality: string;
+  interviewType: string;
+  image: string;
+  numberOfLikes: number;
+  numberOfDislike: number;
+}
+
+interface TimeSlot {
+  time: string;
+  people?: Interview[];
 }
