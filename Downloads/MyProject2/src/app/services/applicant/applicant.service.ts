@@ -13,6 +13,7 @@ export class ApplicantService {
   private apiUrlGetApplicantData = `${backend}HCM/Recruitment/Applicants/getApplicantData`;
   private apiUrlGetApplicantCV = `${backend}HCM/Recruitment/Applicants/getApplicantCV`;
   private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
+  private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
 
 
 
@@ -114,5 +115,52 @@ export class ApplicantService {
   }
 
 
+  // async loginUser(us: string, ps: string): Promise<string> {
+  //   const data = {
+  //       UserName: 'Zeen.Test@dev.com',
+  //       Password: 'Bahrain1234'
+  //   };
+
+
+
+
+
+  async ChangeApplicationStatus(applicationID: number, status: string): Promise<string> {
+
+    // Capitalize the first letter of the status
+    // const capitalizedStatus = this.capitalizeFirstLetter(status);
+
+    const data = {
+      ApplicationID: applicationID,
+      Status: status
+    };
+  
+  console.log("data: ", data);
+    try {
+        const response: any = await this.http.post(this.apiUrlChangeApplicationStatus, data, {});
+  
+        // Handle successful response
+        console.log('Response from server for ChangeApplicationStatus:', response.data);
+        // Return a success message or any other relevant data
+        return 'ChangeApplicationStatus successful!';
+    } catch (error:any) {
+        // Handle error response
+        console.error('Error during ChangeApplicationStatus:', error);
+  
+        // Return an error message or handle as needed
+        if (error.status === 0) {
+            return 'Network error or CORS issue. Please try again later.';
+        } else {
+            return 'Invalid credentials or other error occurred.';
+        }
+    }
+  }
+
+// Helper function to capitalize the first letter of a string
+private capitalizeFirstLetter(str: string): string {
+  if (!str) return str;
+  // Capitalize first letter and convert the rest to lowercase
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 }

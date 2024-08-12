@@ -51,6 +51,7 @@ selectedCandidateId: any;
 
   onStatusChange(event: { id: number, newStatus: string }) {
     this.statusChange.emit(event);
+    console.log("calling onStatusChange");
   }
   onDiqualifyChanged(event: { id: number, newDisqualified: boolean }) {
     this.diqualifyChanged.emit(event);
@@ -101,12 +102,12 @@ selectedCandidateId: any;
         event.previousIndex,
         event.currentIndex
       );
-      const newStatus = this.status.toLowerCase(); // Assuming you have a way to set the new status dynamically
+      const newStatus = this.status // Assuming you have a way to set the new status dynamically
       const profileCard = draggedElement.querySelector('app-profile-card');
       if (profileCard) {
         profileCard.setAttribute('status', newStatus);
         const id = Number(profileCard.getAttribute('ng-reflect-id'));
-        // console.log("id is: ", id);
+        console.log("id is: ", id);
         this.statusChange.emit({ id, newStatus });
       }
     }

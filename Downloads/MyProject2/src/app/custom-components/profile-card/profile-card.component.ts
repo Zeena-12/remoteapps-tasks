@@ -53,7 +53,7 @@ export class ProfileCardComponent  implements OnInit {
   changeStatus(newStatus: string) {
     console.log("calling changeStatus in profile");
     this.status = newStatus;
-    this.statusChanged.emit({ id: this.id,newStatus });
+    this.statusChanged.emit({ id: this.id , newStatus });
   }
 
   disqualifyStatus(newDisqualified: boolean) {

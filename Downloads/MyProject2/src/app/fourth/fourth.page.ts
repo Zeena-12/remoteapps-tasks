@@ -17,11 +17,11 @@ import { VacanciesService } from '../services/vacancies/vacancies.service';
   styleUrls: ['./fourth.page.scss']
 })
 export class FourthPage implements OnInit, AfterViewInit {
-  vacancyId: number=0;
+  vacancyId: number = 0;
   // candidates$ = this.candidateService.getCandidateList();
   // full list
   ApplicantList: any[] = [];
-// filder them here
+  // filder them here
   Applied: any[] = [];
   Shortlisted: any[] = [];
   Interviewed: any[] = [];
@@ -47,7 +47,7 @@ export class FourthPage implements OnInit, AfterViewInit {
   ngOnInit() {
     const vacancyIdParam = this.route.snapshot.paramMap.get('vacancyId');
     this.vacancyId = vacancyIdParam ? Number(vacancyIdParam) : 0;
-    if(this.vacancyId){
+    if (this.vacancyId) {
       this.loadVacancyApplicants();
     }
     console.log("vacancyIdParam id is ,", this.vacancyId);
@@ -68,33 +68,33 @@ export class FourthPage implements OnInit, AfterViewInit {
       console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
 
       // Filter the applicants based on their status
-    this.ApplicantList.forEach(applicant => {
-      switch (applicant.Status) {
-        case 'Applied':
-          this.Applied.push(applicant);
-          break;
-        case 'Shortlisted':
-          this.Shortlisted.push(applicant);
-          break;
-        case 'Interviewed':
-          this.Interviewed.push(applicant);
-          break;
-        case 'Offered':
-          this.Offered.push(applicant);
-          break;
-        case 'Finalized':
-          this.Finalized.push(applicant);
-          break;
-        default:
-          console.warn(`Unknown status: ${applicant.status}`);
-      }
-    });
+      this.ApplicantList.forEach(applicant => {
+        switch (applicant.Status) {
+          case 'Applied':
+            this.Applied.push(applicant);
+            break;
+          case 'Shortlisted':
+            this.Shortlisted.push(applicant);
+            break;
+          case 'Interviewed':
+            this.Interviewed.push(applicant);
+            break;
+          case 'Offered':
+            this.Offered.push(applicant);
+            break;
+          case 'Finalized':
+            this.Finalized.push(applicant);
+            break;
+          default:
+            console.warn(`Unknown status: ${applicant.status}`);
+        }
+      });
 
-    console.log('Applied:', this.Applied);
-    console.log('Shortlisted:', this.Shortlisted);
-    console.log('Interviewed:', this.Interviewed);
-    console.log('Offered:', this.Offered);
-    console.log('Finalized:', this.Finalized);
+      // console.log('Applied:', this.Applied);
+      // console.log('Shortlisted:', this.Shortlisted);
+      // console.log('Interviewed:', this.Interviewed);
+      // console.log('Offered:', this.Offered);
+      // console.log('Finalized:', this.Finalized);
 
     } catch (error) {
       console.error('Error fetching loadVacancyData:', error);
@@ -108,33 +108,33 @@ export class FourthPage implements OnInit, AfterViewInit {
       console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantList);
 
       // Filter the applicants based on their status
-    this.ApplicantList.forEach(applicant => {
-      switch (applicant.Status) {
-        case 'Applied':
-          this.Applied.push(applicant);
-          break;
-        case 'Shortlisted':
-          this.Shortlisted.push(applicant);
-          break;
-        case 'Interviewed':
-          this.Interviewed.push(applicant);
-          break;
-        case 'Offered':
-          this.Offered.push(applicant);
-          break;
-        case 'Finalized':
-          this.Finalized.push(applicant);
-          break;
-        default:
-          console.warn(`Unknown status: ${applicant.status}`);
-      }
-    });
+      this.ApplicantList.forEach(applicant => {
+        switch (applicant.Status) {
+          case 'Applied':
+            this.Applied.push(applicant);
+            break;
+          case 'Shortlisted':
+            this.Shortlisted.push(applicant);
+            break;
+          case 'Interviewed':
+            this.Interviewed.push(applicant);
+            break;
+          case 'Offered':
+            this.Offered.push(applicant);
+            break;
+          case 'Finalized':
+            this.Finalized.push(applicant);
+            break;
+          default:
+            console.warn(`Unknown status: ${applicant.status}`);
+        }
+      });
 
-    console.log('Applied:', this.Applied);
-    console.log('Shortlisted:', this.Shortlisted);
-    console.log('Interviewed:', this.Interviewed);
-    console.log('Offered:', this.Offered);
-    console.log('Finalized:', this.Finalized);
+      // console.log('Applied:', this.Applied);
+      // console.log('Shortlisted:', this.Shortlisted);
+      // console.log('Interviewed:', this.Interviewed);
+      // console.log('Offered:', this.Offered);
+      // console.log('Finalized:', this.Finalized);
 
     } catch (error) {
       console.error('Error fetching loadVacancyData:', error);
@@ -143,19 +143,27 @@ export class FourthPage implements OnInit, AfterViewInit {
 
 
 
-  handleStatusChange(event: { id: number, newStatus: string }) {
-    this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
-      // this.loadCandidates();
-    });
-    // console.log("calling handleStatusChange in fourth");
+  // handleStatusChange(event: { id: number, newStatus: string }) {
+  //   this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
+  //     // this.loadCandidates();
+  //   });
+  //   console.log("calling handleStatusChange in fourth");
+  // }
+  async handleStatusChange(event: { id: number, newStatus: string }) {
+    try {
+      const result = await this.applicantsService.ChangeApplicationStatus(event.id, event.newStatus);
+      console.log('Status update result:', result);
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
   }
 
-  handleDisqualifyChange(event: { id: number, newDisqualified: boolean }) {
-    this.candidateService.updateCandidateDisqualified(event.id, event.newDisqualified).subscribe(() => {
-      // this.loadCandidates();
-    });
-    // console.log("calling handleDisqualifyChange in fourth");
-  }
+  // handleDisqualifyChange(event: { id: number, newDisqualified: boolean }) {
+  //   this.candidateService.updateCandidateDisqualified(event.id, event.newDisqualified).subscribe(() => {
+  //     // this.loadCandidates();
+  //   });
+  //   // console.log("calling handleDisqualifyChange in fourth");
+  // }
 
   async presentAlert(message: any) {
     const alert = await this.alertController.create({
@@ -203,6 +211,47 @@ export class FourthPage implements OnInit, AfterViewInit {
     console.log('change:', e);
   }
 
+  peopleList: any[] = [
+    {
+      name: 'Khalil Alrashed',
+      nationality: 'Bahraini',
+      interviewType: 'First Interview',
+      image: 'assets/avatar4.png',
+      numberOfLikes: 4,
+      numberOfDislike: 20,
+      applicationDate: '11/08/2024 07:00:00 AM'
+    },
+    {
+      name: 'Sara Alnasser',
+      nationality: 'Non-Bahraini',
+      interviewType: 'Second Interview',
+      image: 'assets/avatar4.png',
+      numberOfLikes: 5,
+      numberOfDislike: 15,
+      applicationDate: '12/08/2024 08:00:00 AM'
+    },
+    {
+      name: 'Ali Alsaeed',
+      nationality: 'Bahraini',
+      interviewType: 'First Interview',
+      image: 'assets/avatar4.png',
+      numberOfLikes: 10,
+      numberOfDislike: 8,
+      applicationDate: '11/08/2024 09:00:00 AM'
+    },
+    {
+      name: 'Mona Alhamad',
+      nationality: 'Non-Bahraini',
+      interviewType: 'Second Interview',
+      image: 'assets/avatar4.png',
+      numberOfLikes: 7,
+      numberOfDislike: 12,
+      applicationDate: '01/08/2024 09:00:00 AM'
+    }
+  ];
+
+
+
   // interview
   generateWeekDays() {
     const startOfWeek = moment().startOf('week'); // Start of the current week
@@ -221,10 +270,16 @@ export class FourthPage implements OnInit, AfterViewInit {
       const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
       const dailyTimes: TimeSlot[] = [];
       let currentTime = startTime.clone();
+      // loop throught the times from 7am to 7pm
       while (currentTime <= endTime) {
+        // Filter people based on the current time slot
+        const currentHour = currentTime.format('h:mm A');
+        const filteredPeople = this.peopleList.filter(person =>
+          moment(person.applicationDate, 'DD/MM/YYYY h:mm:ss A').format('h:mm A') === currentHour
+        );
         dailyTimes.push({
           time: currentTime.format('h:mm A'),
-          people: this.generatePeople() // Generate dummy people data
+          people: filteredPeople // Use filtered people based on time
         });
         currentTime.add(1, 'hour');
       }
@@ -232,22 +287,11 @@ export class FourthPage implements OnInit, AfterViewInit {
     });
   }
 
-  generatePeople() {
-    const numPeople = Math.floor(Math.random() * 4); // 0 to 3 people
-    if (numPeople === 0) return []; // No interviews
-    const people = [];
-    for (let i = 0; i < numPeople; i++) {
-      people.push({
-        name: `Khalil Alrashed `,
-        nationality: i % 2 === 0 ? 'Bahraini' : 'Non-Bahraini',
-        interviewType: i % 2 === 0 ? 'First Interview' : 'Second Interview',
-        image: 'assets/avatar4.png',
-        numberOfLikes: 4,
-        numberOfDislike: 20,
-      });
-    }
-    return people;
-  }
+
+  
+
+
+
   selectDay(day: string) {
     this.selectedDay = day;
   }

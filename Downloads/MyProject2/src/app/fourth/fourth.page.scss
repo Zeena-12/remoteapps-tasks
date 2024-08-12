@@ -462,7 +462,7 @@
       /* h-3 */
       margin-left: 0.5rem;
       /* ms-2 */
-      transition: transform 0.2s; 
+      transition: transform 0.2s;
     }
 
     /* RTL support */
@@ -517,6 +517,8 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  padding-top: 40px;
+  margin: 20px;
 }
 
 
@@ -580,7 +582,7 @@ ion-segment-button {
   padding: 10px;
   gap: 10px;
 
-  p{
+  p {
     margin: 0px;
     color: rgba(67, 80, 98, 0.53);
     font-family: Roboto;
@@ -589,7 +591,8 @@ ion-segment-button {
     font-weight: 700;
     line-height: normal;
   }
-  .nationality-position{
+
+  .nationality-position {
     color: rgba(67, 80, 98, 0.53);
     font-family: Roboto;
     font-size: 12px;
@@ -628,12 +631,15 @@ ion-checkbox::part(container) {
   height: 30px;
   border-radius: 40px;
 }
-.list-container{
+
+.list-container {
   margin: 0px;
   padding: 0px;
-  min-height: calc(100vh - 200px); /* Ensures the element is at least as tall as the viewport */
+  min-height: calc(100vh - 200px);
+  /* Ensures the element is at least as tall as the viewport */
   height: auto;
 }
+
 //applicants model end
 .week-days {
   display: flex;
@@ -644,32 +650,33 @@ ion-checkbox::part(container) {
 
 
   button {
-       /* padding: 10px; */
-       cursor: pointer;
-       background-color: transparent;
-       /* padding-top: 20px; */
-       /* padding-bottom: 20px; */
-       color: #92a0b3;
-        // border: 1px solid green;
-      .day-name {
-        color: var(--RA-Gray-Gray, #92A0B3);
-        text-align: center;
-        font-family: Roboto;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-      }
-      
-      .day-date {
-        color: var(--RA-Gray-Gray-2, #D5DCE0);
-        text-align: center;
-        font-family: Roboto;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-      }
+    /* padding: 10px; */
+    cursor: pointer;
+    background-color: transparent;
+    /* padding-top: 20px; */
+    /* padding-bottom: 20px; */
+    color: #92a0b3;
+
+    // border: 1px solid green;
+    .day-name {
+      color: var(--RA-Gray-Gray, #92A0B3);
+      text-align: center;
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+    .day-date {
+      color: var(--RA-Gray-Gray-2, #D5DCE0);
+      text-align: center;
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
   }
 
   button.active {
@@ -681,9 +688,10 @@ ion-checkbox::part(container) {
     height: 66px;
     // border: 1px solid green;
 
-    .day-name{
+    .day-name {
       color: white;
     }
+
     .day-date {
       color: white;
     }
@@ -715,11 +723,11 @@ ion-checkbox::part(container) {
     // flex: 0 0 30%;
     color: #92a0b3;
     color: var(--RA-Gray-Gray, #92A0B3);
-font-family: Roboto;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
   .people {
@@ -739,7 +747,7 @@ line-height: normal;
     color: #93a0b1;
     cursor: pointer;
     padding-top: 7px;
-    padding-bottom: 17px;    
+    padding-bottom: 17px;
 
   }
 
@@ -820,10 +828,10 @@ line-height: normal;
     padding-bottom: 2px;
     white-space: nowrap;
     display: inline;
-     /* max-width: 160px; */
-     width: fit-content;
-     padding: 1px 9px 1px 9px;
-     margin-top: 2px;
+    /* max-width: 160px; */
+    width: fit-content;
+    padding: 1px 9px 1px 9px;
+    margin-top: 2px;
   }
 
 
@@ -839,4 +847,62 @@ line-height: normal;
   width: 290px;
   max-width: 100%;
 }
+
+.avg-rating {
+  display: flex;
+  justify-content: space-between;
+  /* Distribute space between the left and right boxes */
+  align-items: center;
+  /* Align items vertically center */
+  padding: 10px;
+  // border: 1px solid red;
+  border-radius: 10px;
+  background: var(--RA-Gray-Gray-5, #F6F8F9);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  /* Stack elements vertically within the box */
+  align-items: center;
+  /* Center align elements within each box */
+  color: var(--RA-Gray-Gray, #92A0B3);
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.left {
+  display: flex;
+  align-items: start;
+  p {
+    margin-bottom: 10px;
+  }
+
+}
+
+.right {
+  display: flex;
+  align-items: end;
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+/* Optional: Additional styling for text and image */
+.box p {
+  margin: 0;
+}
+
+.box img {
+  // width: 20px;
+  /* Adjust the width of the star image as needed */
+  height: auto;
+  width: 85px;
+}
+
+
+
 // start interview 

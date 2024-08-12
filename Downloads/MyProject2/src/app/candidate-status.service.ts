@@ -163,23 +163,22 @@ export class CandidateStatusService {
   // }
 
   updateCandidateStatus(id: number, newStatus: string): Observable<void> {
-    const candidate = this.candidates.find(c => c.id == id);
-    if (candidate) {
-      candidate.status = newStatus;
-      // console.log("calling updateCandidateStatus in service");
-      // console.log("updated status for ",id , "to " , newStatus);
-    }
+    console.log("calling updateCandidateStatus");
+
+    console.log("calling updateCandidateStatus in service");
+    console.log("updated status for ",id , "to " , newStatus);
     return of();
   }
-  updateCandidateDisqualified(id: number, Disqualified: boolean): Observable<void> {
-    const candidate = this.candidates.find(c => c.id == id);
-    if (candidate) {
-      candidate.disqualified = Disqualified;
-      // console.log("calling updateCandidateStatus in service");
-      // console.log("updated Disqualified for ",id , "to " , Disqualified);
-    }
-    return of();
-  }
+  
+  // updateCandidateDisqualified(id: number, Disqualified: boolean): Observable<void> {
+  //   const candidate = this.candidates.find(c => c.id == id);
+  //   if (candidate) {
+  //     candidate.disqualified = Disqualified;
+  //     console.log("calling updateCandidateStatus in service");
+  //     console.log("updated Disqualified for ",id , "to " , Disqualified);
+  //   }
+  //   return of();
+  // }
 
   private dummyData = [
     {

@@ -391,13 +391,13 @@
   </ng-template>
 </ion-modal>
 
-<ion-modal trigger="open-inverview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal trigger="open-inverview-change-name-to-test-intreviw-details" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="modal-content">
       <div class="header">
-        <div class="title">Applications</div>
+        <div class="title">Interviews</div>
       </div>
-      <div clss="content">
+      <div class="content">
         <div class="week-days">
           <button *ngFor="let day of weekDays" (click)="selectDay(day.day)" [class.active]="selectedDay === day.day">
             <p class="day-name">{{ day.day }}</p>
@@ -407,47 +407,80 @@
         <div class="time-container" *ngIf="times[selectedDay]">
           <div class="time-box" *ngFor="let time of times[selectedDay]">
             <div class="time">{{ time.time }}</div>
-            <!-- Special case for 7:00 AM -->
-            <ng-container *ngIf="time.time === '77:00 AM'">
-              <div class="special-case">
-                <img class="test-img" src="assets/youcandoit5.jpeg" alt="You Can Do It">
-              </div>
-            </ng-container>
-
-            <!-- Normal case for other times -->
-            <ng-container *ngIf="time.time !== '7:00 AM'">
-              <div class="people">
-                <div class="box-people" *ngFor="let person of time.people">
-                  <div class="column column-image">
-                    <img src="{{person.image}}" alt="Person Image">
-                    <div class="likes-dislikes">
-                      <div class="like">
-                        <i class="icon-thumbs-up" style="color: #8ebe58; font-size:15px"></i>
-                        <p>{{person.numberOfLikes}}</p>
-                      </div>
-                      <div class="dislike">
-                        <i class="icon-Thumbs-Down-Right-Side" style="color: #d52b45; font-size:15px"></i>
-                        <p>{{person.numberOfDislike}}</p>
-                      </div>
+            <div class="people">
+              <div class="box-people" *ngFor="let person of time.people">
+                <div class="column column-image">
+                  <img src="{{person.image}}" alt="Person Image">
+                  <div class="likes-dislikes">
+                    <div class="like">
+                      <i class="icon-thumbs-up" style="color: #8ebe58; font-size:15px"></i>
+                      <p>{{person.numberOfLikes}}</p>
+                    </div>
+                    <div class="dislike">
+                      <i class="icon-Thumbs-Down-Right-Side" style="color: #d52b45; font-size:15px"></i>
+                      <p>{{person.numberOfDislike}}</p>
                     </div>
                   </div>
-                  <div class="column column-info">
-                    <p class="name">{{ person.name }}</p>
-                    <p class="nationality">{{ person.nationality }}</p>
-                    <p class="interview-type">{{ person.interviewType }}</p>
-                  </div>
                 </div>
-
-                <!-- Display a message if no interviews are scheduled -->
-                <!-- <div *ngIf="!time.people.length" class="no-interviews">
-            No interviews scheduled
-          </div> -->
+                <div class="column column-info">
+                  <p class="name">{{ person.name }}</p>
+                  <p class="nationality">{{ person.nationality }}</p>
+                  <p class="interview-type">{{ person.interviewType }}</p>
+                </div>
               </div>
-            </ng-container>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </ng-template>
 </ion-modal>
+
+
+
+<ion-modal trigger="open-inverview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="modal-content">
+      <div class="header">
+        <div class="title">Applications</div>
+        <div class="button-container">
+          <button>Add</button>
+        </div>
+      </div>
+      <div class="content">
+        <div>
+          <img src="/assets/youcandoit9.png" alt="">
+        </div>
+        <div class="avg-rating">
+          <div class="box left">
+            <p>Average</p>
+            <p>Overall</p>
+          </div>
+          <div class="box right">
+            <p>4.5</p>
+            <img src="/assets/star.png" alt="Star">
+          </div>
+        </div>
+
+        <div class="rating">
+          <div class="profile">
+            <img src="/assets/avatar.png" alt="">
+            <p>Hussain Yahya</p>
+          </div>
+          <div class="box left">
+            <p>Language</p>
+            <p>Overall</p>
+          </div>
+          <div class="box right">
+            <p>4.5</p>
+            <img src="/assets/star.png" alt="Star">
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
+
+
+
 <!-- applicants model end-->
