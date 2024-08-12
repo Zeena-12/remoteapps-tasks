@@ -246,7 +246,7 @@ export class FourthPage implements OnInit, AfterViewInit {
       image: 'assets/avatar4.png',
       numberOfLikes: 7,
       numberOfDislike: 12,
-      applicationDate: '01/08/2024 09:00:00 AM'
+      applicationDate: '15/08/2024 09:00:00 AM'
     }
   ];
 
@@ -265,18 +265,28 @@ export class FourthPage implements OnInit, AfterViewInit {
   }
 
   generateTimes() {
+    console.log('Generating times...');
     this.weekDays.forEach(day => {
+      console.log(`Processing day: ${day.day}`);
       const startTime = moment().startOf('day').hour(7); // Start at 7:00 AM
       const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
       const dailyTimes: TimeSlot[] = [];
       let currentTime = startTime.clone();
-      // loop throught the times from 7am to 7pm
+      
       while (currentTime <= endTime) {
-        // Filter people based on the current time slot
         const currentHour = currentTime.format('h:mm A');
-        const filteredPeople = this.peopleList.filter(person =>
-          moment(person.applicationDate, 'DD/MM/YYYY h:mm:ss A').format('h:mm A') === currentHour
-        );
+        const currentDate = moment().startOf('week').add(this.weekDays.findIndex(d => d.day === day.day), 'days').format('DD/MM/YYYY');
+        
+        console.log(`Current time: ${currentHour}, Date: ${currentDate}`);
+        
+        const filteredPeople = this.peopleList.filter(person => {
+          const personDateTime = moment(person.applicationDate, 'DD/MM/YYYY h:mm:ss A');
+          console.log(`Person time: ${personDateTime.format('h:mm A')}, Date: ${personDateTime.format('DD/MM/YYYY')}`);
+          return personDateTime.format('h:mm A') === currentHour && personDateTime.format('DD/MM/YYYY') === currentDate;
+        });
+        
+        console.log(`Filtered people: ${filteredPeople.length}`);
+        
         dailyTimes.push({
           time: currentTime.format('h:mm A'),
           people: filteredPeople // Use filtered people based on time
@@ -286,8 +296,10 @@ export class FourthPage implements OnInit, AfterViewInit {
       this.times[day.day] = dailyTimes;
     });
   }
+  
 
 
+  
   
 
 

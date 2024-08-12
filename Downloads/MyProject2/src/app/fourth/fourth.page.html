@@ -391,7 +391,7 @@
   </ng-template>
 </ion-modal>
 
-<ion-modal trigger="open-inverview-change-name-to-test-intreviw-details" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal trigger="open-inverview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="modal-content">
       <div class="header">
@@ -404,21 +404,21 @@
             <p class="day-date">{{ day.date }}</p>
           </button>
         </div>
-        <div class="time-container" *ngIf="times[selectedDay]">
+        <div class="time-container" *ngIf="times[selectedDay] && times[selectedDay].length">
           <div class="time-box" *ngFor="let time of times[selectedDay]">
             <div class="time">{{ time.time }}</div>
             <div class="people">
               <div class="box-people" *ngFor="let person of time.people">
                 <div class="column column-image">
-                  <img src="{{person.image}}" alt="Person Image">
+                  <img [src]="person.image" alt="Person Image">
                   <div class="likes-dislikes">
                     <div class="like">
                       <i class="icon-thumbs-up" style="color: #8ebe58; font-size:15px"></i>
-                      <p>{{person.numberOfLikes}}</p>
+                      <p>{{ person.numberOfLikes }}</p>
                     </div>
                     <div class="dislike">
                       <i class="icon-Thumbs-Down-Right-Side" style="color: #d52b45; font-size:15px"></i>
-                      <p>{{person.numberOfDislike}}</p>
+                      <p>{{ person.numberOfDislike }}</p>
                     </div>
                   </div>
                 </div>
@@ -431,6 +431,7 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </ng-template>
@@ -438,7 +439,7 @@
 
 
 
-<ion-modal trigger="open-inverview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal trigger="open-inverview-change-name-to-test" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="modal-content">
       <div class="header">
