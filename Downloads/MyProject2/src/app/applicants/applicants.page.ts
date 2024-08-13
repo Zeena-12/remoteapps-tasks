@@ -22,7 +22,8 @@ export class ApplicantsPage implements OnInit {
 
   async loadApplicantData() {
     try {
-      this.applicantsList = await this.applicantService.getApplicantData();
+      const response = await this.applicantService.getApplicantData();
+      this.applicantsList = response.ApplicantList;
       console.log(this.applicantsList);
     } catch (error) {
       this.errorMessage = 'Failed to load applicant data.';

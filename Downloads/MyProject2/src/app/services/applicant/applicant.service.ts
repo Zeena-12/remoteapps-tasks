@@ -11,6 +11,7 @@ import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
 export class ApplicantService {
   // api list
   private apiUrlGetApplicantData = `${backend}HCM/Recruitment/Applicants/getApplicantData`;
+  private apiUrlGetApplicantDataVacancies = `${backend}HCM/Recruitment/Vacancies/GetApplicantData`; //dont be confused one capital and one small
   private apiUrlGetApplicantCV = `${backend}HCM/Recruitment/Applicants/getApplicantCV`;
   private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
   private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
@@ -33,8 +34,10 @@ export class ApplicantService {
       if (responseData) {
 
         const data = responseData;
-        console.log("data from applicant service: ", data);
-        return data.Parameters.ApplicantList;
+        console.log("data from applicant service function getApplicantData: ", data);
+      //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
+        return data.Parameters; // i will try  to change to retun the full list
+
       } else {
         throw new Error('Invalid response structure or no data available.');
       }
@@ -115,11 +118,37 @@ export class ApplicantService {
   }
 
 
-  // async loginUser(us: string, ps: string): Promise<string> {
-  //   const data = {
-  //       UserName: 'Zeen.Test@dev.com',
-  //       Password: 'Bahrain1234'
-  //   };
+  async getApplicantDataVacancie(): Promise<any> {
+
+    try {
+      const response: any = await this.http.post(this.apiUrlGetApplicantDataVacancies, {}, {});
+
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+
+      // Check if the response is successful and contains Parameters
+      if (responseData) {
+
+        const data = responseData;
+        console.log("data from applicant service function getApplicantDataVacancie: ", data);
+      //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
+        return data.Parameters; // i will try  to change to retun the full list
+
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
+  }
 
 
 

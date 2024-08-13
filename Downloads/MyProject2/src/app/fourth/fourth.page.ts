@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CandidateStatusService } from '../candidate-status.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
@@ -28,12 +28,22 @@ export class FourthPage implements OnInit, AfterViewInit {
   Offered: any[] = [];
   Finalized: any[] = [];
 
+  EmployeeList: any[] = [];
+  ApplicantBestFitList: any[] = [];
+
+  option: string = 'Candidates';
+
   cvData: any = null;
   answersData: any[] = [];
+
+  ApplicantsIntreviewList: any = [];
 
   weekDays: { day: string; date: string }[] = [];
   times: { [day: string]: TimeSlot[] } = {}; // Interviews per day
   selectedDay: string = '';
+
+  @ViewChild('datePicker') datePicker: any;
+  selectedDate!: string;
 
   constructor(private candidateService: CandidateStatusService,
     private applicantsService: ApplicantService,
@@ -52,9 +62,9 @@ export class FourthPage implements OnInit, AfterViewInit {
     }
     console.log("vacancyIdParam id is ,", this.vacancyId);
     this.generateWeekDays();
-    this.generateTimes();
+    // this.generateTimes();
     this.selectedDay = this.weekDays[0]?.day; // Default to the first day
-
+    this.loadApplicantData();
   }
 
 
@@ -65,7 +75,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     try {
       const result = await this.applicantsService.getApplications(this.vacancyId)
       this.ApplicantList = result.list;
-      console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
+      // console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
 
       // Filter the applicants based on their status
       this.ApplicantList.forEach(applicant => {
@@ -101,45 +111,48 @@ export class FourthPage implements OnInit, AfterViewInit {
     }
   }
 
+  // async loadAllVacancyInterviews() {
+  //   try {
+  //     const result = await this.vacanciesService.getAllVacancyInterviews(this.vacancyId);
+  //     this.ApplicantsIntreviewList = result.list;
+  //     console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantsIntreviewList);
+  //   } catch (error) {
+  //     console.error('Error fetching loadVacancyData:', error);
+  //   }
+  // }
   async loadAllVacancyInterviews() {
     try {
+      // Fetch the list of vacancy interviews
       const result = await this.vacanciesService.getAllVacancyInterviews(this.vacancyId);
-      this.ApplicantList = result.list;
-      console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantList);
 
-      // Filter the applicants based on their status
-      this.ApplicantList.forEach(applicant => {
-        switch (applicant.Status) {
-          case 'Applied':
-            this.Applied.push(applicant);
-            break;
-          case 'Shortlisted':
-            this.Shortlisted.push(applicant);
-            break;
-          case 'Interviewed':
-            this.Interviewed.push(applicant);
-            break;
-          case 'Offered':
-            this.Offered.push(applicant);
-            break;
-          case 'Finalized':
-            this.Finalized.push(applicant);
-            break;
-          default:
-            console.warn(`Unknown status: ${applicant.status}`);
-        }
-      });
+      // Assign the result to your class property
+      this.ApplicantsIntreviewList = result.list;
+      console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantsIntreviewList);
 
-      // console.log('Applied:', this.Applied);
-      // console.log('Shortlisted:', this.Shortlisted);
-      // console.log('Interviewed:', this.Interviewed);
-      // console.log('Offered:', this.Offered);
-      // console.log('Finalized:', this.Finalized);
+      // Perform additional actions, such as generating times
+      await this.generateTimes(); // Assuming generateTimes is also an async function
+    } catch (error) {
+      // Log errors to the console
+      console.error('Error fetching loadVacancyData:', error);
+    }
+  }
+
+  async loadApplicantData() {
+    // fetch data from api GetApplicantData
+    try {
+      const result = await this.applicantsService.getApplicantDataVacancie()
+      this.EmployeeList = result.EmployeeList;
+      this.ApplicantBestFitList = result.ApplicantBestFitList;
+      console.log('Result from getApplicantDataVacancie from loadApplicantData from id:', this.EmployeeList);
 
     } catch (error) {
       console.error('Error fetching loadVacancyData:', error);
     }
   }
+
+  // Assuming generateTimes is defined as an async function
+
+
 
 
 
@@ -219,7 +232,7 @@ export class FourthPage implements OnInit, AfterViewInit {
       image: 'assets/avatar4.png',
       numberOfLikes: 4,
       numberOfDislike: 20,
-      applicationDate: '11/08/2024 07:00:00 AM'
+      applicationDate: '11/09/2024 07:00:00 AM'
     },
     {
       name: 'Sara Alnasser',
@@ -264,7 +277,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     });
   }
 
-  generateTimes() {
+  async generateTimes() {
     console.log('Generating times...');
     this.weekDays.forEach(day => {
       console.log(`Processing day: ${day.day}`);
@@ -272,21 +285,21 @@ export class FourthPage implements OnInit, AfterViewInit {
       const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
       const dailyTimes: TimeSlot[] = [];
       let currentTime = startTime.clone();
-      
+
       while (currentTime <= endTime) {
         const currentHour = currentTime.format('h:mm A');
         const currentDate = moment().startOf('week').add(this.weekDays.findIndex(d => d.day === day.day), 'days').format('DD/MM/YYYY');
-        
+
         console.log(`Current time: ${currentHour}, Date: ${currentDate}`);
-        
-        const filteredPeople = this.peopleList.filter(person => {
-          const personDateTime = moment(person.applicationDate, 'DD/MM/YYYY h:mm:ss A');
+
+        const filteredPeople = this.ApplicantsIntreviewList.filter((person: { InterviewDate: moment.MomentInput; }) => {
+          const personDateTime = moment(person.InterviewDate, 'DD/MM/YYYY h:mm:ss A');
           console.log(`Person time: ${personDateTime.format('h:mm A')}, Date: ${personDateTime.format('DD/MM/YYYY')}`);
           return personDateTime.format('h:mm A') === currentHour && personDateTime.format('DD/MM/YYYY') === currentDate;
         });
-        
+
         console.log(`Filtered people: ${filteredPeople.length}`);
-        
+
         dailyTimes.push({
           time: currentTime.format('h:mm A'),
           people: filteredPeople // Use filtered people based on time
@@ -296,16 +309,13 @@ export class FourthPage implements OnInit, AfterViewInit {
       this.times[day.day] = dailyTimes;
     });
   }
-  
-
-
-  
-  
-
-
-
   selectDay(day: string) {
     this.selectedDay = day;
+  }
+
+  openDatePicker() {
+    // Open the date picker programmatically
+    this.datePicker.open();
   }
 
 }
