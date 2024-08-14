@@ -16,6 +16,7 @@ export class VacanciesService {
   }
   private apiUrlGetVacansiesData = `${backend}HCM/Recruitment/Vacancies/getVacansiesData`;
   private apiUrlGetAllVacancyInterviews = `${backend}HCM/Recruitment/Vacancies/getAllVacancyInterviews`;
+  private apiUrlGetInterviewsData = `${backend}HCM/Recruitment/Vacancies/getInterviewsData`;
 
 
   constructor(private http: HTTP) { }
@@ -64,6 +65,38 @@ export class VacanciesService {
       // Check if the response is successful and contains Parameters
       if (responseData.Parameters && responseData.Parameters) {
         console.log("data from get AllVacancyInterviewst service: ", responseData.Parameters);
+        return responseData.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
+  }
+
+  async getInterviewsData(vacancyID: number, interviewTypeID: number): Promise<any> {
+    const data = {
+      VacancyID: vacancyID,
+      InterviewTypeID: interviewTypeID
+    };
+    console.log()
+    try {
+      const response: any = await this.http.post(this.apiUrlGetInterviewsData, data, {});
+
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+
+      // Check if the response is successful and contains Parameters
+      if (responseData.Parameters && responseData.Parameters) {
+        console.log("data from get getInterviewsData service: ", responseData.Parameters);
         return responseData.Parameters;
       } else {
         throw new Error('Invalid response structure or no data available.');

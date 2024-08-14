@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 import { CandidateStatusService } from '../candidate-status.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
@@ -18,6 +18,7 @@ import { VacanciesService } from '../services/vacancies/vacancies.service';
 })
 export class FourthPage implements OnInit, AfterViewInit {
   vacancyId: number = 0;
+  interviewTypeID: number = 78;
   // candidates$ = this.candidateService.getCandidateList();
   // full list
   ApplicantList: any[] = [];
@@ -29,7 +30,8 @@ export class FourthPage implements OnInit, AfterViewInit {
   Finalized: any[] = [];
 
   EmployeeList: any[] = [];
-  ApplicantBestFitList: any[] = [];
+  ApplicantBestFitList: any[] = []; //full list
+  BestFitApplicants: any = null; // to store the data of the best fit from applicant data
 
   option: string = 'Candidates';
 
@@ -37,6 +39,8 @@ export class FourthPage implements OnInit, AfterViewInit {
   answersData: any[] = [];
 
   ApplicantsIntreviewList: any = [];
+  InterviewsDataWithRate : any = [];
+  UniqueApplicantFromRaing: any[] = [];
 
   weekDays: { day: string; date: string }[] = [];
   times: { [day: string]: TimeSlot[] } = {}; // Interviews per day
@@ -143,14 +147,13 @@ export class FourthPage implements OnInit, AfterViewInit {
       const result = await this.applicantsService.getApplicantDataVacancie()
       this.EmployeeList = result.EmployeeList;
       this.ApplicantBestFitList = result.ApplicantBestFitList;
+      this.findBestFitApplicants();
       console.log('Result from getApplicantDataVacancie from loadApplicantData from id:', this.EmployeeList);
 
     } catch (error) {
       console.error('Error fetching loadVacancyData:', error);
     }
   }
-
-  // Assuming generateTimes is defined as an async function
 
 
 
@@ -217,7 +220,18 @@ export class FourthPage implements OnInit, AfterViewInit {
     this.modalController.dismiss();
   }
 
+  findBestFitApplicants() {
+    if (this.ApplicantBestFitList.length === 0 || this.ApplicantList.length === 0) {
+      return; // Exit if lists are empty or not yet loaded
+    }
 
+    // Find all applicants from the best fit list that are also in the applicant list
+    this.BestFitApplicants = this.ApplicantBestFitList
+      .map(bestFit => this.ApplicantList.find(applicant => applicant.ApplicantID === bestFit.ApplicantID))
+      .filter(applicant => applicant !== undefined); // Remove any undefined values
+
+    console.log("Best fit applicants: ", this.BestFitApplicants);
+  }
 
 
   swiperSlideChanged(e: any) {
@@ -263,6 +277,13 @@ export class FourthPage implements OnInit, AfterViewInit {
     }
   ];
 
+  candidates = [
+    { name: 'Candidate 1' },
+    { name: 'Candidate 2' },
+    { name: 'Candidate 3' },
+    // Add your candidates here
+  ];
+
 
 
   // interview
@@ -278,9 +299,9 @@ export class FourthPage implements OnInit, AfterViewInit {
   }
 
   async generateTimes() {
-    console.log('Generating times...');
+    // console.log('Generating times...');
     this.weekDays.forEach(day => {
-      console.log(`Processing day: ${day.day}`);
+      // console.log(`Processing day: ${day.day}`);
       const startTime = moment().startOf('day').hour(7); // Start at 7:00 AM
       const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
       const dailyTimes: TimeSlot[] = [];
@@ -290,15 +311,15 @@ export class FourthPage implements OnInit, AfterViewInit {
         const currentHour = currentTime.format('h:mm A');
         const currentDate = moment().startOf('week').add(this.weekDays.findIndex(d => d.day === day.day), 'days').format('DD/MM/YYYY');
 
-        console.log(`Current time: ${currentHour}, Date: ${currentDate}`);
+        // console.log(`Current time: ${currentHour}, Date: ${currentDate}`);
 
         const filteredPeople = this.ApplicantsIntreviewList.filter((person: { InterviewDate: moment.MomentInput; }) => {
           const personDateTime = moment(person.InterviewDate, 'DD/MM/YYYY h:mm:ss A');
-          console.log(`Person time: ${personDateTime.format('h:mm A')}, Date: ${personDateTime.format('DD/MM/YYYY')}`);
+          // console.log(`Person time: ${personDateTime.format('h:mm A')}, Date: ${personDateTime.format('DD/MM/YYYY')}`);
           return personDateTime.format('h:mm A') === currentHour && personDateTime.format('DD/MM/YYYY') === currentDate;
         });
 
-        console.log(`Filtered people: ${filteredPeople.length}`);
+        // console.log(`Filtered people: ${filteredPeople.length}`);
 
         dailyTimes.push({
           time: currentTime.format('h:mm A'),
@@ -318,6 +339,62 @@ export class FourthPage implements OnInit, AfterViewInit {
     this.datePicker.open();
   }
 
+  @ViewChild('openTopInterview') openTopInterview: any;
+  @ViewChild('openSelectInterviewee') openSelectInterviewee: any;
+  selectedCandidate: any;
+
+  openSelectModal() {
+    this.openSelectInterviewee.present();
+  }
+
+  async selectCandidate(candidate: any) {
+    this.selectedCandidate = candidate;
+    await this.openSelectInterviewee.dismiss();
+    this.openTopInterview.present();  // Reopen the first modal
+  }
+
+// this function retun the data of applicant with the details of rating, for button Top interviews
+  async loadInterviewsData() {
+    try {
+      // Fetch the list of vacancy interviews
+      const result = await this.vacanciesService.getInterviewsData(this.vacancyId, this.interviewTypeID);
+
+      // Assign the result to your class property
+      this.InterviewsDataWithRate = result.list;
+      console.log('Result from getInterviewsData from loadInterviewsData Rating details:', this.InterviewsDataWithRate);
+      if(this.InterviewsDataWithRate){
+        this. getUniqueApplicants();
+      }
+
+      // Perform additional actions, such as generating times
+      await this.generateTimes(); // Assuming generateTimes is also an async function
+    } catch (error) {
+      // Log errors to the console
+      console.error('Error fetching loadVacancyData:', error);
+    }
+  }
+   getUniqueApplicants() {
+        // Create a map to store unique applicants by ApplicantID
+        const uniqueMap = new Map<number, { FullName: string, PositionName: string }>();
+
+        this.InterviewsDataWithRate.forEach((applicant: { ApplicantID: any; FullName: any; PositionName: any; }) => {
+          // Add or update the map entry
+          if (!uniqueMap.has(applicant.ApplicantID)) {
+            uniqueMap.set(applicant.ApplicantID, {
+              FullName: applicant.FullName,
+              PositionName: applicant.PositionName
+            });
+          }
+        });
+    
+        // Convert map values to an array
+        this.UniqueApplicantFromRaing = Array.from(uniqueMap.entries()).map(([ApplicantID, { FullName, PositionName }]) => ({
+          ApplicantID,
+          FullName,
+          PositionName
+        })); 
+        console.log("getUniqueApplicants ", this.UniqueApplicantFromRaing);
+}
 }
 
 interface Interview {

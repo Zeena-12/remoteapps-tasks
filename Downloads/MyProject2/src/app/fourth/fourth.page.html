@@ -39,13 +39,13 @@
         </div>
         <div class="interviews-buttons">
           <div class="box">
-            <button class="custom-button" id="open-inverview" (click)=loadAllVacancyInterviews()>
+            <button class="custom-button" id="open-interview" (click)=loadAllVacancyInterviews()>
               <i class="icon-employees-f-m"></i>
               Interviews
             </button>
           </div>
           <div class="box">
-            <button class="custom-button">
+            <button class="custom-button" id="open-top-interview" (click)="loadInterviewsData()">
               <i class="icon-thumbs-up-1"></i>
               Top Interviews
             </button>
@@ -321,7 +321,7 @@
             </ion-segment-button>
           </ion-segment>
         </div>
-      
+
         <!-- Candidates View -->
         <div class="list-container" *ngIf="option === 'Candidates'">
           <div *ngFor="let applicant of ApplicantList" class="list-item">
@@ -331,38 +331,49 @@
             </div>
             <div>
               <p class="name">{{applicant.FirstName}} {{applicant.LastName}}</p>
-              <p class="nationality-position">{{applicant.Nationality}}, {{applicant.CurrentPosition}} at {{applicant.CurrentCompany}}</p>
+              <p class="nationality-position">{{applicant.Nationality}}, {{applicant.CurrentPosition}} at
+                {{applicant.CurrentCompany}}</p>
             </div>
           </div>
         </div>
-      
+
         <!-- Recommended View -->
         <div class="list-container" *ngIf="option === 'Recommended'">
-          <div class="list-item">
-            <p>Recommended content goes here.</p>
+          <div *ngFor="let applicant of BestFitApplicants" class="list-item">
+            <div><ion-checkbox></ion-checkbox></div>
+            <div>
+              <img class="item-img" src="/assets/avatar.png" alt="">
+            </div>
+            <div>
+              <p class="name">{{applicant.FirstName}} {{applicant.LastName}}</p>
+              <p class="nationality-position">{{applicant.Nationality}}, {{applicant.CurrentPosition}} at
+                {{applicant.CurrentCompany}}</p>
+            </div>
           </div>
         </div>
-      
+
         <!-- Employees View -->
-        <div *ngFor="let employee of EmployeeList" class="list-item">
-          <div><ion-checkbox></ion-checkbox></div>
-          <div>
-            <img class="item-img" src="/assets/avatar.png" alt="">
-          </div>
-          <div>
-            <p class="name">{{employee.Name}}</p>
-            <p class="nationality">{{employee.NationalityName}}</p>
-            <p class="position">{{employee.Position}}</p>
+        <div class="list-container" *ngIf="option === 'Employee'">
+          <div *ngFor="let employee of EmployeeList" class="list-item">
+            <div><ion-checkbox></ion-checkbox></div>
+            <div>
+              <img class="item-img" src="/assets/avatar.png" alt="">
+            </div>
+            <div>
+              <p class="name">{{employee.Name}}</p>
+              <p class="nationality">{{employee.NationalityName}}</p>
+              <p class="position">{{employee.Position}}</p>
+            </div>
           </div>
         </div>
       </div>
-      
+
 
     </div>
   </ng-template>
 </ion-modal>
 
-<ion-modal trigger="open-inverview-change-name-to-test" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal trigger="open-interview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="modal-content">
       <div class="header">
@@ -418,19 +429,25 @@
   </ng-template>
 </ion-modal>
 
-<ion-modal trigger="open-inverview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal #openTopInterview trigger="open-top-interview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="modal-content">
       <div class="header">
-        <div class="title">Applications</div>
+        <div class="title">Interviews</div>
         <div class="button-container">
-          <button>Add</button>
+          <button>New Interviewee</button>
         </div>
       </div>
-      <div class="content">
-        <div>
-          <img src="/assets/youcandoit9.png" alt="">
+      <!-- applicant.page.html -->
+      <div class="content-top-interview">
+        <div class="interviewee-profile" (click)="openSelectModal()">
+          <div class="profile" id="open-select-interviewee">
+            <img src="/assets/avatar.png" style="width: 30px; border-radius: 50%;" alt="Profile">
+            <p>Maiam Hussainvv</p>
+          </div>
+          <i class="icon-Arrow-Chevron-Down" [ngClass]="{'icon-Arrow-Chevron-Up': showDropdown}"></i>
         </div>
+        <!--  -->
         <div class="avg-rating">
           <div class="box-rating">
             <p>Average</p>
@@ -442,63 +459,19 @@
           </div>
         </div>
 
-        <div class="rating">
+        <div class="rating" *ngFor="let candidate of InterviewsDataWithRate">
           <div class="profile">
             <img src="/assets/avatar.png" style="width: 50px; border-radius: 50%;" alt="Star">
-            <p>Hussain Yahya</p>
+            <p>{{candidate.FullName}}</p>
           </div>
           <div class="rating-details">
-            <div class="box-rating">
-              <p>Language</p>
+            <div class="box-rating" *ngFor="let ratingDetails of candidate.FeedbackCriteria">
+              <p>{{ratingDetails.CriteriaTranslated}}</p>
               <img src="/assets/star.png" style="width: 100px; height: 20px;" alt="Star">
             </div>
             <div class="box-rating">
-              <p>Buisiness Knowledge</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-            <div class="box-rating">
-              <p>Language</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-            <div class="box-rating">
-              <p>Style</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-            <div class="box-rating">
               <p>Average</p>
-              <p>4.5</p>
-            </div>
-            <div class="box-rating">
-              <p>overall</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-          </div>
-        </div>
-        <div class="rating">
-          <div class="profile">
-            <img src="/assets/avatar.png" style="width: 50px; border-radius: 50%;" alt="Star">
-            <p>Hussain Yahya</p>
-          </div>
-          <div class="rating-details">
-            <div class="box-rating">
-              <p>Language</p>
-              <img src="/assets/star.png" style="width: 100px; height: 20px;" alt="Star">
-            </div>
-            <div class="box-rating">
-              <p>Buisiness Knowledge</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-            <div class="box-rating">
-              <p>Language</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-            <div class="box-rating">
-              <p>Style</p>
-              <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            </div>
-            <div class="box-rating">
-              <p>Average</p>
-              <p>4.5</p>
+              <p>{{candidate.OverallFeedbackNoStars}}</p>
             </div>
             <div class="box-rating">
               <p>overall</p>
@@ -510,7 +483,29 @@
     </div>
   </ng-template>
 </ion-modal>
-
-
-
 <!-- applicants model end-->
+
+<!-- select interviewee modal start-->
+<ion-modal #openSelectInterviewee trigger="open-select-interviewee" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="modal-content">
+      <div class="header">
+        <i class="icon-Close-Cancel-X-remove"></i>
+        <div class="title"> Select interviewee</div>
+        <div class="button-container">
+          <button>New Interviewee</button>
+        </div>
+      </div>
+      <!-- applicant.page.html -->
+      <div class="content-top-interview">
+        <div class="interviewee-profile" *ngFor="let candidate of UniqueApplicantFromRaing" (click)="selectCandidate(candidate)">
+          <div class="profile">
+            <img src="/assets/avatar.png" style="width: 30px; border-radius: 50%;" alt="Profile">
+            <p>{{candidate.FullName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
+<!-- select interviewee modal end-->

@@ -553,8 +553,9 @@ ion-segment-button {
   border-radius: 5px;
   background: var(--Cloud-Blue-Primary-1, #29B8EF);
   color: white;
-  width: 102px;
+  min-width: 102px;
   height: 34px;
+  padding: 10px;
 }
 
 .segment-list {
@@ -851,103 +852,140 @@ ion-checkbox::part(container) {
 }
 
 // rating model start 
-.avg-rating {
-  display: flex;
-  justify-content: space-between;
-  /* Distribute space between the left and right boxes */
-  align-items: center;
-  /* Align items vertically center */
-  padding: 10px;
-  // border: 1px solid red;
-  border-radius: 10px;
-  background: var(--RA-Gray-Gray-5, #F6F8F9);
-  flex-direction: column;
-  margin-bottom: 10px;
-}
+.content-top-interview {
+  .avg-rating {
+    display: flex;
+    justify-content: space-between;
+    /* Distribute space between the left and right boxes */
+    align-items: center;
+    /* Align items vertically center */
+    padding: 10px;
+    // border: 1px solid red;
+    border-radius: 10px;
+    background: var(--RA-Gray-Gray-5, #F6F8F9);
+    flex-direction: column;
+    margin-bottom: 10px;
+    display: relative;
+  }
 
-.rating-details {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-// rating model end
-
-
-.box {
-  display: flex;
-  flex-direction: column;
-  /* Stack elements vertically within the box */
-  align-items: center;
-  /* Center align elements within each box */
-  color: var(--RA-Gray-Gray, #92A0B3);
-  font-family: Roboto;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
+  .rating-details {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid red;
+  }
 
 
 
-/* Optional: Additional styling for text and image */
-.box p {
-  margin: 0;
-}
-
-.box img {
-  // width: 20px;
-  /* Adjust the width of the star image as needed */
-  height: auto;
-  width: 85px;
-}
-
-.box-rating {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  /* flex-grow: 1; */
-  width: 100%;
-  p {
-    margin: 0px;
-    padding: 0px;
+  .box {
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically within the box */
+    align-items: center;
+    /* Center align elements within each box */
     color: var(--RA-Gray-Gray, #92A0B3);
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
-    margin-bottom: 10px;
   }
-}
 
-.rating {
-  border: 1px solid red;
-  border-radius: 10px;
-  background: var(--RA-Gray-Gray-5, #F6F8F9);
-  padding: 10px;
-  margin-bottom: 20px;
 
-  .profile {
+
+  /* Optional: Additional styling for text and image */
+  .box p {
+    margin: 0;
+  }
+
+  .box img {
+    // width: 20px;
+    /* Adjust the width of the star image as needed */
+    height: auto;
+    width: 85px;
+  }
+
+  .box-rating {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* flex-grow: 1; */
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 
     p {
+      margin: 0px;
+      padding: 0px;
       color: var(--RA-Gray-Gray, #92A0B3);
       font-family: Roboto;
-      font-size: 12px;
+      font-size: 16px;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 600;
       line-height: normal;
+      margin-bottom: 10px;
     }
   }
+
+  .rating {
+    // border: 1px solid red;
+    border-radius: 10px;
+    background: var(--RA-Gray-Gray-5, #F6F8F9);
+    padding: 10px;
+    margin-bottom: 20px;
+
+    .profile {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      p {
+        color: var(--RA-Gray-Gray, #92A0B3);
+        font-family: Roboto;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 0px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .interviewee-profile {
+    // border: 1px solid red;
+    border-radius: 10px;
+    background: var(--RA-Gray-Gray-5, #F6F8F9);
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    margin-bottom: 20px;
+
+    .profile {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+
+      p {
+        color: var(--RA-Gray-Gray, #92A0B3);
+        font-family: Roboto;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+  }
+
 }
 
 
-
+  // rating model end
 
 
 // start interview 
