@@ -84,4 +84,13 @@
   display: none;
 }
 
+.text-ellipsis {
+  white-space: nowrap;
+  /* Prevents the text from wrapping */
+  overflow: hidden;
+  /* Hides the overflowed text */
+  text-overflow: ellipsis;
+  /* Displays the ellipsis (...) */
+}
+
 

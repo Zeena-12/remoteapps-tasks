@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { VacanciesService } from 'src/app/services/vacancies/vacancies.service';
 
 
 @Component({
@@ -36,14 +37,15 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   disqualify: string = '';
 
 
-selectedOption: any;
-modalContent: string = "no content";
-@ViewChild('myModal') myModal: any;
+  selectedOption: any;
+  modalContent: string = "no content";
+  @ViewChild('myModal') myModal: any;
 
 
-cvArray: any;
+  cvArray: any;
   answersArray: any;
-selectedCandidateId: any;
+  selectedCandidateId: any;
+  selectedCandidateType: any;
 
   gestureArray: Gesture[] = [];
   @ViewChildren(ProfileCardComponent, { read: ElementRef }) items!: QueryList<ElementRef>;
@@ -69,7 +71,9 @@ selectedCandidateId: any;
     private router: Router,
     private alertController: AlertController,
     private modalController: ModalController,
-    private candidateService: CandidateStatusService
+    private candidateService: CandidateStatusService,
+    private vacanciesService: VacanciesService,
+
   ) {
 
   }
@@ -141,11 +145,12 @@ selectedCandidateId: any;
   }
 
   async openActionSheet(candidate: any) {
-    console.log("what is it : ",  candidate.Status);
+    console.log("what is it : ", candidate.Status);
     let options: any = [];
     this.selectedCandidateId = candidate.ApplicationID;
+    this.selectedCandidateType = candidate.ApplicantType;
 
-    if ( candidate.Status == 'Applied' ||  candidate.Status == 'Shortlisted' ||  candidate.Status == 'Interviewed') {
+    if (candidate.Status == 'Applied' || candidate.Status == 'Shortlisted' || candidate.Status == 'Interviewed') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
         { label: 'Disqualify', icon: '/assets/calendar.svg' },
@@ -155,7 +160,7 @@ selectedCandidateId: any;
       ];
     }
 
-    if ( candidate.Status == 'Offered' ||  candidate.Status == 'Finalized') {
+    if (candidate.Status == 'Offered' || candidate.Status == 'Finalized') {
       options = [
         { label: 'Open CV', icon: '/assets/calendar.svg' },
         { label: 'Accept Offer', icon: '/assets/calendar.svg' },
@@ -188,6 +193,7 @@ selectedCandidateId: any;
     console.log('Selected Option:', option.label);
 
     const candidateId = this.selectedCandidateId;
+    const candidateType = this.selectedCandidateType;
 
     if (!candidateId) {
       console.error('No candidate ID selected');
@@ -195,7 +201,7 @@ selectedCandidateId: any;
     }
 
     let dataType: 'cv' | 'answers';
-    
+
     if (option.label === 'Open CV') {
       dataType = 'cv';
     } else if (option.label === 'View Answers') {
@@ -206,7 +212,7 @@ selectedCandidateId: any;
     }
 
     try {
-      const details = await firstValueFrom(this.getCandidateDetails(candidateId, dataType));
+      const details = await firstValueFrom(this.getCandidateDetails(candidateId, candidateType, dataType));
       console.log('Emitting data:', { type: dataType, data: details });
       this.openModalEvent.emit({ type: dataType, data: details });
     } catch (error) {
@@ -214,7 +220,7 @@ selectedCandidateId: any;
     }
   }
 
-  
+
   // async openModal(modalId: string) {
   //   const modal = document.getElementById(modalId) as HTMLIonModalElement;
   //   if (modal) {
@@ -230,9 +236,10 @@ selectedCandidateId: any;
     this.modalController.dismiss();
   }
 
-  getCandidateDetails(id: number, arrayName: string) {
+  getCandidateDetails(id: number, type: string, arrayName: string) {
     console.log("Calling getCandidateDetails");
-    return this.candidateService.getCandidateById(id).pipe(
+    console.log("from getCandidateDetails ", id, " ",type," ", arrayName);
+    return this.candidateService.getCandidateById(id, type).pipe(
       map(candidateDetails => {
         if (arrayName === 'cv') {
           console.log("Array name is cv");

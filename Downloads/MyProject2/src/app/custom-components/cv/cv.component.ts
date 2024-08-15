@@ -24,23 +24,23 @@ export class CvComponent implements OnInit {
     //   this. applicantCVData = this.applicantService.getApplicantCV(this.applicantID);
     //   console.log(this.applicantCVData);
     // }
-    this.loadCVData();
+    // this.loadCVData();
   }
 
 
-  async loadCVData() {
-    if (this.applicantID) {
-      try {
-        const response = await this.applicantService.getApplicantCV(this.applicantID);
-        this.ApplicantProfile = response.ApplicantProfile;
-        this.QualificationList = response.QualificationList;
-        console.log(response);
+  // async loadCVData() {
+  //   if (this.applicantID) {
+  //     try {
+  //       const response = await this.applicantService.getApplicantCV(this.applicantID);
+  //       this.ApplicantProfile = response.ApplicantProfile;
+  //       this.QualificationList = response.QualificationList;
+  //       console.log(response);
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-  }
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   }
+  // }
 
 
 

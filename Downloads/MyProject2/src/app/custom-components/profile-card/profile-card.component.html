@@ -14,7 +14,7 @@
       <img src="assets/icon/dislike.svg" alt="Dislike Icon" />
       <span style="color: red">{{ thumbsDown || '-'}}</span>
     </div>
-    <div style="color: #a3acbb; font-weight: 400"> {{ role || 'Unemployed' }}</div>
+    <div class="text-ellipsis" style="color: #a3acbb; font-weight: 400"> {{ role || 'Unemployed' }}</div>
     <div [ngClass]="{ hidden: !Disqualified }" class="disqualified-label">
       {{ Disqualified ? "Disqualified" : "" }}
     </div>

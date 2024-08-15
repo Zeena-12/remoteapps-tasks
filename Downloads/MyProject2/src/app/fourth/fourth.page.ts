@@ -39,7 +39,7 @@ export class FourthPage implements OnInit, AfterViewInit {
   answersData: any[] = [];
 
   ApplicantsIntreviewList: any = [];
-  InterviewsDataWithRate : any = [];
+  InterviewsDataWithRate: any = [];
   UniqueApplicantFromRaing: any[] = [];
 
   weekDays: { day: string; date: string }[] = [];
@@ -69,6 +69,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     // this.generateTimes();
     this.selectedDay = this.weekDays[0]?.day; // Default to the first day
     this.loadApplicantData();
+
   }
 
 
@@ -284,7 +285,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     // Add your candidates here
   ];
 
-
+  selectedApplicant: any ;
 
   // interview
   generateWeekDays() {
@@ -341,19 +342,19 @@ export class FourthPage implements OnInit, AfterViewInit {
 
   @ViewChild('openTopInterview') openTopInterview: any;
   @ViewChild('openSelectInterviewee') openSelectInterviewee: any;
-  selectedCandidate: any;
+  SelectedApplicant: any;
 
   openSelectModal() {
     this.openSelectInterviewee.present();
   }
 
   async selectCandidate(candidate: any) {
-    this.selectedCandidate = candidate;
+    this.SelectedApplicant = candidate;
     await this.openSelectInterviewee.dismiss();
     this.openTopInterview.present();  // Reopen the first modal
   }
 
-// this function retun the data of applicant with the details of rating, for button Top interviews
+  // this function retun the data of applicant with the details of rating, for button Top interviews
   async loadInterviewsData() {
     try {
       // Fetch the list of vacancy interviews
@@ -362,8 +363,8 @@ export class FourthPage implements OnInit, AfterViewInit {
       // Assign the result to your class property
       this.InterviewsDataWithRate = result.list;
       console.log('Result from getInterviewsData from loadInterviewsData Rating details:', this.InterviewsDataWithRate);
-      if(this.InterviewsDataWithRate){
-        this. getUniqueApplicants();
+      if (this.InterviewsDataWithRate) {
+        this.getUniqueApplicants();
       }
 
       // Perform additional actions, such as generating times
@@ -373,28 +374,49 @@ export class FourthPage implements OnInit, AfterViewInit {
       console.error('Error fetching loadVacancyData:', error);
     }
   }
-   getUniqueApplicants() {
-        // Create a map to store unique applicants by ApplicantID
-        const uniqueMap = new Map<number, { FullName: string, PositionName: string }>();
+  getUniqueApplicants() {
+    // Create a map to store unique applicants by ApplicantID
+    const uniqueMap = new Map<number, { ApplicantName: string, PositionName: string }>();
 
-        this.InterviewsDataWithRate.forEach((applicant: { ApplicantID: any; FullName: any; PositionName: any; }) => {
-          // Add or update the map entry
-          if (!uniqueMap.has(applicant.ApplicantID)) {
-            uniqueMap.set(applicant.ApplicantID, {
-              FullName: applicant.FullName,
-              PositionName: applicant.PositionName
-            });
-          }
+    this.InterviewsDataWithRate.forEach((applicant: { ApplicantID: any; ApplicantName: any; PositionName: any; }) => {
+      // Add or update the map entry
+      if (!uniqueMap.has(applicant.ApplicantID)) {
+        uniqueMap.set(applicant.ApplicantID, {
+          ApplicantName: applicant.ApplicantName,
+          PositionName: applicant.PositionName
         });
-    
-        // Convert map values to an array
-        this.UniqueApplicantFromRaing = Array.from(uniqueMap.entries()).map(([ApplicantID, { FullName, PositionName }]) => ({
-          ApplicantID,
-          FullName,
-          PositionName
-        })); 
-        console.log("getUniqueApplicants ", this.UniqueApplicantFromRaing);
-}
+      }
+    });
+
+    // Convert map values to an array
+    this.UniqueApplicantFromRaing = Array.from(uniqueMap.entries()).map(([ApplicantID, { ApplicantName, PositionName }]) => ({
+      ApplicantID,
+      ApplicantName,
+      PositionName
+    }));
+    this.SelectedApplicant = this.UniqueApplicantFromRaing[0];
+    console.log("getUniqueApplicants ", this.UniqueApplicantFromRaing);
+    console.log("selected applicant ", this.SelectedApplicant);
+     if(this.SelectedApplicant){
+     this.getFilteredInterviews();
+     }
+  }
+
+  getFilteredInterviews() {
+    if (!this.SelectedApplicant) {
+      // Debugging message if SelectedApplicant is undefined
+      console.error("SelectedApplicant is undefined.");
+      return [];
+    }
+
+    // Debugging message
+    console.log("selected candidate is ", this.SelectedApplicant);
+
+    return this.InterviewsDataWithRate.filter((candidate: { ApplicantID: any; }) =>
+      candidate.ApplicantID === this.SelectedApplicant.ApplicantID
+    );
+  }
+
 }
 
 interface Interview {

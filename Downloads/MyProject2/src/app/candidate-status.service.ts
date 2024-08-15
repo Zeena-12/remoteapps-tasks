@@ -405,12 +405,11 @@ export class CandidateStatusService {
 
 
 
-  getCandidateById(id: number): Observable<any> {
-    console.log("Calling getCandidateById in service with id:", id);
+  getCandidateById(id: number, type: string): Observable<any> {
+    console.log("Calling getCandidateById in service with id:", id, "and type ", type);
 
     // Find the candidate with the given ID
     const candidate = this.dummyData.find(candidate => candidate.id === id);
-
     // Return the candidate data as an observable
     return of(candidate || {});
   }

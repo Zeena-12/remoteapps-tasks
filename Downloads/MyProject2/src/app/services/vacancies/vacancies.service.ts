@@ -93,7 +93,6 @@ export class VacanciesService {
 
       // Parse the response data
       const responseData = JSON.parse(response.data);
-
       // Check if the response is successful and contains Parameters
       if (responseData.Parameters && responseData.Parameters) {
         console.log("data from get getInterviewsData service: ", responseData.Parameters);

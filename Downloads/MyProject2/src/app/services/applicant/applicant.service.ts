@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, of, tap, from  } from 'rxjs';
+import { Observable, catchError, map, of, tap, from, pipe  } from 'rxjs';
 import { backend } from '../../../global'; // Import the backend URL
 import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
 
@@ -13,6 +13,7 @@ export class ApplicantService {
   private apiUrlGetApplicantData = `${backend}HCM/Recruitment/Applicants/getApplicantData`;
   private apiUrlGetApplicantDataVacancies = `${backend}HCM/Recruitment/Vacancies/GetApplicantData`; //dont be confused one capital and one small
   private apiUrlGetApplicantCV = `${backend}HCM/Recruitment/Applicants/getApplicantCV`;
+  private apiUrlGetEmployeeCV = `${backend}HCM/Recruitment/Applicants/getEmployeeCV`;
   private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
   private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
 
@@ -54,20 +55,32 @@ export class ApplicantService {
     }
   }
 
-  async getApplicantCV(applicantID: number): Promise<any> {
-    const data = {
-      ApplicantID: applicantID
-    };
+
+  async getApplicantCV(id: number, type: string): Promise<any>{
+    let data: any = {};
+    let url: string;
+
+    if (type === 'A') {
+      data = { ApplicantID: id };
+      url = this.apiUrlGetApplicantCV;
+    } else if (type === 'E') {
+      data = { EmployeeID: id };
+      url = this.apiUrlGetEmployeeCV;
+    } else {
+      throw new Error('Invalid type provided.');
+    }
     try {
-      const response: any = await this.http.post(this.apiUrlGetApplicantCV, data, {});
+      const response: any = await this.http.post(url, data, {});
 
       // Parse the response data
       const responseData = JSON.parse(response.data);
 
       // Check if the response is successful and contains Parameters
-      if (responseData.Parameters && responseData.Parameters) {
-        // console.log("data from applicant service: ", responseData.Parameters.ApplicantList)
-        return responseData.Parameters;
+      if (responseData) {
+
+        const data = responseData;
+        console.log("data from applicant service related to choosen vacancyID: ", data);
+        return data.Parameters;
       } else {
         throw new Error('Invalid response structure or no data available.');
       }
