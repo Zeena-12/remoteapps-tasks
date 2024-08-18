@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select a Date</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-datetime 
+    id="datetime" 
+    presentation="date" 
+    display-format="MMMM DD, YYYY" 
+    picker-format="MMMM DD, YYYY" 
+    [(ngModel)]="selectedDate"
+    (ionChange)="onDateChange($event)">
+  </ion-datetime>
+</ion-content>

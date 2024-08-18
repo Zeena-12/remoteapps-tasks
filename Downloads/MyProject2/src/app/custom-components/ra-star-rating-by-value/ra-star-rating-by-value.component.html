@@ -1,0 +1,5 @@
+<div class="stars-wrap">
+  <i *ngFor="let item of odata; let i = index" [className]="defaultIcon"
+    [style.color]='$any(rating) >= (item.RateValueID) ? activeColor : defaultColor' [ngStyle]="{'font-size': fontSize }"
+    (click)="setRating(item.RateValueID)"></i>
+</div>

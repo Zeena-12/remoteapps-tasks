@@ -11,16 +11,18 @@ import { DropdownComponent } from './custom-components/dropdown/dropdown.compone
 import { ActionSheetComponent } from './custom-components/action-sheet/action-sheet.component';
 // import { DirectivesModule } from './directives.module';
 import { CvComponent } from './custom-components/cv/cv.component';
+import { CalendarComponent } from './custom-components/calendar/calendar.component';
+import { RaStarRatingComponent } from './custom-components/ra-star-rating/ra-star-rating.component';
 
 
 @NgModule({
-  declarations: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent,ActionSheetComponent, CvComponent ],
+  declarations: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent,ActionSheetComponent, CvComponent,  CalendarComponent, RaStarRatingComponent ],
   imports: [
     CommonModule,
     FormsModule,  // Include FormsModule for form handling
     DragDropModule,
     // DirectivesModule
   ],
-  exports: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent,ActionSheetComponent, CvComponent ]  // Export the component for use in other modules
+  exports: [InputComponent, CardComponent, BottomNavComponent, StatusBoxComponent, ProfileCardComponent, DropdownComponent,ActionSheetComponent, CvComponent, CalendarComponent, RaStarRatingComponent ]  // Export the component for use in other modules
 })
 export class CustomComponentsModule { }

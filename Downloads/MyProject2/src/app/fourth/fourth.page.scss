@@ -45,6 +45,8 @@
   }
 
 
+
+
   .job-title {
     display: flex;
     align-items: center;
@@ -531,6 +533,7 @@
   /* Optional: add some padding */
   width: 100%;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .title {
@@ -872,7 +875,7 @@ ion-checkbox::part(container) {
     display: flex;
     align-items: center;
     flex-direction: column;
-    border: 1px solid red;
+    // border: 1px solid red;
   }
 
 
@@ -985,7 +988,18 @@ ion-checkbox::part(container) {
 }
 
 
-  // rating model end
+// rating model end
 
 
 // start interview 
+
+.calendar-button {
+  // border: 1px solid red;
+  // position: absolute;
+  top: 0px;
+}
+
+.calendar{
+  border: 1px solid green;
+  position: absolute;
+}

@@ -57,6 +57,7 @@ export class ApplicantService {
 
 
   async getApplicantCV(id: number, type: string): Promise<any>{
+    console.log("calling getApplicantCV in applicant service");
     let data: any = {};
     let url: string;
 
