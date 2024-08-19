@@ -14,6 +14,7 @@ import { of } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { VacanciesService } from 'src/app/services/vacancies/vacancies.service';
+import { ApplicantService } from 'src/app/services/applicant/applicant.service';
 
 
 @Component({
@@ -73,6 +74,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     private modalController: ModalController,
     private candidateService: CandidateStatusService,
     private vacanciesService: VacanciesService,
+    private applicantService: ApplicantService
 
   ) {
 
@@ -147,7 +149,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   async openActionSheet(candidate: any) {
     console.log("what is it : ", candidate.Status);
     let options: any = [];
-    this.selectedCandidateId = candidate.ApplicationID;
+    this.selectedCandidateId = candidate.ApplicantID;
     this.selectedCandidateType = candidate.ApplicantType;
 
     if (candidate.Status == 'Applied' || candidate.Status == 'Shortlisted' || candidate.Status == 'Interviewed') {
@@ -212,7 +214,8 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     }
 
     try {
-      const details = await firstValueFrom(this.getCandidateDetails(candidateId, candidateType, dataType));
+      const details = await this.getCandidateDetails(candidateId, candidateType, dataType);
+      console.log("**********details: ",details);
       console.log('Emitting data:', { type: dataType, data: details });
       this.openModalEvent.emit({ type: dataType, data: details });
     } catch (error) {
@@ -232,29 +235,29 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   dismissModal() {
     // Implement dismiss logic here (e.g., close the modal)
-    console.log('Modal dismissed for select option');
+    console.log('Modal dismissed for select option############################');
     this.modalController.dismiss();
   }
 
-  getCandidateDetails(id: number, type: string, arrayName: string) {
-    console.log("Calling getCandidateDetails");
-    console.log("from getCandidateDetails ", id, " ",type," ", arrayName);
-    return this.candidateService.getCandidateById(id, type).pipe(
-      map(candidateDetails => {
+  getCandidateDetails(id: number, type: string, arrayName: string): Promise<any> {
+    console.log("from getCandidateDetails ", id, " ", type, " ", arrayName);
+    
+    return this.applicantService.getApplicantCV(id, type)
+      .then((candidateDetails: any) => {
         if (arrayName === 'cv') {
-          console.log("Array name is cv");
-          this.cvArray = candidateDetails.cv;
+          this.cvArray = candidateDetails;
+          console.log("Array name is cv and the details ",this.cvArray);
         } else if (arrayName === 'answers') {
-          console.log("Array name is answers");
-          this.answersArray = candidateDetails.answers;
+          this.answersArray = candidateDetails;
+          console.log("Array name is answers and the details", this.answersArray);
         }
         console.log('Candidate Details:', candidateDetails);
         return candidateDetails;
-      }),
-      catchError(error => {
-        console.error('Error fetching candidate details:', error);
-        return of(null); // Return an observable with null if there's an error
       })
-    );
+      .catch((error: any) => {
+        console.error('Error fetching candidate details:', error);
+        return null; // Return null if there's an error
+      });
   }
+  
 }

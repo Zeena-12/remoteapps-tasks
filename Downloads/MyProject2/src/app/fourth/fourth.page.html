@@ -23,8 +23,8 @@
         <!-- <img src="/assets/youcandoit6.png" alt="" /> -->
       </div>
       <ra-star-rating class="rating flex-grow-1 my-auto" defaultIcon="fas fa-star" activeColor="#FFD700"
-                    defaultColor="#CCC" [readonly]="true" maxRating='5' [rating]="4" fontSize="18px">
-                  </ra-star-rating>
+        defaultColor="#CCC" [readonly]="true" maxRating='5' [rating]="4" fontSize="18px">
+      </ra-star-rating>
       <div class="job-container">
         <div class="job-title">
           <p>Operations Officer</p>
@@ -55,8 +55,8 @@
         </div>
       </div>
       <ra-star-rating class="rating flex-grow-1 my-auto" defaultIcon="fas fa-star" activeColor="#FFD700"
-                    defaultColor="#CCC" [readonly]="true" maxRating='5' [rating]="4" fontSize="18px">
-                  </ra-star-rating>
+        defaultColor="#CCC" [readonly]="true" maxRating='5' [rating]="4" fontSize="18px">
+      </ra-star-rating>
 
       <div class="card-container" cdkDropListGroup cdkScrollable>
         <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="Applied"
@@ -85,7 +85,7 @@
         </app-status-box>
       </div>
 
-      <!--Start  CV Modal -->
+      <!--Start CV Modal -->
       <ion-modal id="cv-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <div class="model-container">
@@ -98,13 +98,12 @@
                   <img src="/assets/avatar.png" alt="Person's Photo" />
                 </div>
                 <div class="profile-info">
-                  <h1 class="profile-name">candidate name</h1>
+                  <h1 class="profile-name">{{ApplicantProfile.FirstName}} {{ApplicantProfile.LastName}}</h1>
                   <p class="profile-role">
-                    Frontend Web Development at The Cloud
+                    {{ApplicantProfile.CurrentPosition}} at{{ApplicantProfile.CurrentCompany}}
                   </p>
                 </div>
               </div>
-
               <div class="personal-details">
                 <!-- slider start -->
                 <swiper-container (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
@@ -116,7 +115,7 @@
                         </div>
                         <div class="text-container">
                           <p>National Identity</p>
-                          <p>192920302</p>
+                          <p>{{ApplicantProfile.NationalIdentity || unkown}}</p>
                         </div>
                       </div>
                       <div class="box box-2">
@@ -125,7 +124,7 @@
                         </div>
                         <div class="text-container">
                           <p>Passport No.</p>
-                          <p>192920302</p>
+                          <p>{{ApplicantProfile.Passport}}</p>
                         </div>
                       </div>
                     </div>
@@ -138,7 +137,7 @@
                         </div>
                         <div class="text-container">
                           <p>Gender</p>
-                          <p>Male</p>
+                          <p>{{ApplicantProfile.GenderName}}</p>
                         </div>
                       </div>
                       <div class="box box-2">
@@ -147,30 +146,76 @@
                         </div>
                         <div class="text-container">
                           <p>Marital Status</p>
-                          <p>Single</p>
+                          <p>{{ApplicantProfile.MaritalStatusName}}</p>
                         </div>
                       </div>
                     </div>
                   </swiper-slide>
-
-                  <swiper-slide>
+                  <!-- only show if Applicant type is A -->
+                  <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
                     <div class="swiper-content">
+                      <div class="box box-2">
+                        <div class="icon-container">
+                          <i class="icon-location my-color"></i>
+                        </div>
+                        <div class="text-container">
+                          <p>Current Location</p>
+                          <p>{{ApplicantProfile.ResidenceCountryName}}</p>
+                        </div>
+                      </div>
                       <div class="box box-1">
                         <div class="icon-container">
                           <i class="icon-person my-color" style="font-size: 25px"></i>
                         </div>
                         <div class="text-container">
                           <p>No. of Dependents</p>
-                          <p>34434345</p>
+                          <p>{{ApplicantProfile.NumberOfDependen || '-'}}</p>
                         </div>
                       </div>
+                    </div>
+                  </swiper-slide>
+                  <!-- only show if Applicant type is A -->
+                  <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+                    <div class="swiper-content">
                       <div class="box box-2">
                         <div class="icon-container">
-                          <i class="icon-internet-stroke my-color"></i>
+                          <i class="icon-location my-color"></i>
                         </div>
                         <div class="text-container">
-                          <p>Nationality</p>
-                          <p>Bahraini</p>
+                          <p>LandLine</p>
+                          <p>{{ApplicantProfile.LandLine || '-'}}</p>
+                        </div>
+                      </div>
+                      <div class="box box-1">
+                        <div class="icon-container">
+                          <i class="icon-person my-color" style="font-size: 25px"></i>
+                        </div>
+                        <div class="text-container">
+                          <p>Currency</p>
+                          <p>{{ApplicantProfile.CurrencyFullName|| '-'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </swiper-slide>
+                  <!-- only show if Applicant type is A -->
+                  <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+                    <div class="swiper-content">
+                      <div class="box box-2">
+                        <div class="icon-container">
+                          <i class="icon-location my-color"></i>
+                        </div>
+                        <div class="text-container">
+                          <p>Current Salary</p>
+                          <p>{{ApplicantProfile.CurrentSalary|| '-'}}</p>
+                        </div>
+                      </div>
+                      <div class="box box-1">
+                        <div class="icon-container">
+                          <i class="icon-person my-color" style="font-size: 25px"></i>
+                        </div>
+                        <div class="text-container">
+                          <p>Target Salary</p>
+                          <p>{{ApplicantProfile.TargetSalary|| '-'}}</p>
                         </div>
                       </div>
                     </div>
@@ -183,16 +228,18 @@
                         </div>
                         <div class="text-container">
                           <p>Date of Birth</p>
-                          <p>12/6/2001</p>
+                          <p>{{ApplicantProfile.DateOfBirth}}</p>
                         </div>
                       </div>
+
+
                       <div class="box box-2">
                         <div class="icon-container">
-                          <i class="icon-location my-color"></i>
+                          <i class="icon-internet-stroke my-color"></i>
                         </div>
                         <div class="text-container">
-                          <p>Current Location</p>
-                          <p>Bahrain</p>
+                          <p>Nationality</p>
+                          <p>{{ApplicantProfile.NationalityName}}</p>
                         </div>
                       </div>
                     </div>
@@ -205,7 +252,7 @@
                         </div>
                         <div class="text-container">
                           <p>Mobile</p>
-                          <p>12321312</p>
+                          <p>{{ApplicantProfile.Mobile}}</p>
                         </div>
                       </div>
                       <div class="box box-2">
@@ -214,7 +261,7 @@
                         </div>
                         <div class="text-container">
                           <p>Email</p>
-                          <p>zeenaremoteapps.com</p>
+                          <p>{{ApplicantProfile.Email}}</p>
                         </div>
                       </div>
                     </div>
@@ -228,16 +275,12 @@
                 <div class="prof-summary-section experience">
                   <p class="title">Experience</p>
                   <ol class="timeline">
-                    <li class="timeline-item">
+                    <li class="timeline-item" *ngFor="let experience of ExperienceList">
                       <div class="timeline-dot"></div>
-                      <h3 class="timeline-title">Frontend Web Development</h3>
-                      <time class="timeline-date">Jun 2019 to Present</time>
-                      <p class="timeline-description">The Cloud, Bahrain</p>
-                    </li>
-                    <li class="timeline-item">
-                      <div class="timeline-dot"></div>
-                      <h3 class="timeline-title">Frontend Web Development</h3>
-                      <time class="timeline-date">Jun 2019 to Present</time>
+                      <h3 class="timeline-title">{{experience.Position}}</h3>
+                      <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate |
+                        dateFormat}}</time>
+                      <p class="timeline-description">{{experience.CompanyName}}, {{experience.Location}}</p>
                     </li>
                   </ol>
                   <button class="add-buttom">
@@ -246,16 +289,22 @@
                   </button>
                 </div>
                 <div class="divider"></div>
-
                 <div class="prof-summary-section education">
                   <p class="title">Education</p>
                   <ol class="timeline">
-                    <li class="timeline-item">
+                    <li class="timeline-item" *ngFor="let qualification of QualificationList">
                       <div class="timeline-dot"></div>
-                      <h3 class="timeline-title">Frontend Web Development</h3>
-                      <time class="timeline-date">Jun 2019 to Present</time>
-                      <p class="timeline-description">The Cloud, Bahrain</p>
+                      <h3 class="timeline-title">
+                        {{qualification.DegreeName}} in {{qualification.Title}}
+                      </h3>
+                      <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
+                        Cleared in {{ qualification.EndDate }}
+                      </time>
+                      <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
+                        Ongoing {{ qualification.EndDate }}
+                      </time>
                     </li>
+
                     <button class="add-buttom">
                       <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
                       Add Education
@@ -265,13 +314,19 @@
                 <div class="divider"></div>
 
                 <div class="prof-summary-section education">
-                  <p class="title">Education</p>
+                  <p class="title">Licenses & Certifications</p>
                   <ol class="timeline">
-                    <li class="timeline-item">
+                    <li class="timeline-item" *ngFor="let certificate of CertificateList">
                       <div class="timeline-dot"></div>
-                      <h3 class="timeline-title">Frontend Web Development</h3>
-                      <time class="timeline-date">Jun 2019 to Present</time>
-                      <p class="timeline-description">The Cloud, Bahrain</p>
+                      <h3 class="timeline-title">
+                        {{certificate.Title}}
+                      </h3>
+                      <time class="timeline-date" *ngIf="certificate.StatusName === 'Cleared '">
+                        Cleared in {{ certificate.EndDate }}
+                      </time>
+                      <time class="timeline-date" *ngIf="certificate.StatusName === 'Ongoing'">
+                        Ongoing {{ certificate.EndDate }}
+                      </time>
                     </li>
                     <button class="add-buttom">
                       <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
@@ -388,7 +443,7 @@
           <!-- Calendar icon -->
           <ion-button (click)="toggleDatePicker()" fill="clear">
             <!-- <ion-icon name="calendar"></ion-icon> -->
-             <i class="icon-Calendar" style="font-size: 20px;"></i>
+            <i class="icon-Calendar" style="font-size: 20px;"></i>
           </ion-button>
         </div>
       </div>

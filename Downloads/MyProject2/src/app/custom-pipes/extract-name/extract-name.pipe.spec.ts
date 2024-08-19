@@ -1,4 +1,4 @@
-import { ExtractNamePipe } from './extract-name.pipe';
+import { ExtractNamePipe } from './extract-name';
 
 describe('ExtractNamePipe', () => {
   it('create an instance', () => {

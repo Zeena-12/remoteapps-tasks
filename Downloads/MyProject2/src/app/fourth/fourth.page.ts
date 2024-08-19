@@ -50,6 +50,19 @@ export class FourthPage implements OnInit, AfterViewInit {
   @ViewChild('datePicker') datePicker: any;
   selectedDate!: string;
   isDatePickerVisible = false;
+  //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
+  ApplicantProfile: any[] = [];
+  ApplicantionList: any[] = [];
+  CertificateList: any[] = [];
+  CourseList: any[] = [];
+  DocumentList: any[] = [];
+  ExperienceList: any[] = [];
+  LanguagesList: any[] = [];
+  ProjectExperienceList: any[] = [];
+  QualificationList: any[] = [];
+  SkillList: any[] = [];
+
+
 
   constructor(private candidateService: CandidateStatusService,
     private applicantsService: ApplicantService,
@@ -198,9 +211,12 @@ export class FourthPage implements OnInit, AfterViewInit {
     console.log('Received event:', event);
     if (event.type === 'cv') {
       this.cvData = event.data;
-      console.log("from inside ", this.cvData);
+      this.ApplicantProfile = this.cvData.ApplicantProfile;
+      this.ApplicantionList = this.cvData.ApplicantionList;
+      this.ExperienceList = this.cvData.ExperienceList;
+      this.QualificationList = this.cvData.QualificationList;
+      this.CertificateList = this.cvData.CertificateList;
       this.openModal('cv-modal');
-
     } else if (event.type === 'answers') {
       this.answersData = event.data;
       this.openModal('answers-modal');
@@ -208,8 +224,8 @@ export class FourthPage implements OnInit, AfterViewInit {
   }
 
   async openModal(modalId: string) {
-    console.log("from inside openModel ", this.cvData);
-    const modal = document.getElementById(modalId) as HTMLIonModalElement;
+    console.log("Attempting to open modal with ID:", modalId);
+    const modal = document.getElementById(modalId) as HTMLIonModalElement | null;
     if (modal) {
       await modal.present();
     } else {
@@ -287,7 +303,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     // Add your candidates here
   ];
 
-  selectedApplicant: any ;
+  selectedApplicant: any;
 
   // interview
   generateWeekDays() {
@@ -399,9 +415,9 @@ export class FourthPage implements OnInit, AfterViewInit {
     this.SelectedApplicant = this.UniqueApplicantFromRaing[0];
     console.log("getUniqueApplicants ", this.UniqueApplicantFromRaing);
     console.log("selected applicant ", this.SelectedApplicant);
-     if(this.SelectedApplicant){
-     this.getFilteredInterviews();
-     }
+    if (this.SelectedApplicant) {
+      this.getFilteredInterviews();
+    }
   }
 
   getFilteredInterviews() {

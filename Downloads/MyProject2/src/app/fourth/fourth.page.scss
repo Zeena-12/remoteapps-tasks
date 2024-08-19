@@ -146,6 +146,8 @@
   width: 100%;
   padding: 10px;
   border: 1px solid orange;
+  overflow-y: scroll;
+  height: 100vh;
 
   // start personal-profile
   .personal-profile {
@@ -490,7 +492,6 @@
   // end professional-summary
 
 }
-
 // end cv-container
 
 .text-ellipsis {
