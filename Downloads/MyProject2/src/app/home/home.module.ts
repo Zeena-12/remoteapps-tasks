@@ -7,16 +7,19 @@ import { HomePage } from './home.page';
 import { BottomNavComponent } from '../custom-components/bottom-nav/bottom-nav.component';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+     ReactiveFormsModule,
     IonicModule,
     // CustomComponentsModule, 
     HomePageRoutingModule
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

@@ -7,7 +7,9 @@ body {
   height: 100%;
   width: 100%;
 }
-
+.segment-button-checked.md::part(native) {
+  color: #00abec;
+}
 .background-img {
   position: fixed;
   /* or absolute if you want it to scroll with content */
@@ -93,9 +95,7 @@ ion-segment-button.md::part(native) {
   color: #92a0b3;
 }
 
-.segment-button-checked.md::part(native) {
-  color: #00abec;
-}
+
 
 ion-segment-button.md::part(indicator-background) {
   height: px;
@@ -147,12 +147,12 @@ ion-segment-button.md::part(indicator-background) {
 
 .job-container {
   border: 1px solid #e8ecf0;
-  border: 1px solid green;
   padding: 7px;
   border-radius: 10px;
   background-color: white;
   padding-bottom: 3px;
   margin-bottom: 10px;
+
   // position: relative;
   .job-info {
     border-bottom: 1px solid #ecf0f3;
@@ -165,14 +165,14 @@ ion-segment-button.md::part(indicator-background) {
     padding-bottom: 8px;
     border: 1px solid red;
   }
-  
+
   .job-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
-  
+
+
   .box.job-icon {
     flex: 0 0 10%;
     display: flex;
@@ -187,15 +187,7 @@ ion-segment-button.md::part(indicator-background) {
     align-items: center;
     background-color: #eaebf0;
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   .employment-type,
   .vacancies,
   .date,
@@ -208,10 +200,7 @@ ion-segment-button.md::part(indicator-background) {
     /* Adjust text color as needed */
     margin: 0px;
   }
-  
-  
-  
-  
+
   // employee
   .employee-info-container {
     display: flex;
@@ -229,7 +218,7 @@ ion-segment-button.md::part(indicator-background) {
     padding-bottom: 5px;
     gap: 9px;
   }
-  
+
   .employee-info {
     display: flex;
     height: 42px;
@@ -238,13 +227,13 @@ ion-segment-button.md::part(indicator-background) {
     gap: 5px;
     flex-grow: 1;
   }
-  
+
   .box {
     /* Optional: Add some styling to the boxes */
     // padding: 10px;
     width: 106px;
   }
-  
+
   .box.img {
     /* Ensure the image box is sized appropriately */
     width: 30%;
@@ -254,7 +243,7 @@ ion-segment-button.md::part(indicator-background) {
     width: 34.143px;
     height: 33.689px;
   }
-  
+
   .box.img img {
     width: 100%;
     /* Ensure image fills the box */
@@ -263,23 +252,23 @@ ion-segment-button.md::part(indicator-background) {
     border-radius: 50%;
     /* Make the image circular */
   }
-  
-  
+
+
   .name-role .role {
     font-weight: bold;
     margin: 0px;
     font-size: 12px;
     font-weight: normal;
   }
-  
+
   .name-role .name {
     font-size: 14px;
     margin: 0px;
     font-weight: bold;
   }
-  
-  
-  
+
+
+
   .btn {
     flex: 1;
     padding: 2px;
@@ -364,19 +353,19 @@ ion-fab {
   // gap: 3px;
   color: var(--RA-Gray-Gray, #92A0B3);
 
-font-family: Roboto;
-font-size: 12px;
-font-style: normal;
-font-weight: 500;
-// line-height: normal;
-gap: 5px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  // line-height: normal;
+  gap: 5px;
 }
 
 .year-place .place {
   font-size: 0.8em;
   margin: 0px;
   display: flex;
-  gap: 5  px;
+  gap: 5 px;
   // width: 140px;
   width: 100%;
 }
@@ -395,12 +384,15 @@ gap: 5px;
 
 
 .box.year-place {
-  width: 100%; /* Or any specific width you need */
+  width: 100%;
+  /* Or any specific width you need */
 }
 
 .box.year-place .place {
-  max-width: 100%; /* Ensure the text container doesn't exceed its parent's width */
+  max-width: 100%;
+  /* Ensure the text container doesn't exceed its parent's width */
 }
+
 // end job container
 
 
@@ -601,9 +593,13 @@ gap: 5px;
     .title {
       margin-top: 1.7rem;
       color: #b39292;
-      font-size: 1.4rem;
-      font-weight: bold;
       margin-bottom: 0px;
+      color: var(--RA-Gray-Gray, #92A0B3);
+      font-family: Roboto;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
     }
 
     ol {
@@ -738,16 +734,26 @@ gap: 5px;
       /* rtl:rotate-180 */
     }
 
-    .add-buttom {
+    .add-button {
       width: 100%;
-      height: 40px;
-      border-radius: 6px;
+      height: 30px;
+      border-radius: 5px;
       border: 2px solid #bec6d1;
       color: #92a0b3;
-      font-weight: bold;
-      font-size: 14px;
       background-color: transparent;
       margin-top: 12px;
+      font-family: Roboto;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      transition: background-color 0.3s ease;
+      /* Smooth transition effect */
+    }
+
+    .add-button:active {
+      background-color: #e5e8eb;
+      /* Temporary background color on click */
     }
 
   }
@@ -755,4 +761,389 @@ gap: 5px;
   // end professional-summary
 
 }
+
 // end cv-container
+
+
+
+// start edit-container
+.edit-container {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid orange;
+  overflow-y: scroll;
+  height: 100vh;
+  // end edit-container
+
+
+  .edit-employee-container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+
+    .bordered-image {
+      border: 1px solid #00abec;
+    }
+
+    .top-container {
+      display: flex;
+      justify-content: center;
+      flex: 1 0 0;
+      align-self: stretch;
+      align-items: center;
+
+      p {
+        color: var(--RA-Gray-Gray, #92A0B3);
+
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    .title {
+      p {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #E9EBF1;
+        line-height: 0.1em;
+        margin: 10px 0 20px;
+        color: var(--RA-Gray-Gray, #92A0B3);
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        // line-height: normal;
+      }
+
+      p span {
+        background: #fff;
+        padding: 0 10px;
+      }
+
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      border-top: 2px solid black;
+      /* Border style */
+      transform: translateY(-50%);
+      /* Center the line vertically */
+    }
+
+    .top-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      color: #91a0b3;
+    }
+
+    .edit-button {
+      background-color: #00abec;
+      display: flex;
+      padding: 10px 40px;
+      align-items: flex-start;
+      gap: 10px;
+      width: 102px;
+      height: 34px;
+      border-radius: 5px;
+      background: var(--Cloud-Blue-Primary-1, #29B8EF);
+      align-items: center;
+      color: white;
+
+      // p {
+      //     color: #FFF;
+      //     text-align: center;
+      //     font-family: Roboto;
+      //     font-size: 12px;
+      //     font-style: normal;
+      //     font-weight: 700;
+      //     line-height: normal;
+      // }
+
+    }
+
+    .edit-button:hover {
+      background-color: #0091d0;
+      /* Darker color on hover */
+    }
+
+    .employee-info {
+      display: flex;
+      height: 67px;
+      align-items: center;
+      // gap: 10px;
+      flex-shrink: 0;
+      align-self: stretch;
+      // border: 1px solid red;
+      justify-content: center;
+      padding: 0px;
+      // margin-bottom: 26px;
+
+    }
+
+    .box.icon {
+      // border: 1px solid blue;
+      display: flex;
+      height: 67px;
+      align-items: flex-start;
+      gap: 10px;
+      flex-shrink: 0;
+      align-self: stretch;
+      align-items: center;
+      justify-content: center;
+      padding-left: 14px;
+    }
+
+    .icon-style {
+      width: 40px;
+      height: 40px;
+      font-size: 34px;
+      color: #92A0B3;
+    }
+
+    .my-input {
+      display: flex;
+      height: 39.705px;
+      padding: 10px;
+      justify-content: center;
+      // align-items: center;
+      // gap: 10px;
+      align-self: stretch;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .employee-info-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .input-container {
+      width: 330px;
+      height: 67px;
+    }
+
+    .custom-inputsWrapper {
+      // border :1px solid red;
+      overflow: visible !important;
+    }
+
+    .custom-form-label {
+      color: var(--RA-Gray-Gray, #92A0B3);
+      font-family: Roboto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+  }
+}
+// end edit-container
+
+// start add experience
+.add-experience-container {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid orange;
+  overflow-y: scroll;
+  height: 100vh;
+  // end edit-container
+
+
+  .add-experience {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+
+    .bordered-image {
+      border: 1px solid #00abec;
+    }
+
+    .top-container {
+      display: flex;
+      justify-content: center;
+      flex: 1 0 0;
+      align-self: stretch;
+      align-items: center;
+
+      p {
+        color: var(--RA-Gray-Gray, #92A0B3);
+
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    .title {
+      p {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #E9EBF1;
+        line-height: 0.1em;
+        margin: 10px 0 20px;
+        color: var(--RA-Gray-Gray, #92A0B3);
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        // line-height: normal;
+      }
+
+      p span {
+        background: #fff;
+        padding: 0 10px;
+      }
+
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      border-top: 2px solid black;
+      /* Border style */
+      transform: translateY(-50%);
+      /* Center the line vertically */
+    }
+
+    .top-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      color: #91a0b3;
+    }
+
+    .add-experience-button {
+      background-color: #00abec;
+      display: flex;
+      padding: 10px 40px;
+      align-items: flex-start;
+      gap: 10px;
+      width: 102px;
+      height: 34px;
+      border-radius: 5px;
+      background: var(--Cloud-Blue-Primary-1, #29B8EF);
+      align-items: center;
+      color: white;
+
+      // p {
+      //     color: #FFF;
+      //     text-align: center;
+      //     font-family: Roboto;
+      //     font-size: 12px;
+      //     font-style: normal;
+      //     font-weight: 700;
+      //     line-height: normal;
+      // }
+
+    }
+
+    .add-experience-button:hover {
+      background-color: #0091d0;
+      /* Darker color on hover */
+    }
+
+    .employee-info {
+      display: flex;
+      height: 67px;
+      align-items: center;
+      // gap: 10px;
+      flex-shrink: 0;
+      align-self: stretch;
+      // border: 1px solid red;
+      justify-content: center;
+      padding: 0px;
+      // margin-bottom: 26px;
+
+    }
+
+    .box.icon {
+      // border: 1px solid blue;
+      display: flex;
+      height: 67px;
+      align-items: flex-start;
+      gap: 10px;
+      flex-shrink: 0;
+      align-self: stretch;
+      align-items: center;
+      justify-content: center;
+      padding-left: 14px;
+    }
+
+    .icon-style {
+      width: 40px;
+      height: 40px;
+      font-size: 34px;
+      color: #92A0B3;
+    }
+
+    .my-input {
+      display: flex;
+      height: 39.705px;
+      padding: 10px;
+      justify-content: center;
+      // align-items: center;
+      // gap: 10px;
+      align-self: stretch;
+      width: 100%;
+      flex-direction: column;
+    }
+    .box.input-container.date{
+      // border :1px solid rebeccapurple;
+      display: flex;
+
+      .my-input{
+        // padding: 0px;
+      }
+    }
+
+    .employee-info-items {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .input-container {
+      width: 100%;
+      height: 67px;
+    }
+
+    .custom-inputsWrapper {
+      // border :1px solid red;
+      overflow: visible !important;
+    }
+
+    .custom-form-label {
+      color: var(--RA-Gray-Gray, #92A0B3);
+      font-family: Roboto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    .isCurentCheck{
+      border: 1px solid red;
+    }
+  }
+}
+// end add experience

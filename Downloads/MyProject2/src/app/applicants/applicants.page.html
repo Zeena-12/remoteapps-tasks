@@ -43,7 +43,7 @@
     <!-- end buttons -->
 
     <!-- start job -->
-    <div class="job-container"  *ngFor="let applicant of applicantsList" (click)="openModalCV(applicant.ApplicantID)">
+    <div class="job-container" *ngFor="let applicant of applicantsList" (click)="openModalCV(applicant.ApplicantID)">
       <div class="employee-info-container">
         <div class="employee-info">
           <div class="box img">
@@ -52,7 +52,8 @@
           </div>
           <div class="box name-role">
             <p class="name text-ellipsis">{{applicant.FirstName}} {{applicant.LastName}}</p>
-            <p class="role text-ellipsis">{{applicant.CurrentPosition || 'Unemployment'}} {{applicant.CurrentCompany}}</p>
+            <p class="role text-ellipsis">{{applicant.CurrentPosition || 'Unemployment'}} {{applicant.CurrentCompany}}
+            </p>
           </div>
         </div>
         <div class="employee-info">
@@ -73,19 +74,17 @@
           <i class="icon-money-cash" style="font-size: 35px;"></i>
           <p>
             <!-- zeena:check: is it less that 0 ? -->
-            {{applicant.CurrencyShortName}} 
-            {{applicant.CurrentSalaryValue <= 0 ? '-' : applicant.CurrentSalaryValue}}
-          </p>
+            {{applicant.CurrencyShortName}}
+            {{applicant.CurrentSalaryValue <= 0 ? '-' : applicant.CurrentSalaryValue}} </p>
         </div>
         <div class="box">
           <i class="icon-money-cash" style="font-size: 35px;"></i>
           <p>
-            {{applicant.CurrencyShortName}} 
-            {{applicant.TargetSalary <= 0 ? '-' : applicant.TargetSalary}}
-          </p>
+            {{applicant.CurrencyShortName}}
+            {{applicant.TargetSalary <= 0 ? '-' : applicant.TargetSalary}} </p>
         </div>
       </div>
-      
+
     </div>
 
     <!-- end jobs -->
@@ -96,264 +95,627 @@
     </ion-fab-button>
   </ion-fab>
 
-        <!--Start CV Modal -->
-        <ion-modal id="cv-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
-          <ng-template>
-            <div class="model-container">
-              <div class="cv-container">
-                <div class="personal-profile">
-                  <button class="edit-button" (click)="openModalEdit(ApplicantProfile)">
-                    <i class="icon-edit-2"></i>
+  <!--Start CV Modal -->
+  <ion-modal id="cv-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <div class="model-container">
+        <div class="cv-container">
+          <div class="personal-profile">
+            <button class="edit-button" (click)="openModalEdit(ApplicantProfile.ApplicantID)">
+              <i class="icon-edit-2"></i>
+            </button>
+            <div class="profile-photo">
+              <img src="/assets/avatar.png" alt="Person's Photo" />
+            </div>
+            <div class="profile-info">
+              <h1 class="profile-name">{{ApplicantProfile.FirstName}} {{ApplicantProfile.LastName}}</h1>
+              <p class="profile-role">
+                {{ApplicantProfile.CurrentPosition}} at{{ApplicantProfile.CurrentCompany}}
+              </p>
+            </div>
+          </div>
+          <div class="personal-details">
+            <!-- slider start -->
+            <swiper-container (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-CPR my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>National Identity</p>
+                      <p>{{ApplicantProfile.NationalIdentity || unkown}}</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-passport my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Passport No.</p>
+                      <p>{{ApplicantProfile.Passport}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-gender my-color" style="font-size: 30px"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Gender</p>
+                      <p>{{ApplicantProfile.GenderName}}</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-ring my-color" style="font-size: 25px"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Marital Status</p>
+                      <p>{{ApplicantProfile.MaritalStatusName}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <!-- only show if Applicant type is A -->
+              <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+                <div class="swiper-content">
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-location my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Current Location</p>
+                      <p>{{ApplicantProfile.ResidenceCountryName}}</p>
+                    </div>
+                  </div>
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-person my-color" style="font-size: 25px"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>No. of Dependents</p>
+                      <p>{{ApplicantProfile.NumberOfDependen || '-'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <!-- only show if Applicant type is A -->
+              <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+                <div class="swiper-content">
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-location my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>LandLine</p>
+                      <p>{{ApplicantProfile.LandLine || '-'}}</p>
+                    </div>
+                  </div>
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-person my-color" style="font-size: 25px"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Currency</p>
+                      <p>{{ApplicantProfile.CurrencyFullName|| '-'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <!-- only show if Applicant type is A -->
+              <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+                <div class="swiper-content">
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-location my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Current Salary</p>
+                      <p>{{ApplicantProfile.CurrentSalary|| '-'}}</p>
+                    </div>
+                  </div>
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-person my-color" style="font-size: 25px"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Target Salary</p>
+                      <p>{{ApplicantProfile.TargetSalary|| '-'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-calendar-6 my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Date of Birth</p>
+                      <p>{{ApplicantProfile.DateOfBirth}}</p>
+                    </div>
+                  </div>
+
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-internet-stroke my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Nationality</p>
+                      <p>{{ApplicantProfile.NationalityName}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+              <swiper-slide>
+                <div class="swiper-content">
+                  <div class="box box-1">
+                    <div class="icon-container">
+                      <i class="icon-Phone-01 my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Mobile</p>
+                      <p>{{ApplicantProfile.Mobile}}</p>
+                    </div>
+                  </div>
+                  <div class="box box-2">
+                    <div class="icon-container">
+                      <i class="icon-envelope my-color"></i>
+                    </div>
+                    <div class="text-container">
+                      <p>Email</p>
+                      <p>{{ApplicantProfile.Email}}</p>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+            </swiper-container>
+            <!-- slider end -->
+            <div class="divider"></div>
+          </div>
+
+          <div class="professional-summary">
+            <div class="prof-summary-section experience">
+              <p class="title">Experience</p>
+              <ol class="timeline">
+                <li class="timeline-item" *ngFor="let experience of ExperienceList">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">{{experience.Position}}</h3>
+                  <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate |
+                    dateFormat}}</time>
+                  <p class="timeline-description">{{experience.CompanyName}}, {{experience.Location}}</p>
+                </li>
+              </ol>
+              <button class="add-button" (click)="openModalAddExperience(ApplicantProfile.ApplicantID)">
+                <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
+                Add Experience
+              </button>
+            </div>
+            <div class="divider"></div>
+            <div class="prof-summary-section education">
+              <p class="title">Education</p>
+              <ol class="timeline">
+                <li class="timeline-item" *ngFor="let qualification of QualificationList">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">
+                    {{qualification.DegreeName}} in {{qualification.Title}}
+                  </h3>
+                  <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
+                    Cleared in {{ qualification.EndDate }}
+                  </time>
+                  <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
+                    Ongoing {{ qualification.EndDate }}
+                  </time>
+                </li>
+                <button class="add-button">
+                  <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
+                  Add Education
+                </button>
+              </ol>
+            </div>
+            <div class="divider"></div>
+
+            <div class="prof-summary-section education">
+              <p class="title">Licenses & Certifications</p>
+              <ol class="timeline">
+                <li class="timeline-item" *ngFor="let certificate of CertificateList">
+                  <div class="timeline-dot"></div>
+                  <h3 class="timeline-title">
+                    {{certificate.Title}}
+                  </h3>
+                  <time class="timeline-date" *ngIf="certificate.StatusName === 'Cleared '">
+                    Cleared in {{ certificate.EndDate }}
+                  </time>
+                  <time class="timeline-date" *ngIf="certificate.StatusName === 'Ongoing'">
+                    Ongoing {{ certificate.EndDate }}
+                  </time>
+                </li>
+                <button class="add-button">
+                  <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
+                  Add Education
+                </button>
+              </ol>
+            </div>
+            <!-- Licenses section -->
+            <div class="prof-summaryprof-summary licenses">
+              <!-- Content for licenses -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+  <!-- End CV Model -->
+  <!--Start Edit  Modal -->
+  <ion-modal #openEditModal id="edit-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <div class="model-container">
+        <form [formGroup]="EditForm" (ngSubmit)="SubmitEdit(EditForm.value)">
+          <div class="edit-container">
+            <div class="edit-employee-container">
+              <div>
+                <div class="top-container">
+                  <p>Edit Employee Information</p>
+                  <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
+                    <p class="">Edit</p>
+                  </div> -->
+                  <button type="submit" class="edit-button">
+                    Edit
                   </button>
-                  <div class="profile-photo">
-                    <img src="/assets/avatar.png" alt="Person's Photo" />
-                  </div>
-                  <div class="profile-info">
-                    <h1 class="profile-name">{{ApplicantProfile.FirstName}} {{ApplicantProfile.LastName}}</h1>
-                    <p class="profile-role">
-                      {{ApplicantProfile.CurrentPosition}} at{{ApplicantProfile.CurrentCompany}}
-                    </p>
-                  </div>
                 </div>
-                <div class="personal-details">
-                  <!-- slider start -->
-                  <swiper-container (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
-                    <swiper-slide>
-                      <div class="swiper-content">
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-CPR my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>National Identity</p>
-                            <p>{{ApplicantProfile.NationalIdentity || unkown}}</p>
-                          </div>
-                        </div>
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-passport my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Passport No.</p>
-                            <p>{{ApplicantProfile.Passport}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <div class="swiper-content">
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-gender my-color" style="font-size: 30px"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Gender</p>
-                            <p>{{ApplicantProfile.GenderName}}</p>
-                          </div>
-                        </div>
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-ring my-color" style="font-size: 25px"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Marital Status</p>
-                            <p>{{ApplicantProfile.MaritalStatusName}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <!-- only show if Applicant type is A -->
-                    <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
-                      <div class="swiper-content">
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-location my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Current Location</p>
-                            <p>{{ApplicantProfile.ResidenceCountryName}}</p>
-                          </div>
-                        </div>
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-person my-color" style="font-size: 25px"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>No. of Dependents</p>
-                            <p>{{ApplicantProfile.NumberOfDependen || '-'}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <!-- only show if Applicant type is A -->
-                    <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
-                      <div class="swiper-content">
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-location my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>LandLine</p>
-                            <p>{{ApplicantProfile.LandLine || '-'}}</p>
-                          </div>
-                        </div>
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-person my-color" style="font-size: 25px"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Currency</p>
-                            <p>{{ApplicantProfile.CurrencyFullName|| '-'}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <!-- only show if Applicant type is A -->
-                    <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
-                      <div class="swiper-content">
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-location my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Current Salary</p>
-                            <p>{{ApplicantProfile.CurrentSalary|| '-'}}</p>
-                          </div>
-                        </div>
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-person my-color" style="font-size: 25px"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Target Salary</p>
-                            <p>{{ApplicantProfile.TargetSalary|| '-'}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <div class="swiper-content">
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-calendar-6 my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Date of Birth</p>
-                            <p>{{ApplicantProfile.DateOfBirth}}</p>
-                          </div>
-                        </div>
-  
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-internet-stroke my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Nationality</p>
-                            <p>{{ApplicantProfile.NationalityName}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <div class="swiper-content">
-                        <div class="box box-1">
-                          <div class="icon-container">
-                            <i class="icon-Phone-01 my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Mobile</p>
-                            <p>{{ApplicantProfile.Mobile}}</p>
-                          </div>
-                        </div>
-                        <div class="box box-2">
-                          <div class="icon-container">
-                            <i class="icon-envelope my-color"></i>
-                          </div>
-                          <div class="text-container">
-                            <p>Email</p>
-                            <p>{{ApplicantProfile.Email}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                  </swiper-container>
-                  <!-- slider end -->
-                  <div class="divider"></div>
-                </div>
-  
-                <div class="professional-summary">
-                  <div class="prof-summary-section experience">
-                    <p class="title">Experience</p>
-                    <ol class="timeline">
-                      <li class="timeline-item" *ngFor="let experience of ExperienceList">
-                        <div class="timeline-dot"></div>
-                        <h3 class="timeline-title">{{experience.Position}}</h3>
-                        <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate |
-                          dateFormat}}</time>
-                        <p class="timeline-description">{{experience.CompanyName}}, {{experience.Location}}</p>
-                      </li>
-                    </ol>
-                    <button class="add-buttom">
-                      <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
-                      Add Experience
-                    </button>
+                <div class="employee-info-container">
+                  <div class="title">
+                    <p><span>company overview</span></p>
                   </div>
-                  <div class="divider"></div>
-                  <div class="prof-summary-section education">
-                    <p class="title">Education</p>
-                    <ol class="timeline">
-                      <li class="timeline-item" *ngFor="let qualification of QualificationList">
-                        <div class="timeline-dot"></div>
-                        <h3 class="timeline-title">
-                          {{qualification.DegreeName}} in {{qualification.Title}}
-                        </h3>
-                        <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
-                          Cleared in {{ qualification.EndDate }}
-                        </time>
-                        <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
-                          Ongoing {{ qualification.EndDate }}
-                        </time>
-                      </li>
-  
-                      <button class="add-buttom">
-                        <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
-                        Add Education
-                      </button>
-                    </ol>
-                  </div>
-                  <div class="divider"></div>
-  
-                  <div class="prof-summary-section education">
-                    <p class="title">Licenses & Certifications</p>
-                    <ol class="timeline">
-                      <li class="timeline-item" *ngFor="let certificate of CertificateList">
-                        <div class="timeline-dot"></div>
-                        <h3 class="timeline-title">
-                          {{certificate.Title}}
-                        </h3>
-                        <time class="timeline-date" *ngIf="certificate.StatusName === 'Cleared '">
-                          Cleared in {{ certificate.EndDate }}
-                        </time>
-                        <time class="timeline-date" *ngIf="certificate.StatusName === 'Ongoing'">
-                          Ongoing {{ certificate.EndDate }}
-                        </time>
-                      </li>
-                      <button class="add-buttom">
-                        <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
-                        Add Education
-                      </button>
-                    </ol>
-                  </div>
-                  <!-- Licenses section -->
-                  <div class="prof-summaryprof-summary licenses">
-                    <!-- Content for licenses -->
+                  <!-- <img class="bordered-image" src="assets/youcandoit.jpeg" alt="You Can Do It"> -->
+                  <div class="employee-info-items">
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/passport.svg" alt=""> -->
+                        <i class="icon-passport icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">National Identity</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="NationalIdentity" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                            <!-- show error -->
+                            <!-- <ion-item
+                              *ngIf="EditForm.controls['nationality'].hasError('required') && EditForm.controls['nationality'].touched">
+                              <p>Sorry, field nationality is required!</p>
+                            </ion-item>
+                            <ion-item
+                              *ngIf="EditForm.controls['nationality'].hasError('pattern') && EditForm.controls['nationality'].touched">
+                              <p>Sorry, only small and capital letters are allowed!</p>
+                            </ion-item>
+                            <ion-item
+                              *ngIf="EditForm.controls['nationality'].hasError('minlength') && EditForm.controls['nationality'].touched">
+                              <p>Sorry, minimum nationality length is 8!</p>
+                            </ion-item>
+                            <ion-item
+                              *ngIf="EditForm.controls['nationality'].hasError('maxlength') && EditForm.controls['nationality'].touched">
+                              <p>Sorry, maximum nationality length is 30!</p>
+                            </ion-item> -->
+                            <!-- end show error -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/gender.svg" alt=""> -->
+                        <i class="icon-passport icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Passport No.</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Passport" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/gender.svg" alt=""> -->
+                        <i class="icon-gender icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Gender</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="GenderName" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/ring.svg" alt=""> -->
+                        <i class="icon-ring icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Martial Status</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="MaritalStatusName" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/passport.svg" alt=""> -->
+                        <i class="icon-person icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">No. of Dependents</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="NumberOfDependents" type="text"
+                                placeholder=""></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/international.svg" alt=""> -->
+                        <i class="icon-internet-stroke icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Nationality</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="NationalityName" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/calander.svg" alt=""> -->
+                        <i class="icon-calendar-6 icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Date of Birth</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="DateOfBirth" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/calander.svg" alt=""> -->
+                        <i class="icon-location icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Current Location</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="ResidenceCountryName" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/calander.svg" alt=""> -->
+                        <i class="icon-telephone-2 icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Mobile</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Mobile" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box icon  my-icon">
+                        <!-- <img src="assets/ico-moon/Svg/calander.svg" alt=""> -->
+                        <i class="icon-envelope icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">Email</div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Email" type="text"
+                                placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </ng-template>
-        </ion-modal>
-        <!-- End CV Model -->
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </ion-modal>
+  <!-- End Edit Model -->
 
+    <!--Start Add Experience Modal -->
+    <ion-modal #openAddExperienceModal id="add-experience-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ng-template>
+        <div class="model-container">
+          <form [formGroup]="AddExperienceForm" (ngSubmit)="SubmitAddExperience(AddExperienceForm.value)">
+            <div class="add-experience-container">
+              <div class="add-experience">
+                <div>
+                  <div class="top-container">
+                    <p>New Experiance</p>
+                    <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
+                      <p class="">Edit</p>
+                    </div> -->
+                    <button type="submit" class="add-experience-button">
+                      Add
+                    </button>
+                  </div>
+                  <div class="employee-info-container">
+                    <div class="title">
+                      <p><span>company overview</span></p>
+                    </div>
+                    <div class="employee-info-items">
+                      <div class="employee-info">
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Company Name</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="CompanyName" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="employee-info">
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Industry</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="Industry" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="employee-info">
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Location</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="Location" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="title">
+                        <p><span>Position Details</span></p>
+                      </div>
+                      <div class="employee-info">
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Industry</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="Industry" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="isCurentCheck">
+                              <div class="input-title gray-title custom-form-label">Is Current?</div>
+                                <div><ion-checkbox></ion-checkbox></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="employee-info">
+                        <div class="box input-container date">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Start Date</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="CompanyName" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">End Date</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="CompanyName" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="employee-info">
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Reporting</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="CompanyName" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="employee-info">
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Main Role</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="CompanyName" type="text"
+                                  placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </ion-modal>
+    <!-- End Add Model -->
 
 </ion-content>

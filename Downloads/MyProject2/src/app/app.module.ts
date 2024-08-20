@@ -21,6 +21,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { AuthService } from './services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -34,7 +35,7 @@ export function HttpLoaderFactory(http: HttpClient){
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [IonicStorageModule.forRoot(),CommonModule,BrowserModule, IonicModule.forRoot(),FormsModule,NgOtpInputModule, AppRoutingModule , HttpClientModule,
+  imports: [IonicStorageModule.forRoot(),CommonModule,BrowserModule, IonicModule.forRoot(),NgOtpInputModule, AppRoutingModule , HttpClientModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,

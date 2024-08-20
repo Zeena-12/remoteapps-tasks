@@ -99,6 +99,9 @@
   --background: pink;
   justify-content: end;
 }
+// .ion-valid.sc-ion-input-md-h{
+//   --highlight-color: transparent;
+// }
 
 .cv-modal{
   width: 100%;
@@ -113,7 +116,22 @@
   align-items: flex-end;
 }
 
-// take input desing from hussain
+input[placeholder="Search..."] {
+  padding-inline-start: 5px !important;
+}
+
+.input-title-shadow {
+  background: #f9f9f9;
+  text-align: start;
+  padding-inline-start: 10px;
+  font-size: 19px;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  padding: 10px;
+  color: #444;
+  font-weight: 400;
+}
+
 .inputsWrapper {
   margin: 10px;
   white-space: nowrap;
@@ -146,14 +164,12 @@
     .input-title.gray-title {
       color: #98a2b3;
     }
-
     .required-input {
       color: red;
       font-weight: bold;
       display: inline-table;
       margin-left: 3px;
     }
-
     .text-input {
       text-align: start;
       width: 100%;
@@ -167,6 +183,9 @@
         height: 100% !important;
         width: 100% !important;
         --padding-start: 5px;
+        --border-color:  transparent;
+        --highlight-color:red;
+        --highlight-color-valid:red;
       }
     }
 
@@ -186,7 +205,7 @@
       ion-input {
         height: 100% !important;
         width: 100% !important;
-        --padding-start: 5px;
+        --padding-start: 20px;
       }
 
       ion-datetime {
@@ -198,7 +217,7 @@
       }
     }
 
-    .text-input-gray>ra-icon {
+    .text-input-gray > ra-icon {
       margin-top: auto;
       margin-bottom: auto;
       margin-inline-start: 5px;
@@ -461,8 +480,6 @@
     }
   }
 }
-
-// end input from hussain
 
 
 

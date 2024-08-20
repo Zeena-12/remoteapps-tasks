@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, of, tap, from, pipe  } from 'rxjs';
+import { Observable, catchError, map, of, tap, from, pipe } from 'rxjs';
 import { backend } from '../../../global'; // Import the backend URL
 import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
 
@@ -16,6 +16,7 @@ export class ApplicantService {
   private apiUrlGetEmployeeCV = `${backend}HCM/Recruitment/Applicants/getEmployeeCV`;
   private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
   private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
+  private apiUrlSetApplicant = `${backend}HCM/Recruitment/Applicants/setApplicant`;
 
 
 
@@ -36,7 +37,7 @@ export class ApplicantService {
 
         const data = responseData;
         console.log("data from applicant service function getApplicantData: ", data);
-      //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
+        //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
         return data.Parameters; // i will try  to change to retun the full list
 
       } else {
@@ -56,7 +57,7 @@ export class ApplicantService {
   }
 
 
-  async getApplicantCV(id: number, type: string): Promise<any>{
+  async getApplicantCV(id: number, type: string): Promise<any> {
     console.log("calling getApplicantCV in applicant service");
     let data: any = {};
     let url: string;
@@ -98,11 +99,11 @@ export class ApplicantService {
     }
   }
 
-// working
-  async getApplications(vacancyId: number): Promise<any>{
+  // working
+  async getApplications(vacancyId: number): Promise<any> {
     const data = {
       VacancyID: vacancyId,
-  };
+    };
     try {
       const response: any = await this.http.post(this.apiUrlGetApplications, data, {});
 
@@ -131,7 +132,6 @@ export class ApplicantService {
     }
   }
 
-
   async getApplicantDataVacancie(): Promise<any> {
 
     try {
@@ -145,7 +145,7 @@ export class ApplicantService {
 
         const data = responseData;
         console.log("data from applicant service function getApplicantDataVacancie: ", data);
-      //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
+        //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
         return data.Parameters; // i will try  to change to retun the full list
 
       } else {
@@ -164,10 +164,6 @@ export class ApplicantService {
     }
   }
 
-
-
-
-
   async ChangeApplicationStatus(applicationID: number, status: string): Promise<string> {
 
     // Capitalize the first letter of the status
@@ -177,27 +173,81 @@ export class ApplicantService {
       ApplicationID: applicationID,
       Status: status
     };
-  
-  console.log("data: ", data);
+
+    console.log("data: ", data);
     try {
-        const response: any = await this.http.post(this.apiUrlChangeApplicationStatus, data, {});
-  
-        // Handle successful response
-        console.log('Response from server for ChangeApplicationStatus:', response.data);
-        // Return a success message or any other relevant data
-        return 'ChangeApplicationStatus successful!';
-    } catch (error:any) {
-        // Handle error response
-        console.error('Error during ChangeApplicationStatus:', error);
-  
-        // Return an error message or handle as needed
-        if (error.status === 0) {
-            return 'Network error or CORS issue. Please try again later.';
-        } else {
-            return 'Invalid credentials or other error occurred.';
-        }
+      const response: any = await this.http.post(this.apiUrlChangeApplicationStatus, data, {});
+
+      // Handle successful response
+      console.log('Response from server for ChangeApplicationStatus:', response.data);
+      // Return a success message or any other relevant data
+      return 'ChangeApplicationStatus successful!';
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during ChangeApplicationStatus:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        return 'Invalid credentials or other error occurred.';
+      }
     }
   }
+
+  async setApplicant(newData: any): Promise<any> {
+    const data = {
+      Picture: newData.Picture,
+      ApplicantID: newData.ApplicantID,
+      FirstName: newData.FirstName,
+      LastName: newData.LastName,
+      Gender: newData.Gender,
+      DateOfBirth: newData.DateOfBirth,
+      MaritalStatus: newData.MaritalStatus,
+      NumberOfDependent: newData.NumberOfDependent,
+      Nationality: newData.Nationality,
+      ResidenceCountry: newData.ResidenceCountry,
+      NationalIdentity: newData.NationalIdentity,
+      Passport: newData.Passport,
+      Currency: newData.Currency,
+      CurrentSalary: newData.CurrentSalary,
+      TargetSalary: newData.TargetSalary,
+      LandLine: newData.LandLine,
+      Mobile: newData.Mobile,
+      Email: newData.Email,
+      IsPreviousEmployee: newData.IsPreviousEmployee,
+      EmployeeID: newData.EmployeeID,
+      SpecializationID: newData.SpecializationID
+    };
+    try {
+  const response: any = await this.http.post(this.apiUrlGetApplications, data, {});
+
+  // Parse the response data
+  const responseData = JSON.parse(response.data);
+
+  // Check if the response is successful and contains Parameters
+  if (responseData) {
+
+    const data = responseData;
+    console.log("data from applicant service related to choosen vacancyID: ", data);
+    return data.Parameters;
+  } else {
+    throw new Error('Invalid response structure or no data available.');
+  }
+} catch (error: any) {
+  // Handle error response
+  console.error('Error during data retrieval:', error);
+
+  // Return an error message or handle as needed
+  if (error.status === 0) {
+    return 'Network error or CORS issue. Please try again later.';
+  } else {
+    throw new Error('An error occurred while retrieving data.');
+  }
+}
+  }
+
+
 
 // Helper function to capitalize the first letter of a string
 private capitalizeFirstLetter(str: string): string {
