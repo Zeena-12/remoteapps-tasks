@@ -122,7 +122,44 @@ export class CalendarComponent implements OnInit {
     }
     const [year, month] = monthKey.split('-').map(Number);
     return this.selectedStartDate?.isSame(moment({ year, month, day }), 'day') ||
-           this.selectedEndDate?.isSame(moment({ year, month, day }), 'day') ||
-           (this.isRange && this.isDateInRange(day, monthKey));
+      this.selectedEndDate?.isSame(moment({ year, month, day }), 'day') ||
+      (this.isRange && this.isDateInRange(day, monthKey));
+  }
+
+  // Method to check if the given date is the start of the range
+  isStart(day: number | null, monthKey: string): boolean {
+    if (day === null || !this.selectedStartDate || (!this.selectedEndDate && this.isRange)) {
+      return false;
+    }
+    const [year, month] = monthKey.split('-').map(Number);
+    return this.selectedStartDate.isSame(moment({ year, month, day }), 'day');
+  }
+
+  // Method to check if the given date is the end of the range
+  isEnd(day: number | null, monthKey: string): boolean {
+    if (day === null || !this.selectedEndDate || (!this.selectedStartDate && this.isRange)) {
+      return false;
+    }
+    const [year, month] = monthKey.split('-').map(Number);
+    return this.selectedEndDate.isSame(moment({ year, month, day }), 'day');
+  }
+
+  // Method to check if the date should be fully rounded (single selection or range is false)
+  isSingleSelection(day: number | null, monthKey: string): boolean {
+    if (day === null || this.isRange) {
+      return false;
+    }
+    const [year, month] = monthKey.split('-').map(Number);
+    return this.selectedStartDate?.isSame(moment({ year, month, day }), 'day') || false;
+  }
+
+
+
+
+
+
+
+  selectButtonClicked() {
+
   }
 }

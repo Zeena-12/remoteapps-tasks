@@ -28,16 +28,25 @@
         </div>
       </div>
       <div class="days">
-        <div *ngFor="let day of months[monthKey]?.days" class="day" [class.empty]="day === null"
-          [class.selected]="isSelected(day, monthKey)" [class.inRange]="isRange && isDateInRange(day, monthKey)"
-          (click)="selectDate(day, monthKey)">
-          {{ day !== null ? day : '' }}
-        </div>
+        <div *ngFor="let day of months[monthKey]?.days" 
+        class="day" 
+        [class.empty]="day === null"
+        [class.selected]="isSelected(day, monthKey)" 
+        [class.inRange]="isRange && isDateInRange(day, monthKey)"
+        [class.isStart]="isRange && isStart(day, monthKey)"
+        [class.isEnd]="isRange && isEnd(day, monthKey)"
+        [class.single]="!isRange && isSingleSelection(day, monthKey)"
+        (click)="selectDate(day, monthKey)">
+     {{ day !== null ? day : '' }}
+   </div>
       </div>
     </div>
   </div>
 </div>
 <!-- Full-width button at the bottom -->
-<button expand="full" class="full-width-button" (click)="selectButtonClicked()">
-  Select
-</button>
+ <div class="button-container">
+  <button expand="full" class="full-width-button" (click)="selectButtonClicked()">
+    Select
+  </button>
+ </div>
+
