@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ApplicantService } from '../services/applicant/applicant.service';
 import * as moment from 'moment';
 import { VacanciesService } from '../services/vacancies/vacancies.service';
-import { CalendarComponent } from '../custom-components/calendar/calendar.component';
 
 
 @Component({
@@ -434,23 +433,6 @@ export class FourthPage implements OnInit, AfterViewInit {
       candidate.ApplicantID === this.SelectedApplicant.ApplicantID
     );
   }
-
-
-  async toggleDatePicker() {
-    const modal = await this.modalController.create({
-      component: CalendarComponent
-    });
-
-    modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.date) {
-        this.selectedDate = result.data.date;
-        console.log('Selected Date:', this.selectedDate); // Handle the selected date here
-      }
-    });
-
-    return await modal.present();
-  }
-
 }
 
 interface Interview {

@@ -1,19 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Select a Date</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">Close</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-datetime 
-    id="datetime" 
-    presentation="date" 
-    display-format="MMMM DD, YYYY" 
-    picker-format="MMMM DD, YYYY" 
-    [(ngModel)]="selectedDate"
-    (ionChange)="onDateChange($event)">
-  </ion-datetime>
-</ion-content>
+<div class="calendar-container">
+  <div *ngFor="let monthKey of getMonthKeys()">
+    <div class="month">
+      <div class="month-name">
+        {{ months[monthKey]?.monthName }} {{ months[monthKey]?.year }}
+      </div>
+      <div class="week-days">
+        <div>
+          <p>S</p>
+        </div>
+        <div>
+          <p>M</p>
+        </div>
+        <div>
+          <p>T</p>
+        </div>
+        <div>
+          <p>W</p>
+        </div>
+        <div>
+          <p>T</p>
+        </div>
+        <div>
+          <p>F</p>
+        </div>
+        <div>
+          <p>S</p>
+        </div>
+      </div>
+      <div class="days">
+        <div *ngFor="let day of months[monthKey]?.days" class="day" [class.empty]="day === null"
+          [class.selected]="isSelected(day, monthKey)" [class.inRange]="isRange && isDateInRange(day, monthKey)"
+          (click)="selectDate(day, monthKey)">
+          {{ day !== null ? day : '' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full-width button at the bottom -->
+<button expand="full" class="full-width-button" (click)="selectButtonClicked()">
+  Select
+</button>

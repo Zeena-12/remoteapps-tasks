@@ -8,6 +8,7 @@ import { VacanciesPageRoutingModule } from './vacancies-routing.module';
 
 import { VacanciesPage } from './vacancies.page';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
+import { CustomComponentsModule } from '../custom-components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
     FormsModule,
     IonicModule,
     VacanciesPageRoutingModule,
-    CustomPipesModule
+    CustomPipesModule,
+    CustomComponentsModule
   ],
   declarations: [VacanciesPage]
 })

@@ -43,6 +43,20 @@
     </div>
     <!-- end buttons -->
 
+    <ion-button id="open-modal" expand="block">Open modal for calendar</ion-button>
+    <ion-modal #calendarModal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ng-template>
+        <div class="block">
+          <app-calendar [startDate]="'2024-01-01'" 
+          (dateSelected)="handleDateSelected($event)"
+           [endDate]="'2024-12-20'"
+           [isRange]="isRange"
+           ></app-calendar>
+        </div>
+        
+      </ng-template>
+    </ion-modal>
+
     <!-- start job -->
     <div class="job-container" *ngFor="let vacancies of vacanciesList" [routerLink]="['/fourth', vacancies.VacancyID]">
       <div class="job-info">
@@ -72,7 +86,7 @@
             <p class="role">Raised By</p>
             <p class="name">{{vacancies.RaisedBy | extractName}}</p>
           </div>
-        </div> 
+        </div>
         <div class="employee-info">
           <div class="box img">
             <img src="/assets/avatar.png" alt="Person's Photo" />
@@ -92,11 +106,11 @@
 
     <!-- end vacancies -->
   </div>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 40px;" >
-      <ion-fab-button color="primary" class="custom-fab-button">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 40px;">
+    <ion-fab-button color="primary" class="custom-fab-button">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 
 </ion-content>

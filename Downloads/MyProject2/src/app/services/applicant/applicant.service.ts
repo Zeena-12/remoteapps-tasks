@@ -220,7 +220,7 @@ export class ApplicantService {
       SpecializationID: newData.SpecializationID
     };
     try {
-  const response: any = await this.http.post(this.apiUrlGetApplications, data, {});
+  const response: any = await this.http.post(this.apiUrlSetApplicant, data, {});
 
   // Parse the response data
   const responseData = JSON.parse(response.data);
@@ -229,7 +229,7 @@ export class ApplicantService {
   if (responseData) {
 
     const data = responseData;
-    console.log("data from applicant service related to choosen vacancyID: ", data);
+    console.log("saved applicant updated data successff: ", data);
     return data.Parameters;
   } else {
     throw new Error('Invalid response structure or no data available.');

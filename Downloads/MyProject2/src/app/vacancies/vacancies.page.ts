@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VacanciesService } from '../services/vacancies/vacancies.service';
 import { ApplicantService } from '../services/applicant/applicant.service';
-import { Router } from '@angular/router';  
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 
 @Component({
@@ -11,11 +12,19 @@ import { Router } from '@angular/router';
 })
 export class VacanciesPage implements OnInit {
 
+  selectedDate: moment.Moment | null = null;
+
   vacanciesList: any[] = []; // Array to hold the list of applicants
   applicationList: any[] = []; // Array to hold the list of applicants
   errorMessage: string | null = null;
 
+  startYear: number | null = null;
+  endYear: number | null = null;
+  isRange: boolean = true;
 
+  updateYears() {
+    console.log("calling");
+  }
 
   constructor(private vacanciesService: VacanciesService,
     private applicantsServive: ApplicantService,
@@ -25,6 +34,9 @@ export class VacanciesPage implements OnInit {
   ngOnInit() {
     this.loadVacanciesData();
   }
+
+  startDate: string = moment().startOf('year').format('YYYY-MM-DD');
+  endDate: string = moment().endOf('year').format('YYYY-MM-DD');
 
   async loadVacanciesData() {
     try {
@@ -49,6 +61,16 @@ export class VacanciesPage implements OnInit {
 
 
 
-
-
+  handleDateSelected(range: { start: moment.Moment | null, end: moment.Moment | null }) {
+    if (range.start && range.end) {
+      console.log('Selected Range:', range.start.format('YYYY-MM-DD'), 'to', range.end.format('YYYY-MM-DD'));
+    } else if (range.start) {
+      console.log('Selected Start Date:', range.start.format('YYYY-MM-DD'));
+    } else if (range.end) {
+      console.log('Selected End Date:', range.end.format('YYYY-MM-DD'));
+    } else {
+      console.log('No date selected');
+    }
+  }
 }
+

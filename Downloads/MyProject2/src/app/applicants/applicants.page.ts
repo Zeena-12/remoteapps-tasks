@@ -39,7 +39,7 @@ export class ApplicantsPage implements OnInit {
   SubmitEdit(val: any) {
     if (this.EditForm.valid) {
       console.log('####Login Successful###', val);
-      // callfunction
+      this.applicantService.setApplicant(val);
     }
     else {
       console.log('####Login NOT Successful###', val);
@@ -52,26 +52,32 @@ export class ApplicantsPage implements OnInit {
     this.loadApplicantData();
     this.initializeForm();
   }
-  initializeForm() {
-    this.EditForm = this.formbuilder.group({
-      NationalIdentity: [''],
-      NationalityName: ['', [Validators.required, Validators.pattern('[a-zA-Z]*'), Validators.minLength(2), Validators.maxLength(30)]],
-      Passport: ['', [Validators.required]],
-      GenderName:  ['', [Validators.required]],
-      MaritalStatusName: ['', [Validators.required]],
-      NumberOfDependents: ['', [Validators.required]],
-      DateOfBirth: ['', [Validators.required]],
-      ResidenceCountryName:  ['', [Validators.required]],
-      Mobile:  ['', [Validators.required]],
-      Email: ['', [Validators.required]],
-    });
-  }
 
-
-
-
-
-
+initializeForm() {
+  this.EditForm = this.formbuilder.group({
+    Picture: [''],
+    ApplicantID: [''],
+    FirstName: [''],
+    LastName: [''],
+    Gender: ['', [Validators.required]],
+    DateOfBirth: ['', [Validators.required]],
+    MaritalStatus: ['', [Validators.required]],
+    NumberOfDependent: ['', [Validators.required]],
+    Nationality: ['', [Validators.required]],
+    ResidenceCountry: ['', [Validators.required]],
+    NationalIdentity: ['', [Validators.required]],
+    Passport: ['', [Validators.required]],
+    Currency: [''],
+    CurrentSalary: [''],
+    TargetSalary: [''],
+    LandLine: [''],
+    Mobile: ['', [Validators.required]],
+    Email: ['', [Validators.required, Validators.email]],
+    IsPreviousEmployee: [''],
+    EmployeeID: [''],
+    SpecializationID: ['']
+  });
+}
 
 
   async loadApplicantData() {
@@ -101,13 +107,13 @@ export class ApplicantsPage implements OnInit {
       if (this.ApplicantProfile) {
         this.EditForm.patchValue({
           NationalIdentity: this.ApplicantProfile.NationalIdentity,
-          NationalityName: this.ApplicantProfile.NationalityName,
+          NationalityName: this.ApplicantProfile.Nationality,
           Passport: this.ApplicantProfile.Passport,
-          GenderName: this.ApplicantProfile.GenderName,
-          MaritalStatusName: this.ApplicantProfile.MaritalStatusName,
-          NumberOfDependents: this.ApplicantProfile.NumberOfDependents,
+          GenderName: this.ApplicantProfile.Gender,
+          MaritalStatusName: this.ApplicantProfile.MaritalStatus,
+          NumberOfDependents: this.ApplicantProfile.NumberOfDependent,
           DateOfBirth: this.ApplicantProfile.DateOfBirth,
-          ResidenceCountryName: this.ApplicantProfile.ResidenceCountryName,
+          ResidenceCountryName: this.ApplicantProfile.ResidenceCountry,
           Mobile: this.ApplicantProfile.Mobile,
           Email: this.ApplicantProfile.Email
         });
@@ -138,16 +144,30 @@ export class ApplicantsPage implements OnInit {
   }
 }
 
-interface ApplicantProfile {
-  NationalIdentity: string;
-  NationalityName: string;
-  Passport: string;
-  GenderName: string;
-  MaritalStatusName: string;
-  NumberOfDependents: string;
+export interface ApplicantProfile {
+  Picture?: string;
+  ApplicantID: number;
+  FirstName: string;
+  LastName: string;
+  Gender: number;
   DateOfBirth: string;
-  ResidenceCountryName: string;
+  MaritalStatus: number;
+  NumberOfDependent: number;
+  Nationality: number;
+  ResidenceCountry: number;
+  NationalIdentity: string;
+  Passport: string;
+  Currency: number;
+  CurrentSalary: number;
+  TargetSalary: number;
+  LandLine: string;
   Mobile: string;
   Email: string;
+  IsPreviousEmployee: boolean;
+  EmployeeID: number;
+  SpecializationID: number;
 }
+
+
+
 
