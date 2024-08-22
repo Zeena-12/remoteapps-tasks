@@ -113,22 +113,24 @@ line-height: 24px; /* 150% */
 
 .selected {
   background-color: rgb(232, 247, 247);
+  border-radius:24px;
 }
 
 .inRange {
   background-color: rgb(232, 247, 247);
+  border-radius: 0px;
 }
 
 .isStart {
-  border-top-left-radius: 30%;
-  border-bottom-left-radius: 30%;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius:24px;
   background-color: #00abec;
   color: white;
 }
 
 .isEnd {
-  border-top-right-radius: 30%;
-  border-bottom-right-radius: 30%;
+  border-top-right-radius:24px;
+  border-bottom-right-radius:24px;
   background-color: #00abec;
   color: white;
 }
@@ -136,6 +138,7 @@ line-height: 24px; /* 150% */
 .day.single {
   border-radius: 50%;
   background-color: #00abec;
+  color: white;
 }
 
 .button-container{

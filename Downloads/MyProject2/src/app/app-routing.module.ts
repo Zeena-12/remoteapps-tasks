@@ -61,7 +61,6 @@ const routes: Routes = [
     loadChildren: () => import('./new-experience/new-experience.module').then( m => m.NewExperiencePageModule)
   },
 
-
 ];
 @NgModule({
   imports: [

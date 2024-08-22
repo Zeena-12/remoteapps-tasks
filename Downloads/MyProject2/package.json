@@ -26,6 +26,7 @@
     "@awesome-cordova-plugins/http": "^6.8.0",
     "@awesome-cordova-plugins/status-bar": "^6.7.0",
     "@ionic-native/core": "^5.36.0",
+    "@ionic-native/device": "^5.36.0",
     "@ionic-native/file": "^5.36.0",
     "@ionic-native/file-opener": "^5.36.0",
     "@ionic-native/file-path": "^5.36.0",
@@ -43,6 +44,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "cordova-android": "12.0.1",
     "cordova-plugin-advanced-http": "^3.1.0",
+    "cordova-plugin-devoptionschecker": "^1.0.0",
     "cordova-plugin-file-opener2": "^4.0.0",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-res": "^0.15.4",
@@ -108,7 +110,8 @@
       },
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-file-opener2": {},
-      "org.apache.cordova.geolocation": {}
+      "org.apache.cordova.geolocation": {},
+      "cordova-plugin-devoptionschecker": {}
     },
     "platforms": [
       "android"

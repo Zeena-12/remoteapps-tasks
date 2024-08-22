@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, isDevMode, OnInit } from '@angular/core';
 import { VacanciesService } from '../services/vacancies/vacancies.service';
 import { ApplicantService } from '../services/applicant/applicant.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { Device } from '@ionic-native/device/ngx';
+
 
 
 @Component({
@@ -33,7 +35,12 @@ export class VacanciesPage implements OnInit {
 
   ngOnInit() {
     this.loadVacanciesData();
+   console.log("is div moda one?",  isDevMode()); 
+   
   }
+
+ 
+
 
   startDate: string = moment().startOf('year').format('YYYY-MM-DD');
   endDate: string = moment().endOf('year').format('YYYY-MM-DD');

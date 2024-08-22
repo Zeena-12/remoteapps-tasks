@@ -22,6 +22,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { AuthService } from './services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Device } from '@ionic-native/device/ngx'; // Import Device
 
 
 
@@ -49,7 +50,7 @@ export function HttpLoaderFactory(http: HttpClient){
       animation: 'pulse',
       loadingText: 'This item is actually loading...',
     }),],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },ScreenOrientation,HTTP,NativeStorage,InAppBrowser,File,FilePath ,WebView,PhotoViewer],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },Device,ScreenOrientation,HTTP,NativeStorage,InAppBrowser,File,FilePath ,WebView,PhotoViewer],
   exports: [TranslateModule, ],
   bootstrap: [AppComponent],
   schemas: [
