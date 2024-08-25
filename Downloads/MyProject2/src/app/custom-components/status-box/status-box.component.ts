@@ -202,12 +202,14 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    let dataType: 'cv' | 'answers';
+    let dataType: 'cv' | 'answers' | 'disqualify';
 
     if (option.label === 'Open CV') {
       dataType = 'cv';
     } else if (option.label === 'View Answers') {
       dataType = 'answers';
+    } else if (option.label === 'Disqualify') {
+      dataType = 'disqualify';
     } else {
       console.error('Unsupported option selected');
       return;

@@ -11,6 +11,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 })
 export class ApplicantsPage implements OnInit {
   EditForm!: FormGroup;
+  AddApplicantForm!: FormGroup;
 
   applicantsList: any[] = []; // Array to hold the list of applicants
   errorMessage: string | null = null;
@@ -27,8 +28,12 @@ export class ApplicantsPage implements OnInit {
   QualificationList: any[] = [];
   SkillList: any[] = [];
 
-  @ViewChild('openEditModal') openEditModal: any;
-  @ViewChild('openAddExperienceModal') openAddExperienceModal: any;
+  @ViewChild('EditModal') EditModal: any;
+  @ViewChild('AddExperienceModal') AddExperienceModal: any;
+  @ViewChild('AddApplicantModal') AddApplicantModal: any;
+
+  selectedGender: number | null = null;
+  selectedMaritalStatus: number | null = null;
 
   constructor(private applicantService: ApplicantService,
     private modalController: ModalController,
@@ -38,11 +43,22 @@ export class ApplicantsPage implements OnInit {
   }
   SubmitEdit(val: any) {
     if (this.EditForm.valid) {
-      console.log('####Login Successful###', val);
+      console.log('#### edit Successful###', val);
       this.applicantService.setApplicant(val);
     }
     else {
-      console.log('####Login NOT Successful###', val);
+      console.log('#### edit NOT Successful###', val);
+      // SHOW ALERT ERROR
+    }
+  }
+
+  SubmitAddApplicant(val: any) {
+    if (this.AddApplicantForm.valid) {
+      console.log('#### add Successful###', val);
+      this.applicantService.setApplicant(val);
+    }
+    else {
+      console.log('#### add NOT Successful###', val);
       // SHOW ALERT ERROR
     }
   }
@@ -50,10 +66,11 @@ export class ApplicantsPage implements OnInit {
   ngOnInit() {
     console.log("oninit");
     this.loadApplicantData();
-    this.initializeForm();
+    this.initializeEditForm();
+    this.initializeAddForm();
   }
 
-initializeForm() {
+initializeEditForm() {
   this.EditForm = this.formbuilder.group({
     Picture: [''],
     ApplicantID: [''],
@@ -63,6 +80,31 @@ initializeForm() {
     DateOfBirth: ['', [Validators.required]],
     MaritalStatus: ['', [Validators.required]],
     NumberOfDependent: ['', [Validators.required]],
+    Nationality: ['', [Validators.required]],
+    ResidenceCountry: ['', [Validators.required]],
+    NationalIdentity: ['', [Validators.required]],
+    Passport: ['', [Validators.required]],
+    Currency: [''],
+    CurrentSalary: [''],
+    TargetSalary: [''],
+    LandLine: [''],
+    Mobile: ['', [Validators.required]],
+    Email: ['', [Validators.required, Validators.email]],
+    IsPreviousEmployee: [''],
+    EmployeeID: [''],
+    SpecializationID: ['']
+  });
+}
+
+initializeAddForm() {
+  this.AddApplicantForm = this.formbuilder.group({
+    Picture: [''],
+    FirstName: [''],
+    LastName: [''],
+    Gender: [null],
+    DateOfBirth: ['', [Validators.required]],
+    MaritalStatus: ['', [Validators.required]],
+    NumberOfDependent: [null],
     Nationality: ['', [Validators.required]],
     ResidenceCountry: ['', [Validators.required]],
     NationalIdentity: ['', [Validators.required]],
@@ -105,7 +147,7 @@ initializeForm() {
       this.CertificateList = result.CertificateList;
       // save profiel data into interface profile
       if (this.ApplicantProfile) {
-        this.EditForm.patchValue({
+        this.EditForm.patchValue({ //why to use patchValue not setValue? bcz not all data need to change
           NationalIdentity: this.ApplicantProfile.NationalIdentity,
           NationalityName: this.ApplicantProfile.Nationality,
           Passport: this.ApplicantProfile.Passport,
@@ -136,17 +178,36 @@ initializeForm() {
 
   openModalEdit(applicantID: any) {
     console.log("callig modal openModalEDit and the id is", applicantID);
-    this.openEditModal.present();
+    this.EditModal.present();
   }
   openModalAddExperience(applicantID: any) {
     console.log("callig modal openModalEDit and the id is", applicantID);
-    this.openAddExperienceModal.present();
+    this.AddExperienceModal.present();
   }
+
+  OpenModalAddApplicant(){
+    this.AddApplicantModal.present();
+  }
+  selectGender(value: number) {
+    this.selectedGender = value;
+    const genderControl = this.AddApplicantForm.get('Gender');
+    if (genderControl) {
+      genderControl.setValue(value);
+    }
+  }
+  selectMaritalStatus(value: number) {
+    this.selectedMaritalStatus = value;
+    const maritalStatusControl = this.AddApplicantForm.get('MaritalStatus');
+    if (maritalStatusControl) {
+      maritalStatusControl.setValue(value);
+    }
+  }
+
+  
 }
 
 export interface ApplicantProfile {
   Picture?: string;
-  ApplicantID: number;
   FirstName: string;
   LastName: string;
   Gender: number;

@@ -773,8 +773,32 @@ ion-fab {
   border: 1px solid orange;
   overflow-y: scroll;
   height: 100vh;
-  // end edit-container
 
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Gap between items */
+    align-items: center;
+  }
+  
+  .option {
+    flex: 0 0 48%; /* Do not grow, do not shrink, and take 48% of the width */
+    box-sizing: border-box;
+     border: 1px solid #eaebef;
+
+    background-color: #f2f3f7;
+    cursor: pointer;
+    border-radius: 9px;
+    padding: 5px;
+    color: #98a1b3;
+    text-align: center;
+  }
+  .selected {
+     background-color: #00abec;
+    color: white;
+    border: 1px solid #00abec;
+    border-radius: 9px;
+  }
 
   .edit-employee-container {
     background-color: white;

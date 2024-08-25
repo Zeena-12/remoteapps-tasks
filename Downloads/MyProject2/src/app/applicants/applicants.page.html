@@ -10,20 +10,21 @@
       <i class="icon-search"></i>
       <p>search...</p>
     </div> -->
-    <ion-searchbar mode="ios" color="light" placeholder="search"></ion-searchbar>
+    <ion-searchbar
+      mode="ios"
+      color="light"
+      placeholder="search"
+    ></ion-searchbar>
     <!-- start segment -->
     <ion-segment mode="md" value="custom">
-      <ion-segment-button value="all">
-        <ion-label>All</ion-label>
+      <ion-segment-button value="Applicants">
+        <ion-label>Applicants</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="pending">
-        <ion-label>Pending</ion-label>
+      <ion-segment-button value="Recommended">
+        <ion-label>Recommended</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="rejected">
-        <ion-label>Rejected</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="open">
-        <ion-label>Open</ion-label>
+      <ion-segment-button value="Tagged">
+        <ion-label>Tagged</ion-label>
       </ion-segment-button>
     </ion-segment>
     <!-- end segment -->
@@ -32,18 +33,25 @@
     <!-- buttons -->
     <div class="button-wrapper">
       <button class="filter-button">
-        <i class="icon-filter-1" style="color: #91a0b3;"></i>
+        <i class="icon-filter-1" style="color: #91a0b3"></i>
         Filter
       </button>
       <button class="sort-button">
-        <i class="icon-arrow-up-down" style="color: #91a0b3; font-weight: bolder;"></i>
+        <i
+          class="icon-arrow-up-down"
+          style="color: #91a0b3; font-weight: bolder"
+        ></i>
         Sort
       </button>
     </div>
     <!-- end buttons -->
 
     <!-- start job -->
-    <div class="job-container" *ngFor="let applicant of applicantsList" (click)="openModalCV(applicant.ApplicantID)">
+    <div
+      class="job-container"
+      *ngFor="let applicant of applicantsList"
+      (click)="openModalCV(applicant.ApplicantID)"
+    >
       <div class="employee-info-container">
         <div class="employee-info">
           <div class="box img">
@@ -51,15 +59,22 @@
             <img src="/assets/avatar3.png" alt="Person's Photo" />
           </div>
           <div class="box name-role">
-            <p class="name text-ellipsis">{{applicant.FirstName}} {{applicant.LastName}}</p>
-            <p class="role text-ellipsis">{{applicant.CurrentPosition || 'Unemployment'}} {{applicant.CurrentCompany}}
+            <p class="name text-ellipsis">
+              {{applicant.FirstName}} {{applicant.LastName}}
+            </p>
+            <p class="role text-ellipsis">
+              {{applicant.CurrentPosition || 'Unemployment'}}
+              {{applicant.CurrentCompany}}
             </p>
           </div>
         </div>
         <div class="employee-info">
           <div class="box year-place">
             <div class="year">
-              <i class="icon-business" style="font-size: 14px; font-weight: 600;"></i>
+              <i
+                class="icon-business"
+                style="font-size: 14px; font-weight: 600"
+              ></i>
               <p class="year">5 Year</p>
             </div>
             <div class="place">
@@ -71,27 +86,33 @@
       </div>
       <div class="salary-info-container">
         <div class="box">
-          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <i class="icon-money-cash" style="font-size: 35px"></i>
           <p>
             <!-- zeena:check: is it less that 0 ? -->
-            {{applicant.CurrencyShortName}}
-            {{applicant.CurrentSalaryValue <= 0 ? '-' : applicant.CurrentSalaryValue}} </p>
+            {{applicant.CurrencyShortName}} {{applicant.CurrentSalaryValue <= 0
+            ? '-' : applicant.CurrentSalaryValue}}
+          </p>
         </div>
         <div class="box">
-          <i class="icon-money-cash" style="font-size: 35px;"></i>
+          <i class="icon-money-cash" style="font-size: 35px"></i>
           <p>
-            {{applicant.CurrencyShortName}}
-            {{applicant.TargetSalary <= 0 ? '-' : applicant.TargetSalary}} </p>
+            {{applicant.CurrencyShortName}} {{applicant.TargetSalary <= 0 ? '-'
+            : applicant.TargetSalary}}
+          </p>
         </div>
       </div>
-
     </div>
 
     <!-- end jobs -->
   </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 40px;">
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    style="margin-bottom: 40px"
+  >
     <ion-fab-button color="primary" class="custom-fab-button">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="add" (click)="OpenModalAddApplicant()"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
@@ -101,22 +122,32 @@
       <div class="model-container">
         <div class="cv-container">
           <div class="personal-profile">
-            <button class="edit-button" (click)="openModalEdit(ApplicantProfile.ApplicantID)">
+            <button
+              class="edit-button"
+              (click)="openModalEdit(ApplicantProfile.ApplicantID)"
+            >
               <i class="icon-edit-2"></i>
             </button>
             <div class="profile-photo">
               <img src="/assets/avatar.png" alt="Person's Photo" />
             </div>
             <div class="profile-info">
-              <h1 class="profile-name">{{ApplicantProfile.FirstName}} {{ApplicantProfile.LastName}}</h1>
+              <h1 class="profile-name">
+                {{ApplicantProfile.FirstName}} {{ApplicantProfile.LastName}}
+              </h1>
               <p class="profile-role">
-                {{ApplicantProfile.CurrentPosition}} at{{ApplicantProfile.CurrentCompany}}
+                {{ApplicantProfile.CurrentPosition}}
+                at{{ApplicantProfile.CurrentCompany}}
               </p>
             </div>
           </div>
           <div class="personal-details">
             <!-- slider start -->
-            <swiper-container (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
+            <swiper-container
+              (slidechange)="swiperSlideChanged($event)"
+              [loop]="true"
+              [pagination]="true"
+            >
               <swiper-slide>
                 <div class="swiper-content">
                   <div class="box box-1">
@@ -143,7 +174,10 @@
                 <div class="swiper-content">
                   <div class="box box-1">
                     <div class="icon-container">
-                      <i class="icon-gender my-color" style="font-size: 30px"></i>
+                      <i
+                        class="icon-gender my-color"
+                        style="font-size: 30px"
+                      ></i>
                     </div>
                     <div class="text-container">
                       <p>Gender</p>
@@ -175,7 +209,10 @@
                   </div>
                   <div class="box box-1">
                     <div class="icon-container">
-                      <i class="icon-person my-color" style="font-size: 25px"></i>
+                      <i
+                        class="icon-person my-color"
+                        style="font-size: 25px"
+                      ></i>
                     </div>
                     <div class="text-container">
                       <p>No. of Dependents</p>
@@ -198,7 +235,10 @@
                   </div>
                   <div class="box box-1">
                     <div class="icon-container">
-                      <i class="icon-person my-color" style="font-size: 25px"></i>
+                      <i
+                        class="icon-person my-color"
+                        style="font-size: 25px"
+                      ></i>
                     </div>
                     <div class="text-container">
                       <p>Currency</p>
@@ -221,7 +261,10 @@
                   </div>
                   <div class="box box-1">
                     <div class="icon-container">
-                      <i class="icon-person my-color" style="font-size: 25px"></i>
+                      <i
+                        class="icon-person my-color"
+                        style="font-size: 25px"
+                      ></i>
                     </div>
                     <div class="text-container">
                       <p>Target Salary</p>
@@ -284,15 +327,25 @@
             <div class="prof-summary-section experience">
               <p class="title">Experience</p>
               <ol class="timeline">
-                <li class="timeline-item" *ngFor="let experience of ExperienceList">
+                <li
+                  class="timeline-item"
+                  *ngFor="let experience of ExperienceList"
+                >
                   <div class="timeline-dot"></div>
                   <h3 class="timeline-title">{{experience.Position}}</h3>
-                  <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate |
-                    dateFormat}}</time>
-                  <p class="timeline-description">{{experience.CompanyName}}, {{experience.Location}}</p>
+                  <time class="timeline-date"
+                    >{{experience.StartDate | dateFormat}} to
+                    {{experience.EndDate | dateFormat}}</time
+                  >
+                  <p class="timeline-description">
+                    {{experience.CompanyName}}, {{experience.Location}}
+                  </p>
                 </li>
               </ol>
-              <button class="add-button" (click)="openModalAddExperience(ApplicantProfile.ApplicantID)">
+              <button
+                class="add-button"
+                (click)="openModalAddExperience(ApplicantProfile.ApplicantID)"
+              >
                 <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
                 Add Experience
               </button>
@@ -301,15 +354,24 @@
             <div class="prof-summary-section education">
               <p class="title">Education</p>
               <ol class="timeline">
-                <li class="timeline-item" *ngFor="let qualification of QualificationList">
+                <li
+                  class="timeline-item"
+                  *ngFor="let qualification of QualificationList"
+                >
                   <div class="timeline-dot"></div>
                   <h3 class="timeline-title">
                     {{qualification.DegreeName}} in {{qualification.Title}}
                   </h3>
-                  <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
+                  <time
+                    class="timeline-date"
+                    *ngIf="qualification.StatusName === 'Cleared '"
+                  >
                     Cleared in {{ qualification.EndDate }}
                   </time>
-                  <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
+                  <time
+                    class="timeline-date"
+                    *ngIf="qualification.StatusName === 'Ongoing'"
+                  >
                     Ongoing {{ qualification.EndDate }}
                   </time>
                 </li>
@@ -324,15 +386,22 @@
             <div class="prof-summary-section education">
               <p class="title">Licenses & Certifications</p>
               <ol class="timeline">
-                <li class="timeline-item" *ngFor="let certificate of CertificateList">
+                <li
+                  class="timeline-item"
+                  *ngFor="let certificate of CertificateList"
+                >
                   <div class="timeline-dot"></div>
-                  <h3 class="timeline-title">
-                    {{certificate.Title}}
-                  </h3>
-                  <time class="timeline-date" *ngIf="certificate.StatusName === 'Cleared '">
+                  <h3 class="timeline-title">{{certificate.Title}}</h3>
+                  <time
+                    class="timeline-date"
+                    *ngIf="certificate.StatusName === 'Cleared '"
+                  >
                     Cleared in {{ certificate.EndDate }}
                   </time>
-                  <time class="timeline-date" *ngIf="certificate.StatusName === 'Ongoing'">
+                  <time
+                    class="timeline-date"
+                    *ngIf="certificate.StatusName === 'Ongoing'"
+                  >
                     Ongoing {{ certificate.EndDate }}
                   </time>
                 </li>
@@ -352,8 +421,14 @@
     </ng-template>
   </ion-modal>
   <!-- End CV Model -->
+
   <!--Start Edit  Modal -->
-  <ion-modal #openEditModal id="edit-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ion-modal
+    #EditModal
+    id="edit-modal"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+  >
     <ng-template>
       <div class="model-container">
         <form [formGroup]="EditForm" (ngSubmit)="SubmitEdit(EditForm.value)">
@@ -365,9 +440,7 @@
                   <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
                     <p class="">Edit</p>
                   </div> -->
-                  <button type="submit" class="edit-button">
-                    Edit
-                  </button>
+                  <button type="submit" class="edit-button">Edit</button>
                 </div>
                 <div class="employee-info-container">
                   <div class="title">
@@ -418,9 +491,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">First Name</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              First Name
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="FirstName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="FirstName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -435,9 +516,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Last Name</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Last Name
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="LastName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="LastName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -452,9 +541,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Gender</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Gender
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Gender" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Gender"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -469,9 +566,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Date of Birth</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Date of Birth
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="DateOfBirth" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="DateOfBirth"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -486,9 +591,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Marital Status</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Marital Status
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="MaritalStatus" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="MaritalStatus"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -503,9 +616,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Number of Dependents</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Number of Dependents
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="NumberOfDependent" type="number" placeholder=""></ion-input>
+                              <ion-input
+                                formControlName="NumberOfDependent"
+                                type="number"
+                                placeholder=""
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -520,9 +641,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Nationality</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Nationality
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Nationality" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Nationality"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -537,9 +666,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Residence Country</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Residence Country
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="ResidenceCountry" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="ResidenceCountry"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -554,9 +691,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">National Identity</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              National Identity
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="NationalIdentity" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="NationalIdentity"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -571,9 +716,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Passport No.</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Passport No.
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Passport" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Passport"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -588,9 +741,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Currency</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Currency
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Currency" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Currency"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -605,9 +766,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Current Salary</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Current Salary
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CurrentSalary" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="CurrentSalary"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -622,9 +791,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Target Salary</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Target Salary
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="TargetSalary" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="TargetSalary"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -639,9 +816,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Land Line</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Land Line
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="LandLine" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="LandLine"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -656,9 +841,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Mobile</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Mobile
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Mobile" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Mobile"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -673,9 +866,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Email</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Email
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Email" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Email"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -690,10 +891,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Is Previous Employee</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Is Previous Employee
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="IsPreviousEmployee" type="checkbox"
-                                placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="IsPreviousEmployee"
+                                type="checkbox"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -708,9 +916,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Employee ID</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Employee ID
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="EmployeeID" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="EmployeeID"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -725,9 +941,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Specialization ID</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Specialization ID
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="SpecializationID" type="number" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="SpecializationID"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -747,10 +971,18 @@
   <!-- End Edit Model -->
 
   <!--Start Add Experience Modal -->
-  <ion-modal #openAddExperienceModal id="add-experience-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ion-modal
+    #AddExperienceModal
+    id="add-experience-modal"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+  >
     <ng-template>
       <div class="model-container">
-        <form [formGroup]="AddExperienceForm" (ngSubmit)="SubmitAddExperience(AddExperienceForm.value)">
+        <form
+          [formGroup]="AddExperienceForm"
+          (ngSubmit)="SubmitAddExperience(AddExperienceForm.value)"
+        >
           <div class="add-experience-container">
             <div class="add-experience">
               <div>
@@ -772,9 +1004,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Company Name</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Company Name
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="CompanyName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -784,9 +1024,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Industry</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Industry
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Industry" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Industry"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -796,9 +1044,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Location</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Location
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Location" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Location"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -811,9 +1067,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Industry</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Industry
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Industry" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="Industry"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -821,7 +1085,11 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="isCurentCheck">
-                            <div class="input-title gray-title custom-form-label">Is Current?</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Is Current?
+                            </div>
                             <div><ion-checkbox></ion-checkbox></div>
                           </div>
                         </div>
@@ -831,17 +1099,33 @@
                       <div class="box input-container date">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Start Date</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Start Date
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="CompanyName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">End Date</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              End Date
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="CompanyName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -851,9 +1135,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Reporting</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Reporting
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="CompanyName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -863,9 +1155,17 @@
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Main Role</div>
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Main Role
+                            </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                              <ion-input
+                                formControlName="CompanyName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
                             </div>
                           </div>
                         </div>
@@ -882,4 +1182,569 @@
   </ion-modal>
   <!-- End Add Model -->
 
+  <!--Start add applicant  Modal -->
+  <ion-modal
+    #AddApplicantModal
+    id="edit-modal"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1]"
+  >
+    <ng-template>
+      <div class="model-container">
+        <form
+          [formGroup]="AddApplicantForm"
+          (ngSubmit)="SubmitAddApplicant(AddApplicantForm.value)"
+        >
+          <div class="edit-container">
+            <div class="edit-employee-container">
+              <div>
+                <div class="top-container">
+                  <p>New Applicant</p>
+                  <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
+                      <p class="">Edit</p>
+                    </div> -->
+                  <button type="submit" class="edit-button">Next</button>
+                </div>
+                <div class="employee-info-container">
+                  <div class="title">
+                    <p><span>Personal Information</span></p>
+                  </div>
+                  <!-- <img class="bordered-image" src="assets/youcandoit.jpeg" alt="You Can Do It"> -->
+                  <!-- start form -->
+                  <div class="employee-info-items">
+                    <!-- Picture -->
+                    <!-- <div class="employee-info">
+                        <div class="box icon my-icon">
+                          <i class="icon-picture icon-style"></i>
+                        </div>
+                        <div class="box input-container">
+                          <div class="inputsWrapper custom-inputsWrapper">
+                            <div class="inputBox my-input">
+                              <div class="input-title gray-title custom-form-label">Picture</div>
+                              <div class="text-input-gray">
+                                <ion-input formControlName="Picture" type="text" placeholder=" "></ion-input>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+
+                    <!-- First Name -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-first-name icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              First Name
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="FirstName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-last-name icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Last Name
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="LastName"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-gender icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Gender
+                            </div>
+                            <div class="options">
+                              <div
+                                class="option"
+                                [ngClass]="{' selected': selectedGender === 9}"
+                                (click)="selectGender(9)"
+                              >
+                                Male
+                              </div>
+                              <div
+                                class="option"
+                                [ngClass]="{' selected': selectedGender === 1}"
+                                (click)="selectGender(1)"
+                              >
+                                Female
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-calendar-6 icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Date of Birth
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="DateOfBirth"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Marital Status -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-gender icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Marital Status
+                            </div>
+                            <div class="options">
+                              <div
+                                class="option"
+                                [ngClass]="{' selected': selectedMaritalStatus === 20}"
+                                (click)="selectMaritalStatus(20)"
+                              >
+                                Single
+                              </div>
+                              <div
+                                class="option"
+                                [ngClass]="{' selected': selectedMaritalStatus === 21}"
+                                (click)="selectMaritalStatus(21)"
+                              >
+                                Married
+                              </div>
+                              <div
+                                class="option"
+                                [ngClass]="{' selected': selectedMaritalStatus === 22}"
+                                (click)="selectMaritalStatus(22)"
+                              >
+                                Divorced
+                              </div>
+                              <div
+                                class="option"
+                                [ngClass]="{' selected': selectedMaritalStatus === 23}"
+                                (click)="selectMaritalStatus(23)"
+                              >
+                                Widowed
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Number of Dependents -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-person icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Number of Dependents
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="NumberOfDependent"
+                                type="number"
+                                placeholder=""
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Nationality -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-internet-stroke icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Nationality
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="Nationality"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Residence Country -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-residence-country icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Residence Country
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="ResidenceCountry"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- National Identity -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-national-identity icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              National Identity
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="NationalIdentity"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Passport No. -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-passport icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Passport No.
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="Passport"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Currency -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-currency icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Currency
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="Currency"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Current Salary -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-salary icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Current Salary
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="CurrentSalary"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Target Salary -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-target-salary icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Target Salary
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="TargetSalary"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Land Line -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-landline icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Land Line
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="LandLine"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-mobile icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Mobile
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="Mobile"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-envelope icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Email
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="Email"
+                                type="text"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Is Previous Employee -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-previous-employee icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Is Previous Employee
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="IsPreviousEmployee"
+                                type="checkbox"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Employee ID -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-employee-id icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Employee ID
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="EmployeeID"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Specialization ID -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-specialization-id icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div
+                              class="input-title gray-title custom-form-label"
+                            >
+                              Specialization ID
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input
+                                formControlName="SpecializationID"
+                                type="number"
+                                placeholder=" "
+                              ></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- end form -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </ion-modal>
+  <!-- End add applicant Model -->
 </ion-content>

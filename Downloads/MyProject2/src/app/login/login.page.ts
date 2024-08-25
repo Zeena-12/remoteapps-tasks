@@ -20,84 +20,29 @@ export class LoginPage implements OnInit {
   constructor(private http: HTTP, private router: Router) { }
 
   ngOnInit() {
-    document.addEventListener('deviceready', () => {
-      this.checkDevOptions();
-    }, false);
+    console.log();
+    // document.addEventListener('deviceready', () => {
+    //   this.checkDevOptions();
+    // }, false);
   }
 
-  checkDevOptions() {
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.devoptionschecker) {
-      window.cordova.plugins.devoptionschecker.check((result: any) => {
-        console.log("what is result ", result);
-        if (result.devOptionsEnabled) {
-          console.log('Developer options are enabled.', result);
-          alert("Developer options are enabled " + result);
-        } else {
-          console.log('Developer options are not enabled.', result);
-          alert("Developer options are not enabled " + result);
-        }
-      }, (error: any) => {
-        console.error('Error checking developer options: ' + error);
-      });
-    } else {
-      console.error('DevOptionsChecker plugin is not available.');
-    }
-  }
-
-
-  // loginUser(): void {
-
-  //   // const data = {
-  //   //   UserName: this.UserName,
-  //   //   Password: this.Password
-  //   // };
-  //   const formData = new FormData();
-  //   formData.append('UserName', this.UserName);
-  //   formData.append('Password', this.Password);
-
-  //   const url = 'https://api.remoteapps.com/Profile/Login'; // Replace with your API endpoint
-
-
-
-  //   const headers = {}; // Empty headers object if not required
-
-  //   const options = {
-  //     withCredentials: true // Use 'include' if you need to send cookies or other credentials
-  //   };
-
-  //   this.http.post(url, formData, {withCredentials: true})
-  //     .then(response => {
-  //       console.log('Response from server:', response.data);
-  //       // Handle successful login response here
-  //       // e.g., redirect to another page or store token
-  //     })
-  //     .catch(error => {
-  //       console.error('Error during login:', error);
-  //       if (error.status === 0) {
-  //         this.errorMessage = 'Network error or CORS issue. Please try again later.';
+  // checkDevOptions() {
+  //   if (window.cordova && window.cordova.plugins && window.cordova.plugins.devoptionschecker) {
+  //     window.cordova.plugins.devoptionschecker.check((result: any) => {
+  //       console.log("what is result ", result);
+  //       if (result.devOptionsEnabled) {
+  //         console.log('Developer options are enabled.', result);
+  //         alert("Developer options are enabled " + result);
   //       } else {
-  //         this.errorMessage = 'Invalid credentials or other error occurred.';
+  //         console.log('Developer options are not enabled.', result);
+  //         alert("Developer options are not enabled " + result);
   //       }
+  //     }, (error: any) => {
+  //       console.error('Error checking developer options: ' + error);
   //     });
-  // }
-
-  //   async loginUser(us:string, ps:string) {
-  //     // const data = new FormData();
-  //     let data = {
-  //       UserName: 'Zeen.Test@dev.com',
-  //       Password: 'Bahrain1234',
-
-  //     }
-
-  //   //  data.append("UserName", 'Zeen.Test@dev.com');
-  //   //  data.append("Password", 'Bahrain1234');
-
-
-
-  //  let url = 'https://api.remoteapps.com/Profile/Login' ;
-  //  return await  this.http.post(url, data, {} ).then((data: any) => {
-
-  //    });
+  //   } else {
+  //     console.error('DevOptionsChecker plugin is not available.');
+  //   }
   // }
 
   async loginUser(us: string, ps: string): Promise<string> {
@@ -113,7 +58,7 @@ export class LoginPage implements OnInit {
 
       // Handle successful response
       console.log('Response from server:', response.data);
-      this.router.navigate(['/vacancies']);
+      this.router.navigate(['/applicants']);
       // Return a success message or any other relevant data
       return 'Login successful!';
     } catch (error: any) {
@@ -128,65 +73,6 @@ export class LoginPage implements OnInit {
       }
     }
   }
-
-  // post(url:string, body:any = {}, headers = {}): Promise<any> {
-  //   if (url[22] == '/' && (window as any).Ionic.isLiveReload) {
-  //     url = url.substring(0, 21) + url.substring(22);
-  //   }
-  //   let fdata: FormData;
-  //   body instanceof FormData ? (fdata = body) : (fdata = new FormData());
-  //   const keys = Object.keys(body);
-  //   for (let key of keys) {
-  //     let i = 0;
-  //     if (Array.isArray(body[key])) {
-  //       console.log('array', key);
-  //       // if(Object.keys(body[key]))
-  //       for (let val of body[key]) {
-  //         let k = key + '[' + i + ']';
-  //         if (typeof val == 'object' && !Array.isArray(val)) {
-  //           const keys2 = Object.keys(val);
-  //           for (let key2 of keys2) {
-  //             let k2 = k + '[' + key2 + ']';
-  //             fdata.append(k2, val[key2]);
-  //           }
-  //         } else {
-  //           fdata.append(k, val);
-  //         }
-  //         i++;
-  //       }
-  //     } else {
-  //       fdata.append(key, body[key]);
-  //     }
-  //   }
-
-  //   return new Promise((resolve, reject) => {
-  //     this.http.setDataSerializer('multipart');
-
-  //     this.http
-  //       .post(url, fdata, {})
-  //       .then((data) => {
-  //         this.showLogDebug(fdata);
-  //         console.log('url', url);
-  //         console.log('Logged data:', JSON.parse(data.data));
-  //         resolve(data.data != '' ? JSON.parse(data.data) : null);
-  //       })
-  //       .catch((error) => {
-  //         this.showLogDebug(fdata);
-  //         console.log('error', error);
-  //         console.log('url', url);
-
-  //         console.log('error.status', error.status);
-  //         console.log('error.error', error.error); // error message as string
-  //         console.log('error.headers', error.headers);
-  //         let err: any = { status: error.status };
-  //         if (Number(error.status) == 401 || Number(error.status) == 403) {
-  //           this.usData.redCard(error);
-  //         }
-  //         reject(err);
-  //       });
-  //   });
-  // }
-
   showLogDebug(fdata: FormData) {
     throw new Error('Method not implemented.');
   }

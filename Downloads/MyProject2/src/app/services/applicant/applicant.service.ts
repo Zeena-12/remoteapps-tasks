@@ -198,7 +198,7 @@ export class ApplicantService {
   async setApplicant(newData: any): Promise<any> {
     const data = {
       Picture: newData.Picture,
-      ApplicantID: newData.ApplicantID,
+      ApplicantID: -1,
       FirstName: newData.FirstName,
       LastName: newData.LastName,
       Gender: newData.Gender,
