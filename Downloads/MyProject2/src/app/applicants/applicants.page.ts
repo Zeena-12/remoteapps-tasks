@@ -3,6 +3,7 @@ import { ApplicantService } from '../services/applicant/applicant.service';
 import { ModalController } from '@ionic/angular';
 import { CvComponent } from '../../app/custom-components/cv/cv.component';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AppServiceService } from '../services/app-service/app-service.service';
 
 @Component({
   selector: 'app-applicants',
@@ -13,8 +14,16 @@ export class ApplicantsPage implements OnInit {
   EditForm!: FormGroup;
   AddApplicantForm!: FormGroup;
 
-  applicantsList: any[] = []; // Array to hold the list of applicants
+  ApplicantList: any[] = []; // Array to hold the list of applicants
+  ApplicantBestFitList: any[] = [];
+  ApplicantBestFitDetails: any[] = [];
   errorMessage: string | null = null;
+  selectedSegment: string = 'Applicants'; // Default selected segment
+
+  // ComobBox
+  ApplicantSpecializationList: any[] = [];
+  MaritalStatusList: any[] = [];
+  NationalityList: any[] = [];
 
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
   ApplicantProfile: ApplicantProfile | null = null; // Adjust type if needed
@@ -37,7 +46,8 @@ export class ApplicantsPage implements OnInit {
 
   constructor(private applicantService: ApplicantService,
     private modalController: ModalController,
-    private formbuilder: FormBuilder
+    private formbuilder: FormBuilder,
+    private appService: AppServiceService
   ) {
 
   }
@@ -70,63 +80,85 @@ export class ApplicantsPage implements OnInit {
     this.initializeAddForm();
   }
 
-initializeEditForm() {
-  this.EditForm = this.formbuilder.group({
-    Picture: [''],
-    ApplicantID: [''],
-    FirstName: [''],
-    LastName: [''],
-    Gender: ['', [Validators.required]],
-    DateOfBirth: ['', [Validators.required]],
-    MaritalStatus: ['', [Validators.required]],
-    NumberOfDependent: ['', [Validators.required]],
-    Nationality: ['', [Validators.required]],
-    ResidenceCountry: ['', [Validators.required]],
-    NationalIdentity: ['', [Validators.required]],
-    Passport: ['', [Validators.required]],
-    Currency: [''],
-    CurrentSalary: [''],
-    TargetSalary: [''],
-    LandLine: [''],
-    Mobile: ['', [Validators.required]],
-    Email: ['', [Validators.required, Validators.email]],
-    IsPreviousEmployee: [''],
-    EmployeeID: [''],
-    SpecializationID: ['']
-  });
-}
+  initializeEditForm() {
+    this.EditForm = this.formbuilder.group({
+      Picture: [''],
+      ApplicantID: [''],
+      FirstName: [''],
+      LastName: [''],
+      Gender: ['', [Validators.required]],
+      DateOfBirth: ['', [Validators.required]],
+      MaritalStatus: ['', [Validators.required]],
+      NumberOfDependent: ['', [Validators.required]],
+      Nationality: ['', [Validators.required]],
+      ResidenceCountry: ['', [Validators.required]],
+      NationalIdentity: ['', [Validators.required]],
+      Passport: ['', [Validators.required]],
+      Currency: [''],
+      CurrentSalary: [''],
+      TargetSalary: [''],
+      LandLine: [''],
+      Mobile: ['', [Validators.required]],
+      Email: ['', [Validators.required, Validators.email]],
+      IsPreviousEmployee: [''],
+      EmployeeID: [''],
+      SpecializationID: ['']
+    });
+  }
 
-initializeAddForm() {
-  this.AddApplicantForm = this.formbuilder.group({
-    Picture: [''],
-    FirstName: [''],
-    LastName: [''],
-    Gender: [null],
-    DateOfBirth: ['', [Validators.required]],
-    MaritalStatus: ['', [Validators.required]],
-    NumberOfDependent: [null],
-    Nationality: ['', [Validators.required]],
-    ResidenceCountry: ['', [Validators.required]],
-    NationalIdentity: ['', [Validators.required]],
-    Passport: ['', [Validators.required]],
-    Currency: [''],
-    CurrentSalary: [''],
-    TargetSalary: [''],
-    LandLine: [''],
-    Mobile: ['', [Validators.required]],
-    Email: ['', [Validators.required, Validators.email]],
-    IsPreviousEmployee: [''],
-    EmployeeID: [''],
-    SpecializationID: ['']
-  });
-}
+  initializeAddForm() {
+    this.AddApplicantForm = this.formbuilder.group({
+      Picture: [''],
+      FirstName: [''],
+      LastName: [''],
+      Gender: [null],
+      DateOfBirth: ['', [Validators.required]],
+      MaritalStatus: ['', [Validators.required]],
+      NumberOfDependent: [null],
+      Nationality: ['', [Validators.required]],
+      ResidenceCountry: ['', [Validators.required]],
+      NationalIdentity: ['', [Validators.required]],
+      Passport: ['', [Validators.required]],
+      Currency: [''],
+      CurrentSalary: [''],
+      TargetSalary: [''],
+      LandLine: [''],
+      Mobile: ['', [Validators.required]],
+      Email: ['', [Validators.required, Validators.email]],
+      IsPreviousEmployee: [''],
+      EmployeeID: [''],
+      SpecializationID: ['']
+    });
+  }
 
 
   async loadApplicantData() {
     try {
       const response = await this.applicantService.getApplicantData();
-      this.applicantsList = response.ApplicantList;
-      console.log(this.applicantsList);
+
+      this.ApplicantList = response.ApplicantList;
+      this.ApplicantBestFitList = response.ApplicantBestFitList;
+
+
+      // Extract IDs from ApplicantBestFitList
+      const bestFitIds = this.ApplicantBestFitList.map(applicant => applicant.ApplicantID);
+
+      // Filter ApplicantList based on the extracted IDs
+      const applicantDetails = this.ApplicantList.filter(applicant => bestFitIds.includes(applicant.ApplicantID));
+
+      // Include any additional data directly from ApplicantBestFitList if needed
+      // For example, you might want to keep the raw data of the best fit applicants
+      this.ApplicantBestFitDetails = applicantDetails.map(detail => {
+        // Find additional data if needed
+        const bestFitData = this.ApplicantBestFitList.find(bestFit => bestFit.ApplicantID === detail.ApplicantID);
+        return {
+          ...detail,
+          additionalData: bestFitData // include additional data here if required
+        };
+      });
+
+      console.log(this.ApplicantBestFitDetails);
+
     } catch (error) {
       this.errorMessage = 'Failed to load applicant data.';
       console.error('Error loading applicant data:', error);
@@ -179,13 +211,14 @@ initializeAddForm() {
   openModalEdit(applicantID: any) {
     console.log("callig modal openModalEDit and the id is", applicantID);
     this.EditModal.present();
+
   }
   openModalAddExperience(applicantID: any) {
     console.log("callig modal openModalEDit and the id is", applicantID);
     this.AddExperienceModal.present();
   }
 
-  OpenModalAddApplicant(){
+  OpenModalAddApplicant() {
     this.AddApplicantModal.present();
   }
   selectGender(value: number) {
@@ -202,8 +235,24 @@ initializeAddForm() {
       maritalStatusControl.setValue(value);
     }
   }
+  // get the general data
+  async loadAppComobBoxes() {
+    try {
+      const response = await this.appService.getComobBoxes();
 
-  
+      this.MaritalStatusList = response.MaritalStatusList;
+      this.ApplicantSpecializationList = response.ApplicantSpecializationList;
+      this.NationalityList = response.NationalityList;
+
+      console.log(this.ApplicantSpecializationList);
+
+    } catch (error) {
+      this.errorMessage = 'Failed to load ComobBoxes data.';
+      console.error('Error loading ComobBoxes data:', error);
+    }
+  }
+
+
 }
 
 export interface ApplicantProfile {

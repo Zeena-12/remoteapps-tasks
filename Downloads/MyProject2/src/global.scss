@@ -426,6 +426,20 @@ input[placeholder="Search..."] {
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
       }
+      ion-datetime {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 999;
+        color: transparent;
+      }
+      ion-datetime {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 999;
+        color: transparent;
+      }
 
       .custom-file-label::after {
         line-height: 2.2;

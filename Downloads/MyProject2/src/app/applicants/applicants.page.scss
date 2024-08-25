@@ -879,8 +879,8 @@ ion-fab {
       height: 34px;
       border-radius: 5px;
       background: var(--Cloud-Blue-Primary-1, #29B8EF);
-      align-items: center;
       color: white;
+      justify-content: center;
 
       // p {
       //     color: #FFF;
@@ -1171,3 +1171,100 @@ ion-fab {
   }
 }
 // end add experience
+
+/* Hide the default arrow */
+ion-select .select-icon {
+  display: none;
+}
+
+/* Or, customize the arrow */
+// ion-select .select-icon {
+//   font-size: 24px; /* Adjust the size */
+//   color: #ff5733; /* Change the color */
+//   transform: rotate(0deg); /* Rotate if needed */
+// }
+
+// /* Add a custom arrow */
+// ion-select::part(icon) {
+//   // content: url('/path/to/your/custom-arrow.svg'); /* Path to your custom arrow icon */
+//   width: 20px; /* Adjust width */
+//   height: 20px; /* Adjust height */
+// }
+
+/* Change the background color of the ion-select item */
+ion-item {
+  --background: #ECF0F3; /* Light gray background color */
+  border-radius: 16px;
+
+}
+
+/* Change the background color of the selected option */
+ion-select {
+  // --background: #f838bf; /* White background color for the select box */
+  // border: 1px solid red;
+  display: flex;
+  align-items:flex-end;
+  justify-content: center;
+  border-radius: 10px;
+
+}
+ion-select icon{
+  border: 1px solid green;
+}
+
+/* Optionally, you can also customize the color of the placeholder and selected value */
+ion-select-placeholder {
+  color: #fa2626; /* Placeholder color */
+
+}
+
+ion-select {
+  --color: #34e6f3; /* Text color */
+}
+
+/* Style for ion-item to use flexbox for layout */
+ion-item {
+  --padding-start: 0; /* Remove padding on the start */
+  --padding-end: 0; /* Remove padding on the end */
+}
+
+/* Style for ion-select */
+ion-select {
+  display: flex;
+  justify-content: space-between; /* Space between placeholder text and icon */
+  align-items: center; /* Center items vertically */
+}
+
+/* Style for placeholder text alignment */
+ion-select::part(native) {
+  text-align: left; /* Ensure placeholder text aligns to the left */
+}
+
+/* Hide default icon */
+ion-select .select-icon {
+  display: none; /* Hide the default icon */
+}
+
+/* Style for the toggle icon (caret) */
+ion-select::part(icon) {
+  font-size: 24px; /* Adjust size of the icon */
+  color: #000; /* Adjust color of the icon */
+  margin-left: 8px; /* Space between text and icon */
+}
+
+.noRecords{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #92A0B3;
+
+  span{
+    color: #92A0B3;
+  }
+  i{
+    font-size: 200px;
+  }
+}
+
+
