@@ -1202,10 +1202,10 @@ ion-item {
 ion-select {
   // --background: #f838bf; /* White background color for the select box */
   // border: 1px solid red;
-  display: flex;
-  align-items:flex-end;
-  justify-content: center;
-  border-radius: 10px;
+  // display: flex;
+  // align-items:flex-end;
+  // justify-content: center;
+  // border-radius: 10px;
 
 }
 ion-select icon{
@@ -1266,5 +1266,11 @@ ion-select::part(icon) {
     font-size: 200px;
   }
 }
+
+.custom-select .select-icon {
+  color: #ff0000; /* Replace with your desired color */
+}
+
+
 
 

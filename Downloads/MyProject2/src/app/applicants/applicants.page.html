@@ -155,8 +155,7 @@
       <div class="model-container">
         <div class="cv-container">
           <div class="personal-profile">
-            <button class="edit-button" (click)="openModalEdit(ApplicantProfile.ApplicantID)"
-              (click)="loadAppComobBoxes()">
+            <button class="edit-button" (click)="openModalEdit(ApplicantProfile.ApplicantID)">
               <i class="icon-edit-2"></i>
             </button>
             <div class="profile-photo">
@@ -223,7 +222,7 @@
                 </div>
               </swiper-slide>
               <!-- only show if Applicant type is A -->
-              <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+              <swiper-slide *ngIf="ApplicantionList?.length > 0 && ApplicantionList[0]?.ApplicantType === 'A'">
                 <div class="swiper-content">
                   <div class="box box-2">
                     <div class="icon-container">
@@ -494,7 +493,6 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Last Name -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -1115,11 +1113,11 @@
                             <div class="text-input-gray">
                               <ion-input formControlName="DateOfBirth" type="text" placeholder=" "></ion-input>
                             </div>
-
                           </div>
                         </div>
                       </div>
                     </div>
+                    <ion-datetime presentation="date" [preferWheel]="true"></ion-datetime>
                     <!-- Marital Status -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -1132,19 +1130,26 @@
                               Marital Status
                             </div>
                             <ion-list mode="ios">
-                              <ion-item>
-                                <ion-select toggleIcon="caret-down-sharp" color="warning"
-                                  formControlName="MaritalStatus" placeholder="Marital Status">
-                                  <ion-select-option *ngFor="let status of MaritalStatusList" [value]="status.Value">
-                                    {{ status.Text }}
-                                  </ion-select-option>
-                                </ion-select>
-                              </ion-item>
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div>Zeens</div>
+                                  <div>
+                                    <ion-select class="text-start" justify="space-between" [(ngModel)]="objfrom">
+                                      <ion-select-option *ngFor="let status of MaritalStatusList" [value]="status.ComboBoxValueID">
+                                        <ng-container *ngIf="nationality && nationality.Nationality">
+                                          {{ nationality.Nationality }}
+                                        </ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>                              
                             </ion-list>
                           </div>
                         </div>
                       </div>
                     </div>
+
                     <!-- Number of Dependents -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -1177,14 +1182,16 @@
                             </div>
                             <ion-list mode="ios">
                               <ion-item>
-                                <ion-select toggleIcon="caret-down-sharp" color="warning"
+                                <ion-select class="custom-select" toggleIcon="caret-down-sharp" color="warning"
                                   formControlName="Nationality" placeholder="Nationality">
-                                  <ion-select-option *ngFor="let status of NationalityList" [value]="status.CountryInformationID">
+                                  <ion-select-option *ngFor="let status of NationalityList"
+                                    [value]="status.CountryInformationID">
                                     {{ status.Nationality }}
                                   </ion-select-option>
                                 </ion-select>
                               </ion-item>
                             </ion-list>
+
                           </div>
                         </div>
                       </div>

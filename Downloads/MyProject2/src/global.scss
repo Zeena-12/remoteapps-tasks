@@ -264,10 +264,14 @@ input[placeholder="Search..."] {
         margin-inline-start: 45px;
       }
 
-      ion-select {
-        width: 100%;
-        height: 100%;
-        // padding-bottom: 0px;
+      ion-select{
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        --highlight-color-focused: unset !important;
+        --highlight-color-valid: unset !important;
+        --highlight-color-invalid: unset !important;
+        border: 1px solid red;
       }
 
       .select-icon {
@@ -294,14 +298,25 @@ input[placeholder="Search..."] {
     }
 
     .select-input-gray {
-      // width: 95%;
-      // border: 1px solid #ddd;
-      border-radius: 5px;
-      text-align: center;
-      background: #eff2f3;
-      --placeholder-color: #92a0b3;
-      --placeholder-opacity: 1;
-      color: #92a0b3;
+      border-radius: 10px;
+    text-align: center;
+    background: #F9FAFB;
+    --placeholder-color: #92a0b3;
+    --placeholder-opacity: 1;
+    color: #667085;
+    padding-inline-start: 8px;
+    padding-inline-end: 8px;
+    border: 1px solid green;
+    }
+
+    .test{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .text-start {
+      text-align: start;
     }
 
     .checkbox-input {

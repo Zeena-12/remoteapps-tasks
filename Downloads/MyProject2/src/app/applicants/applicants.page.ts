@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ApplicantService } from '../services/applicant/applicant.service';
 import { ModalController } from '@ionic/angular';
 import { CvComponent } from '../../app/custom-components/cv/cv.component';
@@ -23,7 +23,15 @@ export class ApplicantsPage implements OnInit {
   // ComobBox
   ApplicantSpecializationList: any[] = [];
   MaritalStatusList: any[] = [];
-  NationalityList: any[] = [];
+  // NationalityList: any[] = [];
+  NationalityList = [
+    { CountryInformationID: 1, Nationality: 'American' },
+    { CountryInformationID: 2, Nationality: 'Canadian' },
+    { CountryInformationID: 3, Nationality: 'British' },
+    // Add more nationalities as needed
+  ];
+
+  objfrom = "Zeena";
 
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
   ApplicantProfile: ApplicantProfile | null = null; // Adjust type if needed
@@ -78,6 +86,7 @@ export class ApplicantsPage implements OnInit {
     this.loadApplicantData();
     this.initializeEditForm();
     this.initializeAddForm();
+    this.loadAppComobBoxes();
   }
 
   initializeEditForm() {
