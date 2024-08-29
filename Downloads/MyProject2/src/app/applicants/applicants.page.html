@@ -44,7 +44,6 @@
         <div class="employee-info-container">
           <div class="employee-info">
             <div class="box img">
-              <!-- zeena:check:  i think image has a special way -->
               <img src="/assets/avatar3.png" alt="Person's Photo" />
             </div>
             <div class="box name-role">
@@ -61,7 +60,7 @@
             <div class="box year-place">
               <div class="year">
                 <i class="icon-business" style="font-size: 14px; font-weight: 600"></i>
-                <p class="year">5 Year</p>
+                {{ applicant.YearsOfExperience > 0 ? applicant.YearsOfExperience : '-' }}
               </div>
               <div class="place">
                 <i class="icon-location"></i>
@@ -185,7 +184,7 @@
                     </div>
                     <div class="text-container">
                       <p>National Identity</p>
-                      <p>{{ApplicantProfile.NationalIdentity || unkown}}</p>
+                      <p>{{ApplicantProfile.NationalIdentity || '-'}}</p>
                     </div>
                   </div>
                   <div class="box box-2">
@@ -194,7 +193,7 @@
                     </div>
                     <div class="text-container">
                       <p>Passport No.</p>
-                      <p>{{ApplicantProfile.Passport}}</p>
+                      <p>{{ApplicantProfile.Passport || '-'}}</p>
                     </div>
                   </div>
                 </div>
@@ -245,7 +244,7 @@
                 </div>
               </swiper-slide>
               <!-- only show if Applicant type is A -->
-              <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+              <swiper-slide *ngIf="ApplicantionList[0]?.ApplicantType === 'A'">
                 <div class="swiper-content">
                   <div class="box box-2">
                     <div class="icon-container">
@@ -268,7 +267,7 @@
                 </div>
               </swiper-slide>
               <!-- only show if Applicant type is A -->
-              <swiper-slide *ngIf="ApplicantionList[0].ApplicantType === 'A'">
+              <swiper-slide *ngIf="ApplicantionList[0]?.ApplicantType === 'A'">
                 <div class="swiper-content">
                   <div class="box box-2">
                     <div class="icon-container">
@@ -298,7 +297,7 @@
                     </div>
                     <div class="text-container">
                       <p>Date of Birth</p>
-                      <p>{{ApplicantProfile.DateOfBirth}}</p>
+                      <p>{{ApplicantProfile.DateOfBirth | fullDate}}</p>
                     </div>
                   </div>
 
@@ -344,21 +343,23 @@
             <div class="prof-summary-section experience">
               <p class="title">Experience</p>
               <div *ngIf="ExperienceList.length > 0; else noRecords">
-                <ol class="timeline">
-                  <li class="timeline-item" *ngFor="let experience of ExperienceList">
+                <div class="timeline">
+                  <div class="timeline-item" *ngFor="let experience of ExperienceList">
                     <div class="timeline-dot"></div>
-                    <h3 class="timeline-title">{{experience.Position}}</h3>
-                    <time class="timeline-date">{{experience.StartDate | dateFormat}} to
-                      {{experience.EndDate | dateFormat}}</time>
-                    <p class="timeline-description">
-                      {{experience.CompanyName}}, {{experience.Location}}
-                    </p>
-                  </li>
-                </ol>
+                    <div class="timeline-content">
+                      <p class="timeline-title">{{experience.Position}}</p>
+                      <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate | dateFormat}}</time>
+                      <p class="timeline-description">
+                        {{experience.CompanyName}}, {{experience.Location}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
               <ng-template #noRecords>
                 <div class="noRecords">
-                  <i class="icon-document-search" style="font-size: 45px; color: #92a0b3;"></i>
+                  <i class="icon-document-search" style="font-size: 40px; color: #92a0b3;"></i>
                   <span>No Records</span>
                 </div>
               </ng-template>
@@ -1117,7 +1118,7 @@
                         </div>
                       </div>
                     </div>
-                    <ion-datetime presentation="date" [preferWheel]="true"></ion-datetime>
+                    <!-- <ion-datetime presentation="date" [preferWheel]="true"></ion-datetime> -->
                     <!-- Marital Status -->
                     <div class="employee-info">
                       <div class="box icon my-icon">

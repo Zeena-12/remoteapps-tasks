@@ -147,7 +147,7 @@ export class ApplicantsPage implements OnInit {
 
       this.ApplicantList = response.ApplicantList;
       this.ApplicantBestFitList = response.ApplicantBestFitList;
-
+      console.log(response);
 
       // Extract IDs from ApplicantBestFitList
       const bestFitIds = this.ApplicantBestFitList.map(applicant => applicant.ApplicantID);
