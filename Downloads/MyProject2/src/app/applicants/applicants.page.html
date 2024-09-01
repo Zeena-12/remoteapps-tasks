@@ -344,14 +344,15 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                       <p class="timeline-title">{{experience.Position}}</p>
-                      <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate | dateFormat}}</time>
+                      <time class="timeline-date">{{experience.StartDate | dateFormat}} to {{experience.EndDate |
+                        dateFormat}}</time>
                       <p class="timeline-description">
                         {{experience.CompanyName}}, {{experience.Location}}
                       </p>
                     </div>
                   </div>
                 </div>
-                
+
               </div>
               <ng-template #noRecords>
                 <div class="noRecords">
@@ -395,7 +396,6 @@
               </ng-template>
             </div>
             <div class="divider"></div>
-
             <div class="prof-summary-section education">
               <p class="title">Licenses & Certifications</p>
               <div *ngIf="CertificateList.length > 0; else noRecords">
@@ -520,22 +520,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Gender
                             </div>
-                           <ion-list mode="ios">
+                            <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div>Zeens</div>
+                                  <div style="color: red;">{{ EditForm.get('GenderName')?.value }}</div>
                                   <div>
-                                    <ion-select class="text-start" justify="space-between" [(ngModel)]="objfrom">
-                                      <ion-select-option *ngFor="let gender of GenderList" [value]="gender.ComboBoxValueID">
-                                        <ng-container>
-                                          {{ gender.Text }}
-                                        </ng-container>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="GenderName">
+                                      <ion-select-option form *ngFor="let gender of GenderList"
+                                        [value]="gender.GenderName">
+                                        <ng-container>{{gender.Text}}</ng-container>
                                       </ion-select-option>
                                     </ion-select>
                                   </div>
                                 </div>
-                              </div>                              
-                            </ion-list> 
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -553,7 +553,8 @@
                               Date of Birth
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="DateOfBirth" type="text" placeholder=" "></ion-input>
+                              <ion-input formControlName="DateOfBirth" type="text" placeholder=""
+                                (ionInput)="onDateInput($event)"></ion-input>
                             </div>
                           </div>
                         </div>
@@ -685,7 +686,7 @@
                               Currency
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CurrencyFullName"  placeholder=" "></ion-input>
+                              <ion-input formControlName="CurrencyFullName" placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>
@@ -1142,7 +1143,8 @@
                                   <div>Zeens</div>
                                   <div>
                                     <ion-select class="text-start" justify="space-between" [(ngModel)]="objfrom">
-                                      <ion-select-option *ngFor="let status of MaritalStatusList" [value]="status.ComboBoxValueID">
+                                      <ion-select-option *ngFor="let status of MaritalStatusList"
+                                        [value]="status.ComboBoxValueID">
                                         <ng-container *ngIf="nationality && nationality.Nationality">
                                           {{ nationality.Nationality }}
                                         </ng-container>
@@ -1150,7 +1152,7 @@
                                     </ion-select>
                                   </div>
                                 </div>
-                              </div>                              
+                              </div>
                             </ion-list>
                           </div>
                         </div>
@@ -1443,6 +1445,11 @@
       </div>
     </ng-template>
   </ion-modal>
-
   <!-- End add applicant Model -->
+
+  <!-- start filter modal -->
+  <ion-modal>
+    <p>filter modal</p>
+  </ion-modal>
+  <!-- end filter modal -->
 </ion-content>

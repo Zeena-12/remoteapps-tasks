@@ -51,6 +51,11 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+.select-text{
+  color: red !important; 
+  --background: red !important;
+}
+
 .custom-loading-overlay::before {
   content: '';
   display: block;
@@ -248,6 +253,11 @@ input[placeholder="Search..."] {
       }
     }
 
+
+    .select-wrapper{
+      --background: red !important;
+    }
+
     .select-input {
       text-align: center;
       position: relative;
@@ -301,12 +311,12 @@ input[placeholder="Search..."] {
     }
 
     .select-input-gray {
-      border-radius: 10px;
+    border-radius: 10px;
     text-align: center;
     background: #F9FAFB;
     --placeholder-color: #92a0b3;
     --placeholder-opacity: 1;
-    color: #667085;
+    color: #f1e2e2;
     padding-inline-start: 8px;
     padding-inline-end: 8px;
     border: 1px solid green;
@@ -444,6 +454,7 @@ input[placeholder="Search..."] {
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
       }
+
       ion-datetime {
         height: 100%;
         width: 100%;

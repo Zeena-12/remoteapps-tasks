@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { CvComponent } from '../../app/custom-components/cv/cv.component';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AppServiceService } from '../services/app-service/app-service.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-applicants',
@@ -27,10 +28,12 @@ export class ApplicantsPage implements OnInit {
   GenderList: any[] = [];
 
 
-  objfrom = "Zeena";
+  // Object to hold the selected value
+  // objfrom: { ComboBoxValueID: number; Text: string; } | undefined;
+
 
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
-  ApplicantProfile!: ApplicantProfile ;
+  ApplicantProfile!: ApplicantProfile;
   ApplicantionList: any[] = [];
   CertificateList: any[] = [];
   CourseList: any[] = [];
@@ -82,7 +85,50 @@ export class ApplicantsPage implements OnInit {
     this.loadApplicantData();
     this.loadAppComobBoxes();
     this.initializeEditForm();
+
+
+
+    // Check form initialization
+    if (this.EditForm.get('GenderName')) {
+      console.log('GenderName form control exists');
+    } else {
+      console.error('GenderName form control is missing');
+    }
+
+    // Ensure GenderName has a valid value or set a default
+    const genderName = this.EditForm.get('GenderName')?.value;
+    if (genderName) {
+      console.log(`Initial GenderName value: ${genderName}`);
+    } else {
+      console.log('GenderName is not initialized');
+    }
+
+    // Listen to changes on the GenderName form control
+    this.EditForm.get('GenderName')?.valueChanges.subscribe(genderName => {
+      console.log(`GenderName changed to: ${genderName}`);
+      let genderId;
+
+      // Determine the GenderID based on GenderName
+      if (genderName === 'Female') {
+        genderId = 1;
+      } else if (genderName === 'Male') {
+        genderId = 9;
+      }
+
+      // Update the Gender form control with the determined GenderID
+      this.EditForm.get('Gender')?.setValue(genderId, { emitEvent: false });
+    });
+
   }
+
+
+
+  formatDate(dateString: string): string {
+    return moment(dateString).format('YYYY/MM/DD');
+  }
+
+
+
 
   initializeEditForm() {
     console.log("what is ApplicantProfile data during the initializeEditForm ", this.ApplicantProfile)
@@ -118,7 +164,7 @@ export class ApplicantsPage implements OnInit {
       Picture: [''],
       FirstName: [''],
       LastName: [''],
-      Gender: [null],
+      Gender: [''],
       DateOfBirth: ['', [Validators.required]],
       MaritalStatus: ['', [Validators.required]],
       MaritalStatusName: ['', [Validators.required]],
@@ -136,7 +182,7 @@ export class ApplicantsPage implements OnInit {
       IsPreviousEmployee: [],
       EmployeeID: [''],
       SpecializationName: [''],
-      GenderName: ['']
+      GenderName: ['', [Validators.required]],
 
     });
   }
@@ -196,13 +242,14 @@ export class ApplicantsPage implements OnInit {
           NationalIdentity: this.ApplicantProfile.NationalIdentity,
           NationalityName: this.ApplicantProfile.NationalityName,
           Passport: this.ApplicantProfile.Passport,
+          Gender: this.ApplicantProfile.Gender,
           GenderName: this.ApplicantProfile.GenderName,
           MaritalStatusName: this.ApplicantProfile.MaritalStatusName,
           CurrentSalary: this.ApplicantProfile.CurrentSalary,
           CurrencyFullName: this.ApplicantProfile.CurrencyFullName,
           TargetSalary: this.ApplicantProfile.TargetSalary,
           NumberOfDependent: this.ApplicantProfile.NumberOfDependent,
-          DateOfBirth: this.ApplicantProfile.DateOfBirth,
+          DateOfBirth: this.formatDate(this.ApplicantProfile.DateOfBirth),
           ResidenceCountryName: this.ApplicantProfile.ResidenceCountryName,
           Mobile: this.ApplicantProfile.Mobile,
           Email: this.ApplicantProfile.Email,
@@ -264,7 +311,7 @@ export class ApplicantsPage implements OnInit {
       this.NationalityList = response.NationalityList;
       this.GenderList = response.GenderList;
 
-      console.log("Comobox ",this.GenderList);
+      console.log("Comobox ", this.GenderList);
 
     } catch (error) {
       this.errorMessage = 'Failed to load ComobBoxes data.';
@@ -277,33 +324,33 @@ export class ApplicantsPage implements OnInit {
 
 export interface ApplicantProfile {
   ResidenceCountryName: any;
-    ApplicantID: number;
-    Picture?: string;
-    FirstName: string;
-    LastName: string;
-    Gender: number;
-    DateOfBirth: string;
-    MaritalStatus: number;
-    NumberOfDependent: number;
-    Nationality: number;
-    ResidenceCountry: number;
-    NationalIdentity: string;
-    Passport: string;
-    GenderName: string;
-    NationalityName: string;
-    MaritalStatusName: string;
-    CurrencyFullName: any;
-    CurrentPosition: any;
-    CurrentCompany: any;
-    CurrentSalary: number;
-    TargetSalary: number;
-    LandLine: string;
-    Mobile: string;
-    Email: string;
-    IsPreviousEmployee: boolean;
-    EmployeeID: number;
-    SpecializationID: number;
-    SpecializationName: string;
-  }
+  ApplicantID: number;
+  Picture?: string;
+  FirstName: string;
+  LastName: string;
+  Gender: number;
+  DateOfBirth: string;
+  MaritalStatus: number;
+  NumberOfDependent: number;
+  Nationality: number;
+  ResidenceCountry: number;
+  NationalIdentity: string;
+  Passport: string;
+  GenderName: string;
+  NationalityName: string;
+  MaritalStatusName: string;
+  CurrencyFullName: any;
+  CurrentPosition: any;
+  CurrentCompany: any;
+  CurrentSalary: number;
+  TargetSalary: number;
+  LandLine: string;
+  Mobile: string;
+  Email: string;
+  IsPreviousEmployee: boolean;
+  EmployeeID: number;
+  SpecializationID: number;
+  SpecializationName: string;
+}
 
 

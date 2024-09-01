@@ -46,16 +46,13 @@
     <ion-button id="open-modal" expand="block">Open modal for calendar</ion-button>
     <ion-modal #calendarModal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
       <ng-template>
+        <div *ngFor=" let mark of markedDates">my dafffff</div>
         <div class="block">
-          <app-calendar [startDate]="'2024-01-01'" 
-          (dateSelected)="handleDateSelected($event)"
-           [endDate]="'2024-12-20'"
-           [isRange]="isRange"
-           ></app-calendar>
+          <app-calendar [startDate]="'2024-01-01'" (dateSelected)="handleDateSelected($event)" [endDate]="'2024-5-20'"
+            [isRange]="isRange" [marked]="markedDates"></app-calendar>
         </div>
-        
       </ng-template>
-    </ion-modal>
+    </ion-modal> 
 
     <!-- start job -->
     <div class="job-container" *ngFor="let vacancies of vacanciesList" [routerLink]="['/fourth', vacancies.VacancyID]">

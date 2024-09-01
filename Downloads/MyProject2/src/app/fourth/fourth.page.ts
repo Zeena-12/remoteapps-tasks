@@ -61,6 +61,9 @@ export class FourthPage implements OnInit, AfterViewInit {
   QualificationList: any[] = [];
   SkillList: any[] = [];
 
+  startYear: number | null = null;
+  endYear: number | null = null;
+  isRange: boolean = false;
 
 
   constructor(private candidateService: CandidateStatusService,
@@ -432,6 +435,18 @@ export class FourthPage implements OnInit, AfterViewInit {
     return this.InterviewsDataWithRate.filter((candidate: { ApplicantID: any; }) =>
       candidate.ApplicantID === this.SelectedApplicant.ApplicantID
     );
+  }
+
+  handleDateSelected(range: { start: moment.Moment | null, end: moment.Moment | null }) {
+    if (range.start && range.end) {
+      console.log('Selected Range:', range.start.format('YYYY-MM-DD'), 'to', range.end.format('YYYY-MM-DD'));
+    } else if (range.start) {
+      console.log('Selected Start Date:', range.start.format('YYYY-MM-DD'));
+    } else if (range.end) {
+      console.log('Selected End Date:', range.end.format('YYYY-MM-DD'));
+    } else {
+      console.log('No date selected');
+    }
   }
 }
 

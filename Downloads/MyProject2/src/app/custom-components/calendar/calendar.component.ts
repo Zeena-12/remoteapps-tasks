@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -10,6 +10,7 @@ export class CalendarComponent implements OnInit {
   @Input() startDate: string | null = null;
   @Input() endDate: string | null = null;
   @Input() isRange: boolean = false; // Flag to determine if range selection is allowed
+  @Input() marked: any[] = [];
   @Output() dateSelected: EventEmitter<{ start?: moment.Moment, end?: moment.Moment }> = new EventEmitter();
 
   selectedStartDate: moment.Moment | null = null;
@@ -19,7 +20,16 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.generateCalendar();
+
+  
+    
   }
+  constructor() {
+    setTimeout(() => {
+      console.log("marked dates are: ", this.marked);
+    }, 1000); // 1000 milliseconds = 1 second
+   }
+ 
 
   generateCalendar() {
     if (this.startDate && this.endDate) {
@@ -155,6 +165,18 @@ export class CalendarComponent implements OnInit {
 
 
 
+  // isDateMarked(day: number, monthKey: string, year: number): boolean {
+  //   const month = this.months[monthKey];
+  //   if (month) {
+  //     return this.marked.some(dateStr => {
+  //       const dateObj = new Date(dateStr);
+  //       return dateObj.getFullYear() === year &&
+  //         dateObj.getMonth() === month.monthIndex &&
+  //         dateObj.getDate() === day;
+  //     });
+  //   }
+  //   return false;
+  // }
 
 
 

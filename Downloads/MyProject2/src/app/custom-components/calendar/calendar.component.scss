@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   align-items: center;
   justify-content: center;
   // border: 10px solid rgb(128, 0, 0);
@@ -74,10 +74,24 @@
   line-height: 24px;
   text-align: center;
   color: var(--Gray-500, #667085);
-  // border: 1px solid red;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* Needed for positioning the pseudo-element */
+}
+
+/* Add a dot below the day number */
+.day.marked::after {
+  content: ''; /* Empty content for the pseudo-element */
+  display: block;
+  width: 8px; /* Diameter of the dot */
+  height: 8px; /* Diameter of the dot */
+  border-radius: 50%; /* Make it a circle */
+  background-color: red; /* Color of the dot */
+  position: absolute; /* Position it absolutely within the .day element */
+  bottom: 8px; /* Distance from the bottom */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Adjust for horizontal centering */
 }
 
 .empty {

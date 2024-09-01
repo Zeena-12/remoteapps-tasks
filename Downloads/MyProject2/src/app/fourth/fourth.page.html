@@ -42,7 +42,7 @@
         <div class="interviews-buttons">
           <div class="box">
             <button class="custom-button" id="open-interview" (click)=loadAllVacancyInterviews()>
-              <i class="icon-employees-f-m"></i>
+              <i class="icon-employees-f-m" id="open-modal"></i>
               Interviews
             </button>
           </div>
@@ -429,13 +429,20 @@
         <div class="title">Interviews</div>
         <div class="calendar-button">
           <!-- Calendar icon -->
-          <ion-button (click)="toggleDatePicker()" fill="clear">
-            <!-- <ion-icon name="calendar"></ion-icon> -->
+          <ion-button id="open-calendar" fill="clear">
             <i class="icon-Calendar" style="font-size: 20px;"></i>
           </ion-button>
+          <ion-modal #calendarModal trigger="open-calendar" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+            <ng-template>
+                <app-calendar [startDate]="'2010-01-01'" 
+                (dateSelected)="handleDateSelected($event)"
+                 [endDate]="'2026-12-1'"
+                 [isRange]="isRange"
+                 ></app-calendar>
+            </ng-template>
+          </ion-modal>
         </div>
       </div>
-
       <div class="content">
         <div class="week-days">
           <button *ngFor="let day of weekDays" (click)="selectDay(day.day)" [class.active]="selectedDay === day.day">

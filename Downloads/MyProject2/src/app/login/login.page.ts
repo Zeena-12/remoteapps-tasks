@@ -58,7 +58,7 @@ export class LoginPage implements OnInit {
 
       // Handle successful response
       console.log('Response from server:', response.data);
-      this.router.navigate(['/applicants']);
+      this.router.navigate(['/vacancies']);
       // Return a success message or any other relevant data
       return 'Login successful!';
     } catch (error: any) {
