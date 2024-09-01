@@ -23,18 +23,14 @@ export class ApplicantsPage implements OnInit {
   // ComobBox
   ApplicantSpecializationList: any[] = [];
   MaritalStatusList: any[] = [];
-  // NationalityList: any[] = [];
-  NationalityList = [
-    { CountryInformationID: 1, Nationality: 'American' },
-    { CountryInformationID: 2, Nationality: 'Canadian' },
-    { CountryInformationID: 3, Nationality: 'British' },
-    // Add more nationalities as needed
-  ];
+  NationalityList: any[] = [];
+  GenderList: any[] = [];
+
 
   objfrom = "Zeena";
 
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
-  ApplicantProfile: ApplicantProfile | null = null; // Adjust type if needed
+  ApplicantProfile!: ApplicantProfile ;
   ApplicantionList: any[] = [];
   CertificateList: any[] = [];
   CourseList: any[] = [];
@@ -84,34 +80,36 @@ export class ApplicantsPage implements OnInit {
   ngOnInit() {
     console.log("oninit");
     this.loadApplicantData();
-    this.initializeEditForm();
-    this.initializeAddForm();
     this.loadAppComobBoxes();
+    this.initializeEditForm();
   }
 
   initializeEditForm() {
+    console.log("what is ApplicantProfile data during the initializeEditForm ", this.ApplicantProfile)
     this.EditForm = this.formbuilder.group({
       Picture: [''],
       ApplicantID: [''],
       FirstName: [''],
       LastName: [''],
       Gender: ['', [Validators.required]],
+      GenderName: ['', [Validators.required]],
       DateOfBirth: ['', [Validators.required]],
-      MaritalStatus: ['', [Validators.required]],
+      MaritalStatusName: ['', [Validators.required]],
       NumberOfDependent: ['', [Validators.required]],
+      NationalityName: ['', [Validators.required]],
       Nationality: ['', [Validators.required]],
-      ResidenceCountry: ['', [Validators.required]],
+      ResidenceCountryName: ['', [Validators.required]],
       NationalIdentity: ['', [Validators.required]],
       Passport: ['', [Validators.required]],
-      Currency: [''],
+      CurrencyFullName: [''],
       CurrentSalary: [''],
       TargetSalary: [''],
       LandLine: [''],
       Mobile: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
-      IsPreviousEmployee: [''],
+      IsPreviousEmployee: [],
       EmployeeID: [''],
-      SpecializationID: ['']
+      SpecializationName: ['']
     });
   }
 
@@ -123,20 +121,23 @@ export class ApplicantsPage implements OnInit {
       Gender: [null],
       DateOfBirth: ['', [Validators.required]],
       MaritalStatus: ['', [Validators.required]],
+      MaritalStatusName: ['', [Validators.required]],
       NumberOfDependent: [null],
       Nationality: ['', [Validators.required]],
       ResidenceCountry: ['', [Validators.required]],
       NationalIdentity: ['', [Validators.required]],
       Passport: ['', [Validators.required]],
-      Currency: [''],
+      CurrencyFullName: [''],
       CurrentSalary: [''],
       TargetSalary: [''],
       LandLine: [''],
       Mobile: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
-      IsPreviousEmployee: [''],
+      IsPreviousEmployee: [],
       EmployeeID: [''],
-      SpecializationID: ['']
+      SpecializationName: [''],
+      GenderName: ['']
+
     });
   }
 
@@ -177,6 +178,7 @@ export class ApplicantsPage implements OnInit {
 
 
   async openModalCV(applicantID: any) {
+    this.initializeEditForm();
     try {
       // Call the service method to get the CV data
       const result = await this.applicantService.getApplicantCV(applicantID, 'A');
@@ -189,16 +191,24 @@ export class ApplicantsPage implements OnInit {
       // save profiel data into interface profile
       if (this.ApplicantProfile) {
         this.EditForm.patchValue({ //why to use patchValue not setValue? bcz not all data need to change
+          FirstName: this.ApplicantProfile.FirstName,
+          LastName: this.ApplicantProfile.LastName,
           NationalIdentity: this.ApplicantProfile.NationalIdentity,
-          NationalityName: this.ApplicantProfile.Nationality,
+          NationalityName: this.ApplicantProfile.NationalityName,
           Passport: this.ApplicantProfile.Passport,
-          GenderName: this.ApplicantProfile.Gender,
-          MaritalStatusName: this.ApplicantProfile.MaritalStatus,
-          NumberOfDependents: this.ApplicantProfile.NumberOfDependent,
+          GenderName: this.ApplicantProfile.GenderName,
+          MaritalStatusName: this.ApplicantProfile.MaritalStatusName,
+          CurrentSalary: this.ApplicantProfile.CurrentSalary,
+          CurrencyFullName: this.ApplicantProfile.CurrencyFullName,
+          TargetSalary: this.ApplicantProfile.TargetSalary,
+          NumberOfDependent: this.ApplicantProfile.NumberOfDependent,
           DateOfBirth: this.ApplicantProfile.DateOfBirth,
-          ResidenceCountryName: this.ApplicantProfile.ResidenceCountry,
+          ResidenceCountryName: this.ApplicantProfile.ResidenceCountryName,
           Mobile: this.ApplicantProfile.Mobile,
-          Email: this.ApplicantProfile.Email
+          Email: this.ApplicantProfile.Email,
+          LandLine: this.ApplicantProfile.LandLine,
+          SpecializationName: this.ApplicantProfile.SpecializationName,
+          IsPreviousEmployee: this.ApplicantProfile.IsPreviousEmployee
         });
       }
 
@@ -252,8 +262,9 @@ export class ApplicantsPage implements OnInit {
       this.MaritalStatusList = response.MaritalStatusList;
       this.ApplicantSpecializationList = response.ApplicantSpecializationList;
       this.NationalityList = response.NationalityList;
+      this.GenderList = response.GenderList;
 
-      console.log(this.ApplicantSpecializationList);
+      console.log("Comobox ",this.GenderList);
 
     } catch (error) {
       this.errorMessage = 'Failed to load ComobBoxes data.';
@@ -265,28 +276,34 @@ export class ApplicantsPage implements OnInit {
 }
 
 export interface ApplicantProfile {
-  Picture?: string;
-  FirstName: string;
-  LastName: string;
-  Gender: number;
-  DateOfBirth: string;
-  MaritalStatus: number;
-  NumberOfDependent: number;
-  Nationality: number;
-  ResidenceCountry: number;
-  NationalIdentity: string;
-  Passport: string;
-  Currency: number;
-  CurrentSalary: number;
-  TargetSalary: number;
-  LandLine: string;
-  Mobile: string;
-  Email: string;
-  IsPreviousEmployee: boolean;
-  EmployeeID: number;
-  SpecializationID: number;
-}
-
-
+  ResidenceCountryName: any;
+    ApplicantID: number;
+    Picture?: string;
+    FirstName: string;
+    LastName: string;
+    Gender: number;
+    DateOfBirth: string;
+    MaritalStatus: number;
+    NumberOfDependent: number;
+    Nationality: number;
+    ResidenceCountry: number;
+    NationalIdentity: string;
+    Passport: string;
+    GenderName: string;
+    NationalityName: string;
+    MaritalStatusName: string;
+    CurrencyFullName: any;
+    CurrentPosition: any;
+    CurrentCompany: any;
+    CurrentSalary: number;
+    TargetSalary: number;
+    LandLine: string;
+    Mobile: string;
+    Email: string;
+    IsPreviousEmployee: boolean;
+    EmployeeID: number;
+    SpecializationID: number;
+    SpecializationName: string;
+  }
 
 

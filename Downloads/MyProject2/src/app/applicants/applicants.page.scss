@@ -31,17 +31,20 @@ body {
   /* Place the image behind other content */
 }
 
+.blue-bar {
+  background-color: #00abec;
+  height: 50px;
+  width: 100%;
+}
+
+
 .container {
   position: relative;
-  /* Position relative to allow z-index on child elements */
-  // z-index: 1; /* Make sure content appears on top of the background */
-  // color: #fff; /* Optional: Change text color for better readability */
   padding: 20px;
-  /* Optional: Add some padding for your content */
   color: #92a0b3;
 }
 
-/* If you want to add a semi-transparent overlay */
+
 .background-img::after {
   content: '';
   position: absolute;
@@ -601,27 +604,25 @@ ion-fab {
   // start professional-summary
   .professional-summary {
     .title {
-      margin-top: 1.7rem;
-      color: #b39292;
-      margin-bottom: 0px;
       color: var(--RA-Gray-Gray, #92A0B3);
       font-family: Roboto;
       font-size: 24px;
       font-style: normal;
       font-weight: 700;
       line-height: normal;
+      margin: 0px;
     }
 
     .timeline-content {
-      border-left: 1px solid red;
-       margin-left: -5px;
-       padding-left: 8px;
+      border-left: 1px solid #d5dcdf;
+      margin-left: -5px;
+      padding-left: 8px;
     }
+
     .timeline-item:last-child .timeline-content {
-      border-left: none; /* Remove border for the last item */
+      border-left: none;
+      /* Remove border for the last item */
     }
-
-
 
     /* General styles for the timeline */
     .timeline {
@@ -629,15 +630,13 @@ ion-fab {
       // border: 1px solid red;
     }
 
-
-
     /* Style for each timeline item */
     .timeline-item {
       // border-left: 1px solid #ededee;
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-    //  border-left: 1px solid green;
+      //  border-left: 1px solid green;
       // margin-left: -5px;
     }
 
@@ -647,86 +646,43 @@ ion-fab {
       height: 10px;
       border-radius: 9999px;
       background-color: #d5dcdf;
-      margin-top: 2px;
+      // margin-top: 4px;
     }
-
-
 
     /* Style for the time element */
     .timeline-date {
-
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: #92a0b3;
-
-
+      color: var(--RA-Gray-Gray, #92A0B3);
+      font-family: Roboto;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      margin: 0px 0px 5px 0px;
     }
 
     /* Style for the title */
     .timeline-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #92a0b3;
-      margin: 0px;
+      color: var(--RA-Gray-Gray, #92A0B3);
+      font-family: Roboto;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      margin: 0px 0px 5px 0px;
     }
 
 
 
     /* Style for the description */
     .timeline-description {
-      font-size: 0.8rem;
+      color: var(--RA-Gray-Gray, #92A0B3);
+      font-family: Roboto;
+      font-size: 10px;
+      font-style: normal;
       font-weight: 400;
-      color: #92a0b3;
-
-
+      line-height: normal;
+      margin: 5px 0px 0px 0px;
     }
-
-
-    /* Style for the link */
-    .timeline-link {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #92a0b3;
-      // background-color: #ffffff; /* bg-#92a0b3 */
-      border: 1px solid #e5e7eb;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      border: 1px solid rgb(223, 223, 224);
-      border: 1px solid rgb(52, 248, 255);
-    }
-
-    /* Focus styles for the link */
-    .timeline-link:focus {
-      z-index: 10;
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(229, 231, 235, 0.5);
-      /* focus:ring-#92a0b3-100 */
-      color: #3b82f6;
-      /* focus:text-blue-700 */
-    }
-
-
-
-    /* Style for the link icon */
-    .timeline-link-icon {
-      width: 0.75rem;
-      /* w-3 */
-      height: 0.75rem;
-      /* h-3 */
-      margin-left: 0.5rem;
-      /* ms-2 */
-      transition: transform 0.2s;
-    }
-
-    /* RTL support */
-    [dir="rtl"] .timeline-link-icon {
-      transform: rotate(180deg);
-      /* rtl:rotate-180 */
-    }
-
     .add-button {
       width: 100%;
       height: 30px;
@@ -1177,19 +1133,7 @@ ion-select .select-icon {
   display: none;
 }
 
-/* Or, customize the arrow */
-// ion-select .select-icon {
-//   font-size: 24px; /* Adjust the size */
-//   color: #ff5733; /* Change the color */
-//   transform: rotate(0deg); /* Rotate if needed */
-// }
 
-// /* Add a custom arrow */
-// ion-select::part(icon) {
-//   // content: url('/path/to/your/custom-arrow.svg'); /* Path to your custom arrow icon */
-//   width: 20px; /* Adjust width */
-//   height: 20px; /* Adjust height */
-// }
 
 /* Change the background color of the ion-select item */
 ion-item {

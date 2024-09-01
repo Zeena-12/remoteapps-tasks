@@ -4,12 +4,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
+  <div class="blue-bar"></div>
   <div class="search-segment-container">
-    <!-- start search -->
-    <!-- <div class="search">
-      <i class="icon-search"></i>
-      <p>search...</p>
-    </div> -->
     <ion-searchbar mode="ios" color="light" placeholder="search"></ion-searchbar>
     <!-- start segment -->
     <ion-segment mode="md" value="custom" [(ngModel)]="selectedSegment">
@@ -238,7 +234,7 @@
                     </div>
                     <div class="text-container">
                       <p>No. of Dependents</p>
-                      <p>{{ApplicantProfile.NumberOfDependen || '-'}}</p>
+                      <p>{{ApplicantProfile.NumberOfDependent || '-'}}</p>
                     </div>
                   </div>
                 </div>
@@ -524,9 +520,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Gender
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="Gender" type="number" placeholder=" "></ion-input>
-                            </div>
+                           <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div>Zeens</div>
+                                  <div>
+                                    <ion-select class="text-start" justify="space-between" [(ngModel)]="objfrom">
+                                      <ion-select-option *ngFor="let gender of GenderList" [value]="gender.ComboBoxValueID">
+                                        <ng-container>
+                                          {{ gender.Text }}
+                                        </ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>                              
+                            </ion-list> 
                           </div>
                         </div>
                       </div>
@@ -562,7 +571,7 @@
                               Marital Status
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="MaritalStatus" type="number" placeholder=" "></ion-input>
+                              <ion-input formControlName="MaritalStatusName" placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>
@@ -600,7 +609,7 @@
                               Nationality
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Nationality" type="number" placeholder=" "></ion-input>
+                              <ion-input formControlName="NationalityName" type="string" placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>
@@ -619,7 +628,7 @@
                               Residence Country
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="ResidenceCountry" type="number" placeholder=" "></ion-input>
+                              <ion-input formControlName="ResidenceCountryName" placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>
@@ -676,7 +685,7 @@
                               Currency
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="Currency" type="number" placeholder=" "></ion-input>
+                              <ion-input formControlName="CurrencyFullName"  placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>
@@ -789,10 +798,7 @@
                             <div class="input-title gray-title custom-form-label">
                               Is Previous Employee
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="IsPreviousEmployee" type="checkbox"
-                                placeholder=" "></ion-input>
-                            </div>
+                            <div><ion-checkbox formControlName="IsPreviousEmployee"></ion-checkbox></div>
                           </div>
                         </div>
                       </div>
@@ -826,10 +832,10 @@
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
                             <div class="input-title gray-title custom-form-label">
-                              Specialization ID
+                              Specialization
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="SpecializationID" type="number" placeholder=" "></ion-input>
+                              <ion-input formControlName="SpecializationName" placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>

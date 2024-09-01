@@ -188,6 +188,9 @@ input[placeholder="Search..."] {
         --highlight-color-valid:red;
       }
     }
+    ion-valid.sc-ion-input-md-h {
+      --highlight-color: transparent;
+  }
 
     .text-input-gray {
       width: 100%;

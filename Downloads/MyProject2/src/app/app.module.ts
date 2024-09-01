@@ -29,6 +29,7 @@ import { Device } from '@ionic-native/device/ngx'; // Import Device
 
 
 
+
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -36,7 +37,7 @@ export function HttpLoaderFactory(http: HttpClient){
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [IonicStorageModule.forRoot(),CommonModule,BrowserModule, IonicModule.forRoot(),NgOtpInputModule, AppRoutingModule , HttpClientModule,
+  imports: [IonicStorageModule.forRoot(),CommonModule,BrowserModule, IonicModule.forRoot(),NgOtpInputModule, AppRoutingModule, HttpClientModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
