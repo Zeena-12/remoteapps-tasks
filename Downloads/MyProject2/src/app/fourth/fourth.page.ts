@@ -64,7 +64,8 @@ export class FourthPage implements OnInit, AfterViewInit {
   startYear: number | null = null;
   endYear: number | null = null;
   isRange: boolean = false;
-
+ 
+  markedDates: any[] = [];
 
   constructor(private candidateService: CandidateStatusService,
     private applicantsService: ApplicantService,
@@ -86,7 +87,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     // this.generateTimes();
     this.selectedDay = this.weekDays[0]?.day; // Default to the first day
     this.loadApplicantData();
-
+    this.markedDates = ['2024-01-15', '2024-02-20'];
   }
 
 

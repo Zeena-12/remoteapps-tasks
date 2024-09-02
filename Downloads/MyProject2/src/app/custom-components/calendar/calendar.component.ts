@@ -21,13 +21,13 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.generateCalendar();
 
-  
-    
-  }
-  constructor() {
     setTimeout(() => {
       console.log("marked dates are: ", this.marked);
     }, 1000); // 1000 milliseconds = 1 second
+    
+  }
+  constructor() {
+
    }
  
 
@@ -163,20 +163,45 @@ export class CalendarComponent implements OnInit {
     return this.selectedStartDate?.isSame(moment({ year, month, day }), 'day') || false;
   }
 
+  trymarkedDates = ['07/01/2024', '01/02/2024'];
 
+  // isDateMarked(day: number, monthKey: string): boolean {
+  //   const [year, month] = monthKey.split('-');
 
-  // isDateMarked(day: number, monthKey: string, year: number): boolean {
-  //   const month = this.months[monthKey];
-  //   if (month) {
-  //     return this.marked.some(dateStr => {
-  //       const dateObj = new Date(dateStr);
-  //       return dateObj.getFullYear() === year &&
-  //         dateObj.getMonth() === month.monthIndex &&
-  //         dateObj.getDate() === day;
-  //     });
+  //   // Ensure day is two digits (e.g., '01' instead of '1')
+  //   const dayFormatted = day < 10 ? '0' + day : day;
+
+  //   // Format date to 'dd/mm/yyyy'
+  //   const formattedDate = `${dayFormatted}/${month}/${year}`;
+  //   // Check if formattedDate is in markedDates
+  //   const result = this.trymarkedDates.includes(formattedDate);
+  //   if(result==true){
+  //     console.log("true ", formattedDate);
   //   }
-  //   return false;
+  //   return result;
   // }
+
+  isDateMarked(day: number, monthKey: string): boolean {
+    const [year, month] = monthKey.split('-');
+  
+    // Ensure day and month are two digits
+    const dayFormatted = day < 10 ? '0' + day : day;
+    const monthFormatted = month.length === 1 ? '0' + month : month;
+  
+    // Format date to 'dd/mm/yyyy'
+    const formattedDate = `${dayFormatted}/${monthFormatted}/${year}`;  
+    console.log("dates are", formattedDate);
+    // Check if formattedDate is in markedDates
+    const result = this.trymarkedDates.includes(formattedDate);
+    if (result) {
+      console.log("Marked date found:", formattedDate);
+    }
+    return result;
+  }
+  
+
+
+
 
 
 

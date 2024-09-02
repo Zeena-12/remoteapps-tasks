@@ -434,10 +434,11 @@
           </ion-button>
           <ion-modal #calendarModal trigger="open-calendar" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
             <ng-template>
-                <app-calendar [startDate]="'2010-01-01'" 
+                <app-calendar [startDate]="'2024-01-01'" 
                 (dateSelected)="handleDateSelected($event)"
-                 [endDate]="'2026-12-1'"
+                 [endDate]="'2024-12-1'"
                  [isRange]="isRange"
+                 [marked]="markedDates"
                  ></app-calendar>
             </ng-template>
           </ion-modal>

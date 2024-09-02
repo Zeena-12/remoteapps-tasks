@@ -525,13 +525,21 @@
                                 <div class="test">
                                   <div style="color: red;">{{ EditForm.get('GenderName')?.value }}</div>
                                   <div>
-                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                      formControlName="GenderName">
-                                      <ion-select-option form *ngFor="let gender of GenderList"
-                                        [value]="gender.GenderName">
+                                    <!-- <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="GenderName"
+                                      (ionChange)="EditForm.get('Gender')?.setValue($event.detail.value === 'Female' ? '1' : '9')">
+                                      <ion-select-option form *ngFor="let gender of GenderList" [value]="gender.Text">
                                         <ng-container>{{gender.Text}}</ng-container>
                                       </ion-select-option>
-                                    </ion-select>
+                                    </ion-select> -->
+
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                    formControlName="GenderName"
+                                    (ionChange)="ChangeIDInloadAppComobBoxes(GenderList, 'Text', 'ComboBoxValueID', 'GenderName', 'Gender')">
+                                    <ion-select-option form *ngFor="let gender of GenderList" [value]="gender.Text">
+                                      <ng-container>{{gender.Text}}</ng-container>
+                                    </ion-select-option>
+                                  </ion-select>
                                   </div>
                                 </div>
                               </div>
@@ -571,9 +579,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Marital Status
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="MaritalStatusName" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: red;">{{ EditForm.get('MaritalStatusName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="MaritalStatusName" (ionChange)="ChangeIDInloadAppComobBoxes(MaritalStatusList, 'Text', 'ComboBoxValueID', 'MaritalStatusName', 'MaritalStatus')">
+                                      <ion-select-option form *ngFor="let status of MaritalStatusList"
+                                        [value]="status.Text">
+                                        <ng-container>{{status.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -609,9 +630,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Nationality
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="NationalityName" type="string" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: red;">{{ EditForm.get('NationalityName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="NationalityName" (ionChange)="ChangeIDInloadAppComobBoxes(NationalityList, 'Nationality', 'CountryInformationID', 'NationalityName', 'Nationality')">
+                                      <ion-select-option form *ngFor="let nationality of NationalityList"
+                                        [value]="nationality.Nationality">
+                                        <ng-container>{{nationality.Nationality}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -628,9 +662,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Residence Country
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="ResidenceCountryName" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: red;">{{ EditForm.get('ResidenceCountryName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="ResidenceCountryName" (ionChange)="ChangeIDInloadAppComobBoxes(CountryList, 'Text', 'Value', 'ResidenceCountryName', 'ResidenceCountry')">
+                                      <ion-select-option form *ngFor="let country of CountryList"
+                                        [value]="country.Text">
+                                        <ng-container>{{country.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -685,9 +732,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Currency
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="CurrencyFullName" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: red;">{{ EditForm.get('CurrencyFullName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="CurrencyFullName" (ionChange)="ChangeIDInloadAppComobBoxes(CurrencyList, 'Text', 'Value', 'CurrencyFullName', 'Currency')">
+                                      <ion-select-option form *ngFor="let currency of CurrencyList"
+                                        [value]="currency.Text">
+                                        <ng-container>{{currency.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -835,9 +895,22 @@
                             <div class="input-title gray-title custom-form-label">
                               Specialization
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="SpecializationName" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: red;">{{ EditForm.get('SpecializationName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="SpecializationName" (ionChange)="ChangeIDInloadAppComobBoxes(ApplicantSpecializationList, 'Text', 'Value', 'SpecializationName', 'SpecializationID')">
+                                      <ion-select-option form *ngFor="let specialization of ApplicantSpecializationList"
+                                        [value]="specialization.Text">
+                                        <ng-container>{{specialization.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>

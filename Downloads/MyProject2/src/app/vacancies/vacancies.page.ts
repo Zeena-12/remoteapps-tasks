@@ -34,7 +34,7 @@ export class VacanciesPage implements OnInit {
     private applicantsServive: ApplicantService,
     private router: Router
   ) {
-    this.markedDates = ['2024-01-15', '2024-02-20'];
+    this.markedDates = ['2010-01-15', '2024-02-20'];
    }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class VacanciesPage implements OnInit {
    
   }
 
- 
+
 
 
   startDate: string = moment().startOf('year').format('YYYY-MM-DD');

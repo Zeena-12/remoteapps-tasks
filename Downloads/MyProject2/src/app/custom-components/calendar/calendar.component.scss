@@ -77,22 +77,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* Needed for positioning the pseudo-element */
+  position: relative;
+  /* Needed for positioning the pseudo-element */
 }
 
 /* Add a dot below the day number */
-.day.marked::after {
-  content: ''; /* Empty content for the pseudo-element */
-  display: block;
-  width: 8px; /* Diameter of the dot */
-  height: 8px; /* Diameter of the dot */
-  border-radius: 50%; /* Make it a circle */
-  background-color: red; /* Color of the dot */
-  position: absolute; /* Position it absolutely within the .day element */
-  bottom: 8px; /* Distance from the bottom */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust for horizontal centering */
-}
+// .day.markedDate::after {
+//   content: ''; /* Empty content for the pseudo-element */
+//   display: block;
+//   width: 8px; /* Diameter of the dot */
+//   height: 8px; /* Diameter of the dot */
+//   border-radius: 50%; /* Make it a circle */
+//   background-color: red; /* Color of the dot */
+//   position: absolute; /* Position it absolutely within the .day element */
+//   bottom: 8px; /* Distance from the bottom */
+//   left: 50%; /* Center it horizontally */
+//   transform: translateX(-50%); /* Adjust for horizontal centering */
+// }
 
 .empty {
   visibility: hidden;
@@ -118,16 +119,17 @@
   color: white;
   border-radius: 16px;
   color: var(--Gray-palette-Gray10, var(--White, #FFF));
-font-family: Roboto;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 24px; /* 150% */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 150% */
 }
 
 .selected {
   background-color: rgb(232, 247, 247);
-  border-radius:24px;
+  border-radius: 24px;
 }
 
 .inRange {
@@ -137,14 +139,14 @@ line-height: 24px; /* 150% */
 
 .isStart {
   border-top-left-radius: 24px;
-  border-bottom-left-radius:24px;
+  border-bottom-left-radius: 24px;
   background-color: #00abec;
   color: white;
 }
 
 .isEnd {
-  border-top-right-radius:24px;
-  border-bottom-right-radius:24px;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
   background-color: #00abec;
   color: white;
 }
@@ -158,4 +160,13 @@ line-height: 24px; /* 150% */
 .button-container{
   width: 100%;
  padding: 30px;
+ margin: 10px;
+ border: 10px solid green;
+}
+
+.day.markedDate {
+  background-color: #ffcc00;
+  /* Highlight color for marked dates */
+  border-radius: 50%;
+  color: #000;
 }
