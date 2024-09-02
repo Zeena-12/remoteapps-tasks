@@ -72,8 +72,9 @@ export class ApplicantsPage implements OnInit {
       console.log('#### edit NOT Successful ###', val);
       const errors = this.getValidationErrors();
       if (errors.length > 0) {
-        await this.presentAlert(errors.join('<br/>'));
+        await this.presentAlert(errors[0]);
       }
+      console.log("my errors ", errors);
     }
   }
 
@@ -116,8 +117,8 @@ export class ApplicantsPage implements OnInit {
     this.EditForm = this.formbuilder.group({
       // Picture: [''],
       ApplicantID: [''],
-      FirstName: [''],
-      LastName: [''],
+      FirstName: ['', [Validators.required]],
+      LastName: ['', [Validators.required]],
       Gender: ['', [Validators.required]],
       GenderName: ['', [Validators.required]],
       DateOfBirth: ['', [Validators.required]],
