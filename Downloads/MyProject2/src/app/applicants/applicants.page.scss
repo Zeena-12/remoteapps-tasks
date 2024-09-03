@@ -723,7 +723,9 @@ ion-fab {
   overflow-y: scroll;
   height: 100vh;
 
-  .options {
+
+
+  .options { 
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -745,6 +747,8 @@ ion-fab {
     text-align: center;
   }
 
+
+
   .selected {
     background-color: #00abec;
     color: white;
@@ -756,7 +760,7 @@ ion-fab {
     background-color: white;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+   // border: 1px solid red;
 
     .bordered-image {
       border: 1px solid #00abec;

@@ -87,7 +87,8 @@ export class FourthPage implements OnInit, AfterViewInit {
     // this.generateTimes();
     this.selectedDay = this.weekDays[0]?.day; // Default to the first day
     this.loadApplicantData();
-    this.markedDates = ['2024-01-15', '2024-02-20'];
+    this.markedDates = ['07/01/2024','15/01/2024','24/01/2024','25/01/2024','20/01/2024','31/01/2024','07/01/2024' ,'01/04/2024'];
+
   }
 
 

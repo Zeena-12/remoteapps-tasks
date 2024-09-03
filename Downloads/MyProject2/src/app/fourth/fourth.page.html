@@ -436,9 +436,9 @@
             <ng-template>
                 <app-calendar [startDate]="'2024-01-01'" 
                 (dateSelected)="handleDateSelected($event)"
-                 [endDate]="'2024-12-1'"
+                 [endDate]="'2025-12-1'"
                  [isRange]="isRange"
-                 [marked]="markedDates"
+                 [markedDates]="markedDates"
                  ></app-calendar>
             </ng-template>
           </ion-modal>
@@ -544,7 +544,7 @@
   <ng-template>
     <div class="modal-content">
       <div class="header">
-        <i class="icon-Close-Cancel-X-remove"></i>
+        <!-- <i class="icon-Close-Cancel-X-remove"></i> -->
         <div class="title"> Select interviewee</div>
         <div class="button-container">
           <button>New Interviewee</button>

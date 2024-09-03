@@ -170,7 +170,7 @@ input[placeholder="Search..."] {
       color: #98a2b3;
     }
     .required-input {
-      color: red;
+      color: #92a0b3;
       font-weight: bold;
       display: inline-table;
       margin-left: 3px;
@@ -287,6 +287,7 @@ input[placeholder="Search..."] {
         border: 1px solid red;
       }
 
+
       .select-icon {
         top: 17px;
         inset-inline-end: 5px;
@@ -313,13 +314,14 @@ input[placeholder="Search..."] {
     .select-input-gray {
     border-radius: 10px;
     text-align: center;
-    background: #F9FAFB;
+    // background: #F9FAFB;
     --placeholder-color: #92a0b3;
     --placeholder-opacity: 1;
-    color: #f1e2e2;
+    color: #ecf0f3; //make the text color same as the backgroubnd
     padding-inline-start: 8px;
     padding-inline-end: 8px;
-    border: 1px solid green;
+    // border: 1px solid green;
+    background: #ecf0f3;
     }
 
     .test{

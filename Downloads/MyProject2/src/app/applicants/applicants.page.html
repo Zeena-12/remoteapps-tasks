@@ -356,8 +356,8 @@
               </div>
               <ng-template #noRecords>
                 <div class="noRecords">
-                  <i class="icon-document-search" style="font-size: 40px; color: #92a0b3;"></i>
-                  <span>No Records</span>
+                  <i class="icon-document-search" style="font-size: 35px; color: #92a0b3;"></i>
+                  <span style="font-size: 15px;">No Records</span>
                 </div>
               </ng-template>
               <button class="add-button" (click)="openModalAddExperience(ApplicantProfile.ApplicantID)">
@@ -435,7 +435,7 @@
   <!-- End CV Model -->
 
   <!--Start Edit  Modal -->
-  <ion-modal #EditModal id="edit-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ion-modal #EditApplicantModal id="edit-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
     <ng-template>
       <div class="model-container">
         <form [formGroup]="EditForm" (ngSubmit)="SubmitEdit(EditForm.value)">
@@ -444,38 +444,18 @@
               <div>
                 <div class="top-container">
                   <p>Edit Employee Information</p>
-                  <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
-                    <p class="">Edit</p>
-                  </div> -->
                   <button type="submit" class="edit-button">Edit</button>
                 </div>
                 <div class="employee-info-container">
                   <div class="title">
                     <p><span>company overview</span></p>
                   </div>
-                  <!-- <img class="bordered-image" src="assets/youcandoit.jpeg" alt="You Can Do It"> -->
                   <!-- start form -->
                   <div class="employee-info-items">
-                    <!-- Picture -->
-                    <!-- <div class="employee-info">
-                      <div class="box icon my-icon">
-                        <i class="icon-picture icon-style"></i>
-                      </div>
-                      <div class="box input-container">
-                        <div class="inputsWrapper custom-inputsWrapper">
-                          <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">Picture</div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="Picture" type="text" placeholder=" "></ion-input>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
                     <!-- First Name -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-first-name icon-style"></i>
+                        <i class="icon-Employee-Central icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -508,7 +488,6 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Gender -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -523,23 +502,15 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: red;">{{ EditForm.get('GenderName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ EditForm.get('GenderName')?.value }}</div>
                                   <div>
-                                    <!-- <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
                                       formControlName="GenderName"
-                                      (ionChange)="EditForm.get('Gender')?.setValue($event.detail.value === 'Female' ? '1' : '9')">
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(EditForm, GenderList, 'Text', 'ComboBoxValueID', 'GenderName', 'Gender')">
                                       <ion-select-option form *ngFor="let gender of GenderList" [value]="gender.Text">
                                         <ng-container>{{gender.Text}}</ng-container>
                                       </ion-select-option>
-                                    </ion-select> -->
-
-                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                    formControlName="GenderName"
-                                    (ionChange)="ChangeIDInloadAppComobBoxes(GenderList, 'Text', 'ComboBoxValueID', 'GenderName', 'Gender')">
-                                    <ion-select-option form *ngFor="let gender of GenderList" [value]="gender.Text">
-                                      <ng-container>{{gender.Text}}</ng-container>
-                                    </ion-select-option>
-                                  </ion-select>
+                                    </ion-select>
                                   </div>
                                 </div>
                               </div>
@@ -582,10 +553,11 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: red;">{{ EditForm.get('MaritalStatusName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ EditForm.get('MaritalStatusName')?.value }}</div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                      formControlName="MaritalStatusName" (ionChange)="ChangeIDInloadAppComobBoxes(MaritalStatusList, 'Text', 'ComboBoxValueID', 'MaritalStatusName', 'MaritalStatus')">
+                                      formControlName="MaritalStatusName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(EditForm, MaritalStatusList, 'Text', 'ComboBoxValueID', 'MaritalStatusName', 'MaritalStatus')">
                                       <ion-select-option form *ngFor="let status of MaritalStatusList"
                                         [value]="status.Text">
                                         <ng-container>{{status.Text}}</ng-container>
@@ -633,10 +605,11 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: red;">{{ EditForm.get('NationalityName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ EditForm.get('NationalityName')?.value }}</div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                      formControlName="NationalityName" (ionChange)="ChangeIDInloadAppComobBoxes(NationalityList, 'Nationality', 'CountryInformationID', 'NationalityName', 'Nationality')">
+                                      formControlName="NationalityName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(EditForm, NationalityList, 'Nationality', 'CountryInformationID', 'NationalityName', 'Nationality')">
                                       <ion-select-option form *ngFor="let nationality of NationalityList"
                                         [value]="nationality.Nationality">
                                         <ng-container>{{nationality.Nationality}}</ng-container>
@@ -654,21 +627,22 @@
                     <!-- Residence Country -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-residence-country icon-style"></i>
+                        <i class="icon-location icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
                             <div class="input-title gray-title custom-form-label">
-                              Residence Country
+                              Current Location
                             </div>
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: red;">{{ EditForm.get('ResidenceCountryName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ EditForm.get('ResidenceCountryName')?.value }}</div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                      formControlName="ResidenceCountryName" (ionChange)="ChangeIDInloadAppComobBoxes(CountryList, 'Text', 'Value', 'ResidenceCountryName', 'ResidenceCountry')">
+                                      formControlName="ResidenceCountryName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(EditForm, CountryList, 'Text', 'Value', 'ResidenceCountryName', 'ResidenceCountry')">
                                       <ion-select-option form *ngFor="let country of CountryList"
                                         [value]="country.Text">
                                         <ng-container>{{country.Text}}</ng-container>
@@ -686,7 +660,7 @@
                     <!-- National Identity -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-national-identity icon-style"></i>
+                        <i class="icon-id-card-1 icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -720,11 +694,10 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Currency -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-currency icon-style"></i>
+                        <i class="icon-money-cash icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -735,10 +708,11 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: red;">{{ EditForm.get('CurrencyFullName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ EditForm.get('CurrencyFullName')?.value }}</div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                      formControlName="CurrencyFullName" (ionChange)="ChangeIDInloadAppComobBoxes(CurrencyList, 'Text', 'Value', 'CurrencyFullName', 'Currency')">
+                                      formControlName="CurrencyFullName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(EditForm, CurrencyList, 'Text', 'Value', 'CurrencyFullName', 'Currency')">
                                       <ion-select-option form *ngFor="let currency of CurrencyList"
                                         [value]="currency.Text">
                                         <ng-container>{{currency.Text}}</ng-container>
@@ -752,11 +726,10 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Current Salary -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-salary icon-style"></i>
+                        <i class="icon-dollar-box icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -765,13 +738,12 @@
                               Current Salary
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="CurrentSalary" type="number" placeholder=" "></ion-input>
+                              <ion-input formControlName="CurrentSalary" placeholder=" "></ion-input>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-
                     <!-- Target Salary -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -790,11 +762,10 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Land Line -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-landline icon-style"></i>
+                        <i class="icon-telephone-2 icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -809,7 +780,6 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Mobile -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -828,7 +798,6 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Email -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -847,11 +816,42 @@
                         </div>
                       </div>
                     </div>
-
+                    <!-- Specialization ID -->
+                    <div class="employee-info">
+                      <div class="box icon my-icon">
+                        <i class="icon-check-3 icon-style"></i>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Specialization
+                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ EditForm.get('SpecializationName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="SpecializationName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(EditForm, ApplicantSpecializationList, 'Text', 'Value', 'SpecializationName', 'SpecializationID')">
+                                      <ion-select-option form *ngFor="let specialization of ApplicantSpecializationList"
+                                        [value]="specialization.Text">
+                                        <ng-container>{{specialization.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <!-- Is Previous Employee -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-previous-employee icon-style"></i>
+                        <i class="icon-previous-employment icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -864,9 +864,8 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- Employee ID -->
-                    <div class="employee-info">
+                    <div class="employee-info" *ngIf="EditForm.get('IsPreviousEmployee').value">
                       <div class="box icon my-icon">
                         <i class="icon-employee-id icon-style"></i>
                       </div>
@@ -883,40 +882,7 @@
                         </div>
                       </div>
                     </div>
-
-                    <!-- Specialization ID -->
-                    <div class="employee-info">
-                      <div class="box icon my-icon">
-                        <i class="icon-specialization-id icon-style"></i>
-                      </div>
-                      <div class="box input-container">
-                        <div class="inputsWrapper custom-inputsWrapper">
-                          <div class="inputBox my-input">
-                            <div class="input-title gray-title custom-form-label">
-                              Specialization
-                            </div>
-                            <ion-list mode="ios">
-                              <div class="select-input-gray">
-                                <div class="test">
-                                  <div style="color: red;">{{ EditForm.get('SpecializationName')?.value }}</div>
-                                  <div>
-                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                      formControlName="SpecializationName" (ionChange)="ChangeIDInloadAppComobBoxes(ApplicantSpecializationList, 'Text', 'Value', 'SpecializationName', 'SpecializationID')">
-                                      <ion-select-option form *ngFor="let specialization of ApplicantSpecializationList"
-                                        [value]="specialization.Text">
-                                        <ng-container>{{specialization.Text}}</ng-container>
-                                      </ion-select-option>
-                                    </ion-select>
-                                  </div>
-                                </div>
-                              </div>
-                            </ion-list>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-
                   <!-- end form -->
                 </div>
               </div>
@@ -1081,7 +1047,7 @@
   <!-- End Add Model -->
 
   <!--Start add applicant  Modal -->
-  <ion-modal #AddApplicantModal id="edit-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ion-modal #AddApplicantModal id="add-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
     <ng-template>
       <div class="model-container">
         <form [formGroup]="AddApplicantForm" (ngSubmit)="SubmitAddApplicant(AddApplicantForm.value)">
@@ -1089,40 +1055,20 @@
             <div class="edit-employee-container">
               <div>
                 <div class="top-container">
-                  <p>New Applicant</p>
-                  <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
-                      <p class="">Edit</p>
-                    </div> -->
+                  <p>Add new Applicant</p>
+
                   <button type="submit" class="edit-button">Submit</button>
                 </div>
                 <div class="employee-info-container">
                   <div class="title">
-                    <p><span>Personal Information</span></p>
+                    <p><span>Personal details</span></p>
                   </div>
-                  <!-- <img class="bordered-image" src="assets/youcandoit.jpeg" alt="You Can Do It"> -->
-                  <!-- start form -->
-                  <div class="employee-info-items">
-                    <!-- Picture -->
-                    <!-- <div class="employee-info">
-                        <div class="box icon my-icon">
-                          <i class="icon-picture icon-style"></i>
-                        </div>
-                        <div class="box input-container">
-                          <div class="inputsWrapper custom-inputsWrapper">
-                            <div class="inputBox my-input">
-                              <div class="input-title gray-title custom-form-label">Picture</div>
-                              <div class="text-input-gray">
-                                <ion-input formControlName="Picture" type="text" placeholder=" "></ion-input>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
 
+                  <div class="employee-info-items">
                     <!-- First Name -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-first-name icon-style"></i>
+                        <i class="icon-Employee-Central icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -1155,6 +1101,7 @@
                         </div>
                       </div>
                     </div>
+
                     <!-- Gender -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -1166,20 +1113,28 @@
                             <div class="input-title gray-title custom-form-label">
                               Gender
                             </div>
-                            <div class="options">
-                              <div class="option" [ngClass]="{' selected': selectedGender === 9}"
-                                (click)="selectGender(9)">
-                                Male
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('GenderName')?.value }}</div>
+                                  <div>
+
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="GenderName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(AddApplicantForm, GenderList, 'Text', 'ComboBoxValueID', 'GenderName', 'Gender')">
+                                      <ion-select-option form *ngFor="let gender of GenderList" [value]="gender.Text">
+                                        <ng-container>{{gender.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="option" [ngClass]="{' selected': selectedGender === 1}"
-                                (click)="selectGender(1)">
-                                Female
-                              </div>
-                            </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
                     </div>
+
                     <!-- Date of Birth -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
@@ -1192,17 +1147,17 @@
                               Date of Birth
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="DateOfBirth" type="text" placeholder=" "></ion-input>
+                              <ion-input formControlName="DateOfBirth" type="text" placeholder=""
+                                (ionInput)="onDateInput($event)"></ion-input>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- <ion-datetime presentation="date" [preferWheel]="true"></ion-datetime> -->
                     <!-- Marital Status -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-gender icon-style"></i>
+                        <i class="icon-ring icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -1213,14 +1168,14 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div>Zeens</div>
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('MaritalStatusName')?.value }}</div>
                                   <div>
-                                    <ion-select class="text-start" justify="space-between" [(ngModel)]="objfrom">
-                                      <ion-select-option *ngFor="let status of MaritalStatusList"
-                                        [value]="status.ComboBoxValueID">
-                                        <ng-container *ngIf="nationality && nationality.Nationality">
-                                          {{ nationality.Nationality }}
-                                        </ng-container>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="MaritalStatusName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(AddApplicantForm, MaritalStatusList, 'Text', 'ComboBoxValueID', 'MaritalStatusName', 'MaritalStatus')">
+                                      <ion-select-option form *ngFor="let status of MaritalStatusList"
+                                        [value]="status.Text">
+                                        <ng-container>{{status.Text}}</ng-container>
                                       </ion-select-option>
                                     </ion-select>
                                   </div>
@@ -1244,7 +1199,7 @@
                               Number of Dependents
                             </div>
                             <div class="text-input-gray">
-                              <ion-input formControlName="NumberOfDependent" type="text" placeholder=" "></ion-input>
+                              <ion-input formControlName="NumberOfDependent" type="number" placeholder=""></ion-input>
                             </div>
                           </div>
                         </div>
@@ -1263,17 +1218,22 @@
                               Nationality
                             </div>
                             <ion-list mode="ios">
-                              <ion-item>
-                                <ion-select class="custom-select" toggleIcon="caret-down-sharp" color="warning"
-                                  formControlName="Nationality" placeholder="Nationality">
-                                  <ion-select-option *ngFor="let status of NationalityList"
-                                    [value]="status.CountryInformationID">
-                                    {{ status.Nationality }}
-                                  </ion-select-option>
-                                </ion-select>
-                              </ion-item>
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('NationalityName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="NationalityName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(AddApplicantForm, NationalityList, 'Nationality', 'CountryInformationID', 'NationalityName', 'Nationality')">
+                                      <ion-select-option form *ngFor="let nationality of NationalityList"
+                                        [value]="nationality.Nationality">
+                                        <ng-container>{{nationality.Nationality}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
                             </ion-list>
-
                           </div>
                         </div>
                       </div>
@@ -1282,17 +1242,31 @@
                     <!-- Residence Country -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-residence-country icon-style"></i>
+                        <i class="icon-location icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
                             <div class="input-title gray-title custom-form-label">
-                              Residence Country
+                              Current Location
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="ResidenceCountry" type="number" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('ResidenceCountryName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="ResidenceCountryName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(AddApplicantForm, CountryList, 'Text', 'Value', 'ResidenceCountryName', 'ResidenceCountry')">
+                                      <ion-select-option form *ngFor="let country of CountryList"
+                                        [value]="country.Text">
+                                        <ng-container>{{country.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -1301,7 +1275,7 @@
                     <!-- National Identity -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-national-identity icon-style"></i>
+                        <i class="icon-id-card-1 icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -1339,7 +1313,7 @@
                     <!-- Currency -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-currency icon-style"></i>
+                        <i class="icon-money-cash icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -1347,9 +1321,23 @@
                             <div class="input-title gray-title custom-form-label">
                               Currency
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="Currency" type="number" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('CurrencyFullName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="CurrencyFullName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(AddApplicantForm ,CurrencyList, 'Text', 'Value', 'CurrencyFullName', 'Currency')">
+                                      <ion-select-option form *ngFor="let currency of CurrencyList"
+                                        [value]="currency.Text">
+                                        <ng-container>{{currency.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>
@@ -1358,7 +1346,7 @@
                     <!-- Current Salary -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-salary icon-style"></i>
+                        <i class="icon-dollar-box icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -1453,7 +1441,7 @@
                     <!-- Is Previous Employee -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-previous-employee icon-style"></i>
+                        <i class="icon-previous-employment icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
@@ -1461,10 +1449,7 @@
                             <div class="input-title gray-title custom-form-label">
                               Is Previous Employee
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="IsPreviousEmployee" type="checkbox"
-                                placeholder=" "></ion-input>
-                            </div>
+                            <div><ion-checkbox formControlName="IsPreviousEmployee"></ion-checkbox></div>
                           </div>
                         </div>
                       </div>
@@ -1492,17 +1477,31 @@
                     <!-- Specialization ID -->
                     <div class="employee-info">
                       <div class="box icon my-icon">
-                        <i class="icon-specialization-id icon-style"></i>
+                        <i class="icon-check-3 icon-style"></i>
                       </div>
                       <div class="box input-container">
                         <div class="inputsWrapper custom-inputsWrapper">
                           <div class="inputBox my-input">
                             <div class="input-title gray-title custom-form-label">
-                              Specialization ID
+                              Specialization
                             </div>
-                            <div class="text-input-gray">
-                              <ion-input formControlName="SpecializationID" type="number" placeholder=" "></ion-input>
-                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('SpecializationName')?.value }}</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                      formControlName="SpecializationName"
+                                      (ionChange)="ChangeIDInloadAppComobBoxes(AddApplicantForm, ApplicantSpecializationList, 'Text', 'Value', 'SpecializationName', 'SpecializationID')">
+                                      <ion-select-option form *ngFor="let specialization of ApplicantSpecializationList"
+                                        [value]="specialization.Text">
+                                        <ng-container>{{specialization.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
                           </div>
                         </div>
                       </div>

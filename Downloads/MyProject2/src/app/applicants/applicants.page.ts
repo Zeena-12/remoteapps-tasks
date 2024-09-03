@@ -48,7 +48,7 @@ export class ApplicantsPage implements OnInit {
   QualificationList: any[] = [];
   SkillList: any[] = [];
 
-  @ViewChild('EditModal') EditModal: any;
+  @ViewChild('EditApplicantModal') EditApplicantModal: any;
   @ViewChild('AddExperienceModal') AddExperienceModal: any;
   @ViewChild('AddApplicantModal') AddApplicantModal: any;
 
@@ -70,21 +70,24 @@ export class ApplicantsPage implements OnInit {
       this.applicantService.setApplicant(val);
     } else {
       console.log('#### edit NOT Successful ###', val);
-      const errors = this.getValidationErrors();
+      const errors = this.getValidationErrors(this.EditForm);
       if (errors.length > 0) {
         await this.presentAlert(errors[0]);
       }
-      console.log("my errors ", errors);
     }
   }
 
-  SubmitAddApplicant(val: any) {
+ async SubmitAddApplicant(val: any) {
     if (this.AddApplicantForm.valid) {
       console.log('#### add Successful###', val);
       this.applicantService.setApplicant(val);
     }
     else {
-      console.log('#### add NOT Successful###', val);
+      console.log('#### edit NOT Successful ###', val);
+      const errors = this.getValidationErrors(this.AddApplicantForm);
+      if (errors.length > 0) {
+        await this.presentAlert(errors[0]);
+      }
     }
   }
 
@@ -93,11 +96,7 @@ export class ApplicantsPage implements OnInit {
     this.loadApplicantData();
     this.loadAppComobBoxes();
     this.initializeEditForm();
-
-
-
-    // Check form initialization
-
+    this.initializeAddForm();
 
   }
 
@@ -113,65 +112,64 @@ export class ApplicantsPage implements OnInit {
 
 
   initializeEditForm() {
-    console.log("what is ApplicantProfile data during the initializeEditForm ", this.ApplicantProfile)
     this.EditForm = this.formbuilder.group({
-      // Picture: [''],
       ApplicantID: [''],
       FirstName: ['', [Validators.required]],
       LastName: ['', [Validators.required]],
-      Gender: ['', [Validators.required]],
+      Gender: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       GenderName: ['', [Validators.required]],
-      DateOfBirth: ['', [Validators.required]],
-      MaritalStatus: ['', [Validators.required]],
+      DateOfBirth: ['2006/08/31', [Validators.required]],
+      MaritalStatus: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       MaritalStatusName: ['', [Validators.required]],
       NumberOfDependent: ['', [Validators.required]],
       NationalityName: ['', [Validators.required]],
-      Nationality: ['', [Validators.required]],
-      ResidenceCountry: ['', [Validators.required]],
+      Nationality: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      ResidenceCountry: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       ResidenceCountryName: ['', [Validators.required]],
       NationalIdentity: ['', [Validators.required]],
       Passport: ['', [Validators.required]],
       CurrencyFullName: [''],
       Currency: [''],
-      CurrentSalary: [''],
-      TargetSalary: [''],
+      CurrentSalary: ['', [Validators.pattern('^[0-9]*$')]],
+      TargetSalary:  ['', [Validators.pattern('^[0-9]*$')]],
       LandLine: [''],
       Mobile: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
       IsPreviousEmployee: [''],
-      EmployeeID: [''],
+      EmployeeID:['',  [ Validators.pattern('^[0-9]*$')]],
       SpecializationName: [''],
-      SpecializationID: ['']
+      SpecializationID:['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
 
+
   initializeAddForm() {
     this.AddApplicantForm = this.formbuilder.group({
-      // Picture: [''],
+      ApplicantID: [''],
       FirstName: ['', [Validators.required]],
       LastName: ['', [Validators.required]],
-      NationalIdentity: ['', [Validators.required]],
-      Passport: [''],
       Gender: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       GenderName: ['', [Validators.required]],
+      DateOfBirth: ['2006/08/31', [Validators.required]],
       MaritalStatus: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       MaritalStatusName: ['', [Validators.required]],
       NumberOfDependent: ['', [Validators.required]],
-      Nationality: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       NationalityName: ['', [Validators.required]],
-      DateOfBirth: ['', [Validators.required]],
+      Nationality: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       ResidenceCountry: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
       ResidenceCountryName: ['', [Validators.required]],
-      Mobile: ['', [Validators.required]],
+      NationalIdentity: ['', [Validators.required]],
+      Passport: ['', [Validators.required]],
       CurrencyFullName: [''],
       Currency: [''],
       CurrentSalary: ['', [Validators.pattern('^[0-9]*$')]],
       TargetSalary:  ['', [Validators.pattern('^[0-9]*$')]],
       LandLine: [''],
+      Mobile: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
-      IsPreviousEmployee: ['', [Validators.required]],
-      EmployeeID:['',  [ Validators.pattern('^[0-9]*$')]],
-      SpecializationName: ['', [Validators.required]],
+      IsPreviousEmployee: [false, [Validators.required]],
+      EmployeeID:['', [ Validators.pattern('^[0-9]*$')]],
+      SpecializationName: [''],
       SpecializationID:['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
@@ -226,6 +224,7 @@ export class ApplicantsPage implements OnInit {
       // save profiel data into interface profile
       if (this.ApplicantProfile) {
         this.EditForm.patchValue({ //why to use patchValue not setValue? bcz not all data need to change
+          ApplicantID: this.ApplicantProfile.ApplicantID,
           FirstName: this.ApplicantProfile.FirstName,
           LastName: this.ApplicantProfile.LastName,
           NationalIdentity: this.ApplicantProfile.NationalIdentity,
@@ -236,7 +235,7 @@ export class ApplicantsPage implements OnInit {
           GenderName: this.ApplicantProfile.GenderName,
           MaritalStatus: this.ApplicantProfile.MaritalStatus,
           MaritalStatusName: this.ApplicantProfile.MaritalStatusName,
-          CurrentSalary: this.ApplicantProfile.CurrentSalary,
+          CurrentSalary: this.ApplicantProfile.CurrentSalary === -1 ? 0 : this.ApplicantProfile.CurrentSalary,      
           CurrencyFullName: this.ApplicantProfile.CurrencyFullName,
           Currency: this.ApplicantProfile.Currency,
           TargetSalary: this.ApplicantProfile.TargetSalary,
@@ -270,7 +269,7 @@ export class ApplicantsPage implements OnInit {
 
   openModalEdit(applicantID: any) {
     console.log("callig modal openModalEDit and the id is", applicantID);
-    this.EditModal.present();
+    this.EditApplicantModal.present();
 
   }
   openModalAddExperience(applicantID: any) {
@@ -315,69 +314,63 @@ export class ApplicantsPage implements OnInit {
   }
 
 
-  // ChangeMaritalStatus() {
-  //   const selectedStatus = this.EditForm.get('MaritalStatusName')?.value;
-  //   let maritalStatusValue: number | null = null;
-
-  //   if (selectedStatus === 'Single') {
-  //     maritalStatusValue = 20;
-  //   } else if (selectedStatus === 'Married') {
-  //     maritalStatusValue = 21;
-  //   } else if (selectedStatus === 'Divorced') {
-  //     maritalStatusValue = 22;
-  //   } else if (selectedStatus === 'Widowed') {
-  //     maritalStatusValue = 23;
-  //   }
-
-  //   this.EditForm.get('MaritalStatus')?.setValue(maritalStatusValue);
-  // }
-  // ChangeIDInloadAppComobBoxes() {
-  // }
 
   // this list to get the id of the selected item from its list
-  ChangeIDInloadAppComobBoxes(list: any[], displayAttr: any, idAttr: any, formControlName: any, formControlID: any) {
-    console.log("calling meee", list, " ", displayAttr, " ", idAttr, " ", formControlName, " ", formControlID);
-    const selectedValue = this.EditForm.get(formControlName)?.value;
-    const item = list.find(item => item[displayAttr] === selectedValue);
-    const idValue = item ? item[idAttr] : null;
-    console.log(selectedValue, " ", item, " ", idValue);
-    this.EditForm.get(formControlID)?.setValue(idValue);
+  ChangeIDInloadAppComobBoxes(form: any, list: any[], displayAttr: any, idAttr: any, formControlName: any, formControlID: any) {
+    try{
+      console.log("calling meee", list, " ", displayAttr, " ", idAttr, " ", formControlName, " ", formControlID);
+      const selectedValue = form.get(formControlName)?.value;
+      const item = list.find(item => item[displayAttr] === selectedValue);
+      const idValue = item ? item[idAttr] : null;
+      console.log(selectedValue, " ", item, " ", idValue);
+      form.get(formControlID)?.setValue(idValue);
+    } catch(error) {
+      console.log("error in ChangeIDInloadAppComobBoxes ", error);
+    } 
   }
 
-  private getValidationErrors(): string[] {
-    const controls = this.EditForm.controls;
+  private getValidationErrors(form: FormGroup): string[] {
+    const controls = form.controls;
     const errorMessages: string[] = [];
-
+  
     for (const controlName in controls) {
       if (controls.hasOwnProperty(controlName)) {
         const control = controls[controlName];
         if (control.invalid) {
           const errors = control.errors;
-          
+  
           // Collect error messages
           if (errors?.['required']) {
             errorMessages.push(`${controlName} is required.`);
           } else if (errors?.['email']) {
             errorMessages.push(`${controlName} must be a valid email address.`);
+          } else if (errors?.['pattern']) {
+            if (errors['pattern'].requiredPattern === '^[0-9]*$') {
+              errorMessages.push(`${controlName} must contain only numbers.`);
+            } else if (errors['pattern'].requiredPattern === '^[a-zA-Z]*$') {
+              errorMessages.push(`${controlName} must contain only text.`);
+            } else {
+              errorMessages.push(`${controlName} is invalid.`);
+            }
           }
           // Add more custom error handling here
         }
       }
     }
-    
     return errorMessages;
   }
+  
 
   private async presentAlert(message: string) {
     console.log("calling present ");
     const alert = await this.alertController.create({
       header: 'Validation Errors',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
+       mode: 'ios'
     });
     await alert.present();
   }
-
 }
 
 export interface ApplicantProfile {

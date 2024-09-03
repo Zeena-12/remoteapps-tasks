@@ -196,9 +196,12 @@ export class ApplicantService {
   }
 
   async setApplicant(newData: any): Promise<any> {
+
+    const applicantID = newData.ApplicantID ? newData.ApplicantID : -1;
+
     const data = {
       Picture: newData.Picture,
-      ApplicantID: -1,
+      ApplicantID: applicantID,
       FirstName: newData.FirstName,
       LastName: newData.LastName,
       Gender: newData.Gender,

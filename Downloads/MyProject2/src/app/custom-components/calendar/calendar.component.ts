@@ -10,7 +10,7 @@ export class CalendarComponent implements OnInit {
   @Input() startDate: string | null = null;
   @Input() endDate: string | null = null;
   @Input() isRange: boolean = false; // Flag to determine if range selection is allowed
-  @Input() marked: any[] = [];
+  @Input() markedDates: any[] = []; 
   @Output() dateSelected: EventEmitter<{ start?: moment.Moment, end?: moment.Moment }> = new EventEmitter();
 
   selectedStartDate: moment.Moment | null = null;
@@ -21,9 +21,9 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.generateCalendar();
 
-    setTimeout(() => {
-      console.log("marked dates are: ", this.marked);
-    }, 1000); // 1000 milliseconds = 1 second
+    // setTimeout(() => {
+    //   console.log("marked dates are: ", this.marked);
+    // }, 1000); // 1000 milliseconds = 1 second
     
   }
   constructor() {
@@ -163,7 +163,7 @@ export class CalendarComponent implements OnInit {
     return this.selectedStartDate?.isSame(moment({ year, month, day }), 'day') || false;
   }
 
-  trymarkedDates = ['07/01/2024', '01/02/2024'];
+
 
   // isDateMarked(day: number, monthKey: string): boolean {
   //   const [year, month] = monthKey.split('-');
@@ -181,20 +181,23 @@ export class CalendarComponent implements OnInit {
   //   return result;
   // }
 
+  // trymarkedDates = ['07/01/2024','15/01/2024','24/01/2024','25/01/2024','20/01/2024','31/01/2024','07/01/2024' ,'01/04/2024'];
+
+
   isDateMarked(day: number, monthKey: string): boolean {
-    const [year, month] = monthKey.split('-');
-  
+    const [year, month] = monthKey.split('-').map(Number);
+  // console.log(day, " ", monthKey);
     // Ensure day and month are two digits
     const dayFormatted = day < 10 ? '0' + day : day;
-    const monthFormatted = month.length === 1 ? '0' + month : month;
+    const monthFormatted = (month + 1) < 10 ? '0' + (month + 1) : (month + 1);
   
     // Format date to 'dd/mm/yyyy'
     const formattedDate = `${dayFormatted}/${monthFormatted}/${year}`;  
-    console.log("dates are", formattedDate);
+    // console.log("dates are", formattedDate);
     // Check if formattedDate is in markedDates
-    const result = this.trymarkedDates.includes(formattedDate);
+    const result = this.markedDates.includes(formattedDate);
     if (result) {
-      console.log("Marked date found:", formattedDate);
+      // console.log("Marked date found:", formattedDate);
     }
     return result;
   }
@@ -210,3 +213,12 @@ export class CalendarComponent implements OnInit {
 
   }
 }
+
+
+// let yOffset = document.getElementById(String(this.tabsTop[this.selectedIndex].Name));
+
+//       yOffset.scrollIntoView({
+//         behavior: 'smooth',
+//         block: 'center',
+//         inline: 'center',
+//       });
