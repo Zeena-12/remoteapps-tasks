@@ -17,6 +17,7 @@ export class ApplicantService {
   private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
   private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
   private apiUrlSetApplicant = `${backend}HCM/Recruitment/Applicants/setApplicant`;
+  private apiUrlSetApplicantExperience = `${backend}HCM/Recruitment/Applicants/setApplicantExperience`;
 
 
 
@@ -166,8 +167,6 @@ export class ApplicantService {
 
   async ChangeApplicationStatus(applicationID: number, status: string): Promise<string> {
 
-    // Capitalize the first letter of the status
-    // const capitalizedStatus = this.capitalizeFirstLetter(status);
 
     const data = {
       ApplicationID: applicationID,
@@ -223,40 +222,86 @@ export class ApplicantService {
       SpecializationID: newData.SpecializationID
     };
     try {
-  const response: any = await this.http.post(this.apiUrlSetApplicant, data, {});
+      const response: any = await this.http.post(this.apiUrlSetApplicant, data, {});
 
-  // Parse the response data
-  const responseData = JSON.parse(response.data);
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
 
-  // Check if the response is successful and contains Parameters
-  if (responseData) {
+      // Check if the response is successful and contains Parameters
+      if (responseData) {
 
-    const data = responseData;
-    console.log("saved applicant updated data successff: ", data);
-    return data.Parameters;
-  } else {
-    throw new Error('Invalid response structure or no data available.');
+        const data = responseData;
+        console.log("saved applicant updated data successff: ", data);
+        return data.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
   }
-} catch (error: any) {
-  // Handle error response
-  console.error('Error during data retrieval:', error);
 
-  // Return an error message or handle as needed
-  if (error.status === 0) {
-    return 'Network error or CORS issue. Please try again later.';
-  } else {
-    throw new Error('An error occurred while retrieving data.');
+
+  async setApplicantExperience(experienceData: any): Promise<any> {
+
+    const applicantExperienceID = experienceData.ApplicantExperienceID ? experienceData.ApplicantExperienceID : -1;
+
+    const data = {
+      ApplicantExperienceID: applicantExperienceID,
+      ApplicantID: experienceData.ApplicantID,
+      CompanyName: experienceData.CompanyName,
+      Position: experienceData.Position,
+      Location: experienceData.Location,
+      Industry: experienceData.Industry,
+      StartDate: experienceData.StartDate,
+      EndDate: experienceData.EndDate,
+      IsCurrent: experienceData.IsCurrent,
+      ReportingTo: experienceData.ReportingTo,
+      MainRole: experienceData.MainRole,
+      ReasonForLeaving: experienceData.ReasonForLeaving
+    };
+    console.log("data is ",data);
+    try {
+      const response: any = await this.http.post(this.apiUrlSetApplicantExperience, data, {});
+
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+
+      // Check if the response is successful and contains Parameters
+      if (responseData) {
+
+        const data = responseData;
+        console.log("saved applicant updated data successff: ", data);
+        return data.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
   }
-}
+
+  // Helper function to capitalize the first letter of a string
+  private capitalizeFirstLetter(str: string): string {
+    if (!str) return str;
+    // Capitalize first letter and convert the rest to lowercase
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
-
-
-
-// Helper function to capitalize the first letter of a string
-private capitalizeFirstLetter(str: string): string {
-  if (!str) return str;
-  // Capitalize first letter and convert the rest to lowercase
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
 
 }

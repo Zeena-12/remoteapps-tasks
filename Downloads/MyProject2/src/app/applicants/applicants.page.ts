@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ApplicantService } from '../services/applicant/applicant.service';
 import { ModalController } from '@ionic/angular';
 import { CvComponent } from '../../app/custom-components/cv/cv.component';
@@ -12,9 +12,11 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './applicants.page.html',
   styleUrls: ['./applicants.page.scss'],
 })
-export class ApplicantsPage implements OnInit {
+export class ApplicantsPage implements OnInit, AfterViewInit {
+  applicantID!: any;
   EditForm!: FormGroup;
   AddApplicantForm!: FormGroup;
+  AddExperienceForm!: FormGroup;
 
   ApplicantList: any[] = []; // Array to hold the list of applicants
   ApplicantBestFitList: any[] = [];
@@ -29,6 +31,7 @@ export class ApplicantsPage implements OnInit {
   GenderList: any[] = [];
   CountryList: any[] = [];
   CurrencyList: any[] = [];
+  IndustryList: any[] = [];
 
 
 
@@ -63,6 +66,9 @@ export class ApplicantsPage implements OnInit {
   ) {
 
   }
+  ngAfterViewInit(): void {
+    this.initializeAddExperienceForm();
+  }
 
   async SubmitEdit(val: any) {
     if (this.EditForm.valid) {
@@ -77,7 +83,7 @@ export class ApplicantsPage implements OnInit {
     }
   }
 
- async SubmitAddApplicant(val: any) {
+  async SubmitAddApplicant(val: any) {
     if (this.AddApplicantForm.valid) {
       console.log('#### add Successful###', val);
       this.applicantService.setApplicant(val);
@@ -91,13 +97,29 @@ export class ApplicantsPage implements OnInit {
     }
   }
 
+  async SubmitAddExperienceForm(val: any) {
+    console.log("id is ", this.ApplicantProfile.ApplicantID);
+    this.AddExperienceForm.get('ApplicantID')?.setValue(this.ApplicantProfile.ApplicantID);
+    
+    if (this.AddExperienceForm.valid) {
+      console.log('#### add experience Successful###', val);
+      this.applicantService.setApplicantExperience(val);
+    }
+    else {
+      console.log('#### edit NOT Successful ###', val);
+    }
+  }
+
+
+
+
   ngOnInit() {
     console.log("oninit");
     this.loadApplicantData();
     this.loadAppComobBoxes();
     this.initializeEditForm();
     this.initializeAddForm();
-
+    //this.initializeAddExperienceForm();
   }
 
 
@@ -175,6 +197,23 @@ export class ApplicantsPage implements OnInit {
   }
 
 
+  initializeAddExperienceForm() {
+    this.AddExperienceForm = this.formbuilder.group({
+      ApplicantExperienceID : [''],
+      ApplicantID : [''],
+      CompanyName : ['', [Validators.required]],
+      Position: ['', [Validators.required]],
+      Location : ['', [Validators.required]],
+      Industry : [435, [Validators.required]],
+      StartDate : ['2024/09/30', [Validators.required]],
+      EndDate : ['2024/09/30',],
+      IsCurrent : [false, [Validators.required]],
+      ReportingTo : ['', [Validators.required]],
+      MainRole : ['', [Validators.required]],
+      ReasonForLeaving : ['', [Validators.required]],
+    });
+  }
+
   async loadApplicantData() {
     try {
       const response = await this.applicantService.getApplicantData();
@@ -212,6 +251,7 @@ export class ApplicantsPage implements OnInit {
 
   async openModalCV(applicantID: any) {
     this.initializeEditForm();
+    this.applicantID = applicantID;
     try {
       // Call the service method to get the CV data
       const result = await this.applicantService.getApplicantCV(applicantID, 'A');
@@ -304,6 +344,7 @@ export class ApplicantsPage implements OnInit {
       this.GenderList = response.GenderList;
       this.CountryList = response.CountryList;
       this.CurrencyList = response.CurrencyList;
+      this.IndustryList = response.IndustryList;
 
       console.log("Comobox ", this.GenderList);
 

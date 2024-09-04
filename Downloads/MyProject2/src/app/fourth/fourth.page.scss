@@ -663,6 +663,8 @@ ion-checkbox::part(container) {
     /* padding-top: 20px; */
     /* padding-bottom: 20px; */
     color: #92a0b3;
+    // border: 1px solid red;
+    width: 100%;
 
     // border: 1px solid green;
     .day-name {
@@ -689,10 +691,9 @@ ion-checkbox::part(container) {
   button.active {
     background-color: #00abec;
     color: white;
-    border-radius: 10px;
-    border-radius: 5px;
-    width: 46.85px;
-    height: 66px;
+     border-radius: 5px;
+    // width: 46.85px;
+    // height: 66px;
     // border: 1px solid green;
 
     .day-name {
@@ -965,17 +966,18 @@ ion-checkbox::part(container) {
     padding: 10px;
     margin-bottom: 20px;
     display: flex;
-    // align-items: center;
+    align-items: center;
     margin: 0px;
     margin-bottom: 20px;
-    gap: 10px;
+
 
     .profile {
       display: flex;
       width: 100%;
       align-items: center;
-      justify-content: center;
+      // justify-content: center;
       flex-direction: row;
+      gap: 10px;
 
       p {
         color: var(--RA-Gray-Gray, #92A0B3);
@@ -990,9 +992,55 @@ ion-checkbox::part(container) {
 
 }
 
-
 // rating model end
 
+// start select candidate
+.select-content-top-interview {
+
+  .interviewee-profile {
+    // border: 1px solid red;
+    border-radius: 10px;
+    background: var(--RA-Gray-Gray-5, #F6F8F9);
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    margin-bottom: 20px;
+    flex-direction: row;
+
+
+    .profile {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      // justify-content: center;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .rating {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+      gap: 5px;
+    }
+  }
+  p {
+    color: var(--RA-Gray-Gray, #92A0B3);
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    max-width: 190px;
+  }
+
+}
+
+// end select candidate
 
 // start interview 
 

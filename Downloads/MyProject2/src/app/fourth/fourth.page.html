@@ -22,9 +22,6 @@
       <div class="image">
         <!-- <img src="/assets/youcandoit6.png" alt="" /> -->
       </div>
-      <ra-star-rating class="rating flex-grow-1 my-auto" defaultIcon="fas fa-star" activeColor="#FFD700"
-        defaultColor="#CCC" [readonly]="true" maxRating='5' [rating]="4" fontSize="18px">
-      </ra-star-rating>
       <div class="job-container">
         <div class="job-title">
           <p>Operations Officer</p>
@@ -54,9 +51,6 @@
           </div>
         </div>
       </div>
-      <ra-star-rating class="rating flex-grow-1 my-auto" defaultIcon="fas fa-star" activeColor="#FFD700"
-        defaultColor="#CCC" [readonly]="true" maxRating='5' [rating]="4" fontSize="18px">
-      </ra-star-rating>
 
       <div class="card-container" cdkDropListGroup cdkScrollable>
         <app-status-box class="drop-area" id="applied" status="Applied" [employeesList]="Applied"
@@ -430,7 +424,7 @@
         <div class="calendar-button">
           <!-- Calendar icon -->
           <ion-button id="open-calendar" fill="clear">
-            <i class="icon-Calendar" style="font-size: 20px;"></i>
+            <i class="icon-Calendar" style="font-size: 20px; color:#92A0B3"></i>
           </ion-button>
           <ion-modal #calendarModal trigger="open-calendar" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
             <ng-template>
@@ -546,17 +540,21 @@
       <div class="header">
         <!-- <i class="icon-Close-Cancel-X-remove"></i> -->
         <div class="title"> Select interviewee</div>
-        <div class="button-container">
-          <button>New Interviewee</button>
-        </div>
+        <!-- <div class="button-container">
+          <button> New Interviewee </button>
+        </div> -->
       </div>
       <!-- applicant.page.html -->
-      <div class="content-top-interview">
+      <div class="select-content-top-interview">
         <div class="interviewee-profile" *ngFor="let candidate of UniqueApplicantFromRaing"
           (click)="selectCandidate(candidate)">
           <div class="profile">
             <img src="/assets/avatar.png" style="width: 30px; border-radius: 50%;" alt="Profile">
             <p>{{candidate.ApplicantName}}</p>
+          </div>
+          <div class="rating">
+            <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
+            <p>3.4</p>
           </div>
         </div>
       </div>

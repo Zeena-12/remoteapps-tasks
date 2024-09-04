@@ -227,6 +227,7 @@ ion-segment-button.md::part(indicator-background) {
     margin-bottom: 3px;
     padding-bottom: 5px;
     gap: 9px;
+  
   }
 
   .employee-info {
@@ -417,6 +418,16 @@ ion-fab {
   overflow-y: scroll;
   height: 100vh;
 
+  .divider {
+    border-top: 1px solid #eaf0eb; // Adjust color as needed
+    margin: 26px 0; // Space above and below the line
+    width: 100%; // Full width
+  }
+
+  .prof-summary-section{
+    // border: 1px solid red;
+  }
+
   // start personal-profile
   .personal-profile {
     display: flex;
@@ -573,11 +584,7 @@ ion-fab {
       color: #92a0b3; // Adjust color as needed
     }
 
-    .divider {
-      border-top: 1px solid #eaebf0; // Adjust color as needed
-      margin: 20px 0; // Space above and below the line
-      width: 100%; // Full width
-    }
+
 
     .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
       margin: 0 4px;
@@ -611,6 +618,7 @@ ion-fab {
       font-weight: 700;
       line-height: normal;
       margin: 0px;
+      margin-bottom: 10px;
     }
 
     .timeline-content {
@@ -638,6 +646,7 @@ ion-fab {
       align-items: flex-start;
       //  border-left: 1px solid green;
       // margin-left: -5px;
+      
     }
 
     /* Style for the dot on the timeline */
@@ -681,7 +690,7 @@ ion-fab {
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      margin: 5px 0px 0px 0px;
+      margin: 5px 0px 20px 0px;
     }
     .add-button {
       width: 100%;
@@ -907,6 +916,7 @@ ion-fab {
       justify-content: center;
       flex-direction: column;
       gap: 26px;
+      border: 1px solid red;
     }
 
     .input-container {
@@ -947,7 +957,8 @@ ion-fab {
     background-color: white;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+    border: 1px solid #00abec;
+    margin-bottom: 40px;
 
     .bordered-image {
       border: 1px solid #00abec;

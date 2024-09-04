@@ -336,7 +336,7 @@
           </div>
 
           <div class="professional-summary">
-            <div class="prof-summary-section experience">
+            <div class="prof-summary-section experience" >
               <p class="title">Experience</p>
               <div *ngIf="ExperienceList.length > 0; else noRecords">
                 <div class="timeline">
@@ -366,61 +366,39 @@
               </button>
             </div>
             <div class="divider"></div>
-            <div class="prof-summary-section education">
-              <p class="title">Education</p>
+            <div class="prof-summary-section education" >
+              <p class="title">Experience</p>
               <div *ngIf="QualificationList.length > 0; else noRecords">
-                <ol class="timeline">
-                  <li class="timeline-item" *ngFor="let qualification of QualificationList">
+                <div class="timeline">
+                  <div class="timeline-item" *ngFor="let qualification of QualificationList">
                     <div class="timeline-dot"></div>
-                    <h3 class="timeline-title">
-                      {{qualification.DegreeName}} in {{qualification.Title}}
-                    </h3>
-                    <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
-                      Cleared in {{ qualification.EndDate }}
-                    </time>
-                    <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
-                      Ongoing {{ qualification.EndDate }}
-                    </time>
-                  </li>
-                </ol>
-              </div>
-              <button class="add-button">
-                <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
-                Add Education
-              </button>
-              <ng-template #noRecords>
-                <div class="noRecords">
-                  <i class="icon-document-search" style="font-size: 45px; color: #92a0b3;"></i>
-                  <span>No Records</span>
+                    <div class="timeline-content">
+                      <p class="timeline-title">
+                        {{qualification.Title}} in {{qualification.Title}}
+                      </p>
+                      <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
+                        Cleared in {{ qualification.EndDate }}
+                      </time>
+                      <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
+                        Ongoing {{ qualification.EndDate }}
+                      </time>  
+                      <!-- <p class="timeline-description">
+                        {{experience.CompanyName}}, {{experience.Location}}
+                      </p> -->
+                    </div>
+                  </div>
                 </div>
-              </ng-template>
-            </div>
-            <div class="divider"></div>
-            <div class="prof-summary-section education">
-              <p class="title">Licenses & Certifications</p>
-              <div *ngIf="CertificateList.length > 0; else noRecords">
-                <ol class="timeline">
-                  <li class="timeline-item" *ngFor="let certificate of CertificateList">
-                    <div class="timeline-dot"></div>
-                    <h3 class="timeline-title">{{certificate.Title}}</h3>
-                    <time class="timeline-date" *ngIf="certificate.StatusName === 'Cleared '">
-                      Cleared in {{ certificate.EndDate }}
-                    </time>
-                    <time class="timeline-date" *ngIf="certificate.StatusName === 'Ongoing'">
-                      Ongoing {{ certificate.EndDate }}
-                    </time>
-                  </li>
-                </ol>
+
               </div>
               <ng-template #noRecords>
                 <div class="noRecords">
-                  <i class="icon-document-search" style="font-size: 45px; color: #92a0b3;"></i>
-                  <span>No Records</span>
+                  <i class="icon-document-search" style="font-size: 35px; color: #92a0b3;"></i>
+                  <span style="font-size: 15px;">No Records</span>
                 </div>
               </ng-template>
-              <button class="add-button">
+              <button class="add-button" (click)="openModalAddExperience(ApplicantProfile.ApplicantID)">
                 <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
-                Add Education
+                Add Experience
               </button>
             </div>
             <!-- Licenses section -->
@@ -899,13 +877,11 @@
     <ng-template>
       <div class="model-container">
         <div class="add-experience-container">
+          <form [formGroup]="AddExperienceForm" (ngSubmit)="SubmitAddExperienceForm(AddExperienceForm.value)">
           <div class="add-experience">
             <div>
               <div class="top-container">
                 <p>New Experiance</p>
-                <!-- <div class="edit-button" (ngSubmit)="SubmitEdit(EditForm.value)"> 
-                      <p class="">Edit</p>
-                    </div> -->
                 <button type="submit" class="add-experience-button">
                   Add
                 </button>
@@ -936,9 +912,21 @@
                           <div class="input-title gray-title custom-form-label">
                             Industry
                           </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="Industry" type="text" placeholder=" "></ion-input>
-                          </div>
+                          <ion-list mode="ios">
+                            <div class="select-input-gray">
+                              <div class="test">
+                                <div style="color: #92a0b3;">{{ AddExperienceForm.get('Industry')?.value }}</div>
+                                <div>
+                                  <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
+                                    formControlName="Industry">
+                                    <ion-select-option form *ngFor="let industry of IndustryList" [value]="industry.Text">
+                                      <ng-container>{{industry.Text}}</ng-container>
+                                    </ion-select-option>
+                                  </ion-select>
+                                </div>
+                              </div>
+                            </div>
+                          </ion-list>
                         </div>
                       </div>
                     </div>
@@ -968,7 +956,7 @@
                             Position Title
                           </div>
                           <div class="text-input-gray">
-                            <ion-input formControlName="Industry" type="text" placeholder=" "></ion-input>
+                            <ion-input formControlName="Position" type="text" placeholder=" "></ion-input>
                           </div>
                         </div>
                       </div>
@@ -979,7 +967,7 @@
                           <div class="input-title gray-title custom-form-label">
                             Is Current?
                           </div>
-                          <div><ion-checkbox></ion-checkbox></div>
+                          <div><ion-checkbox formControlName="IsCurrent"></ion-checkbox></div>
                         </div>
                       </div>
                     </div>
@@ -992,17 +980,17 @@
                             Start Date
                           </div>
                           <div class="text-input-gray">
-                            <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                            <ion-input formControlName="StartDate" type="text" placeholder=" "></ion-input>
                           </div>
                         </div>
                       </div>
-                      <div class="inputsWrapper custom-inputsWrapper">
+                      <div class="inputsWrapper custom-inputsWrapper" *ngIf="!AddExperienceForm.get('IsCurrent').value">
                         <div class="inputBox my-input">
                           <div class="input-title gray-title custom-form-label">
                             End Date
                           </div>
                           <div class="text-input-gray">
-                            <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                            <ion-input formControlName="EndDate" type="text" placeholder=" "></ion-input>
                           </div>
                         </div>
                       </div>
@@ -1016,7 +1004,7 @@
                             Reporting
                           </div>
                           <div class="text-input-gray">
-                            <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                            <ion-input formControlName="ReportingTo" type="text" placeholder=" "></ion-input>
                           </div>
                         </div>
                       </div>
@@ -1030,7 +1018,22 @@
                             Main Role
                           </div>
                           <div class="text-input-gray">
-                            <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                            <ion-input formControlName="MainRole" type="text" placeholder=" "></ion-input>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="employee-info">
+                    <div class="box input-container">
+                      <div class="inputsWrapper custom-inputsWrapper">
+                        <div class="inputBox my-input">
+                          <div class="input-title gray-title custom-form-label">
+                            Reason For Leaving
+                          </div>
+                          <div class="text-input-gray">
+                            <ion-input formControlName="ReasonForLeaving" type="text" placeholder=" "></ion-input>
                           </div>
                         </div>
                       </div>
@@ -1040,6 +1043,7 @@
               </div>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </ng-template>

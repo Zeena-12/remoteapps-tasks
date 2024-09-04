@@ -51,8 +51,8 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.select-text{
-  color: red !important; 
+.select-text {
+  color: red !important;
   --background: red !important;
 }
 
@@ -104,11 +104,12 @@
   --background: pink;
   justify-content: end;
 }
+
 // .ion-valid.sc-ion-input-md-h{
 //   --highlight-color: transparent;
 // }
 
-.cv-modal{
+.cv-modal {
   width: 100%;
   --height: 700px;
   display: flex;
@@ -169,12 +170,14 @@ input[placeholder="Search..."] {
     .input-title.gray-title {
       color: #98a2b3;
     }
+
     .required-input {
       color: #92a0b3;
       font-weight: bold;
       display: inline-table;
       margin-left: 3px;
     }
+
     .text-input {
       text-align: start;
       width: 100%;
@@ -188,14 +191,18 @@ input[placeholder="Search..."] {
         height: 100% !important;
         width: 100% !important;
         --padding-start: 5px;
-        --border-color:  transparent;
-        --highlight-color:red;
-        --highlight-color-valid:red;
+        --border-color: transparent;
+        --highlight-color: red;
+        // --highlight-color-valid: rgb(255, 75, 186) !important;
+        // --highlight-color-focused: rgb(53, 108, 219) !important;
+        // --highlight-color-invalid: rgb(46, 217, 255) !important;
+        // --highlight-color: rgb(255, 195, 43) !important;
       }
     }
-    ion-valid.sc-ion-input-md-h {
-      --highlight-color: transparent;
-  }
+    // ion-valid.sc-ion-input-md-h {
+    //   --highlight-color: rgb(132, 75, 253) !important;
+    // }
+
 
     .text-input-gray {
       width: 100%;
@@ -225,7 +232,7 @@ input[placeholder="Search..."] {
       }
     }
 
-    .text-input-gray > ra-icon {
+    .text-input-gray>ra-icon {
       margin-top: auto;
       margin-bottom: auto;
       margin-inline-start: 5px;
@@ -254,7 +261,7 @@ input[placeholder="Search..."] {
     }
 
 
-    .select-wrapper{
+    .select-wrapper {
       --background: red !important;
     }
 
@@ -277,7 +284,7 @@ input[placeholder="Search..."] {
         margin-inline-start: 45px;
       }
 
-      ion-select{
+      ion-select {
         text-indent: 100%;
         white-space: nowrap;
         overflow: hidden;
@@ -312,19 +319,19 @@ input[placeholder="Search..."] {
     }
 
     .select-input-gray {
-    border-radius: 10px;
-    text-align: center;
-    // background: #F9FAFB;
-    --placeholder-color: #92a0b3;
-    --placeholder-opacity: 1;
-    color: #ecf0f3; //make the text color same as the backgroubnd
-    padding-inline-start: 8px;
-    padding-inline-end: 8px;
-    // border: 1px solid green;
-    background: #ecf0f3;
+      border-radius: 10px;
+      text-align: center;
+      // background: #F9FAFB;
+      --placeholder-color: #92a0b3;
+      --placeholder-opacity: 1;
+      color: #ecf0f3; //make the text color same as the backgroubnd
+      padding-inline-start: 8px;
+      padding-inline-end: 8px;
+      // border: 1px solid green;
+      background: #ecf0f3;
     }
 
-    .test{
+    .test {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -464,6 +471,7 @@ input[placeholder="Search..."] {
         z-index: 999;
         color: transparent;
       }
+
       ion-datetime {
         height: 100%;
         width: 100%;
