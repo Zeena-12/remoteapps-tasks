@@ -40,7 +40,9 @@
         <div class="employee-info-container">
           <div class="employee-info">
             <div class="box img">
-              <img src="/assets/avatar3.png" alt="Person's Photo" />
+              <!-- <img [src]="ServerImage+'/HCM/Applicants/'+applicant.ImageName+'.png'" alt="Person's Photo" /> not working -->
+              <img src="https://web.remoteapps.com/image/HCM/Applicants/9f239fb8-61d3-11ef-afc8-06bed16998de.png"
+                alt="">
             </div>
             <div class="box name-role">
               <p class="name text-ellipsis">
@@ -91,7 +93,8 @@
           <div class="employee-info">
             <div class="box img">
               <!-- zeena:check:  i think image has a special way -->
-              <img src="/assets/avatar3.png" alt="Person's Photo" />
+              <img src="https://web.remoteapps.com/image/9f82175e-6a03-11ef-afc8-06bed16998de.png"
+                alt="Person's Photo" />
             </div>
             <div class="box name-role">
               <p class="name text-ellipsis">
@@ -336,7 +339,7 @@
           </div>
 
           <div class="professional-summary">
-            <div class="prof-summary-section experience" >
+            <div class="prof-summary-section experience">
               <p class="title">Experience</p>
               <div *ngIf="ExperienceList.length > 0; else noRecords">
                 <div class="timeline">
@@ -366,25 +369,23 @@
               </button>
             </div>
             <div class="divider"></div>
-            <div class="prof-summary-section education" >
-              <p class="title">Experience</p>
+            <div class="prof-summary-section education">
+              <p class="title">Education</p>
               <div *ngIf="QualificationList.length > 0; else noRecords">
                 <div class="timeline">
                   <div class="timeline-item" *ngFor="let qualification of QualificationList">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                       <p class="timeline-title">
-                        {{qualification.Title}} in {{qualification.Title}}
+                        {{qualification.Degree}} in {{qualification.Title}}
                       </p>
-                      <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared '">
-                        Cleared in {{ qualification.EndDate }}
+                      <time class="timeline-date" *ngIf="qualification.StatusName === 'Cleared'">
+                        Cleared in {{ qualification.GraduateDate | dateFormat}}
                       </time>
                       <time class="timeline-date" *ngIf="qualification.StatusName === 'Ongoing'">
-                        Ongoing {{ qualification.EndDate }}
-                      </time>  
-                      <!-- <p class="timeline-description">
-                        {{experience.CompanyName}}, {{experience.Location}}
-                      </p> -->
+                        Ongoing {{ qualification.GraduateDate | dateFormat}}
+                      </time>
+                      <p class="timeline-description"></p>
                     </div>
                   </div>
                 </div>
@@ -396,14 +397,45 @@
                   <span style="font-size: 15px;">No Records</span>
                 </div>
               </ng-template>
-              <button class="add-button" (click)="openModalAddExperience(ApplicantProfile.ApplicantID)">
+              <button class="add-button" (click)="openModalAddEducation(ApplicantProfile.ApplicantID)">
                 <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
-                Add Experience
+                Add Education
               </button>
             </div>
+            <div class="divider"></div>
             <!-- Licenses section -->
-            <div class="prof-summaryprof-summary licenses">
-              <!-- Content for licenses -->
+            <div class="prof-summary-section education">
+              <p class="title">Licenses & Certifications</p>
+              <div *ngIf="CertificateList.length > 0; else noRecords">
+                <div class="timeline">
+                  <div class="timeline-item" *ngFor="let certificate of CertificateList">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <p class="timeline-title">
+                        {{certificate.Name}}
+                      </p>
+                      <time class="timeline-date" *ngIf="certificate.ExpiryDate">
+                        Expires in {{ certificate.ExpiryDate | dateFormat}}
+                      </time>
+                      <time class="timeline-date" *ngIf="!certificate.ExpiryDate">
+                        Awarded in {{ certificate.AwardedDate | dateFormat }}
+                      </time>
+                      <p class="timeline-description"></p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <ng-template #noRecords>
+                <div class="noRecords">
+                  <i class="icon-document-search" style="font-size: 35px; color: #92a0b3;"></i>
+                  <span style="font-size: 15px;">No Records</span>
+                </div>
+              </ng-template>
+              <button class="add-button" (click)="openModalAddCertificate(ApplicantProfile.ApplicantID)">
+                <i class="icon-plus-sign-stroke" style="color: #92a0b3"></i>
+                Add Licenses or Certifications
+              </button>
             </div>
           </div>
         </div>
@@ -878,162 +910,164 @@
       <div class="model-container">
         <div class="add-experience-container">
           <form [formGroup]="AddExperienceForm" (ngSubmit)="SubmitAddExperienceForm(AddExperienceForm.value)">
-          <div class="add-experience">
-            <div>
-              <div class="top-container">
-                <p>New Experiance</p>
-                <button type="submit" class="add-experience-button">
-                  Add
-                </button>
-              </div>
-              <div class="employee-info-container">
-                <div class="title">
-                  <p><span>company overview</span></p>
+            <div class="add-experience">
+              <div>
+                <div class="top-container">
+                  <p>New Experiance</p>
+                  <button type="submit" class="add-experience-button">
+                    Add
+                  </button>
                 </div>
-                <div class="employee-info-items">
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Company Name
-                          </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                <div class="employee-info-container">
+                  <div class="title">
+                    <p><span>company overview</span></p>
+                  </div>
+                  <div class="employee-info-items">
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Company Name
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="CompanyName" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Industry
-                          </div>
-                          <ion-list mode="ios">
-                            <div class="select-input-gray">
-                              <div class="test">
-                                <div style="color: #92a0b3;">{{ AddExperienceForm.get('Industry')?.value }}</div>
-                                <div>
-                                  <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
-                                    formControlName="Industry">
-                                    <ion-select-option form *ngFor="let industry of IndustryList" [value]="industry.Text">
-                                      <ng-container>{{industry.Text}}</ng-container>
-                                    </ion-select-option>
-                                  </ion-select>
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Industry
+                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">{{ selectedIndustryText }}</div>
+                                  <div>
+                                    <ion-select id="Industry" (ionChange)="onIndustryChange($event)"
+                                      toggleIcon="caret-down-sharp" class="text-start" justify="space-between">
+                                      <ion-select-option form *ngFor="let industry of IndustryList"
+                                        [value]="industry.Text">
+                                        <ng-container>{{industry.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
                                 </div>
                               </div>
+                            </ion-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Location
                             </div>
-                          </ion-list>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Location
-                          </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="Location" type="text" placeholder=" "></ion-input>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Location" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="title">
-                    <p><span>Position Details</span></p>
-                  </div>
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Position Title
+                    <div class="title">
+                      <p><span>Position Details</span></p>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Position Title
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Position" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="Position" type="text" placeholder=" "></ion-input>
+                        </div>
+                      </div>
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="isCurentCheck">
+                            <div class="input-title gray-title custom-form-label">
+                              Is Current?
+                            </div>
+                            <div><ion-checkbox formControlName="IsCurrent"></ion-checkbox></div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="isCurentCheck">
-                          <div class="input-title gray-title custom-form-label">
-                            Is Current?
-                          </div>
-                          <div><ion-checkbox formControlName="IsCurrent"></ion-checkbox></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="employee-info">
-                    <div class="box input-container date">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Start Date
-                          </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="StartDate" type="text" placeholder=" "></ion-input>
+                    <div class="employee-info">
+                      <div class="box input-container date">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Start Date
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="StartDate" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="inputsWrapper custom-inputsWrapper" *ngIf="!AddExperienceForm.get('IsCurrent').value">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            End Date
-                          </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="EndDate" type="text" placeholder=" "></ion-input>
+                        <div class="inputsWrapper custom-inputsWrapper"
+                          *ngIf="!AddExperienceForm.get('IsCurrent').value">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              End Date
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="EndDate" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Reporting
-                          </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="ReportingTo" type="text" placeholder=" "></ion-input>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Main Role
-                          </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="MainRole" type="text" placeholder=" "></ion-input>
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Reporting
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="ReportingTo" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="employee-info">
-                    <div class="box input-container">
-                      <div class="inputsWrapper custom-inputsWrapper">
-                        <div class="inputBox my-input">
-                          <div class="input-title gray-title custom-form-label">
-                            Reason For Leaving
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Main Role
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="MainRole" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
-                          <div class="text-input-gray">
-                            <ion-input formControlName="ReasonForLeaving" type="text" placeholder=" "></ion-input>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Reason For Leaving
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="ReasonForLeaving" type="text" placeholder=" "></ion-input>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1042,7 +1076,6 @@
                 </div>
               </div>
             </div>
-          </div>
           </form>
         </div>
       </div>
@@ -1172,7 +1205,8 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('MaritalStatusName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('MaritalStatusName')?.value }}
+                                  </div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
                                       formControlName="MaritalStatusName"
@@ -1224,7 +1258,8 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('NationalityName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('NationalityName')?.value }}
+                                  </div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
                                       formControlName="NationalityName"
@@ -1257,7 +1292,8 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('ResidenceCountryName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('ResidenceCountryName')?.value }}
+                                  </div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
                                       formControlName="ResidenceCountryName"
@@ -1328,7 +1364,8 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('CurrencyFullName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('CurrencyFullName')?.value }}
+                                  </div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
                                       formControlName="CurrencyFullName"
@@ -1492,7 +1529,8 @@
                             <ion-list mode="ios">
                               <div class="select-input-gray">
                                 <div class="test">
-                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('SpecializationName')?.value }}</div>
+                                  <div style="color: #92a0b3;">{{ AddApplicantForm.get('SpecializationName')?.value }}
+                                  </div>
                                   <div>
                                     <ion-select toggleIcon="caret-down-sharp" class="text-start" justify="space-between"
                                       formControlName="SpecializationName"
@@ -1528,4 +1566,183 @@
     <p>filter modal</p>
   </ion-modal>
   <!-- end filter modal -->
+
+  <!--Start Add education Modal -->
+  <ion-modal #AddEducationModal id="add-education-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <div class="model-container">
+        <div class="add-experience-container">
+          <form [formGroup]="AddEducationForm" (ngSubmit)="SubmitAddEducationForm(AddEducationForm.value)">
+            <div class="add-experience">
+              <div>
+                <div class="top-container">
+                  <p>New Education</p>
+                  <button type="submit" class="add-experience-button">
+                    Add
+                  </button>
+                </div>
+                <div class="employee-info-container">
+                  <div class="title">
+                    <p><span>?? Qualification overview ??</span></p>
+                  </div>
+                  <div class="employee-info-items">
+                    <!-- degree -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Degree
+                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">ddd</div>
+                                  <div>
+                                    <ion-select toggleIcon="caret-down-sharp"
+                                      class="text-start" justify="space-between">
+                                      <ion-select-option form *ngFor="let certificate of CertificateTypeList"
+                                        [value]="certificate.Text">
+                                        <ng-container>{{certificate.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- title -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Title
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Title" type="text" placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- location -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Location
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Location" type="text" placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Institution -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Institution
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Institution" type="text" placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Graduate date -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Graduate Date
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="GraduateDate" type="text" placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Grade Type-->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Grade
+                            </div>
+                            <ion-list mode="ios">
+                              <div class="select-input-gray">
+                                <div class="test">
+                                  <div style="color: #92a0b3;">ddd</div>
+                                  <div>
+                                    <ion-select (ionChange)="onIndustryChange($event)" toggleIcon="caret-down-sharp"
+                                      class="text-start" justify="space-between">
+                                      <ion-select-option form *ngFor="let grade of GradeTypeList"
+                                        [value]="grade.Text">
+                                        <ng-container>{{grade.Text}}</ng-container>
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </div>
+                                </div>
+                              </div>
+                            </ion-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Grade -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Grade
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Grade" type="text" placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Status -->
+                    <div class="employee-info">
+                      <div class="box input-container">
+                        <div class="inputsWrapper custom-inputsWrapper">
+                          <div class="inputBox my-input">
+                            <div class="input-title gray-title custom-form-label">
+                              Status
+                            </div>
+                            <div class="text-input-gray">
+                              <ion-input formControlName="Status" type="text" placeholder=" "></ion-input>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+  <!-- End Add education Model -->
+
+
+
 </ion-content>

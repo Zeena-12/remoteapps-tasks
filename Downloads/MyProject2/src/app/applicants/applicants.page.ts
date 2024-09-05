@@ -6,17 +6,21 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AppServiceService } from '../services/app-service/app-service.service';
 import * as moment from 'moment';
 import { AlertController } from '@ionic/angular';
+import { ServerImage } from '../../global';
+
 
 @Component({
   selector: 'app-applicants',
   templateUrl: './applicants.page.html',
   styleUrls: ['./applicants.page.scss'],
 })
-export class ApplicantsPage implements OnInit, AfterViewInit {
+export class ApplicantsPage implements OnInit {
+  ServerImage = ServerImage;
   applicantID!: any;
   EditForm!: FormGroup;
   AddApplicantForm!: FormGroup;
   AddExperienceForm!: FormGroup;
+  AddEducationForm!: FormGroup;
 
   ApplicantList: any[] = []; // Array to hold the list of applicants
   ApplicantBestFitList: any[] = [];
@@ -32,11 +36,12 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
   CountryList: any[] = [];
   CurrencyList: any[] = [];
   IndustryList: any[] = [];
+  CertificateTypeList: any[] = [];
+  GradeTypeList: any[] = [];
 
 
 
-  // Object to hold the selected value
-  // objfrom: { ComboBoxValueID: number; Text: string; } | undefined;
+
 
 
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
@@ -53,6 +58,7 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
 
   @ViewChild('EditApplicantModal') EditApplicantModal: any;
   @ViewChild('AddExperienceModal') AddExperienceModal: any;
+  @ViewChild('AddEducationModal') AddEducationModal: any;
   @ViewChild('AddApplicantModal') AddApplicantModal: any;
 
   selectedGender: number | null = null;
@@ -64,11 +70,9 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
     private appService: AppServiceService,
     private alertController: AlertController
   ) {
+  }
 
-  }
-  ngAfterViewInit(): void {
-    this.initializeAddExperienceForm();
-  }
+
 
   async SubmitEdit(val: any) {
     if (this.EditForm.valid) {
@@ -100,7 +104,7 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
   async SubmitAddExperienceForm(val: any) {
     console.log("id is ", this.ApplicantProfile.ApplicantID);
     this.AddExperienceForm.get('ApplicantID')?.setValue(this.ApplicantProfile.ApplicantID);
-    
+
     if (this.AddExperienceForm.valid) {
       console.log('#### add experience Successful###', val);
       this.applicantService.setApplicantExperience(val);
@@ -110,7 +114,33 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
     }
   }
 
+  async SubmitAddEducationForm(val: any) {
+    console.log("id is ", this.ApplicantProfile.ApplicantID);
+    this.AddEducationForm.get('ApplicantID')?.setValue(this.ApplicantProfile.ApplicantID);
 
+    if (this.AddEducationForm.valid) {
+      console.log('#### add education Successful###', val);
+      this.applicantService.setApplicantExperience(val);
+    }
+    else {
+      console.log('#### education NOT Successful ###', val);
+    }
+  }
+
+
+  selectedIndustryText: string = '';
+
+  onIndustryChange(event: any) {
+    console.log("what is i nthe event ", event);
+    // Get the selected Text from the event
+    const selectedText = event.detail.value;
+    this.selectedIndustryText = selectedText;
+    const selectedIndustry = this.IndustryList.find(industry => industry.Text === selectedText);
+    if (selectedIndustry) {
+
+      this.AddExperienceForm.get('Industry')?.setValue(selectedIndustry.Value);
+    }
+  }
 
 
   ngOnInit() {
@@ -119,7 +149,8 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
     this.loadAppComobBoxes();
     this.initializeEditForm();
     this.initializeAddForm();
-    //this.initializeAddExperienceForm();
+    this.initializeAddExperienceForm();
+    this.initializeAddEducationForm();
   }
 
 
@@ -138,29 +169,29 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
       ApplicantID: [''],
       FirstName: ['', [Validators.required]],
       LastName: ['', [Validators.required]],
-      Gender: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      Gender: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       GenderName: ['', [Validators.required]],
       DateOfBirth: ['2006/08/31', [Validators.required]],
-      MaritalStatus: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      MaritalStatus: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       MaritalStatusName: ['', [Validators.required]],
       NumberOfDependent: ['', [Validators.required]],
       NationalityName: ['', [Validators.required]],
-      Nationality: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
-      ResidenceCountry: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      Nationality: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      ResidenceCountry: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       ResidenceCountryName: ['', [Validators.required]],
       NationalIdentity: ['', [Validators.required]],
       Passport: ['', [Validators.required]],
       CurrencyFullName: [''],
       Currency: [''],
       CurrentSalary: ['', [Validators.pattern('^[0-9]*$')]],
-      TargetSalary:  ['', [Validators.pattern('^[0-9]*$')]],
+      TargetSalary: ['', [Validators.pattern('^[0-9]*$')]],
       LandLine: [''],
       Mobile: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
       IsPreviousEmployee: [''],
-      EmployeeID:['',  [ Validators.pattern('^[0-9]*$')]],
+      EmployeeID: ['', [Validators.pattern('^[0-9]*$')]],
       SpecializationName: [''],
-      SpecializationID:['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      SpecializationID: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
 
@@ -170,49 +201,68 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
       ApplicantID: [''],
       FirstName: ['', [Validators.required]],
       LastName: ['', [Validators.required]],
-      Gender: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      Gender: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       GenderName: ['', [Validators.required]],
       DateOfBirth: ['2006/08/31', [Validators.required]],
-      MaritalStatus: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      MaritalStatus: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       MaritalStatusName: ['', [Validators.required]],
       NumberOfDependent: ['', [Validators.required]],
       NationalityName: ['', [Validators.required]],
-      Nationality: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
-      ResidenceCountry: ['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      Nationality: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      ResidenceCountry: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       ResidenceCountryName: ['', [Validators.required]],
       NationalIdentity: ['', [Validators.required]],
       Passport: ['', [Validators.required]],
       CurrencyFullName: [''],
       Currency: [''],
       CurrentSalary: ['', [Validators.pattern('^[0-9]*$')]],
-      TargetSalary:  ['', [Validators.pattern('^[0-9]*$')]],
+      TargetSalary: ['', [Validators.pattern('^[0-9]*$')]],
       LandLine: [''],
       Mobile: ['', [Validators.required]],
       Email: ['', [Validators.required, Validators.email]],
       IsPreviousEmployee: [false, [Validators.required]],
-      EmployeeID:['', [ Validators.pattern('^[0-9]*$')]],
+      EmployeeID: ['', [Validators.pattern('^[0-9]*$')]],
       SpecializationName: [''],
-      SpecializationID:['',  [Validators.required, Validators.pattern('^[0-9]*$')]],
+      SpecializationID: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
 
 
   initializeAddExperienceForm() {
     this.AddExperienceForm = this.formbuilder.group({
-      ApplicantExperienceID : [''],
-      ApplicantID : [''],
-      CompanyName : ['', [Validators.required]],
+      ApplicantExperienceID: [''],
+      ApplicantID: [''],
+      CompanyName: ['', [Validators.required]],
       Position: ['', [Validators.required]],
-      Location : ['', [Validators.required]],
-      Industry : [435, [Validators.required]],
-      StartDate : ['2024/09/30', [Validators.required]],
-      EndDate : ['2024/09/30',],
-      IsCurrent : [false, [Validators.required]],
-      ReportingTo : ['', [Validators.required]],
-      MainRole : ['', [Validators.required]],
-      ReasonForLeaving : ['', [Validators.required]],
+      Location: ['', [Validators.required]],
+      Industry: ['', [Validators.required]],
+      StartDate: ['2024/09/30', [Validators.required]],
+      EndDate: ['2024/09/30',],
+      IsCurrent: [false, [Validators.required]],
+      ReportingTo: ['', [Validators.required]],
+      MainRole: ['', [Validators.required]],
+      ReasonForLeaving: ['', [Validators.required]],
     });
   }
+
+  initializeAddEducationForm() {
+    this.AddEducationForm = this.formbuilder.group({
+      Attachment: [''],
+      ApplicantQualificationID: [''],
+      ApplicantID: [''],
+      Title: ['', [Validators.required]],
+      Degree: ['', [Validators.required]],
+      Major: ['', [Validators.required]],
+      Institution: ['', [Validators.required]],
+      GradeType: ['', [Validators.required]],
+      Grade: ['',],
+      Status: [false, [Validators.required]],
+      GraduateDate: ['', [Validators.required]],
+      Location: ['', [Validators.required]],
+      Description: ['', [Validators.required]],
+    });
+  }
+
 
   async loadApplicantData() {
     try {
@@ -275,7 +325,7 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
           GenderName: this.ApplicantProfile.GenderName,
           MaritalStatus: this.ApplicantProfile.MaritalStatus,
           MaritalStatusName: this.ApplicantProfile.MaritalStatusName,
-          CurrentSalary: this.ApplicantProfile.CurrentSalary === -1 ? 0 : this.ApplicantProfile.CurrentSalary,      
+          CurrentSalary: this.ApplicantProfile.CurrentSalary === -1 ? 0 : this.ApplicantProfile.CurrentSalary,
           CurrencyFullName: this.ApplicantProfile.CurrencyFullName,
           Currency: this.ApplicantProfile.Currency,
           TargetSalary: this.ApplicantProfile.TargetSalary,
@@ -317,9 +367,21 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
     this.AddExperienceModal.present();
   }
 
+  openModalAddEducation(applicantID: any) {
+    console.log("callig modal AddEducationModal", applicantID);
+    this.AddEducationModal.present();
+  }
+  openModalAddCertificate(applicantID: any) {
+    console.log("callig modal AddEducationModal", applicantID);
+    this.AddEducationModal.present();
+  }
+
   OpenModalAddApplicant() {
     this.AddApplicantModal.present();
   }
+
+
+
   selectGender(value: number) {
     this.selectedGender = value;
     const genderControl = this.AddApplicantForm.get('Gender');
@@ -345,6 +407,10 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
       this.CountryList = response.CountryList;
       this.CurrencyList = response.CurrencyList;
       this.IndustryList = response.IndustryList;
+      this.CertificateList = response.CertificateList;
+      this.CertificateTypeList = response.CertificateTypeList;
+      this.GradeTypeList = response.GradeTypeList;
+
 
       console.log("Comobox ", this.GenderList);
 
@@ -358,28 +424,28 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
 
   // this list to get the id of the selected item from its list
   ChangeIDInloadAppComobBoxes(form: any, list: any[], displayAttr: any, idAttr: any, formControlName: any, formControlID: any) {
-    try{
+    try {
       console.log("calling meee", list, " ", displayAttr, " ", idAttr, " ", formControlName, " ", formControlID);
       const selectedValue = form.get(formControlName)?.value;
       const item = list.find(item => item[displayAttr] === selectedValue);
       const idValue = item ? item[idAttr] : null;
       console.log(selectedValue, " ", item, " ", idValue);
       form.get(formControlID)?.setValue(idValue);
-    } catch(error) {
+    } catch (error) {
       console.log("error in ChangeIDInloadAppComobBoxes ", error);
-    } 
+    }
   }
 
   private getValidationErrors(form: FormGroup): string[] {
     const controls = form.controls;
     const errorMessages: string[] = [];
-  
+
     for (const controlName in controls) {
       if (controls.hasOwnProperty(controlName)) {
         const control = controls[controlName];
         if (control.invalid) {
           const errors = control.errors;
-  
+
           // Collect error messages
           if (errors?.['required']) {
             errorMessages.push(`${controlName} is required.`);
@@ -400,7 +466,7 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
     }
     return errorMessages;
   }
-  
+
 
   private async presentAlert(message: string) {
     console.log("calling present ");
@@ -408,10 +474,12 @@ export class ApplicantsPage implements OnInit, AfterViewInit {
       header: 'Validation Errors',
       message: message,
       buttons: ['OK'],
-       mode: 'ios'
+      mode: 'ios'
     });
     await alert.present();
   }
+
+
 }
 
 export interface ApplicantProfile {

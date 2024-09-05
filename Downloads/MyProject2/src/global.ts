@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 //export let backend = "https://rude-towns-know.loca.lt/TMC";
 //  export let backend = 'https://a5115199f60b4c95bd5db53c3440b7f7.loophole.site/TMC';
  export let backend = 'https://api.remoteapps.com/';
- export let backendImgSrc = 'https://web.remoteapps.com/image/';
+ export const ServerImage = 'https://web.remoteapps.com/image';
 //  export let backend = 'http://localhost:3000/';
 // export let backend = 'https://2f9246074e066853379188f8c6dba61f.loophole.site/TMC';
 export const raKey = 'ra-8bfc6186-43aa-42dc-8f7b-898fc8674d56';
@@ -17,13 +17,9 @@ import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
 // export let backend = 'https://1684e7908f610694ee2f5150537154b3.loophole.site';
 // export const signalr = "https://signalr.remoteapps.com";
 
-export const ServerImage = 'https://web.remoteapps.com/image/Company/LoginLogo/';
-export const CardImage = 'https://web.remoteapps.com/image/Company/CompanyCard/';
-export const tameenImage =  'https://web.remoteapps.com/image/Company/TameenLogo/';
 
-export const SImage = 'https://web.remoteapps.com/image';
-export const noconnection =
-  'Please check your Internet Connection and try again later'; 
+
+export const noconnection ='Please check your Internet Connection and try again later'; 
 export const httpError = 'Something wrong happened, Please try again later';
 export const reconnect = 'Connection Lost, Please Try Again';
 export let backgroundColor = '';

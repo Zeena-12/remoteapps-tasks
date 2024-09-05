@@ -173,7 +173,6 @@ ion-segment-button.md::part(indicator-background) {
     // justify-content: center;
     margin-bottom: 4px;
     padding-bottom: 8px;
-    border: 1px solid red;
   }
 
   .job-details {
@@ -414,9 +413,9 @@ ion-fab {
 .cv-container {
   width: 100%;
   padding: 10px;
-  border: 1px solid orange;
   overflow-y: scroll;
   height: 100vh;
+  padding-bottom: 30px;
 
   .divider {
     border-top: 1px solid #eaf0eb; // Adjust color as needed
@@ -728,7 +727,6 @@ ion-fab {
 .edit-container {
   width: 100%;
   padding: 10px;
-  border: 1px solid orange;
   overflow-y: scroll;
   height: 100vh;
 
@@ -772,7 +770,6 @@ ion-fab {
    // border: 1px solid red;
 
     .bordered-image {
-      border: 1px solid #00abec;
     }
 
     .top-container {
@@ -916,7 +913,6 @@ ion-fab {
       justify-content: center;
       flex-direction: column;
       gap: 26px;
-      border: 1px solid red;
     }
 
     .input-container {
@@ -947,7 +943,6 @@ ion-fab {
 .add-experience-container {
   width: 100%;
   padding: 10px;
-  border: 1px solid orange;
   overflow-y: scroll;
   height: 100vh;
   // end edit-container
@@ -957,11 +952,10 @@ ion-fab {
     background-color: white;
     display: flex;
     flex-direction: column;
-    border: 1px solid #00abec;
     margin-bottom: 40px;
 
     .bordered-image {
-      border: 1px solid #00abec;
+
     }
 
     .top-container {
@@ -1136,7 +1130,6 @@ ion-fab {
     }
 
     .isCurentCheck {
-      border: 1px solid red;
     }
   }
 }
@@ -1170,7 +1163,6 @@ ion-select {
 }
 
 ion-select icon {
-  border: 1px solid green;
 }
 
 /* Optionally, you can also customize the color of the placeholder and selected value */
