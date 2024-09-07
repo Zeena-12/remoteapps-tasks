@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { GestureController } from '@ionic/angular';
 import { ProfileCardComponent } from '../custom-components/profile-card/profile-card.component';
-import { CandidateStatusService } from '../candidate-status.service';
 
 @Component({
   selector: 'app-third',
@@ -13,7 +12,6 @@ export class ThirdPage implements AfterViewInit {
   candidates: any[] = [];
 
   constructor(private gestureCtrl: GestureController,
-    private candidateService: CandidateStatusService,
 
   ) { }
 

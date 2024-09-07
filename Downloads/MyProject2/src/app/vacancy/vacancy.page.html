@@ -438,14 +438,14 @@
           </ion-modal>
         </div>
       </div>
-      <div class="content">
+      <div class="content" >
         <div class="week-days">
           <button *ngFor="let day of weekDays" (click)="selectDay(day.day)" [class.active]="selectedDay === day.day">
             <p class="day-name">{{ day.day }}</p>
             <p class="day-date">{{ day.date }}</p>
           </button>
         </div>
-        <div class="time-container" *ngIf="times[selectedDay] && times[selectedDay].length">
+        <div class="time-container" *ngIf="times[selectedDay] && times[selectedDay].length" >
           <div class="time-box" *ngFor="let time of times[selectedDay]">
             <div class="time">{{ time.time }}</div>
             <div class="people">

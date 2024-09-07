@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FourthPageRoutingModule } from './fourth-routing.module';
+import { VacancyPageRoutingModule } from './vacancy-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CustomComponentsModule } from '../custom-components.module';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
@@ -14,21 +14,21 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 
-import { FourthPage } from './fourth.page';
+import { VacancyPage } from './vacancy.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FourthPageRoutingModule, 
+    VacancyPageRoutingModule, 
     DragDropModule,
     CustomComponentsModule,
     CustomPipesModule,
     DirectivesModule
   ],
-  declarations: [FourthPage],
+  declarations: [VacancyPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
 })
-export class FourthPageModule {}
+export class VacancyPageModule {}

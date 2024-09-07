@@ -2,7 +2,6 @@ import { Component, ChangeDetectorRef, Input, Output, ViewChildren, QueryList, O
 import { CdkDragDrop, transferArrayItem, CdkDragPlaceholder, CdkDrag, CdkDropListGroup, CdkDropList, moveItemInArray, CdkDragStart, CdkDragPreview } from '@angular/cdk/drag-drop';
 import { ProfileCardComponent } from '../profile-card/profile-card.component';
 import { Gesture, GestureController } from '@ionic/angular';
-import { Candidate, CandidateStatusService } from 'src/app/candidate-status.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -41,6 +40,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   selectedOption: any;
   modalContent: string = "no content";
   @ViewChild('myModal') myModal: any;
+  @ViewChildren('placeholder') placeholders!: QueryList<any>;
 
 
   cvArray: any;
@@ -72,7 +72,6 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     private router: Router,
     private alertController: AlertController,
     private modalController: ModalController,
-    private candidateService: CandidateStatusService,
     private vacanciesService: VacanciesService,
     private applicantService: ApplicantService
 
@@ -118,6 +117,30 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+
+  // onDragStart(event: CdkDragStart<any>, index: number) {
+  //   const draggedElement = event.source.element.nativeElement;
+  //   console.log("#####calling onDragStart");
+
+  //   // Access the placeholder by index
+  //   // const placeholderElement = this.placeholders.toArray()[index]?.nativeElement;
+
+  //   if (draggedElement) {
+  //     console.log("#####calling onDragStart and item found", draggedElement);
+  //     const width = draggedElement.offsetWidth;
+  //     const height = draggedElement.offsetHeight;
+
+  //     // Apply the dimensions to the placeholder
+  //     draggedElement.style.width = `${width}px`;
+  //     draggedElement.style.height = `${height}px`;
+
+  //     // Add red border
+  //     draggedElement.style.border = '2px dashed red';
+  //   }
+  // }
+
+  
 
   async presentConfirmAlert(): Promise<boolean> {
     return new Promise(async (resolve) => {

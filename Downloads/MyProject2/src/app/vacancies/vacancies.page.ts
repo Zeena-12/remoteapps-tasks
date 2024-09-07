@@ -58,12 +58,12 @@ export class VacanciesPage implements OnInit {
       console.error('Error loading vacancies data:', error);
     }
   }
-
+// change it to load applications
   async getApplications(vacancyId: number) {
     try {
       this.vacanciesList = await this.applicantsServive.getApplications(vacancyId);
-      console.log(this.vacanciesList);
-      this.router.navigate(['/fourth']);
+      console.log("List of vacancy based in vacancy id " ,this.vacanciesList);
+      this.router.navigate(['/vacancy']);
     } catch (error) {
       this.errorMessage = 'Failed to load vacancies data.';
       console.error('Error loading vacancies data:', error);

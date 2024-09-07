@@ -13,9 +13,9 @@
       <div cdkDropList [cdkDropListData]="employeesList" class="example-list" (cdkDropListDropped)="drop($event,'')" 
         cdkDropListSortingDisabled >
         <div *ngFor="let item of employeesList; let i = index">
-          <div class="example-box" cdkDrag >
-        <!-- <div class="example-custom-preview" *cdkDragPreview matchSize="true"></div> -->
-            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+          <div class="example-box" cdkDrag>
+
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
               <app-profile-card appLongPress (click)="openActionSheet(item)" [id]="item.ApplicationID" [name]="item.FirstName" [avatar]="item.ImageName" [nationality]="item.Nationality" 
               [role]="item.CurrentPosition" [thumbsUp]="item.ThumbsUp" [thumbsDown]="item.ThumbsDown"
               [status]="item.Status"
@@ -23,7 +23,7 @@
             </app-profile-card>
           </div>
         </div>
+        </div>
     </div>
-  </div>
 
   

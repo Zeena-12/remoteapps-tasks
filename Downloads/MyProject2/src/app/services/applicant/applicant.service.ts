@@ -100,7 +100,7 @@ export class ApplicantService {
     }
   }
 
-  // working
+  // workingg
   async getApplications(vacancyId: number): Promise<any> {
     const data = {
       VacancyID: vacancyId,

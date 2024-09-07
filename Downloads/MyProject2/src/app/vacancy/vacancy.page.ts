@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
-import { CandidateStatusService } from '../candidate-status.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -12,11 +11,11 @@ import { VacanciesService } from '../services/vacancies/vacancies.service';
 
 
 @Component({
-  selector: 'app-fourth',
-  templateUrl: './fourth.page.html',
-  styleUrls: ['./fourth.page.scss']
+  selector: 'app-vacancy',
+  templateUrl: './vacancy.page.html',
+  styleUrls: ['./vacancy.page.scss']
 })
-export class FourthPage implements OnInit, AfterViewInit {
+export class VacancyPage implements OnInit, AfterViewInit {
   vacancyId: number = 0;
   interviewTypeID: number = 78;
   // candidates$ = this.candidateService.getCandidateList();
@@ -64,10 +63,10 @@ export class FourthPage implements OnInit, AfterViewInit {
   startYear: number | null = null;
   endYear: number | null = null;
   isRange: boolean = false;
- 
+
   markedDates: any[] = [];
 
-  constructor(private candidateService: CandidateStatusService,
+  constructor(
     private applicantsService: ApplicantService,
     private alertController: AlertController,
     private modalController: ModalController,
@@ -87,7 +86,7 @@ export class FourthPage implements OnInit, AfterViewInit {
     // this.generateTimes();
     this.selectedDay = this.weekDays[0]?.day; // Default to the first day
     this.loadApplicantData();
-    this.markedDates = ['07/01/2024','15/01/2024','24/01/2024','25/01/2024','20/01/2024','31/01/2024','07/01/2024' ,'01/04/2024'];
+    this.markedDates = ['07/01/2024', '15/01/2024', '24/01/2024', '25/01/2024', '20/01/2024', '31/01/2024', '07/01/2024', '01/04/2024'];
 
   }
 
@@ -114,6 +113,9 @@ export class FourthPage implements OnInit, AfterViewInit {
             this.Interviewed.push(applicant);
             break;
           case 'Offered':
+            this.Offered.push(applicant);
+            break;
+          case 'offered-rejected':
             this.Offered.push(applicant);
             break;
           case 'Finalized':
@@ -183,7 +185,7 @@ export class FourthPage implements OnInit, AfterViewInit {
   //   this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
   //     // this.loadCandidates();
   //   });
-  //   console.log("calling handleStatusChange in fourth");
+  //   console.log("calling handleStatusChange in vacancy");
   // }
   async handleStatusChange(event: { id: number, newStatus: string }) {
     try {
@@ -198,7 +200,7 @@ export class FourthPage implements OnInit, AfterViewInit {
   //   this.candidateService.updateCandidateDisqualified(event.id, event.newDisqualified).subscribe(() => {
   //     // this.loadCandidates();
   //   });
-  //   // console.log("calling handleDisqualifyChange in fourth");
+  //   // console.log("calling handleDisqualifyChange in vacancy");
   // }
 
   async presentAlert(message: any) {
