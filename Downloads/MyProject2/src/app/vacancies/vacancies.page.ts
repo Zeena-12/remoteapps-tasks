@@ -24,7 +24,7 @@ export class VacanciesPage implements OnInit {
   endYear: number | null = null;
   isRange: boolean = true;
  
-   markedDates;
+
   
   updateYears() {
     console.log("calling");
@@ -34,7 +34,7 @@ export class VacanciesPage implements OnInit {
     private applicantsServive: ApplicantService,
     private router: Router
   ) {
-    this.markedDates = ['2010-01-15', '2024-02-20'];
+
    }
 
   ngOnInit() {
@@ -42,8 +42,6 @@ export class VacanciesPage implements OnInit {
    console.log("is div moda one?",  isDevMode());
    
   }
-
-
 
 
   startDate: string = moment().startOf('year').format('YYYY-MM-DD');
@@ -58,6 +56,14 @@ export class VacanciesPage implements OnInit {
       console.error('Error loading vacancies data:', error);
     }
   }
+
+
+  goToVacancyDetail(vacancies: any): void {
+    console.log("what is vacancy????", vacancies);
+    this.vacanciesService.setVacancy(vacancies);
+    this.router.navigate(['/vacancy']);
+  }
+
 // change it to load applications
   async getApplications(vacancyId: number) {
     try {

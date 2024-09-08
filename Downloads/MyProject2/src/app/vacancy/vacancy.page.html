@@ -24,16 +24,17 @@
       </div>
       <div class="job-container">
         <div class="job-title">
-          <p>Operations Officer</p>
+          <p>{{vacancy.VacancyName}}</p>
         </div>
         <div class="vacancies-date">
           <div class="box">
             <i class="icon-business"></i>
-            <p>Vacancies</p>
+            <p>{{vacancy.NoOpenings}} Vacancies</p>
           </div>
           <div class="box">
             <i class="icon-calendar-6"></i>
-            <p>28th February 2021</p>
+            <p>
+              {{vacancy.ClosingDate}}</p>
           </div>
         </div>
         <div class="interviews-buttons">
@@ -433,6 +434,7 @@
                  [endDate]="'2025-12-1'"
                  [isRange]="isRange"
                  [markedDates]="markedDates"
+                 (selectButtonClicked)="onSelectButtonClicked()">
                  ></app-calendar>
             </ng-template>
           </ion-modal>
@@ -477,7 +479,6 @@
     </div>
   </ng-template>
 </ion-modal>
-
 <ion-modal #openTopInterview trigger="open-top-interview" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
   <ng-template>
     <div class="modal-content">

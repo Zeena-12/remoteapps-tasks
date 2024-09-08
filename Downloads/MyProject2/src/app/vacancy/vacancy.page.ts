@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonModal } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ActionSheetComponent } from '../custom-components/action-sheet/action-sheet.component';
 import { catchError, of } from 'rxjs';
@@ -8,6 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ApplicantService } from '../services/applicant/applicant.service';
 import * as moment from 'moment';
 import { VacanciesService } from '../services/vacancies/vacancies.service';
+import { from } from 'rxjs';
+import { map, toArray } from 'rxjs/operators';
+
 
 
 @Component({
@@ -16,6 +19,9 @@ import { VacanciesService } from '../services/vacancies/vacancies.service';
   styleUrls: ['./vacancy.page.scss']
 })
 export class VacancyPage implements OnInit, AfterViewInit {
+
+  vacancy: any;
+
   vacancyId: number = 0;
   interviewTypeID: number = 78;
   // candidates$ = this.candidateService.getCandidateList();
@@ -46,7 +52,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
   selectedDay: string = '';
 
   @ViewChild('datePicker') datePicker: any;
-  selectedDate!: string;
+  selectedDate: moment.Moment | null = null;
   isDatePickerVisible = false;
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
   ApplicantProfile: any[] = [];
@@ -66,8 +72,10 @@ export class VacancyPage implements OnInit, AfterViewInit {
 
   markedDates: any[] = [];
 
+  @ViewChild('calendarModal') calendarModal!: IonModal;
+
   constructor(
-    private applicantsService: ApplicantService,
+    private applicantsService: ApplicantService, 
     private alertController: AlertController,
     private modalController: ModalController,
     private route: ActivatedRoute,
@@ -76,18 +84,21 @@ export class VacancyPage implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    const vacancyIdParam = this.route.snapshot.paramMap.get('vacancyId');
-    this.vacancyId = vacancyIdParam ? Number(vacancyIdParam) : 0;
-    if (this.vacancyId) {
+    // const vacancyIdParam = this.route.snapshot.paramMap.get('vacancyId');
+    // this.vacancyId = vacancyIdParam ? Number(vacancyIdParam) : 0;
+    this.vacancy = this.vacanciesService.getVacancy();
+    if (this.vacancy.VacancyID) {
+      console.log("yasalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam", this.vacancy);
+      this.vacancyId = this.vacancy.VacancyID;
       this.loadVacancyApplicants();
     }
     console.log("vacancyIdParam id is ,", this.vacancyId);
     this.generateWeekDays();
     // this.generateTimes();
     this.selectedDay = this.weekDays[0]?.day; // Default to the first day
+    console.log("selected day is ", this.selectedDay);
     this.loadApplicantData();
-    this.markedDates = ['07/01/2024', '15/01/2024', '24/01/2024', '25/01/2024', '20/01/2024', '31/01/2024', '07/01/2024', '01/04/2024'];
-
+   // this.markedDates = ['07/01/2024', '15/01/2024', '24/01/2024', '25/01/2024', '20/01/2024', '31/01/2024', '07/01/2024', '01/04/2024'];
   }
 
 
@@ -98,7 +109,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
     try {
       const result = await this.applicantsService.getApplications(this.vacancyId)
       this.ApplicantList = result.list;
-      // console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
+      console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
 
       // Filter the applicants based on their status
       this.ApplicantList.forEach(applicant => {
@@ -116,6 +127,9 @@ export class VacancyPage implements OnInit, AfterViewInit {
             this.Offered.push(applicant);
             break;
           case 'offered-rejected':
+            this.Offered.push(applicant);
+            break;
+          case 'Offer-Sent':
             this.Offered.push(applicant);
             break;
           case 'Finalized':
@@ -137,24 +151,47 @@ export class VacancyPage implements OnInit, AfterViewInit {
     }
   }
 
+
   // async loadAllVacancyInterviews() {
   //   try {
+  //     // Fetch the list of vacancy interviews
   //     const result = await this.vacanciesService.getAllVacancyInterviews(this.vacancyId);
+
+  //     // Assign the result to your class property
   //     this.ApplicantsIntreviewList = result.list;
   //     console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantsIntreviewList);
+
+  //     // Perform additional actions, such as generating times
+  //     await this.generateTimes(); // Assuming generateTimes is also an async function
   //   } catch (error) {
+  //     // Log errors to the console
   //     console.error('Error fetching loadVacancyData:', error);
   //   }
   // }
+
   async loadAllVacancyInterviews() {
     try {
       // Fetch the list of vacancy interviews
       const result = await this.vacanciesService.getAllVacancyInterviews(this.vacancyId);
-
+  
       // Assign the result to your class property
       this.ApplicantsIntreviewList = result.list;
-      console.log('Result from getApplications from loadAllVacancyInterviews from id:', this.ApplicantsIntreviewList);
-
+      console.log('Result from getAllVacancyInterviews from loadAllVacancyInterviews from id:', this.ApplicantsIntreviewList);
+  
+      // Process the list and format InterviewDate using moment
+      from(this.ApplicantsIntreviewList as any[]).pipe(
+        map((item: any) => moment(item.InterviewDate, 'DD/MM/YYYY HH:mm:ss A').format('DD/MM/YYYY')), // Extract and format the date
+        toArray() // Collect all formatted dates into an array
+      ).subscribe({
+        next: (dates) => {
+          this.markedDates = dates; // Store the collected dates into markedDates
+          console.log('Marked Dates:', this.markedDates); // Log the result or use it as needed
+        },
+        error: (err) => {
+          console.error('Error processing InterviewDate:', err);
+        }
+      });
+  
       // Perform additional actions, such as generating times
       await this.generateTimes(); // Assuming generateTimes is also an async function
     } catch (error) {
@@ -180,13 +217,6 @@ export class VacancyPage implements OnInit, AfterViewInit {
 
 
 
-
-  // handleStatusChange(event: { id: number, newStatus: string }) {
-  //   this.candidateService.updateCandidateStatus(event.id, event.newStatus).subscribe(() => {
-  //     // this.loadCandidates();
-  //   });
-  //   console.log("calling handleStatusChange in vacancy");
-  // }
   async handleStatusChange(event: { id: number, newStatus: string }) {
     try {
       const result = await this.applicantsService.ChangeApplicationStatus(event.id, event.newStatus);
@@ -196,12 +226,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
     }
   }
 
-  // handleDisqualifyChange(event: { id: number, newDisqualified: boolean }) {
-  //   this.candidateService.updateCandidateDisqualified(event.id, event.newDisqualified).subscribe(() => {
-  //     // this.loadCandidates();
-  //   });
-  //   // console.log("calling handleDisqualifyChange in vacancy");
-  // }
+
 
   async presentAlert(message: any) {
     const alert = await this.alertController.create({
@@ -263,64 +288,36 @@ export class VacancyPage implements OnInit, AfterViewInit {
     console.log('change:', e);
   }
 
-  peopleList: any[] = [
-    {
-      name: 'Khalil Alrashed',
-      nationality: 'Bahraini',
-      interviewType: 'First Interview',
-      image: 'assets/avatar4.png',
-      numberOfLikes: 4,
-      numberOfDislike: 20,
-      applicationDate: '11/09/2024 07:00:00 AM'
-    },
-    {
-      name: 'Sara Alnasser',
-      nationality: 'Non-Bahraini',
-      interviewType: 'Second Interview',
-      image: 'assets/avatar4.png',
-      numberOfLikes: 5,
-      numberOfDislike: 15,
-      applicationDate: '12/08/2024 08:00:00 AM'
-    },
-    {
-      name: 'Ali Alsaeed',
-      nationality: 'Bahraini',
-      interviewType: 'First Interview',
-      image: 'assets/avatar4.png',
-      numberOfLikes: 10,
-      numberOfDislike: 8,
-      applicationDate: '11/08/2024 09:00:00 AM'
-    },
-    {
-      name: 'Mona Alhamad',
-      nationality: 'Non-Bahraini',
-      interviewType: 'Second Interview',
-      image: 'assets/avatar4.png',
-      numberOfLikes: 7,
-      numberOfDislike: 12,
-      applicationDate: '15/08/2024 09:00:00 AM'
-    }
-  ];
-
-  candidates = [
-    { name: 'Candidate 1' },
-    { name: 'Candidate 2' },
-    { name: 'Candidate 3' },
-    // Add your candidates here
-  ];
 
   selectedApplicant: any;
 
   // interview
   generateWeekDays() {
-    const startOfWeek = moment().startOf('week'); // Start of the current week
-    this.weekDays = Array.from({ length: 7 }, (_, i) => {
-      const day = startOfWeek.clone().add(i, 'days');
-      return {
-        day: day.format('ddd'), // Short day name (e.g., Sun)
-        date: day.format('D') // Date (e.g., Aug 1)
-      };
-    });
+    console.log("calling generateWeekDays ade selected is ", this.selectedDate);
+    if (this.selectedDate) {
+      console.log("calling generateWeekDays for new day selected ", this.selectedDate);
+      const startOfWeek = this.selectedDate.clone().startOf('week'); // Start of the week containing the selected day
+      console.log("start of week  in if", startOfWeek);
+      this.weekDays = Array.from({ length: 7 }, (_, i) => {
+        const day = startOfWeek.clone().add(i, 'days');
+        console.log("in generateWeekDays in if day is", this.weekDays);
+        return {
+          day: day.format('ddd'), // Short day name (e.g., Thu)
+          date: day.format('D') // Date (e.g., 29)
+        };
+      });
+    } else {
+      const startOfWeek = moment().startOf('week'); // Start of the current week
+      console.log("start of week in else ", startOfWeek);
+      this.weekDays = Array.from({ length: 7 }, (_, i) => {
+        const day = startOfWeek.clone().add(i, 'days');
+        console.log("in generateWeekDaysc in else day is", this.weekDays);
+        return {
+          day: day.format('ddd'), // Short day name (e.g., Sun)
+          date: day.format('D') // Date (e.g., Aug 1)
+        };
+      });
+    }
   }
 
   async generateTimes() {
@@ -444,12 +441,23 @@ export class VacancyPage implements OnInit, AfterViewInit {
   handleDateSelected(range: { start: moment.Moment | null, end: moment.Moment | null }) {
     if (range.start && range.end) {
       console.log('Selected Range:', range.start.format('YYYY-MM-DD'), 'to', range.end.format('YYYY-MM-DD'));
+      this.selectedDay = range.start.format('ddd-YYYY-MM-DD');
+      console.log("selected day is ",this.selectedDay);
     } else if (range.start) {
       console.log('Selected Start Date:', range.start.format('YYYY-MM-DD'));
+      this.selectedDay = range.start.format('ddd-YYYY-MM-DD');
+      console.log("selected day is ",this.selectedDay);
     } else if (range.end) {
       console.log('Selected End Date:', range.end.format('YYYY-MM-DD'));
     } else {
-      console.log('No date selected');
+      console.log('No date selected in handleDateSelected');
+    }
+  }
+
+  onSelectButtonClicked() {
+    this.generateWeekDays();
+    if (this.calendarModal) {
+      this.calendarModal.dismiss(); // Close the modal
     }
   }
 }

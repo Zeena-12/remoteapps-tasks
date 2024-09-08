@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -6,25 +6,23 @@ import * as moment from 'moment';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
   @Input() startDate: string | null = null;
   @Input() endDate: string | null = null;
   @Input() isRange: boolean = false; // Flag to determine if range selection is allowed
   @Input() markedDates: any[] = []; 
   @Output() dateSelected: EventEmitter<{ start?: moment.Moment, end?: moment.Moment }> = new EventEmitter();
+  
+  @Output() selectButtonClicked = new EventEmitter<{ date: string, day: string }>();
 
   selectedStartDate: moment.Moment | null = null;
   selectedEndDate: moment.Moment | null = null;
 
   months: { [key: string]: { monthName: string, days: (number | null)[], year: number } } = {};
+  todayDay!: number;
 
   ngOnInit() {
     this.generateCalendar();
-
-    // setTimeout(() => {
-    //   console.log("marked dates are: ", this.marked);
-    // }, 1000); // 1000 milliseconds = 1 second
-    
   }
   constructor() {
 
@@ -75,7 +73,22 @@ export class CalendarComponent implements OnInit {
     return Object.keys(this.months);
   }
 
+  selectedDate: moment.Moment | null = null;
+
+  onSelectButtonClick() {
+    if (this.selectedDate) {
+      console.log("onSelectButtonClick and selected date is ", this.selectedDate);
+      this.selectButtonClicked.emit({
+        date: this.selectedDate.format('YYYY-MM-DD'),
+        day: this.selectedDate.format('ddd') // Short day name
+      });
+    } else {
+      console.warn('No date selected');
+    }
+  }
+
   selectDate(day: number | null, monthKey: string) {
+
     if (day !== null) {
       const [year, month] = monthKey.split('-').map(Number);
       const date = moment({ year, month, day });
@@ -94,6 +107,15 @@ export class CalendarComponent implements OnInit {
           } else {
             this.selectedEndDate = date;
           }
+
+          // Emit only the start date for range selection
+        this.dateSelected.emit({
+          start: this.selectedStartDate || undefined
+        });
+        return; 
+
+
+          
         } else if (this.selectedStartDate && this.selectedEndDate) {
           // Both dates set, reset selection
           this.selectedStartDate = date;
@@ -112,8 +134,17 @@ export class CalendarComponent implements OnInit {
           start: this.selectedStartDate || undefined
         });
       }
+      this.dateSelected.emit({
+        start: this.selectedStartDate || undefined
+      });
+  
+      // Set selectedDate for immediate feedback
+      this.selectedDate = this.selectedStartDate; 
     }
+
   }
+
+  
 
   isDateInRange(day: number | null, monthKey: string): boolean {
     if (day === null || !this.selectedStartDate || !this.selectedEndDate) {
@@ -165,24 +196,6 @@ export class CalendarComponent implements OnInit {
 
 
 
-  // isDateMarked(day: number, monthKey: string): boolean {
-  //   const [year, month] = monthKey.split('-');
-
-  //   // Ensure day is two digits (e.g., '01' instead of '1')
-  //   const dayFormatted = day < 10 ? '0' + day : day;
-
-  //   // Format date to 'dd/mm/yyyy'
-  //   const formattedDate = `${dayFormatted}/${month}/${year}`;
-  //   // Check if formattedDate is in markedDates
-  //   const result = this.trymarkedDates.includes(formattedDate);
-  //   if(result==true){
-  //     console.log("true ", formattedDate);
-  //   }
-  //   return result;
-  // }
-
-  // trymarkedDates = ['07/01/2024','15/01/2024','24/01/2024','25/01/2024','20/01/2024','31/01/2024','07/01/2024' ,'01/04/2024'];
-
 
   isDateMarked(day: number, monthKey: string): boolean {
     const [year, month] = monthKey.split('-').map(Number);
@@ -202,23 +215,55 @@ export class CalendarComponent implements OnInit {
     return result;
   }
   
-
-
-
-
-
-
-
-  selectButtonClicked() {
-
+  ngAfterViewInit() {
+    setTimeout(() => this.scrollToCurrentMonth(), 0);
   }
+
+  // Function to generate month key
+  // getMonthKey(year: number, month: number): string {
+  //   return `${year}-${month < 9 ? '0' : ''}${month + 1}`; // Format like "2024-09"
+  // }
+
+  // getMonthKey(year: number, month: number): string {
+  //   const formattedMonth = month < 9 ? '0' : '' + (month + 1); // Month is zero-based
+  //   const key = `${year}-${formattedMonth}`;
+  //   console.log(`Generated month key: ${key}`); // Print the generated key
+  //   return key;
+  // }
+
+  getMonthKey(year: number, month: string): string {
+    // Format month as "01" to "12"
+    // console.log("month is ", month);
+    // console.log("yera is ", year);
+    const key = `${year}-${month}`
+    // console.log(`Generated month key: ${key}`); // Print the generated key
+    return key;
+  }
+  
+
+
+  // Function to scroll the current month into view
+  scrollToCurrentMonth() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = moment().format('MMMM'); // Full month name
+
+    // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% what is month",currentMonth);
+
+    const currentMonthKey = this.getMonthKey(currentYear, currentMonth);
+    const currentMonthElement = document.getElementById(currentMonthKey);
+
+    if (currentMonthElement) {
+      currentMonthElement.scrollIntoView({
+        block: 'center',
+        inline: 'center'
+      });
+    } else {
+      console.warn(`Month container with ID ${currentMonthKey} not found.`);
+    }
+  }
+
+
 }
 
 
-// let yOffset = document.getElementById(String(this.tabsTop[this.selectedIndex].Name));
-
-//       yOffset.scrollIntoView({
-//         behavior: 'smooth',
-//         block: 'center',
-//         inline: 'center',
-//       });

@@ -1,6 +1,6 @@
 <div class="calendar-container">
-  <div *ngFor="let monthKey of getMonthKeys()">
-    <div class="month">
+  <div class="month-container" *ngFor="let monthKey of getMonthKeys()">
+    <div class="month" [attr.id]="getMonthKey(months[monthKey].year, months[monthKey].monthName)">
       <div class="month-name">
         {{ months[monthKey]?.monthName }} {{ months[monthKey]?.year }}
       </div>
@@ -41,7 +41,7 @@
 </div>
 <!-- Full-width button at the bottom -->
 <div class="button-container">
-  <button class="full-width-button" (click)="selectButtonClicked()">
+  <button class="full-width-button" (click)="onSelectButtonClick()">
     Select
   </button>
 </div>

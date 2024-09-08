@@ -113,5 +113,15 @@ export class VacanciesService {
     }
   }
 
+  private vacancy: any;
+
+  setVacancy(vacancy: any): void {
+    this.vacancy = vacancy;
+  }
+
+  getVacancy(): any {
+    return this.vacancy;
+  }
+
   
 }

@@ -11,12 +11,15 @@
 }
 
 .month {
-  // border: 1px solid #7b4aff;
-  // margin: 10px;
-  // padding: 10px;
   width: 100%;
-  /* Ensure month divs take full width available */
   margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+
+.month-container:last-of-type .month {
+ margin-bottom: 110px;
+
 }
 
 .month-name {

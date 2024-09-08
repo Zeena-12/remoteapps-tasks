@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     // list of candidates
-    path: 'vacancy/:vacancyId',
+    path: 'vacancy',
     loadChildren: () => import('./vacancy/vacancy.module').then( m => m.VacancyPageModule)
   },
   {
