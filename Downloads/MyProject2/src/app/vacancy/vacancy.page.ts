@@ -363,8 +363,6 @@ export class VacancyPage implements OnInit, AfterViewInit {
       const dayIndex = this.weekDays.findIndex(d => d.day === day.day);
       const currentDate = startOfWeek.clone().add(dayIndex, 'days').format('DD/MM/YYYY');
 
-      console.log(`currentDate for day ${day.day}: ${currentDate}`); // Debugging line
-
       // Iterate over each half-hour in the day
       while (currentTime < endTime) {
         const currentHour = currentTime.format('h:mm A');
@@ -390,8 +388,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
     });
 
     console.log('Times updated:', this.times);
-}
-
+  }
 
 
 
