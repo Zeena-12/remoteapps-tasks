@@ -6,7 +6,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AppServiceService } from '../services/app-service/app-service.service';
 import * as moment from 'moment';
 import { AlertController } from '@ionic/angular';
-import { ServerImage } from '../../global';
+import { ServerImage } from '../../globals';
 
 
 @Component({

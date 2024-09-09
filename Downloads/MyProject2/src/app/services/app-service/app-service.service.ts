@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, of, tap, from, pipe } from 'rxjs';
-import { backend } from '../../../global'; // Import the backend URL
+import { backend } from '../../../globals'; // Import the backend URL
 import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
 
 @Injectable({

@@ -53,6 +53,8 @@ export class VacancyPage implements OnInit, AfterViewInit {
 
   @ViewChild('datePicker') datePicker: any;
   selectedDate: moment.Moment | null = null;
+  displayMonthYear = moment().format('MMM YYYY');
+
   isDatePickerVisible = false;
   //there are so many lists comming from API getEmployeeCV, getApplicantCV i will put each in a list
   ApplicantProfile: any[] = [];
@@ -75,7 +77,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
   @ViewChild('calendarModal') calendarModal!: IonModal;
 
   constructor(
-    private applicantsService: ApplicantService, 
+    private applicantsService: ApplicantService,
     private alertController: AlertController,
     private modalController: ModalController,
     private route: ActivatedRoute,
@@ -95,10 +97,10 @@ export class VacancyPage implements OnInit, AfterViewInit {
     console.log("vacancyIdParam id is ,", this.vacancyId);
     this.generateWeekDays();
     // this.generateTimes();
-    this.selectedDay = this.weekDays[0]?.day; // Default to the first day
-    console.log("selected day is ", this.selectedDay);
+    // this.selectedDay = this.weekDays[0]?.day; // Default to the first day
+    console.log("selected day from oninit is ", this.selectedDay);
     this.loadApplicantData();
-   // this.markedDates = ['07/01/2024', '15/01/2024', '24/01/2024', '25/01/2024', '20/01/2024', '31/01/2024', '07/01/2024', '01/04/2024'];
+    // this.markedDates = ['07/01/2024', '15/01/2024', '24/01/2024', '25/01/2024', '20/01/2024', '31/01/2024', '07/01/2024', '01/04/2024'];
   }
 
 
@@ -173,11 +175,11 @@ export class VacancyPage implements OnInit, AfterViewInit {
     try {
       // Fetch the list of vacancy interviews
       const result = await this.vacanciesService.getAllVacancyInterviews(this.vacancyId);
-  
+
       // Assign the result to your class property
       this.ApplicantsIntreviewList = result.list;
       console.log('Result from getAllVacancyInterviews from loadAllVacancyInterviews from id:', this.ApplicantsIntreviewList);
-  
+
       // Process the list and format InterviewDate using moment
       from(this.ApplicantsIntreviewList as any[]).pipe(
         map((item: any) => moment(item.InterviewDate, 'DD/MM/YYYY HH:mm:ss A').format('DD/MM/YYYY')), // Extract and format the date
@@ -191,7 +193,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
           console.error('Error processing InterviewDate:', err);
         }
       });
-  
+
       // Perform additional actions, such as generating times
       await this.generateTimes(); // Assuming generateTimes is also an async function
     } catch (error) {
@@ -295,12 +297,17 @@ export class VacancyPage implements OnInit, AfterViewInit {
   generateWeekDays() {
     console.log("calling generateWeekDays ade selected is ", this.selectedDate);
     if (this.selectedDate) {
+
+      const date = this.selectedDate ? moment(this.selectedDate) : moment();
+      this.displayMonthYear = date.format('MMM YYYY');
+
       console.log("calling generateWeekDays for new day selected ", this.selectedDate);
       const startOfWeek = this.selectedDate.clone().startOf('week'); // Start of the week containing the selected day
       console.log("start of week  in if", startOfWeek);
       this.weekDays = Array.from({ length: 7 }, (_, i) => {
         const day = startOfWeek.clone().add(i, 'days');
-        console.log("in generateWeekDays in if day is", this.weekDays);
+        //    console.log("in generateWeekDays in if day is", this.weekDays);
+        this.generateTimes();
         return {
           day: day.format('ddd'), // Short day name (e.g., Thu)
           date: day.format('D') // Date (e.g., 29)
@@ -308,10 +315,12 @@ export class VacancyPage implements OnInit, AfterViewInit {
       });
     } else {
       const startOfWeek = moment().startOf('week'); // Start of the current week
-      console.log("start of week in else ", startOfWeek);
+      // console.log("start of week in else ", startOfWeek);
+      this.selectedDay = moment().format('ddd');
       this.weekDays = Array.from({ length: 7 }, (_, i) => {
         const day = startOfWeek.clone().add(i, 'days');
-        console.log("in generateWeekDaysc in else day is", this.weekDays);
+        // console.log("in generateWeekDaysc in else day is", this.weekDays);
+        this.generateTimes();
         return {
           day: day.format('ddd'), // Short day name (e.g., Sun)
           date: day.format('D') // Date (e.g., Aug 1)
@@ -321,38 +330,126 @@ export class VacancyPage implements OnInit, AfterViewInit {
   }
 
   async generateTimes() {
-    // console.log('Generating times...');
-    this.weekDays.forEach(day => {
-      // console.log(`Processing day: ${day.day}`);
-      const startTime = moment().startOf('day').hour(7); // Start at 7:00 AM
-      const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
+    console.log('Generating times...');
+
+    // Determine the start of the week based on selectedDate or current date
+    const startOfWeek = this.selectedDate
+      ? moment(this.selectedDate).startOf('week') // Start of the week from selectedDate
+      : moment().startOf('week'); // Default to the current week
+
+    this.times = {};
+
+    // Find dates with interviews
+    const datesWithInterviews = new Set(
+      this.ApplicantsIntreviewList.map((person: { InterviewDate: moment.MomentInput; }) =>
+        moment(person.InterviewDate, 'DD/MM/YYYY h:mm:ss A').format('DD/MM/YYYY')
+      )
+    );
+
+    // Filter weekDays to only include those with interviews
+    const filteredWeekDays = this.weekDays.filter(day => {
+      const currentDate = startOfWeek.clone().add(this.weekDays.findIndex(d => d.day === day.day), 'days').format('DD/MM/YYYY');
+      return datesWithInterviews.has(currentDate);
+    });
+
+    filteredWeekDays.forEach(day => {
+      console.log(`Processing day: ${day.day}`);
+
+      const startTime = moment().startOf('day').hour(1); // Start at 1:00 AM
+      const endTime = moment().startOf('day').hour(24); // End at 12:00 AM (next day)
       const dailyTimes: TimeSlot[] = [];
       let currentTime = startTime.clone();
 
-      while (currentTime <= endTime) {
-        const currentHour = currentTime.format('h:mm A');
-        const currentDate = moment().startOf('week').add(this.weekDays.findIndex(d => d.day === day.day), 'days').format('DD/MM/YYYY');
+      const dayIndex = this.weekDays.findIndex(d => d.day === day.day);
+      const currentDate = startOfWeek.clone().add(dayIndex, 'days').format('DD/MM/YYYY');
 
-        // console.log(`Current time: ${currentHour}, Date: ${currentDate}`);
+      console.log(`currentDate for day ${day.day}: ${currentDate}`); // Debugging line
+
+      // Iterate over each half-hour in the day
+      while (currentTime < endTime) {
+        const currentHour = currentTime.format('h:mm A');
 
         const filteredPeople = this.ApplicantsIntreviewList.filter((person: { InterviewDate: moment.MomentInput; }) => {
           const personDateTime = moment(person.InterviewDate, 'DD/MM/YYYY h:mm:ss A');
-          // console.log(`Person time: ${personDateTime.format('h:mm A')}, Date: ${personDateTime.format('DD/MM/YYYY')}`);
           return personDateTime.format('h:mm A') === currentHour && personDateTime.format('DD/MM/YYYY') === currentDate;
         });
 
-        // console.log(`Filtered people: ${filteredPeople.length}`);
+        if (filteredPeople.length > 0) { // Only add slots with people
+          dailyTimes.push({
+            time: currentTime.format('h:mm A'),
+            people: filteredPeople
+          });
+        }
 
-        dailyTimes.push({
-          time: currentTime.format('h:mm A'),
-          people: filteredPeople // Use filtered people based on time
-        });
-        currentTime.add(1, 'hour');
+        currentTime.add(30, 'minutes'); // Move to the next half-hour
       }
-      this.times[day.day] = dailyTimes;
+
+      if (dailyTimes.length > 0) { // Only assign days with times
+        this.times[day.day] = dailyTimes;
+      }
     });
-  }
+
+    console.log('Times updated:', this.times);
+}
+
+
+
+
+  //   async generateTimes1() {
+  //     console.log('Generating times...');
+
+  //     // Determine the start of the week based on selectedDate or current date
+  //     const startOfWeek = this.selectedDate
+  //         ? moment(this.selectedDate).startOf('week') // Start of the week from selectedDate
+  //         : moment().startOf('week'); // Default to the current week
+
+  //     // Clear the times object
+  //     this.times = {};
+  //     console.log("xxxxxxxxxxx generateTimes startOfWeek is", startOfWeek);
+  //     this.weekDays.forEach(day => {
+  //         console.log(`Processing day: ${day.day}`);
+
+  //         // Define start and end time for the day
+  //         const startTime = moment().startOf('day').hour(7); // Start at 7:00 AM
+  //         const endTime = moment().startOf('day').hour(19); // End at 7:00 PM
+  //         const dailyTimes: TimeSlot[] = [];
+  //         let currentTime = startTime.clone();
+
+  //         // Calculate the date for the current day in weekDays
+  //         const dayIndex = this.weekDays.findIndex(d => d.day === day.day);
+  //         const currentDate = startOfWeek.clone().add(dayIndex, 'days').format('DD/MM/YYYY');
+
+  //         // Iterate over each hour in the day
+  //         while (currentTime <= endTime) {
+  //             const currentHour = currentTime.format('h:mm A');
+
+  //             // Filter people based on the current hour and date
+  //             const filteredPeople = this.ApplicantsIntreviewList.filter((person: { InterviewDate: moment.MomentInput; }) => {
+  //                 const personDateTime = moment(person.InterviewDate, 'DD/MM/YYYY h:mm:ss A');
+  //                 return personDateTime.format('h:mm A') === currentHour && personDateTime.format('DD/MM/YYYY') === currentDate;
+  //             });
+
+  //             // Add the time slot with filtered people
+  //             dailyTimes.push({
+  //                 time: currentTime.format('h:mm A'),
+  //                 people: filteredPeople // Use filtered people based on time
+  //             });
+
+  //             // Increment the time by 1 hour
+  //             currentTime.add(1, 'hour');
+  //         }
+
+  //         // Store the daily times for the specific day
+  //         this.times[day.day] = dailyTimes;
+  //     });
+
+  //     console.log('Times updated:', this.times);
+  // }
+
+
+
   selectDay(day: string) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!! select day from selectDay ", day);
     this.selectedDay = day;
   }
 
@@ -441,12 +538,14 @@ export class VacancyPage implements OnInit, AfterViewInit {
   handleDateSelected(range: { start: moment.Moment | null, end: moment.Moment | null }) {
     if (range.start && range.end) {
       console.log('Selected Range:', range.start.format('YYYY-MM-DD'), 'to', range.end.format('YYYY-MM-DD'));
-      this.selectedDay = range.start.format('ddd-YYYY-MM-DD');
-      console.log("selected day is ",this.selectedDay);
+      this.selectedDay = range.start.format('ddd');
+      this.selectedDate = range.start;
+      console.log("selected day is ", this.selectedDay);
     } else if (range.start) {
       console.log('Selected Start Date:', range.start.format('YYYY-MM-DD'));
-      this.selectedDay = range.start.format('ddd-YYYY-MM-DD');
-      console.log("selected day is ",this.selectedDay);
+      this.selectedDate = range.start;
+      this.selectedDay = range.start.format('ddd');
+      console.log("selected day is ", this.selectedDay);
     } else if (range.end) {
       console.log('Selected End Date:', range.end.format('YYYY-MM-DD'));
     } else {
