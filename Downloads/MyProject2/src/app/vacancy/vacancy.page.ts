@@ -23,7 +23,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
   vacancy: any;
 
   vacancyId: number = 0;
-  interviewTypeID: number = 78;
+  interviewTypeID: number = 78; // ???????????????????????????????????????????
   // candidates$ = this.candidateService.getCandidateList();
   // full list
   ApplicantList: any[] = [];
@@ -86,11 +86,10 @@ export class VacancyPage implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    // const vacancyIdParam = this.route.snapshot.paramMap.get('vacancyId');
-    // this.vacancyId = vacancyIdParam ? Number(vacancyIdParam) : 0;
+    // i will comment this for now  and put a fix id . just for now
     this.vacancy = this.vacanciesService.getVacancy();
     if (this.vacancy.VacancyID) {
-      console.log("yasalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam", this.vacancy);
+      // console.log("yasalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam", this.vacancy);
       this.vacancyId = this.vacancy.VacancyID;
       this.loadVacancyApplicants();
     }
@@ -241,7 +240,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
   }
 
   handleOpenModalEvent(event: { type: string, data: any }) {
-    console.log('Received event:', event);
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Received event:', event);
     if (event.type === 'cv') {
       this.cvData = event.data;
       this.ApplicantProfile = this.cvData.ApplicantProfile;
@@ -253,6 +252,8 @@ export class VacancyPage implements OnInit, AfterViewInit {
     } else if (event.type === 'answers') {
       this.answersData = event.data;
       this.openModal('answers-modal');
+    } else if (event.type === 'disqualify') {
+      console.log("@@@@@@@@@@@@ choosing disqualify ");
     }
   }
 
@@ -387,7 +388,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
       }
     });
 
-    console.log('Times updated:', this.times);
+    //console.log('Times updated:', this.times);
   }
 
 

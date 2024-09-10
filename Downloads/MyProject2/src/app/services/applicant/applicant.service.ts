@@ -37,7 +37,7 @@ export class ApplicantService {
       if (responseData) {
 
         const data = responseData;
-        console.log("data from applicant service function getApplicantData: ", data);
+       // console.log("data from applicant service function getApplicantData: ", data);
         //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
         return data.Parameters; // i will try  to change to retun the full list
 

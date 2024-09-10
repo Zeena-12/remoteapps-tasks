@@ -140,7 +140,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-  
+
 
   async presentConfirmAlert(): Promise<boolean> {
     return new Promise(async (resolve) => {
@@ -175,29 +175,97 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     this.selectedCandidateId = candidate.ApplicantID;
     this.selectedCandidateType = candidate.ApplicantType;
 
-    if (candidate.Status == 'Applied' || candidate.Status == 'Shortlisted' || candidate.Status == 'Interviewed') {
+    if (candidate.Status == 'Applied' || candidate.Status == 'Shortlisted') {
       options = [
-        { label: 'Open CV', icon: '/assets/calendar.svg' },
-        { label: 'Disqualify', icon: '/assets/calendar.svg' },
-        { label: 'Regret', icon: '/assets/calendar.svg' },
-        { label: 'View Tests', icon: '/assets/calendar.svg' },
-        { label: 'View Answers', icon: '/assets/calendar.svg' },
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Regret', iconClass: 'icon-envelope' },
+        { label: candidate.Disqualified ? 'Requalify' : 'Disqualify', iconClass: candidate.Disqualify ? 'icon-thumb-up-3' : 'icon-thumb-up-3' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
       ];
     }
 
-    if (candidate.Status == 'Offered' || candidate.Status == 'Finalized') {
+    if (candidate.Status == 'Interviewed') {
       options = [
-        { label: 'Open CV', icon: '/assets/calendar.svg' },
-        { label: 'Accept Offer', icon: '/assets/calendar.svg' },
-        { label: 'Reject Offer', icon: '/assets/calendar.svg' },
-        { label: 'Generate Offer', icon: '/assets/calendar.svg' },
-        { label: 'Send Offer', icon: '/assets/calendar.svg' },
-        { label: 'Pre-Offer', icon: '/assets/calendar.svg' },
-        { label: 'View Answers', icon: '/assets/calendar.svg' },
-        { label: 'View interviews', icon: '/assets/calendar.svg' },
-        { label: 'View Tests', icon: '/assets/calendar.svg' },
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Regret', iconClass: 'icon-envelope' },
+        { label: 'View Interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
       ];
     }
+    if (candidate.Status == 'Offered') {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Accept Offer', iconClass: 'icon-check-2' },
+        { label: 'Reject Offer', iconClass: 'icon-cancel-border' }, // reject offer show for Offered , finalized
+        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
+        { label: 'Send Offer', iconClass: 'icon-envelope' },
+        { label: 'Pre-Offer', iconClass: 'icon-timesheet' },
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+      ];
+    }
+    if (candidate.Status == 'offered-rejected') {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Accept Offer', iconClass: 'icon-check-2' },
+        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
+        { label: 'Send Offer', iconClass: 'icon-envelope' },
+        { label: 'Pre-Offer', iconClass: 'icon-timesheet' },
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+        { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
+      ];
+    }
+    if (candidate.Status == 'Finalized' && candidate.Finalized == false && candidate.OnBoardingCompleted == false) {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Finalized', iconClass: 'icon-check-2' },
+        { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
+        { label: 'Reject Offer', iconClass: 'icon-cancel-border' }, // reject offer show for Offered , finalized
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+      ];
+    }
+    if (candidate.Status == 'Finalized' && candidate.Finalized == false && candidate.OnBoardingCompleted == false) {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Finalized', iconClass: 'icon-check-2' },
+        { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
+        { label: 'Reject Offer', iconClass: 'icon-cancel-border' }, // reject offer show for Offered , finalized
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+      ];
+    }
+    if (candidate.Status == 'Finalized' && candidate.Finalized == true && candidate.OnBoardingCompleted == false) {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+      ];
+    }
+
+    if (candidate.Status == 'Offer-Sent') {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Accept Offer', iconClass: 'icon-check-2' },
+        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
+        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
+        { label: 'Send Offer', iconClass: 'icon-envelope' },
+        { label: 'Pre-Offer', iconClass: 'icon-timesheet' },
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+      ];
+    }
+
 
     const modal = await this.modalController.create({
       component: ActionSheetComponent,
@@ -240,7 +308,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
     try {
       const details = await this.getCandidateDetails(candidateId, candidateType, dataType);
-      console.log("**********details: ",details);
+      console.log("**********details: ", details);
       console.log('Emitting data:', { type: dataType, data: details });
       this.openModalEvent.emit({ type: dataType, data: details });
     } catch (error) {
@@ -266,12 +334,12 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   getCandidateDetails(id: number, type: string, arrayName: string): Promise<any> {
     console.log("from getCandidateDetails ", id, " ", type, " ", arrayName);
-    
+
     return this.applicantService.getApplicantCV(id, type)
       .then((candidateDetails: any) => {
         if (arrayName === 'cv') {
           this.cvArray = candidateDetails;
-          console.log("Array name is cv and the details ",this.cvArray);
+          console.log("Array name is cv and the details ", this.cvArray);
         } else if (arrayName === 'answers') {
           this.answersArray = candidateDetails;
           console.log("Array name is answers and the details", this.answersArray);
@@ -284,5 +352,5 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         return null; // Return null if there's an error
       });
   }
-  
+
 }

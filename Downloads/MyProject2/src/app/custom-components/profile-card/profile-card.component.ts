@@ -115,22 +115,22 @@ export class ProfileCardComponent  implements OnInit {
       }
     };
     
-    async openActionSheet() {
-      const modal = await this.modalController.create({
-        component: ActionSheetComponent,
-        componentProps: {
-          options: [
-            { label: 'Open CV', icon: '/assets/calendar.svg' },
-            { label: 'Disqualify', icon: '/assets/calendar.svg' },
-            { label: 'Regret', icon: '/assets/calendar.svg' },
-            { label: 'View Tests', icon: '/assets/calendar.svg' },
-            { label: 'View Answers', icon: '/assets/calendar.svg' },
-          ]
-        },
-        cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
-        backdropDismiss: true, // Optional: Close modal on backdrop click
-      });
-      return await modal.present();
-    }
+    // async openActionSheet() {
+    //   const modal = await this.modalController.create({
+    //     component: ActionSheetComponent,
+    //     componentProps: {
+    //       options: [
+    //         { label: 'Open CV', icon: '/assets/calendar.svg' },
+    //         { label: 'Disqualify', icon: '/assets/calendar.svg' }, 
+    //         { label: 'Regret', icon: '/assets/calendar.svg' },
+    //         { label: 'View Tests', icon: '/assets/calendar.svg' },
+    //         { label: 'View Answers', icon: '/assets/calendar.svg' },
+    //       ]
+    //     },
+    //     cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
+    //     backdropDismiss: true, // Optional: Close modal on backdrop click
+    //   });
+    //   return await modal.present();
+    // }
 
 }

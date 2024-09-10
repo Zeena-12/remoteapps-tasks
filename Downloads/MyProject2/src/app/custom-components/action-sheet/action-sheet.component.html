@@ -2,10 +2,9 @@
 <div class="action-sheet-container">
   <div class="action-sheet-options">
     <div id="open-modal" class="action-sheet-option" *ngFor="let option of options; let last = last" [class.last]="last" (click)="handleOptionSelected(option)">
-      <img [src]="option.icon" alt=""> 
+      <i [ngClass]="option.iconClass" style="color: #92A0B3"></i>
       <p>{{ option.label }}</p>
     </div>
   </div>
   <button class="action-sheet-cancel-btn" (click)="dismiss()">Cancel</button>
 </div>
-

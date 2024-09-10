@@ -17,6 +17,7 @@ export class VacanciesService {
   private apiUrlGetVacansiesData = `${backend}HCM/Recruitment/Vacancies/getVacansiesData`;
   private apiUrlGetAllVacancyInterviews = `${backend}HCM/Recruitment/Vacancies/getAllVacancyInterviews`;
   private apiUrlGetInterviewsData = `${backend}HCM/Recruitment/Vacancies/getInterviewsData`;
+  private apiUrlChangeDisqualifiedStatus = `${backend}HCM/Recruitment/Vacancies/ChangeDisqualifiedStatus`;
 
 
   constructor(private http: HTTP) { }
@@ -34,7 +35,7 @@ export class VacanciesService {
       if (responseData) {
 
         const data = responseData;
-        console.log("data from applicant service: ", data);
+        // console.log("data from applicant service: ", data);
         return data.Parameters.VacancyList;
       } else {
         throw new Error('Invalid response structure or no data available.');
@@ -113,6 +114,38 @@ export class VacanciesService {
     }
   }
 
+  async changeDisqualifiedStatus(applicationID: number, status: boolean, disqualifyReason: string): Promise<any> {
+    const data = {
+      ApplicationID: applicationID,
+      Status: status,
+      DisqualifyReason: disqualifyReason
+    };
+    try {
+      const response: any = await this.http.post(this.apiUrlChangeDisqualifiedStatus, data, {});
+
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+      // Check if the response is successful and contains Parameters
+      if (responseData.Parameters && responseData.Parameters) {
+        console.log("data from get getInterviewsData service: ", responseData.Parameters);
+        return responseData.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
+  }
+
+
   private vacancy: any;
 
   setVacancy(vacancy: any): void {
@@ -123,5 +156,5 @@ export class VacanciesService {
     return this.vacancy;
   }
 
-  
+
 }
