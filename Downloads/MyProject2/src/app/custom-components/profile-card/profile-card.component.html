@@ -1,24 +1,25 @@
-
-  <div class="wrapper" >
-    <div class="avatar">
-      <!-- <img [src]="avatar" alt="Avatar Image" /> -->
-      <img src="https://web.remoteapps.com/image/EmployeeImages/9529.png" alt="Person's Photo" />
-    </div>
-    <div class="nameNationality">
-      <p style="color: #6f788c; font-weight: bold; margin: 0px">{{ name }}</p>
-      <p style="color: #a3acbb; font-weight: 400; margin-left: 0px; margin-top:2px;">{{ nationality }}</p>
-    </div>
-    <div class="like-grid">
-      <img src="assets/icon/like.svg" alt="Like Icon" />
-      <span style="color: green">{{ thumbsUp || '-' }}</span>
-      <img src="assets/icon/dislike.svg" alt="Dislike Icon" />
-      <span style="color: red">{{ thumbsDown || '-'}}</span>
-    </div>
-    <div class="text-ellipsis" style="color: #a3acbb; font-weight: 400"> {{ role || 'Unemployed' }}</div>
-    <div [ngClass]="{ hidden: !Disqualified }" class="disqualified-label">
-      {{ Disqualified ? "Disqualified" : "" }}
-    </div>
+<div class="wrapper">
+  <div class="avatar">
+    <!-- <img [src]="avatar" alt="Avatar Image" /> -->
+    <img src="https://web.remoteapps.com/image/EmployeeImages/9529.png" alt="Person's Photo" />
   </div>
-  <!-- <app-dropdown  *ngIf="FinalizedDropdownVisible" (optionSelected)="optionSelected($event)">
+  <div class="nameNationality">
+    <p style="color: #6f788c; font-weight: bold; margin: 0px">{{ name }}</p>
+    <p style="color: #a3acbb; font-weight: 400; margin-left: 0px; margin-top:2px;">{{ nationality }}</p>
+  </div>
+  <div class="like-grid">
+    <img src="assets/icon/like.svg" alt="Like Icon" />
+    <span style="color: green">{{ thumbsUp || '-' }}</span>
+    <img src="assets/icon/dislike.svg" alt="Dislike Icon" />
+    <span style="color: red">{{ thumbsDown || '-'}}</span>
+  </div>
+  <div class="text-ellipsis" style="color: #a3acbb; font-weight: 400"> {{ role || 'Unemployed' }}</div>
+  <!-- <div [ngClass]="{ hidden: !disqualified }" class="disqualified-label">
+    {{ disqualified ? "Disqualified" : "" }}
+  </div> -->
+  <div *ngIf="getTagInfo().tagText" [ngClass]="['tag', getTagInfo().tagClass]">
+    {{ getTagInfo().tagText }}
+  </div>
+</div>
+<!-- <app-dropdown  *ngIf="FinalizedDropdownVisible" (optionSelected)="optionSelected($event)">
   </app-dropdown> -->
-

@@ -1,23 +1,7 @@
 <ion-app>
-  <ion-menu contentId="main-content">
-    <ion-header>
-      <ion-toolbar color="tertiary">
-        <ion-title>Menu Content</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  </ion-menu>
+
   <div class="ion-page" id="main-content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Menu</ion-title>
-        <ion-buttons slot="end">
-          <ion-button id="open-modal">Applications</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+
     <ion-content [fullscreen]="true">
       <div class="image">
         <!-- <img src="/assets/youcandoit6.png" alt="" /> -->
@@ -486,7 +470,7 @@
             <p class="day-date">{{ day.date }}</p>
           </button>
         </div>
-        <div class="time-container" *ngIf="times[selectedDay] && times[selectedDay].length" >
+        <div class="time-container" *ngIf="times[selectedDay] && times[selectedDay].length ; else noRecords">
           <div class="time-box" *ngFor="let time of times[selectedDay]">
             <div class="time">{{ time.time }}</div>
             <div class="people">
@@ -513,6 +497,13 @@
             </div>
           </div>
         </div>
+
+        <ng-template #noRecords>
+          <div class="noRecords">
+            <i class="icon-document-search" style="font-size: 35px; color: #92a0b3;"></i>
+            <span style="font-size: 15px;">No Records</span>
+          </div>
+        </ng-template>
 
       </div>
     </div>

@@ -168,7 +168,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       await alert.present();
     });
   }
-
+// i know its long but just keep it for now as it is
   async openActionSheet(candidate: any) {
     console.log("what is it : ", candidate.Status);
     let options: any = [];
@@ -235,8 +235,8 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Finalized', iconClass: 'icon-check-2' },
-        { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
         { label: 'Reject Offer', iconClass: 'icon-cancel-border' }, // reject offer show for Offered , finalized
+        { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
         { label: 'View Answers', iconClass: 'icon-signed-document' },
         { label: 'View interviews', iconClass: 'icon-calendar-6' },
         { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
@@ -265,6 +265,8 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
       ];
     }
+    // ////
+
 
 
     const modal = await this.modalController.create({
@@ -353,4 +355,17 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       });
   }
 
+}
+
+interface Option {
+  label: string;
+  iconClass: string;
+  status?: string | string[]; // Status or array of statuses for which this option is available
+  onlyIf?: (candidate: Candidate) => boolean; // Optional function to determine if the option should be shown
+}
+
+interface Candidate {
+  Status: string;
+  Finalized: boolean;
+  OnBoardingCompleted: boolean;
 }

@@ -25,7 +25,7 @@
   height: 20px;
   align-items: center;
   padding: 2px;
- 
+
 
 
   span {
@@ -38,9 +38,12 @@
 
 
 .avatar {
-  display: flex; /* Use Flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  display: flex;
+  /* Use Flexbox */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
   border: 1px solid #ced2d8;
   border-radius: 50%;
   width: 50px;
@@ -71,11 +74,30 @@
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-  padding: 6px;
+  padding: 3px;
   border-radius: 5px;
   grid-column: span 2;
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
+  display: flex;
+  /* Use flexbox for centering */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  margin: 0px;
+}
+
+.offered-label {
+  color: white;
+  background-color: #62bde7;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  padding: 3px;
+  border-radius: 5px;
+  grid-column: span 2;
+  display: flex;
+  /* Use flexbox for centering */
+  justify-content: center;
+  /* Center horizontally */
   align-items: center;
   margin: 0px;
 }
@@ -94,4 +116,53 @@
   /* Displays the ellipsis (...) */
 }
 
+/* Base styling for all tags */
+.tag {
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  border-radius: 5px;
+  grid-column: span 2;
+  display: flex;
+  /* Use flexbox for centering */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  margin: 0px;
+  font-size: 12px;
+  padding: 3px;
+}
 
+/* Color-specific classes */
+.tag-hire {
+  background-color: #4eb3671f;
+  color: #4eb367;
+  border: 1px solid #4eb367;
+}
+
+.tag-offer {
+  background-color: #5bc0de30;
+  /* Color for Offer tag */
+  color: #5bc0de;
+  border: 1px solid #5bc0de
+}
+.tag-offer-sent {
+  background-color: #5bc0de30;
+  /* Color for Offer tag */
+  color: #5bc0de;
+  border: 1px solid #5bc0de
+}
+
+.tag-disqualified,
+.tag-offer-rejected {
+  background-color: #f1d0d4;
+  color: #e52442;
+  border: 1px solid #e52442
+}
+
+.tag-hire-in-progress {
+  background-color: #f0ad4e36;
+  color: #f0ad4e;
+  border: 1px solid #f0ad4e
+}
