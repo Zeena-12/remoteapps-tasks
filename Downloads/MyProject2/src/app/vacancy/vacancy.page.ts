@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AlertController, IonModal } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
@@ -23,6 +23,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
   vacancy: any;
 
   vacancyId: number = 0;
+  NoOpenings: number = 0;
   interviewTypeID: number = 78; // ???????????????????????????????????????????
   // candidates$ = this.candidateService.getCandidateList();
   // full list
@@ -33,6 +34,8 @@ export class VacancyPage implements OnInit, AfterViewInit {
   Interviewed: any[] = [];
   Offered: any[] = [];
   Finalized: any[] = [];
+
+  finalizedCount: number = 0;
 
   EmployeeList: any[] = [];
   ApplicantBestFitList: any[] = []; //full list
@@ -85,21 +88,20 @@ export class VacancyPage implements OnInit, AfterViewInit {
   ) { }
 
 
+
+
   ngOnInit() {
     // i will comment this for now  and put a fix id . just for now
     this.vacancy = this.vacanciesService.getVacancy();
     if (this.vacancy.VacancyID) {
-      // console.log("yasalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam", this.vacancy);
       this.vacancyId = this.vacancy.VacancyID;
+      this.NoOpenings = this.vacancy.NoOpenings;
       this.loadVacancyApplicants();
     }
     console.log("vacancyIdParam id is ,", this.vacancyId);
     this.generateWeekDays();
-    // this.generateTimes();
-    // this.selectedDay = this.weekDays[0]?.day; // Default to the first day
     console.log("selected day from oninit is ", this.selectedDay);
     this.loadApplicantData();
-    // this.markedDates = ['07/01/2024', '15/01/2024', '24/01/2024', '25/01/2024', '20/01/2024', '31/01/2024', '07/01/2024', '01/04/2024'];
   }
 
 
@@ -221,11 +223,14 @@ export class VacancyPage implements OnInit, AfterViewInit {
   async handleStatusChange(event: { id: number, newStatus: string }) {
     try {
       const result = await this.applicantsService.ChangeApplicationStatus(event.id, event.newStatus);
-      console.log('Status update result:', result);
+
+       this.finalizedCount = this.Finalized.length;
+
     } catch (error) {
       console.error('Error updating status:', error);
     }
   }
+
 
 
 

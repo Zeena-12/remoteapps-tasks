@@ -9,6 +9,9 @@ import { HTTP } from '@ionic-native/http/ngx'; // Import HTTP from ionic-native
   providedIn: 'root'
 })
 export class ApplicantService {
+  updateDisqualificationStatus(data: { ApplicationID: number; Status: boolean; DisqualifyReason?: string; }) {
+    throw new Error('Method not implemented.');
+  }
   // api list
   private apiUrlGetApplicantData = `${backend}HCM/Recruitment/Applicants/getApplicantData`;
   private apiUrlGetApplicantDataVacancies = `${backend}HCM/Recruitment/Vacancies/GetApplicantData`; //dont be confused one capital and one small
@@ -18,6 +21,8 @@ export class ApplicantService {
   private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
   private apiUrlSetApplicant = `${backend}HCM/Recruitment/Applicants/setApplicant`;
   private apiUrlSetApplicantExperience = `${backend}HCM/Recruitment/Applicants/setApplicantExperience`;
+  private apiUrlChangeDisqualifiedStatus = `${backend}HCM/Recruitment/Vacancies/ChangeDisqualifiedStatus`;
+  private apiUrlGetApplicationQuestionAnswer = `${backend}HCM/Recruitment/Vacancies/getApplicationQuestionAnswer`;
 
 
 
@@ -37,7 +42,7 @@ export class ApplicantService {
       if (responseData) {
 
         const data = responseData;
-       // console.log("data from applicant service function getApplicantData: ", data);
+        // console.log("data from applicant service function getApplicantData: ", data);
         //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
         return data.Parameters; // i will try  to change to retun the full list
 
@@ -58,6 +63,49 @@ export class ApplicantService {
   }
 
 
+  async ChangeDisqualifiedStatus(id: number, status: boolean, disqualifyReason?: any): Promise<any> {
+    console.log("calling ChangeDisqualifiedStatus in applicant service");
+
+    // Create the base data object
+    const data: { ApplicationID: number; Status: boolean;[key: string]: any } = {
+      ApplicationID: id,
+      Status: status
+    };
+
+    // Add DisqualifyReason to the data object only if it is a non-empty string
+    if (disqualifyReason) {
+      data['DisqualifyReason'] = disqualifyReason;
+    }
+    console.log("data isssss ", data);
+
+    try {
+      const response: any = await this.http.post(this.apiUrlChangeDisqualifiedStatus, data, {});
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+
+      // Check if the response is successful and contains Parameters
+      console.log("sending what ", data);
+      if (responseData) {
+
+        const data = responseData;
+        console.log("ChangeDisqualifiedStatus", data);
+        return data.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
+  }
+
   async getApplicantCV(id: number, type: string): Promise<any> {
     console.log("calling getApplicantCV in applicant service");
     let data: any = {};
@@ -74,6 +122,40 @@ export class ApplicantService {
     }
     try {
       const response: any = await this.http.post(url, data, {});
+
+      // Parse the response data
+      const responseData = JSON.parse(response.data);
+
+      // Check if the response is successful and contains Parameters
+      if (responseData) {
+
+        const data = responseData;
+        console.log("data from applicant service related to choosen vacancyID: ", data);
+        return data.Parameters;
+      } else {
+        throw new Error('Invalid response structure or no data available.');
+      }
+    } catch (error: any) {
+      // Handle error response
+      console.error('Error during data retrieval:', error);
+
+      // Return an error message or handle as needed
+      if (error.status === 0) {
+        return 'Network error or CORS issue. Please try again later.';
+      } else {
+        throw new Error('An error occurred while retrieving data.');
+      }
+    }
+  }
+
+  async getApplicationQuestionAnswer(id: number): Promise<any> {
+    console.log("calling getApplicationQuestionAnswer  in applicant service");
+    const data = {
+      ApplicationID: id,
+    };
+
+    try {
+      const response: any = await this.http.post(this.apiUrlGetApplicationQuestionAnswer, data, {});
 
       // Parse the response data
       const responseData = JSON.parse(response.data);
@@ -268,7 +350,7 @@ export class ApplicantService {
       MainRole: experienceData.MainRole,
       ReasonForLeaving: experienceData.ReasonForLeaving
     };
-    console.log("data is ",data);
+    console.log("data is ", data);
     try {
       const response: any = await this.http.post(this.apiUrlSetApplicantExperience, data, {});
 

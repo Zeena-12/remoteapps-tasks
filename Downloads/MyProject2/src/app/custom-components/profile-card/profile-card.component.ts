@@ -28,9 +28,9 @@ export class ProfileCardComponent implements OnInit {
   @Input() thumbsDown: Number = 0;
   @Input() thumbsUp: Number = 0;
   @Input() disqualified: boolean = false;
+  @Input() finalized: boolean = false;
   @Input() status: string = '';
   @Input() role: string = '';
-  @Input() finalized: boolean = false;
 
 
   @Output() statusChanged = new EventEmitter<{ id: number, newStatus: string }>();
@@ -43,11 +43,11 @@ export class ProfileCardComponent implements OnInit {
     let tagText = '';
     let tagClass = '';
 
-    if (this.status === 'Finalized' && this.finalized) {
+    if (this.status === 'Finalized' && this.finalized === true) {
       tagText = 'Hire';
       tagClass = 'tag-hire';
     }
-    else if (this.status === 'Finalized' && !this.finalized) {
+    else if (this.status === 'Finalized' && this.finalized === false) {
       tagText = 'Hire In Progress';
       tagClass = 'tag-hire-in-progress';
     } else if (this.status === 'Offered') {
@@ -66,7 +66,7 @@ export class ProfileCardComponent implements OnInit {
     else if (this.disqualified) {
       tagText = 'Disqualified';
       tagClass = 'tag-disqualified';
-    } 
+    }
     return { tagText, tagClass };
   }
 

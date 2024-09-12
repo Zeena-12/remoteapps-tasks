@@ -16,6 +16,7 @@ import { VacanciesService } from 'src/app/services/vacancies/vacancies.service';
 import { ApplicantService } from 'src/app/services/applicant/applicant.service';
 
 
+
 @Component({
   selector: 'app-status-box',
   templateUrl: './status-box.component.html',
@@ -23,24 +24,32 @@ import { ApplicantService } from 'src/app/services/applicant/applicant.service';
   imports: [CdkDropList, CdkDrag, CdkDragPlaceholder, CdkDropListGroup, CdkDragPreview],
   // directives: [LongPressDirective] // Declare your directive here
 })
-export class StatusBoxComponent implements OnInit, AfterViewInit {
+export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() id: string = '';
   @Input() status: string = '';
   @Input() employeesList: any[] = [];
   @Input() containerColor: string = '';
+  @Input() finalizedCount: number = 0;
 
   @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
   @Output() diqualifyChanged = new EventEmitter<{ id: number, newDisqualified: boolean }>();
 
   @Output() openModalEvent = new EventEmitter<{ type: any, data: any }>();
   disqualify: string = '';
+  vacancy: any;
 
 
   selectedOption: any;
   modalContent: string = "no content";
   @ViewChild('myModal') myModal: any;
   @ViewChildren('placeholder') placeholders!: QueryList<any>;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['finalizedCount']) {
+      console.log('--------Updated finalizedCount-----------:', this.finalizedCount);
+    }
+  }
 
 
   cvArray: any;
@@ -60,9 +69,6 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     this.diqualifyChanged.emit(event);
   }
 
-  employeesList2: any[] = []; // Initialize as empty array
-
-
 
   item: any = { /* Initialize with your item properties */ };
 
@@ -80,8 +86,8 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
-    console.log();
+    this.vacancy = this.vacanciesService.getVacancy();
+    console.log("vacancy details from status box ", this.vacancy);
   }
 
   ngAfterViewInit() {
@@ -94,12 +100,8 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     // Reset all options to false first
 
     const draggedElement = event.item.element.nativeElement;
-
-
-
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -107,6 +109,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         event.previousIndex,
         event.currentIndex
       );
+
       const newStatus = this.status // Assuming you have a way to set the new status dynamically
       const profileCard = draggedElement.querySelector('app-profile-card');
       if (profileCard) {
@@ -115,7 +118,13 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         console.log("id is: ", id);
         this.statusChange.emit({ id, newStatus });
       }
+      console.log("vacancy opening are ", this.vacancy.NoOpenings);
+      console.log("vacancy employeeList length ", this.employeesList.length);
+      console.log(" status ", this.status);
     }
+    const newStatus = this.status;
+    // Update the count of finalized items if status is 'Finalized'
+
   }
 
 
@@ -146,6 +155,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     return new Promise(async (resolve) => {
       const alert = await this.alertController.create({
         header: 'Confirm',
+        mode: 'ios',
         message: 'Do you want to (disqualify-requalify ) [name]?',
         buttons: [
           {
@@ -168,14 +178,15 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       await alert.present();
     });
   }
-// i know its long but just keep it for now as it is
+  // i know its long but just keep it for now as it is -- NO its not bad because the efficiency is O(1) if 
   async openActionSheet(candidate: any) {
+
     console.log("what is it : ", candidate.Status);
     let options: any = [];
-    this.selectedCandidateId = candidate.ApplicantID;
+    this.selectedCandidateId = candidate.ApplicationID;
     this.selectedCandidateType = candidate.ApplicantType;
 
-    if (candidate.Status == 'Applied' || candidate.Status == 'Shortlisted') {
+    if ((candidate.Status == 'Applied' || candidate.Status == 'Shortlisted') && (this.finalizedCount < this.vacancy.NoOpenings)) {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Regret', iconClass: 'icon-envelope' },
@@ -184,8 +195,15 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Answers', iconClass: 'icon-signed-document' },
       ];
     }
-
-    if (candidate.Status == 'Interviewed') {
+    else if ((candidate.Status == 'Applied' || candidate.Status == 'Shortlisted') && (this.finalizedCount >= this.vacancy.NoOpenings)) {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Regret', iconClass: 'icon-envelope' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+      ];
+    }
+    else if (candidate.Status == 'Interviewed') {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Regret', iconClass: 'icon-envelope' },
@@ -194,7 +212,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Answers', iconClass: 'icon-signed-document' },
       ];
     }
-    if (candidate.Status == 'Offered') {
+    else if (candidate.Status == 'Offered') {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Accept Offer', iconClass: 'icon-check-2' },
@@ -207,7 +225,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
       ];
     }
-    if (candidate.Status == 'offered-rejected') {
+    else if (candidate.Status == 'offered-rejected') {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Accept Offer', iconClass: 'icon-check-2' },
@@ -220,7 +238,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
       ];
     }
-    if (candidate.Status == 'Finalized' && candidate.Finalized == false && candidate.OnBoardingCompleted == false) {
+    else if (candidate.Status == 'Finalized' && candidate.Finalized == false && candidate.OnBoardingCompleted == false) {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Finalized', iconClass: 'icon-check-2' },
@@ -231,7 +249,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
       ];
     }
-    if (candidate.Status == 'Finalized' && candidate.Finalized == false && candidate.OnBoardingCompleted == false) {
+    else if (candidate.Status == 'Finalized' && candidate.Finalized == false && candidate.OnBoardingCompleted == false) {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Finalized', iconClass: 'icon-check-2' },
@@ -242,30 +260,29 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
       ];
     }
-    if (candidate.Status == 'Finalized' && candidate.Finalized == true && candidate.OnBoardingCompleted == false) {
+    else if (candidate.Status == 'Finalized' && candidate.Finalized == true && candidate.OnBoardingCompleted == false) {
       options = [
         { label: 'Open CV', iconClass: 'icon-document-person' },
         { label: 'Print Offer', iconClass: 'icon-document-list-true-false' }, // only for finalized
+        { label: 'View Answers', iconClass: 'icon-signed-document' },
+        { label: 'View interviews', iconClass: 'icon-calendar-6' },
+        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
+      ];
+    }
+    else if (candidate.Status == 'Offer-Sent') {
+      options = [
+        { label: 'Open CV', iconClass: 'icon-document-person' },
+        { label: 'Accept Offer', iconClass: 'icon-check-2' },
+        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
+        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
+        { label: 'Send Offer', iconClass: 'icon-envelope' },
+        { label: 'Pre-Offer', iconClass: 'icon-timesheet' },
         { label: 'View Answers', iconClass: 'icon-signed-document' },
         { label: 'View interviews', iconClass: 'icon-calendar-6' },
         { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
       ];
     }
 
-    if (candidate.Status == 'Offer-Sent') {
-      options = [
-        { label: 'Open CV', iconClass: 'icon-document-person' },
-        { label: 'Accept Offer', iconClass: 'icon-check-2' },
-        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
-        { label: 'Generate Offer', iconClass: 'icon-view-editor' },
-        { label: 'Send Offer', iconClass: 'icon-envelope' },
-        { label: 'Pre-Offer', iconClass: 'icon-timesheet' },
-        { label: 'View Answers', iconClass: 'icon-signed-document' },
-        { label: 'View interviews', iconClass: 'icon-calendar-6' },
-        { label: 'View Tests', iconClass: 'icon-document-list-true-false' },
-      ];
-    }
-    // ////
 
 
 
@@ -283,10 +300,9 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   }
 
 
-  async handleOptionSelected(option: any) {
+  async handleOptionSelected2(option: any) {
 
     console.log('Selected Option:', option.label);
-
     const candidateId = this.selectedCandidateId;
     const candidateType = this.selectedCandidateType;
 
@@ -295,38 +311,136 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    let dataType: 'cv' | 'answers' | 'disqualify';
+    let actionRequested: string;
 
     if (option.label === 'Open CV') {
-      dataType = 'cv';
+      actionRequested = 'cv';
     } else if (option.label === 'View Answers') {
-      dataType = 'answers';
+      actionRequested = 'answers';
     } else if (option.label === 'Disqualify') {
-      dataType = 'disqualify';
+      actionRequested = 'disqualify';
+    } else if (option.label === 'Requalify') {
+      actionRequested = 'requalify';
     } else {
       console.error('Unsupported option selected');
       return;
     }
 
     try {
-      const details = await this.getCandidateDetails(candidateId, candidateType, dataType);
+      const details = await this.getCandidateDetails(candidateId, candidateType, actionRequested);
       console.log("**********details: ", details);
-      console.log('Emitting data:', { type: dataType, data: details });
-      this.openModalEvent.emit({ type: dataType, data: details });
+      console.log('Emitting data:', { type: actionRequested, data: details });
+      this.openModalEvent.emit({ type: actionRequested, data: details });
     } catch (error) {
       console.error('Error fetching candidate details:', error);
     }
   }
 
+  async handleOptionSelected(option: any) {
+    console.log('Selected Option:', option.label);
+    const candidateId = this.selectedCandidateId;
+    const candidateType = this.selectedCandidateType;
 
-  // async openModal(modalId: string) {
-  //   const modal = document.getElementById(modalId) as HTMLIonModalElement;
-  //   if (modal) {
-  //     await modal.present();
-  //   } else {
-  //     console.log(`Modal with ID ${modalId} not found.`);
-  //   }
-  // }
+    if (!candidateId) {
+      console.error('No candidate ID selected');
+      return;
+    }
+    try {
+      let disqualifyReason: string | undefined;
+      let details;
+  
+      switch (option.label) {
+        case 'Open CV':
+          details = await this.applicantService.getApplicantCV(candidateId, candidateType);
+          this.cvArray = details;
+          console.log("Array name is cv and the details", this.cvArray);
+          break;
+  
+        case 'View Answers':
+          details = await this.applicantService.getApplicationQuestionAnswer(candidateId);
+          this.answersArray = details;
+          console.log("Array name is answers and the details", this.answersArray);
+          break;
+  
+        case 'Disqualify':
+          const disqualifyReason = await this.promptForDisqualificationReason();
+          if (disqualifyReason !== undefined) {
+            await this.ChangeDisqualifiedStatus(candidateId, false, disqualifyReason);
+            console.log("Disqualification processed.");
+          } else {
+            console.log('Disqualification was canceled.');
+          }
+          break;
+  
+        case 'Requalify':
+          details = await this.applicantService.ChangeDisqualifiedStatus(candidateId, false, '');
+          console.log("Requalification", details);
+          break;
+  
+        default:
+          console.error('Unsupported option selected');
+          return;
+      }
+  
+      console.log("**********details: ", details);
+      console.log('Emitting data:', { type: option.label.toLowerCase().replace(' ', '_'), data: details });
+      this.openModalEvent.emit({ type: option.label.toLowerCase().replace(' ', '_'), data: details });
+  
+    } catch (error) {
+      console.error('Error fetching candidate details:', error);
+    }
+  }
+
+  async promptForDisqualificationReason(): Promise<string | undefined> {
+    const alert = await this.alertController.create({
+      header: 'Disqualification Reason',
+       mode: 'ios',
+      inputs: [
+        {
+          name: 'reason',
+          type: 'textarea',
+          placeholder: '',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => undefined
+        },
+        {
+          text: 'OK',
+          handler: (data) => data.reason || undefined
+        }
+      ]
+    });
+
+    await alert.present();
+    const { data } = await alert.onDidDismiss();
+    return data.reason;
+  }
+
+  async ChangeDisqualifiedStatus(id: number, status: boolean, disqualifyReason?: string): Promise<any> {
+    console.log("calling ChangeDisqualifiedStatus in applicant service");
+
+    const data: { ApplicationID: number; Status: boolean; DisqualifyReason?: string } = {
+      ApplicationID: id,
+      Status: status,
+      ...(disqualifyReason && { DisqualifyReason: disqualifyReason }) // Conditionally add DisqualifyReason
+    };
+
+    try {
+      const response = await this.applicantService.updateDisqualificationStatus(data);
+      console.log("Disqualification status updated successfully", response);
+      return response;
+    } catch (error) {
+      console.error("Error updating disqualification status:", error);
+      throw error; // Rethrow or handle the error as needed
+    }
+  }
+
+
+
 
   dismissModal() {
     // Implement dismiss logic here (e.g., close the modal)
@@ -334,15 +448,15 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     this.modalController.dismiss();
   }
 
-  getCandidateDetails(id: number, type: string, arrayName: string): Promise<any> {
-    console.log("from getCandidateDetails ", id, " ", type, " ", arrayName);
+  getCandidateDetails(id: number, type: string, requiestedAction: string): Promise<any> {
+    console.log("from getCandidateDetails ", id, " ", type, " ", requiestedAction);
 
     return this.applicantService.getApplicantCV(id, type)
       .then((candidateDetails: any) => {
-        if (arrayName === 'cv') {
+        if (requiestedAction === 'cv') {
           this.cvArray = candidateDetails;
           console.log("Array name is cv and the details ", this.cvArray);
-        } else if (arrayName === 'answers') {
+        } else if (requiestedAction === 'answers') {
           this.answersArray = candidateDetails;
           console.log("Array name is answers and the details", this.answersArray);
         }
@@ -351,7 +465,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
       })
       .catch((error: any) => {
         console.error('Error fetching candidate details:', error);
-        return null; // Return null if there's an error
+        return null;
       });
   }
 
