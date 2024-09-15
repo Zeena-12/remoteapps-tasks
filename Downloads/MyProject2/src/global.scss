@@ -284,6 +284,7 @@ input[placeholder="Search..."] {
         margin-inline-start: 45px;
       }
 
+
       ion-select {
         text-indent: 100%;
         white-space: nowrap;
@@ -297,7 +298,7 @@ input[placeholder="Search..."] {
 
       .select-icon {
         top: 17px;
-        inset-inline-end: 5px;
+        inset-inline-end: 5px; 
         position: absolute;
         width: 0;
         height: 0;
@@ -534,6 +535,16 @@ input[placeholder="Search..."] {
   }
 }
 
+/* Scoped components require higher specificity to customize */
+ion-searchbar.custom {
+  --background: #ecf0f3;
+  --color: #92a0b3;
+  --placeholder-color: #92a0b3;
+  --icon-color: #92a0b3;
+}
+
+
+
 // .sc-ion-input-md-h{
 //   --highlight-color-focused: red;
 //   --highlight-color-valid: pink;
@@ -542,7 +553,9 @@ input[placeholder="Search..."] {
 // }
 
 
-
+.alert-title.sc-ion-alert-ios{
+  color: #91a0b3 !important;
+}
 
 
 
@@ -563,3 +576,4 @@ input[placeholder="Search..."] {
 [dir="ltr"] * {
   font-family: Roboto-Regular;
 }
+

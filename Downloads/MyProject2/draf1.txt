@@ -1,0 +1,17 @@
+  handleOpenModalEvent(event: { type: string, data: any }) {
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Received event:', event);
+    if (event.type === 'cv') {
+      this.cvData = event.data;
+      this.ApplicantProfile = this.cvData.ApplicantProfile;
+      this.ApplicantionList = this.cvData.ApplicantionList;
+      this.ExperienceList = this.cvData.ExperienceList;
+      this.QualificationList = this.cvData.QualificationList;
+      this.CertificateList = this.cvData.CertificateList;
+      this.openModal('cv-modal');
+    } else if (event.type === 'answers') {
+      this.answersData = event.data;
+      this.openModal('answers-modal');
+    } else if (event.type === 'disqualify') {
+      console.log("@@@@@@@@@@@@ choosing disqualify ");
+    }
+  }

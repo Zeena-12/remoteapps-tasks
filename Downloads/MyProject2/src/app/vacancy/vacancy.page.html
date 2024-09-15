@@ -40,27 +40,27 @@
       <div class="card-container" cdkDropListGroup cdkScrollable>
         <app-status-box class="drop-area" id="applied" status="Applied" [finalizedCount]="finalizedCount" [employeesList]="Applied"
           containerColor="container-red" (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
+           >
         </app-status-box>
 
         <app-status-box class="drop-area" id="shortlisted" status="Shortlisted" [finalizedCount]="finalizedCount" [employeesList]="Shortlisted"
           containerColor="container-orange" (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
+           >
         </app-status-box>
 
         <app-status-box class="drop-area" id="interviewed" status="Interviewed" [finalizedCount]="finalizedCount" [employeesList]="Interviewed"
           containerColor="container-yellow" (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
+           >
         </app-status-box>
 
         <app-status-box class="drop-area" id="offered" status="Offered" count="15" [finalizedCount]="finalizedCount" [employeesList]="Offered"
           containerColor="container-light-green" (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)">
+           >
         </app-status-box>
 
         <app-status-box class="drop-area" id="finalized" status="Finalized" count="5" [finalizedCount]="finalizedCount" [employeesList]="Finalized"
           containerColor="container-dark-green" (statusChange)="handleStatusChange($event)"
-          (diqualifyChanged)="handleDisqualifyChange($event)" (openModalEvent)="handleOpenModalEvent($event)"> 
+           > 
         </app-status-box>
       </div>
 

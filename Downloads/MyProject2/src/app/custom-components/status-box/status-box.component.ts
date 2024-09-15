@@ -24,7 +24,7 @@ import { ApplicantService } from 'src/app/services/applicant/applicant.service';
   imports: [CdkDropList, CdkDrag, CdkDragPlaceholder, CdkDropListGroup, CdkDragPreview],
   // directives: [LongPressDirective] // Declare your directive here
 })
-export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
+export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   @Input() id: string = '';
   @Input() status: string = '';
@@ -36,7 +36,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
   @Output() diqualifyChanged = new EventEmitter<{ id: number, newDisqualified: boolean }>();
 
   @Output() openModalEvent = new EventEmitter<{ type: any, data: any }>();
-  disqualify: string = '';
+  // disqualify: string = '';
   vacancy: any;
 
 
@@ -45,11 +45,11 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('myModal') myModal: any;
   @ViewChildren('placeholder') placeholders!: QueryList<any>;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['finalizedCount']) {
-      console.log('--------Updated finalizedCount-----------:', this.finalizedCount);
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes['finalizedCount']) {
+  //     console.log('--------Updated finalizedCount-----------:', this.finalizedCount);
+  //   }
+  // }
 
 
   cvArray: any;
@@ -181,7 +181,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
   // i know its long but just keep it for now as it is -- NO its not bad because the efficiency is O(1) if 
   async openActionSheet(candidate: any) {
 
-    console.log("what is it : ", candidate.Status);
+    console.log("what is the candidate status : ", candidate.Status);
     let options: any = [];
     this.selectedCandidateId = candidate.ApplicationID;
     this.selectedCandidateType = candidate.ApplicantType;
@@ -284,25 +284,24 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
 
-
-
     const modal = await this.modalController.create({
       component: ActionSheetComponent,
       componentProps: {
         options: options,
-        optionSelected: this.handleOptionSelected.bind(this)
+        optionSelected: (option: any) => this.handleOptionSelected(option, modal)
       },
-      cssClass: 'custom-modal', // Optional: Add custom CSS class for styling
-      backdropDismiss: true, // Optional: Close modal on backdrop click
+      cssClass: 'custom-modal', 
+      backdropDismiss: true,
     });
 
     return await modal.present();
   }
 
 
-  async handleOptionSelected2(option: any) {
 
-    console.log('Selected Option:', option.label);
+
+  async handleOptionSelected(option: any, modal: HTMLIonModalElement) {
+    console.log('Selected Option in function handleOptionSelected :', option.label);
     const candidateId = this.selectedCandidateId;
     const candidateType = this.selectedCandidateType;
 
@@ -310,46 +309,12 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
       console.error('No candidate ID selected');
       return;
     }
-
-    let actionRequested: string;
-
-    if (option.label === 'Open CV') {
-      actionRequested = 'cv';
-    } else if (option.label === 'View Answers') {
-      actionRequested = 'answers';
-    } else if (option.label === 'Disqualify') {
-      actionRequested = 'disqualify';
-    } else if (option.label === 'Requalify') {
-      actionRequested = 'requalify';
-    } else {
-      console.error('Unsupported option selected');
-      return;
-    }
-
-    try {
-      const details = await this.getCandidateDetails(candidateId, candidateType, actionRequested);
-      console.log("**********details: ", details);
-      console.log('Emitting data:', { type: actionRequested, data: details });
-      this.openModalEvent.emit({ type: actionRequested, data: details });
-    } catch (error) {
-      console.error('Error fetching candidate details:', error);
-    }
-  }
-
-  async handleOptionSelected(option: any) {
-    console.log('Selected Option:', option.label);
-    const candidateId = this.selectedCandidateId;
-    const candidateType = this.selectedCandidateType;
-
-    if (!candidateId) {
-      console.error('No candidate ID selected');
-      return;
-    }
+    await modal.dismiss();
     try {
       let disqualifyReason: string | undefined;
       let details;
   
-      switch (option.label) {
+      switch (option.label) { 
         case 'Open CV':
           details = await this.applicantService.getApplicantCV(candidateId, candidateType);
           this.cvArray = details;
@@ -363,9 +328,11 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
           break;
   
         case 'Disqualify':
-          const disqualifyReason = await this.promptForDisqualificationReason();
+
+          const disqualifyReason = await this.alertForDisqualificationReason();
+          console.log("reason is ", disqualifyReason);
           if (disqualifyReason !== undefined) {
-            await this.ChangeDisqualifiedStatus(candidateId, false, disqualifyReason);
+            await this.applicantService.ChangeDisqualifiedStatus(candidateId, true, disqualifyReason);
             console.log("Disqualification processed.");
           } else {
             console.log('Disqualification was canceled.');
@@ -382,16 +349,17 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
           return;
       }
   
-      console.log("**********details: ", details);
-      console.log('Emitting data:', { type: option.label.toLowerCase().replace(' ', '_'), data: details });
       this.openModalEvent.emit({ type: option.label.toLowerCase().replace(' ', '_'), data: details });
   
+      
+
+
     } catch (error) {
       console.error('Error fetching candidate details:', error);
     }
   }
 
-  async promptForDisqualificationReason(): Promise<string | undefined> {
+  async alertForDisqualificationReason(): Promise<string | undefined> {
     const alert = await this.alertController.create({
       header: 'Disqualification Reason',
        mode: 'ios',
@@ -409,7 +377,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
           handler: () => undefined
         },
         {
-          text: 'OK',
+          text: 'Save',
           handler: (data) => data.reason || undefined
         }
       ]
@@ -417,27 +385,9 @@ export class StatusBoxComponent implements OnInit, AfterViewInit, OnChanges {
 
     await alert.present();
     const { data } = await alert.onDidDismiss();
-    return data.reason;
+    return data?.values?.reason || undefined;
   }
 
-  async ChangeDisqualifiedStatus(id: number, status: boolean, disqualifyReason?: string): Promise<any> {
-    console.log("calling ChangeDisqualifiedStatus in applicant service");
-
-    const data: { ApplicationID: number; Status: boolean; DisqualifyReason?: string } = {
-      ApplicationID: id,
-      Status: status,
-      ...(disqualifyReason && { DisqualifyReason: disqualifyReason }) // Conditionally add DisqualifyReason
-    };
-
-    try {
-      const response = await this.applicantService.updateDisqualificationStatus(data);
-      console.log("Disqualification status updated successfully", response);
-      return response;
-    } catch (error) {
-      console.error("Error updating disqualification status:", error);
-      throw error; // Rethrow or handle the error as needed
-    }
-  }
 
 
 
