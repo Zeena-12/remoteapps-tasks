@@ -86,7 +86,6 @@ export class ApplicantService {
       // Check if the response is successful and contains Parameters
       console.log("sending what ", data);
       if (responseData) {
-
         const data = responseData;
         console.log("ChangeDisqualifiedStatus", data);
         return data.Parameters;
@@ -130,7 +129,7 @@ export class ApplicantService {
       if (responseData) {
 
         const data = responseData;
-        console.log("data from applicant service related to choosen vacancyID: ", data);
+        console.log("data from applicant service related to choosen applicant: ", data);
         return data.Parameters;
       } else {
         throw new Error('Invalid response structure or no data available.');

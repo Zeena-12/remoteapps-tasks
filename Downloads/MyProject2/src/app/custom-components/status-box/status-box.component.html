@@ -1,28 +1,28 @@
 <div class="example-container" [id]="id" cdkScrollable>
   <!-- <div > -->
-    <div class="status" [ngClass]="containerColor">
-      <p>
-        {{ status }}
-      </p>
+  <div class="status" [ngClass]="containerColor">
+    <p>
+      {{ status }}
+    </p>
+  </div>
+  <div class="count">
+    <p [ngClass]="containerColor">
+      {{ employeesList.length }}
+    </p>
+  </div>
+  <div cdkDropList [cdkDropListData]="employeesList" class="example-list" (cdkDropListDropped)="drop($event,'')"
+    cdkDropListSortingDisabled>
+    <div *ngFor="let item of employeesList; let i = index">
+      <div class="example-box" cdkDrag>
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+        <app-profile-card (dataFetched)="onDataFetched($event)" appLongPress (click)="openActionSheet(item)"
+          [id]="item.ApplicationID" [name]="item.FirstName" [avatar]="item.ImageName" [nationality]="item.Nationality"
+          [role]="item.CurrentPosition" [thumbsUp]="item.ThumbsUp" [thumbsDown]="item.ThumbsDown" [status]="item.Status"
+          [disqualified]="item.Disqualified" [finalized]="item.Finalized">
+        </app-profile-card>
+      </div>
     </div>
-    <div class="count">
-      <p [ngClass]="containerColor">
-        {{ employeesList.length }}
-      </p>
-    </div>
-      <div cdkDropList [cdkDropListData]="employeesList" class="example-list" (cdkDropListDropped)="drop($event,'')" 
-        cdkDropListSortingDisabled >
-        <div *ngFor="let item of employeesList; let i = index">
-          <div class="example-box" cdkDrag>
-            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-              <app-profile-card appLongPress (click)="openActionSheet(item)" [id]="item.ApplicationID" [name]="item.FirstName" [avatar]="item.ImageName" [nationality]="item.Nationality" 
-              [role]="item.CurrentPosition" [thumbsUp]="item.ThumbsUp" [thumbsDown]="item.ThumbsDown"
-              [status]="item.Status"
-              [disqualified]="item.Disqualified" [finalized]="item.Finalized">
-            </app-profile-card>
-          </div>
-        </div>
-        </div>
-    </div>
+  </div>
+</div>
 
-  
+

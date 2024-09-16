@@ -110,7 +110,8 @@ export class VacancyPage implements OnInit, AfterViewInit {
   }
   async loadVacancyApplicants() {
     try {
-      const result = await this.applicantsService.getApplications(this.vacancyId)
+      this.ApplicantList  = [];
+      const result = await this.applicantsService.getApplications(this.vacancyId);
       this.ApplicantList = result.list;
       console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
 
@@ -224,7 +225,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
     try {
       const result = await this.applicantsService.ChangeApplicationStatus(event.id, event.newStatus);
 
-       this.finalizedCount = this.Finalized.length;
+      this.finalizedCount = this.Finalized.length;
 
     } catch (error) {
       console.error('Error updating status:', error);
@@ -244,26 +245,9 @@ export class VacancyPage implements OnInit, AfterViewInit {
     await alert.present();
   }
 
-  handleOpenModalEvent(event: { type: string, data: any }) {
-    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$Received event:', event);
-    if (event.type === 'cv') {
-      this.cvData = event.data;
-      this.ApplicantProfile = this.cvData.ApplicantProfile;
-      this.ApplicantionList = this.cvData.ApplicantionList;
-      this.ExperienceList = this.cvData.ExperienceList;
-      this.QualificationList = this.cvData.QualificationList;
-      this.CertificateList = this.cvData.CertificateList;
-      this.openModal('cv-modal');
-    } else if (event.type === 'answers') {
-      this.answersData = event.data;
-      this.openModal('answers-modal');
-    } else if (event.type === 'disqualify') {
-      console.log("@@@@@@@@@@@@ choosing disqualify ");
-    }
-  }
 
   async openModal(modalId: string) {
-    console.log("Attempting to open modal with ID:", modalId);
+    console.log("Attempting to open modal with ID in vacancy:", modalId);
     const modal = document.getElementById(modalId) as HTMLIonModalElement | null;
     if (modal) {
       await modal.present();
@@ -289,6 +273,21 @@ export class VacancyPage implements OnInit, AfterViewInit {
       .filter(applicant => applicant !== undefined); // Remove any undefined values
 
     console.log("Best fit applicants: ", this.BestFitApplicants);
+  }
+
+
+  onDataFetched(data: any) {
+    this.cvData = data;
+    this.ApplicantProfile = this.cvData.ApplicantProfile;
+    this.ApplicantionList = this.cvData.ApplicantionList;
+    this.ExperienceList = this.cvData.ExperienceList;
+    this.QualificationList = this.cvData.QualificationList;
+    this.CertificateList = this.cvData.CertificateList;
+    console.log(' xxxxxxxxxxxxxxx Data received from status-boxxxxxxxxxxxxxx: ', this.cvData);
+    this.openModal('cv-modal');
+  }
+  async handleActionCompleted(event: { action: string }) {
+    this.loadVacancyApplicants();
   }
 
 
@@ -555,6 +554,8 @@ export class VacancyPage implements OnInit, AfterViewInit {
       console.log('No date selected in handleDateSelected');
     }
   }
+
+
 
   onSelectButtonClicked() {
     this.generateWeekDays();

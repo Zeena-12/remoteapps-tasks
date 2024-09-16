@@ -14,6 +14,7 @@ import { firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { VacanciesService } from 'src/app/services/vacancies/vacancies.service';
 import { ApplicantService } from 'src/app/services/applicant/applicant.service';
+import { IonModal } from '@ionic/angular';
 
 
 
@@ -34,8 +35,11 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
   @Output() diqualifyChanged = new EventEmitter<{ id: number, newDisqualified: boolean }>();
+  @Output() actionCompleted = new EventEmitter<{ action: string}>();
 
-  @Output() openModalEvent = new EventEmitter<{ type: any, data: any }>();
+  @Output() openCVModal = new EventEmitter<any>();
+  @Output() dataFetched = new EventEmitter<any>();
+
   // disqualify: string = '';
   vacancy: any;
 
@@ -54,8 +58,9 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   cvArray: any;
   answersArray: any;
-  selectedCandidateId: any;
-  selectedCandidateType: any;
+  selectedApplicantID: any;
+  selectedApplicationID: any;
+  selectedApplicantType: any;
 
   gestureArray: Gesture[] = [];
   @ViewChildren(ProfileCardComponent, { read: ElementRef }) items!: QueryList<ElementRef>;
@@ -91,7 +96,13 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+
   }
+
+
+
+
+
 
 
 
@@ -181,10 +192,12 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   // i know its long but just keep it for now as it is -- NO its not bad because the efficiency is O(1) if 
   async openActionSheet(candidate: any) {
 
-    console.log("what is the candidate status : ", candidate.Status);
+    console.log("????????? what is the candidate ???????????? : ", candidate);
     let options: any = [];
-    this.selectedCandidateId = candidate.ApplicationID;
-    this.selectedCandidateType = candidate.ApplicantType;
+    this.selectedApplicantID = candidate.ApplicantID;
+    this.selectedApplicationID = candidate.ApplicationID; 
+    this.selectedApplicantType = candidate.ApplicantType;
+
 
     if ((candidate.Status == 'Applied' || candidate.Status == 'Shortlisted') && (this.finalizedCount < this.vacancy.NoOpenings)) {
       options = [
@@ -290,7 +303,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         options: options,
         optionSelected: (option: any) => this.handleOptionSelected(option, modal)
       },
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       backdropDismiss: true,
     });
 
@@ -302,10 +315,11 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   async handleOptionSelected(option: any, modal: HTMLIonModalElement) {
     console.log('Selected Option in function handleOptionSelected :', option.label);
-    const candidateId = this.selectedCandidateId;
-    const candidateType = this.selectedCandidateType;
+    const ApplicantID = this.selectedApplicantID;
+    const ApplicationID = this.selectedApplicationID;
+    const ApplicantType = this.selectedApplicantType;
 
-    if (!candidateId) {
+    if (!ApplicantID) {
       console.error('No candidate ID selected');
       return;
     }
@@ -313,46 +327,44 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
     try {
       let disqualifyReason: string | undefined;
       let details;
-  
-      switch (option.label) { 
+
+      switch (option.label) {
         case 'Open CV':
-          details = await this.applicantService.getApplicantCV(candidateId, candidateType);
-          this.cvArray = details;
-          console.log("Array name is cv and the details", this.cvArray);
+          console.log("############### candidate id and type: ", ApplicantID, " ", ApplicantType);
+          this.getCandidateDetails(ApplicantID, ApplicantType)
+            .then((details) => {
+              this.dataFetched.emit(this.cvArray);
+            })
           break;
-  
+
         case 'View Answers':
-          details = await this.applicantService.getApplicationQuestionAnswer(candidateId);
+          details = await this.applicantService.getApplicationQuestionAnswer(ApplicantID);
           this.answersArray = details;
           console.log("Array name is answers and the details", this.answersArray);
           break;
-  
-        case 'Disqualify':
 
+        case 'Disqualify':
           const disqualifyReason = await this.alertForDisqualificationReason();
           console.log("reason is ", disqualifyReason);
           if (disqualifyReason !== undefined) {
-            await this.applicantService.ChangeDisqualifiedStatus(candidateId, true, disqualifyReason);
+            await this.applicantService.ChangeDisqualifiedStatus(ApplicationID, true, disqualifyReason);
             console.log("Disqualification processed.");
+            this.actionCompleted.emit({ action: 'Disqualify' });
           } else {
             console.log('Disqualification was canceled.');
           }
           break;
-  
+
         case 'Requalify':
-          details = await this.applicantService.ChangeDisqualifiedStatus(candidateId, false, '');
+          details = await this.applicantService.ChangeDisqualifiedStatus(ApplicationID, false, '');
+          this.actionCompleted.emit({ action: 'Disqualify'});
           console.log("Requalification", details);
           break;
-  
+
         default:
           console.error('Unsupported option selected');
           return;
       }
-  
-      this.openModalEvent.emit({ type: option.label.toLowerCase().replace(' ', '_'), data: details });
-  
-      
-
 
     } catch (error) {
       console.error('Error fetching candidate details:', error);
@@ -362,7 +374,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   async alertForDisqualificationReason(): Promise<string | undefined> {
     const alert = await this.alertController.create({
       header: 'Disqualification Reason',
-       mode: 'ios',
+      mode: 'ios',
       inputs: [
         {
           name: 'reason',
@@ -394,23 +406,21 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   dismissModal() {
     // Implement dismiss logic here (e.g., close the modal)
-    console.log('Modal dismissed for select option############################');
+    console.log('Modal dismissed for select option ############################');
     this.modalController.dismiss();
   }
 
-  getCandidateDetails(id: number, type: string, requiestedAction: string): Promise<any> {
-    console.log("from getCandidateDetails ", id, " ", type, " ", requiestedAction);
+  getCandidateDetails(id: number, type: string): Promise<any> {
+    console.log("from getCandidateDetails ", id);
 
     return this.applicantService.getApplicantCV(id, type)
       .then((candidateDetails: any) => {
-        if (requiestedAction === 'cv') {
-          this.cvArray = candidateDetails;
-          console.log("Array name is cv and the details ", this.cvArray);
-        } else if (requiestedAction === 'answers') {
-          this.answersArray = candidateDetails;
-          console.log("Array name is answers and the details", this.answersArray);
-        }
+        this.cvArray = candidateDetails;
+        console.log("Array name is cv and the details ", this.cvArray);
+
         console.log('Candidate Details:', candidateDetails);
+        // Emit the event with the fetched data
+        this.openCVModal.emit(candidateDetails);
         return candidateDetails;
       })
       .catch((error: any) => {
@@ -418,6 +428,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
         return null;
       });
   }
+
 
 }
 

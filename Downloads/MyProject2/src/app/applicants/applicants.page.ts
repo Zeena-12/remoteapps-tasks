@@ -344,7 +344,7 @@ export class ApplicantsPage implements OnInit {
 
       // Now open the modal
       const modalId = 'cv-modal'; // Hardcoded modal ID
-      console.log("Attempting to open modal with ID:", modalId);
+      console.log("Attempting to open modal with ID in applicants:", modalId);
       const modal = document.getElementById(modalId) as HTMLIonModalElement | null;
 
       if (modal) {
