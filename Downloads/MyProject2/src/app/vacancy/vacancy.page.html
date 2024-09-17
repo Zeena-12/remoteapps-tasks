@@ -38,27 +38,27 @@
       </div>
 
       <div class="card-container" cdkDropListGroup cdkScrollable>
-        <app-status-box (dataFetched)="onDataFetched($event)" (actionCompleted)="handleActionCompleted($event)" class="drop-area" id="applied" status="Applied"
+        <app-status-box (dataFetched)="onDataFetched($event)" (changeTag)="disqualifyStatusChange()" class="drop-area" id="applied" status="Applied"
           [finalizedCount]="finalizedCount" [employeesList]="Applied" containerColor="container-red"
           (statusChange)="handleStatusChange($event)">
         </app-status-box>
 
-        <app-status-box (dataFetched)="onDataFetched($event)" (actionCompleted)="handleActionCompleted($event)" class="drop-area" id="shortlisted" status="Shortlisted"
+        <app-status-box (dataFetched)="onDataFetched($event)" (changeTag)="disqualifyStatusChange()" class="drop-area" id="shortlisted" status="Shortlisted"
           [finalizedCount]="finalizedCount" [employeesList]="Shortlisted" containerColor="container-orange"
           (statusChange)="handleStatusChange($event)">
         </app-status-box>
 
-        <app-status-box (dataFetched)="onDataFetched($event)" (actionCompleted)="handleActionCompleted($event)" class="drop-area" id="interviewed" status="Interviewed"
+        <app-status-box (dataFetched)="onDataFetched($event)" (changeTag)="disqualifyStatusChange()" class="drop-area" id="interviewed" status="Interviewed"
           [finalizedCount]="finalizedCount" [employeesList]="Interviewed" containerColor="container-yellow"
           (statusChange)="handleStatusChange($event)">
         </app-status-box>
 
-        <app-status-box (dataFetched)="onDataFetched($event)" (actionCompleted)="handleActionCompleted($event)" class="drop-area" id="offered" status="Offered" count="15"
+        <app-status-box (dataFetched)="onDataFetched($event)" (changeTag)="disqualifyStatusChange()" class="drop-area" id="offered" status="Offered" count="15"
           [finalizedCount]="finalizedCount" [employeesList]="Offered" containerColor="container-light-green"
           (statusChange)="handleStatusChange($event)">
         </app-status-box>
 
-        <app-status-box (dataFetched)="onDataFetched($event)" (actionCompleted)="handleActionCompleted($event)" class="drop-area" id="finalized" status="Finalized"
+        <app-status-box (dataFetched)="onDataFetched($event)" (changeTag)="disqualifyStatusChange()" class="drop-area" id="finalized" status="Finalized"
           count="5" [finalizedCount]="finalizedCount" [employeesList]="Finalized" containerColor="container-dark-green"
           (statusChange)="handleStatusChange($event)">
         </app-status-box>
@@ -466,6 +466,7 @@
           <button *ngFor="let day of weekDays" (click)="selectDay(day.day)" [class.active]="selectedDay === day.day">
             <p class="day-name">{{ day.day }}</p>
             <p class="day-date">{{ day.date }}</p>
+            <!-- add a dot here but using only css class -->
           </button>
         </div>
         <div class="time-container" *ngIf="times[selectedDay] && times[selectedDay].length ; else noRecords">
@@ -477,11 +478,11 @@
                   <img src="/assets/avatar.png" alt="Person Image">
                   <div class="likes-dislikes">
                     <div class="like">
-                      <i class="icon-thumbs-up" style="color: #8ebe58; font-size:15px"></i>
+                      <i class="icon-thumbs-up" style="color: #8ebe58; font-size:15px; "></i>
                       <p>{{ person.ThumbsUp || '-'}}</p>
                     </div>
                     <div class="dislike">
-                      <i class="icon-Thumbs-Down-Right-Side" style="color: #d52b45; font-size:15px"></i>
+                      <i class="icon-Thumbs-Down-Right-Side" style="color: #d52b45; font-size:15px; font-weight: 500;"></i>
                       <p>{{ person.ThumbsDown || '-'}}</p>
                     </div>
                   </div>
@@ -517,6 +518,10 @@
         </div>
       </div>
       <!-- applicant.page.html -->
+      <div *ngIf="!SelectedApplicant">
+        <p>No Interviews available1.</p>
+      </div>
+      <div *ngIf="SelectedApplicant">
       <div class="content-top-interview">
         <div class="interviewee-profile" (click)="openSelectModal()">
           <div class="profile" id="open-select-interviewee">
@@ -525,10 +530,11 @@
           </div>
           <i class="icon-Arrow-Chevron-Down" [ngClass]="{'icon-Arrow-Chevron-Up': showDropdown}"></i>
         </div>
+
         <!--  -->
         <div class="avg-rating">
           <div class="box-rating">
-            <p>Average</p>
+            <p>Averagee</p>
             <p>4.5</p>
           </div>
           <div class="box-rating">
@@ -542,13 +548,13 @@
             <img src="/assets/avatar.png" style="width: 50px; border-radius: 50%;" alt="Star">
             <p>{{candidate.FullName}}</p>
           </div>
-          <div class="rating-details">
+          <div class="rating-details"> 
             <div class="box-rating" *ngFor="let ratingDetails of candidate.FeedbackCriteria">
               <p>{{ratingDetails.CriteriaTranslated}}</p>
               <img src="/assets/star.png" style="width: 100px; height: 20px;" alt="Star">
             </div>
             <div class="box-rating">
-              <p>Average</p>
+              <p>AverageQ</p>
               <p>{{candidate.OverallFeedbackNoStars}}</p>
             </div>
             <div class="box-rating">
@@ -557,6 +563,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </ng-template>
@@ -575,6 +582,10 @@
       </div>
       <!-- applicant.page.html -->
       <div class="select-content-top-interview">
+        <div *ngIf="UniqueApplicantFromRaing.length === 0">
+          <p>No candidates available2.</p>
+        </div>
+        <div *ngIf="UniqueApplicantFromRaing.length > 0">
         <div class="interviewee-profile" *ngFor="let candidate of UniqueApplicantFromRaing"
           (click)="selectCandidate(candidate)">
           <div class="profile">
@@ -583,9 +594,10 @@
           </div>
           <div class="rating">
             <img src="/assets/star.png" style="width: 100px; height:20px" alt="Star">
-            <p>3.4</p>
+            <p>{{candidate.Rate}}</p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </ng-template>

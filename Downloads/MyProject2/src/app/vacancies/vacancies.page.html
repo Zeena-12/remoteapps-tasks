@@ -31,7 +31,6 @@
   <div class="container">
 
     <!-- buttons -->
-    <ion-button id="open-modal" expand="block">Open Sheet Modal</ion-button>
     <div class="button-wrapper">
       <button class="filter-button">
         <i class="icon-filter-1" style="color: #91a0b3;"></i>
@@ -46,12 +45,12 @@
 
     <!-- start job -->
     <div class="job-container" *ngFor="let vacancies of vacanciesList" (click)="goToVacancyDetail(vacancies)">
-      <div class="job-info">
-        <div class="job-details">
+      <div class="job-info" >
+        <div class="job-details" >
           <div class="box job-icon">
             <i class="icon-employee-hire" style="color: #91a0b3; font-size: 25px;"></i>
           </div>
-          <div class="box details">
+          <div class="box details" >
             <p class="role-name text-ellipsis">{{vacancies.VacancyName}}</p>
             <div class="details-row">
               <p class="employment-type">{{vacancies.JobType}}</p>

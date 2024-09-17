@@ -35,7 +35,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
 
   @Output() statusChange = new EventEmitter<{ id: number, newStatus: string }>();
   @Output() diqualifyChanged = new EventEmitter<{ id: number, newDisqualified: boolean }>();
-  @Output() actionCompleted = new EventEmitter<{ action: string}>();
+  @Output() changeTag = new EventEmitter<void>(); // this can be used for changing the tags
 
   @Output() openCVModal = new EventEmitter<any>();
   @Output() dataFetched = new EventEmitter<any>();
@@ -98,13 +98,6 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
-
-
-
-
-
-
-
 
   drop(event: CdkDragDrop<any[]>, target: string) {
     console.log("calling drop in status");
@@ -338,7 +331,7 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
           break;
 
         case 'View Answers':
-          details = await this.applicantService.getApplicationQuestionAnswer(ApplicantID);
+          details = await this.vacanciesService.getApplicationQuestionAnswer(ApplicantID);
           this.answersArray = details;
           console.log("Array name is answers and the details", this.answersArray);
           break;
@@ -347,19 +340,30 @@ export class StatusBoxComponent implements OnInit, AfterViewInit {
           const disqualifyReason = await this.alertForDisqualificationReason();
           console.log("reason is ", disqualifyReason);
           if (disqualifyReason !== undefined) {
-            await this.applicantService.ChangeDisqualifiedStatus(ApplicationID, true, disqualifyReason);
+            await this.vacanciesService.ChangeDisqualifiedStatus(ApplicationID, true, disqualifyReason);
             console.log("Disqualification processed.");
-            this.actionCompleted.emit({ action: 'Disqualify' });
+            this.changeTag.emit();
           } else {
             console.log('Disqualification was canceled.');
           }
           break;
 
         case 'Requalify':
-          details = await this.applicantService.ChangeDisqualifiedStatus(ApplicationID, false, '');
-          this.actionCompleted.emit({ action: 'Disqualify'});
+          details = await this.vacanciesService.ChangeDisqualifiedStatus(ApplicationID, false, '');
+          this.changeTag.emit();
           console.log("Requalification", details);
           break;
+
+
+        case 'Accept Offer' :
+          details = await this.vacanciesService.acceptOffer(ApplicationID);
+          this.changeTag.emit();
+        break;
+
+        case 'Reject Offer' :
+          details = await this.vacanciesService.rejectOffer(ApplicationID);
+          this.changeTag.emit();
+        break;
 
         default:
           console.error('Unsupported option selected');

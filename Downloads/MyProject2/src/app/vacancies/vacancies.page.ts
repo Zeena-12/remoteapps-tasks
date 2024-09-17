@@ -67,7 +67,7 @@ export class VacanciesPage implements OnInit {
 // change it to load applications
   async getApplications(vacancyId: number) {
     try {
-      this.vacanciesList = await this.applicantsServive.getApplications(vacancyId);
+      this.vacanciesList = await this.vacanciesService.getApplications(vacancyId);
       console.log("List of vacancy based in vacancy id " ,this.vacanciesList);
       this.router.navigate(['/vacancy']);
     } catch (error) {

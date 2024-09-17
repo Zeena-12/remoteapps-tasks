@@ -14,16 +14,13 @@ export class ApplicantService {
   }
   // api list
   private apiUrlGetApplicantData = `${backend}HCM/Recruitment/Applicants/getApplicantData`;
-  private apiUrlGetApplicantDataVacancies = `${backend}HCM/Recruitment/Vacancies/GetApplicantData`; //dont be confused one capital and one small
   private apiUrlGetApplicantCV = `${backend}HCM/Recruitment/Applicants/getApplicantCV`;
   private apiUrlGetEmployeeCV = `${backend}HCM/Recruitment/Applicants/getEmployeeCV`;
-  private apiUrlGetApplications = `${backend}HCM/Recruitment/Vacancies/getApplications`;
-  private apiUrlChangeApplicationStatus = `${backend}HCM/Recruitment/Vacancies/ChangeApplicationStatus`;
+
   private apiUrlSetApplicant = `${backend}HCM/Recruitment/Applicants/setApplicant`;
   private apiUrlSetApplicantExperience = `${backend}HCM/Recruitment/Applicants/setApplicantExperience`;
-  private apiUrlChangeDisqualifiedStatus = `${backend}HCM/Recruitment/Vacancies/ChangeDisqualifiedStatus`;
-  private apiUrlGetApplicationQuestionAnswer = `${backend}HCM/Recruitment/Vacancies/getApplicationQuestionAnswer`;
 
+// ***
 
 
 
@@ -63,47 +60,7 @@ export class ApplicantService {
   }
 
 
-  async ChangeDisqualifiedStatus(id: number, status: boolean, disqualifyReason?: any): Promise<any> {
-    console.log("calling ChangeDisqualifiedStatus in applicant service");
 
-    // Create the base data object
-    const data: { ApplicationID: number; Status: boolean;[key: string]: any } = {
-      ApplicationID: id,
-      Status: status
-    };
-
-    // Add DisqualifyReason to the data object only if it is a non-empty string
-    if (disqualifyReason) {
-      data['DisqualifyReason'] = disqualifyReason;
-    }
-    console.log("data isssss ", data);
-
-    try {
-      const response: any = await this.http.post(this.apiUrlChangeDisqualifiedStatus, data, {});
-      // Parse the response data
-      const responseData = JSON.parse(response.data);
-
-      // Check if the response is successful and contains Parameters
-      console.log("sending what ", data);
-      if (responseData) {
-        const data = responseData;
-        console.log("ChangeDisqualifiedStatus", data);
-        return data.Parameters;
-      } else {
-        throw new Error('Invalid response structure or no data available.');
-      }
-    } catch (error: any) {
-      // Handle error response
-      console.error('Error during data retrieval:', error);
-
-      // Return an error message or handle as needed
-      if (error.status === 0) {
-        return 'Network error or CORS issue. Please try again later.';
-      } else {
-        throw new Error('An error occurred while retrieving data.');
-      }
-    }
-  }
 
   async getApplicantCV(id: number, type: string): Promise<any> {
     console.log("calling getApplicantCV in applicant service");
@@ -147,133 +104,7 @@ export class ApplicantService {
     }
   }
 
-  async getApplicationQuestionAnswer(id: number): Promise<any> {
-    console.log("calling getApplicationQuestionAnswer  in applicant service");
-    const data = {
-      ApplicationID: id,
-    };
 
-    try {
-      const response: any = await this.http.post(this.apiUrlGetApplicationQuestionAnswer, data, {});
-
-      // Parse the response data
-      const responseData = JSON.parse(response.data);
-
-      // Check if the response is successful and contains Parameters
-      if (responseData) {
-
-        const data = responseData;
-        console.log("data from applicant service related to choosen vacancyID: ", data);
-        return data.Parameters;
-      } else {
-        throw new Error('Invalid response structure or no data available.');
-      }
-    } catch (error: any) {
-      // Handle error response
-      console.error('Error during data retrieval:', error);
-
-      // Return an error message or handle as needed
-      if (error.status === 0) {
-        return 'Network error or CORS issue. Please try again later.';
-      } else {
-        throw new Error('An error occurred while retrieving data.');
-      }
-    }
-  }
-
-  // workingg
-  async getApplications(vacancyId: number): Promise<any> {
-    const data = {
-      VacancyID: vacancyId,
-    };
-    try {
-      const response: any = await this.http.post(this.apiUrlGetApplications, data, {});
-
-      // Parse the response data
-      const responseData = JSON.parse(response.data);
-
-      // Check if the response is successful and contains Parameters
-      if (responseData) {
-
-        const data = responseData;
-        console.log("data from applicant service related to choosen vacancyID: ", data);
-        return data.Parameters;
-      } else {
-        throw new Error('Invalid response structure or no data available.');
-      }
-    } catch (error: any) {
-      // Handle error response
-      console.error('Error during data retrieval:', error);
-
-      // Return an error message or handle as needed
-      if (error.status === 0) {
-        return 'Network error or CORS issue. Please try again later.';
-      } else {
-        throw new Error('An error occurred while retrieving data.');
-      }
-    }
-  }
-
-  async getApplicantDataVacancie(): Promise<any> {
-
-    try {
-      const response: any = await this.http.post(this.apiUrlGetApplicantDataVacancies, {}, {});
-
-      // Parse the response data
-      const responseData = JSON.parse(response.data);
-
-      // Check if the response is successful and contains Parameters
-      if (responseData) {
-
-        const data = responseData;
-        console.log("data from applicant service function getApplicantDataVacancie: ", data);
-        //  return data.Parameters.ApplicantList; // i will try  to change to retun the full list
-        return data.Parameters; // i will try  to change to retun the full list
-
-      } else {
-        throw new Error('Invalid response structure or no data available.');
-      }
-    } catch (error: any) {
-      // Handle error response
-      console.error('Error during data retrieval:', error);
-
-      // Return an error message or handle as needed
-      if (error.status === 0) {
-        return 'Network error or CORS issue. Please try again later.';
-      } else {
-        throw new Error('An error occurred while retrieving data.');
-      }
-    }
-  }
-
-  async ChangeApplicationStatus(applicationID: number, status: string): Promise<string> {
-
-
-    const data = {
-      ApplicationID: applicationID,
-      Status: status
-    };
-
-    console.log("data: ", data);
-    try {
-      const response: any = await this.http.post(this.apiUrlChangeApplicationStatus, data, {});
-
-      // Handle successful response
-      console.log('Response from server for ChangeApplicationStatus:', response.data);
-      // Return a success message or any other relevant data
-      return 'ChangeApplicationStatus successful!';
-    } catch (error: any) {
-      // Handle error response
-      console.error('Error during ChangeApplicationStatus:', error);
-
-      // Return an error message or handle as needed
-      if (error.status === 0) {
-        return 'Network error or CORS issue. Please try again later.';
-      } else {
-        return 'Invalid credentials or other error occurred.';
-      }
-    }
-  }
 
   async setApplicant(newData: any): Promise<any> {
 

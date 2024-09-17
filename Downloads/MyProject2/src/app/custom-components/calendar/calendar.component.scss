@@ -18,7 +18,7 @@
 
 
 .month-container:last-of-type .month {
- margin-bottom: 110px;
+  margin-bottom: 110px;
 
 }
 
@@ -86,16 +86,25 @@
 
 /* Add a dot below the day number */
 .day.markedDate::after {
-  content: ''; /* Empty content for the pseudo-element */
+  content: '';
+  /* Empty content for the pseudo-element */
   display: block;
-  width: 8px; /* Diameter of the dot */
-  height: 8px; /* Diameter of the dot */
-  border-radius: 50%; /* Make it a circle */
-  background-color: #00abec; /* Color of the dot */
-  position: absolute; /* Position it absolutely within the .day element */
-  bottom: 4px; /* Distance from the bottom */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust for horizontal centering */
+  width: 5px;
+  /* Diameter of the dot */
+  height: 5px;
+  /* Diameter of the dot */
+  border-radius: 50%;
+  /* Make it a circle */
+  background-color: #00abec;
+  /* Color of the dot */
+  position: absolute;
+  /* Position it absolutely within the .day element */
+  bottom: 4px;
+  /* Distance from the bottom */
+  left: 50%;
+  /* Center it horizontally */
+  transform: translateX(-50%);
+  /* Adjust for horizontal centering */
 }
 
 .empty {
@@ -113,20 +122,25 @@
   left: 0;
   z-index: 10;
   // border: 10px solid green;
-  background: #fff; /* Background color for the container */
-  padding: 0px 10px 10px 10px; /* Optional: Add some horizontal padding for spacing */
+  background: #fff;
+  /* Background color for the container */
+  padding: 0px 10px 10px 10px;
+  /* Optional: Add some horizontal padding for spacing */
 }
 
 .full-width-button {
-  width: 100%; /* Ensure button takes full width of container */
+  width: 100%;
+  /* Ensure button takes full width of container */
   height: 48px;
   background: #00abec;
   color: white;
   border-radius: 16px;
-  border: none; /* Remove default button border */
+  border: none;
+  /* Remove default button border */
   font-size: 16px;
   font-weight: 500;
-  box-sizing: border-box; /* Include padding and border in width calculation */
+  box-sizing: border-box;
+  /* Include padding and border in width calculation */
 }
 
 .selected {
@@ -158,6 +172,7 @@
   background-color: #00abec;
   color: white;
 }
+
 
 
 

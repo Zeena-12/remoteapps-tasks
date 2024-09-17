@@ -155,4 +155,6 @@
     </plugin>
     <allow-navigation href="http://192.168.100.71:8100" sessionid="d5d8598e" />
     <allow-navigation href="http://192.168.100.71:8101" sessionid="55f750ab" />
+    <allow-navigation href="http://192.168.100.54:8100" sessionid="9805eab1" />
+    <allow-navigation href="http://192.168.100.54:8101" sessionid="c74d9a7d" />
 </widget>

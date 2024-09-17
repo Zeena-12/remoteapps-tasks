@@ -110,8 +110,15 @@ export class VacancyPage implements OnInit, AfterViewInit {
   }
   async loadVacancyApplicants() {
     try {
+      // clean the array before pushing
+      this.Applied = [];
+      this.Shortlisted = [];
+      this.Interviewed = [];
+      this.Offered = [];
+      this.Finalized = [];
       this.ApplicantList  = [];
-      const result = await this.applicantsService.getApplications(this.vacancyId);
+
+      const result = await this.vacanciesService.getApplications(this.vacancyId);
       this.ApplicantList = result.list;
       console.log('Result from getApplications from loadVacancyData from id:', this.ApplicantList);
 
@@ -188,8 +195,8 @@ export class VacancyPage implements OnInit, AfterViewInit {
         toArray() // Collect all formatted dates into an array
       ).subscribe({
         next: (dates) => {
-          this.markedDates = dates; // Store the collected dates into markedDates
-          console.log('Marked Dates:', this.markedDates); // Log the result or use it as needed
+          this.markedDates = dates;
+          console.log('Marked Dates:', this.markedDates);
         },
         error: (err) => {
           console.error('Error processing InterviewDate:', err);
@@ -207,7 +214,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
   async loadApplicantData() {
     // fetch data from api GetApplicantData
     try {
-      const result = await this.applicantsService.getApplicantDataVacancie()
+      const result = await this.vacanciesService.getApplicantDataVacancie()
       this.EmployeeList = result.EmployeeList;
       this.ApplicantBestFitList = result.ApplicantBestFitList;
       this.findBestFitApplicants();
@@ -223,7 +230,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
 
   async handleStatusChange(event: { id: number, newStatus: string }) {
     try {
-      const result = await this.applicantsService.ChangeApplicationStatus(event.id, event.newStatus);
+      const result = await this.vacanciesService.ChangeApplicationStatus(event.id, event.newStatus);
 
       this.finalizedCount = this.Finalized.length;
 
@@ -286,7 +293,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
     console.log(' xxxxxxxxxxxxxxx Data received from status-boxxxxxxxxxxxxxx: ', this.cvData);
     this.openModal('cv-modal');
   }
-  async handleActionCompleted(event: { action: string }) {
+  async disqualifyStatusChange() {
     this.loadVacancyApplicants();
   }
 
@@ -310,6 +317,7 @@ export class VacancyPage implements OnInit, AfterViewInit {
       const startOfWeek = this.selectedDate.clone().startOf('week'); // Start of the week containing the selected day
       console.log("start of week  in if", startOfWeek);
       this.weekDays = Array.from({ length: 7 }, (_, i) => {
+        console.log("///////////weekDays ", this.weekDays);
         const day = startOfWeek.clone().add(i, 'days');
         //    console.log("in generateWeekDays in if day is", this.weekDays);
         this.generateTimes();
@@ -496,27 +504,30 @@ export class VacancyPage implements OnInit, AfterViewInit {
   }
   getUniqueApplicants() {
     // Create a map to store unique applicants by ApplicantID
-    const uniqueMap = new Map<number, { ApplicantName: string, PositionName: string }>();
+    const uniqueMap = new Map<number, { ApplicantName: string, PositionName: string, Rating: number }>();
 
-    this.InterviewsDataWithRate.forEach((applicant: { ApplicantID: any; ApplicantName: any; PositionName: any; }) => {
+    this.InterviewsDataWithRate.forEach((applicant: { ApplicantID: any; ApplicantName: any; PositionName: any; Rating: number; }) => {
       // Add or update the map entry
       if (!uniqueMap.has(applicant.ApplicantID)) {
         uniqueMap.set(applicant.ApplicantID, {
           ApplicantName: applicant.ApplicantName,
-          PositionName: applicant.PositionName
+          PositionName: applicant.PositionName,
+          Rating: applicant.Rating 
         });
       }
     });
 
     // Convert map values to an array
-    this.UniqueApplicantFromRaing = Array.from(uniqueMap.entries()).map(([ApplicantID, { ApplicantName, PositionName }]) => ({
+    this.UniqueApplicantFromRaing = Array.from(uniqueMap.entries()).map(([ApplicantID, { ApplicantName, PositionName, Rating }]) => ({
       ApplicantID,
       ApplicantName,
-      PositionName
+      PositionName,
+      Rating
     }));
     this.SelectedApplicant = this.UniqueApplicantFromRaing[0];
-    console.log("getUniqueApplicants ", this.UniqueApplicantFromRaing);
-    console.log("selected applicant ", this.SelectedApplicant);
+    console.log("getUniqueApplicants ////////////////////////////////////", this.UniqueApplicantFromRaing);
+    console.log("selected applicant ////////////////////////////////////", this.SelectedApplicant);
+    
     if (this.SelectedApplicant) {
       this.getFilteredInterviews();
     }
